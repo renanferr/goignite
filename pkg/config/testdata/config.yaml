@@ -1,0 +1,4 @@
+addr: ":8083"
+debug: true
+redis:
+  host: "127.0.0.13"

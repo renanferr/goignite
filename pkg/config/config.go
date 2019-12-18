@@ -1,8 +1,8 @@
 package config
 
 import (
+	"errors"
 	"fmt"
-	"log"
 	"os"
 	"strings"
 
@@ -59,7 +59,7 @@ func prepare() {
 
 }
 
-func Parse() {
+func Parse() error {
 
 	// Parse flags
 	parseFlags()
@@ -77,11 +77,11 @@ func Parse() {
 		} else if filepath.Ext(c) == ".json" {
 			parser = json.Parser()
 		} else {
-			log.Fatalf("error on check extension of file %s", c)
+			return errors.New(fmt.Sprintf("error on check extension of file %s", c))
 		}
 
 		if err := Instance.Load(file.Provider(c), parser); err != nil {
-			log.Fatalf("error loading file: %v", err)
+			return err
 		}
 	}
 
@@ -91,16 +91,21 @@ func Parse() {
 			strings.TrimPrefix(s, "")), "_", ".", -1)
 	}), nil)
 	if err != nil {
-		log.Fatalf("error loading file: %v", err)
+		return err
 	}
 
 	// Load flags
 	flap := posflag.Provider(f, ".", Instance)
 
 	if err := Instance.Load(flap, nil); err != nil {
-		log.Fatalf("error loading config: %v", err)
+		return err
 	}
 
+	return nil
+}
+
+func Unmarshal(o interface{}) error {
+	return Instance.UnmarshalWithConf("", &o, koanf.UnmarshalConf{Tag: "config"})
 }
 
 func parseFlags() {

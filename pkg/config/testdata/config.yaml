@@ -2,3 +2,5 @@ addr: ":8083"
 debug: true
 redis:
   host: "127.0.0.13"
+red:
+  h: "127.0.0.14"

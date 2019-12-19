@@ -31,14 +31,14 @@ func init() {
 
 type config struct {
 	key         string
-	example     interface{}
+	value       interface{}
 	description string
 }
 
-func Add(key string, example interface{}, description string) {
+func Add(key string, value interface{}, description string) {
 	entries = append(entries, config{
 		key:         key,
-		example:     example,
+		value:       value,
 		description: description,
 	})
 }
@@ -112,14 +112,38 @@ func parseFlags() {
 
 	for _, v := range entries {
 
-		switch t := v.example.(type) {
+		switch t := v.value.(type) {
 
-		case int:
-			f.Int(v.key, t, v.description)
 		case string:
 			f.String(v.key, t, v.description)
 		case bool:
 			f.Bool(v.key, t, v.description)
+		case []string:
+			f.StringSlice(v.key, t, v.description)
+		case []int:
+			f.IntSlice(v.key, t, v.description)
+		case int64:
+			f.Int64(v.key, t, v.description)
+		case int32:
+			f.Int32(v.key, t, v.description)
+		case int16:
+			f.Int16(v.key, t, v.description)
+		case int8:
+			f.Int8(v.key, t, v.description)
+		case int:
+			f.Int(v.key, t, v.description)
+		case []uint:
+			f.UintSlice(v.key, t, v.description)
+		case uint64:
+			f.Uint64(v.key, t, v.description)
+		case uint32:
+			f.Uint32(v.key, t, v.description)
+		case uint16:
+			f.Uint16(v.key, t, v.description)
+		case uint8:
+			f.Uint8(v.key, t, v.description)
+		case uint:
+			f.Uint(v.key, t, v.description)
 		default:
 			fmt.Println("type unknown")
 		}

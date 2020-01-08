@@ -15,7 +15,7 @@ import (
 
 func Start() {
 
-	if c.Instance.Bool(config.RedisKey) {
+	if c.Instance.Bool(config.RedisEnabled) {
 
 		hookConfig := logredis.HookConfig{
 			Host:   c.Instance.String(config.RedisHost),

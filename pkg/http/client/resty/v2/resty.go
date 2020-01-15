@@ -2,12 +2,11 @@ package v1
 
 import (
     "encoding/json"
-    "errors"
     "net/http"
     "time"
 
+    "github.com/go-resty/resty/v2"
     log "github.com/sirupsen/logrus"
-    "gopkg.in/resty.v1"
 
     "github.com/jpfaria/goignite/pkg/http/client/resty/config"
     "github.com/jpfaria/goignite/pkg/http/client/resty/model"
@@ -26,18 +25,17 @@ func NewClient(options *model.Options) *resty.Client {
         SetRetryCount(c.Instance.Int(config.RetryCount)).
         SetRetryWaitTime(time.Duration(c.Instance.Int(config.RetryWaitTime)) * time.Millisecond).
         SetRetryMaxWaitTime(time.Duration(c.Instance.Int(config.RetryMaxWaitTime)) * time.Millisecond).
-        SetMode("RESTful").
         SetDebug(false).
         SetHostURL(options.Host).
         AddRetryCondition(statusCodeRetryCondition).
         AddRetryCondition(
-            func(r *resty.Response) (bool, error) {
+            func(r *resty.Response, err error) (bool, ) {
 
                 if r.Time() > time.Duration(options.RequestTimeout)*time.Millisecond {
-                    return true, errors.New("time out")
+                    return true
                 }
 
-                return false, nil
+                return false
             })
 
     if options.Debug || c.Instance.Bool(config.Debug) {
@@ -65,19 +63,19 @@ func NewClient(options *model.Options) *resty.Client {
     return client
 }
 
-func statusCodeRetryCondition(r *resty.Response) (bool, error) {
+func statusCodeRetryCondition(r *resty.Response, err error) bool {
     switch statusCode := r.StatusCode(); statusCode {
 
     case http.StatusTooManyRequests:
-        return true, errors.New(r.String())
+        return true
     case http.StatusInternalServerError:
-        return true, errors.New(r.String())
+        return true
     case http.StatusGatewayTimeout:
-        return true, errors.New(r.String())
+        return true
     case http.StatusServiceUnavailable:
-        return true, errors.New(r.String())
+        return true
     default:
-        return false, nil
+        return false
     }
 }
 

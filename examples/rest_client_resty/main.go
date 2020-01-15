@@ -1,15 +1,30 @@
 package main
 
 import (
+	"context"
+
+	"github.com/jpfaria/goignite/pkg/config"
 	"github.com/jpfaria/goignite/pkg/http/client/resty/model"
-	v1 "github.com/jpfaria/goignite/pkg/http/client/resty/v1"
+	resty "github.com/jpfaria/goignite/pkg/http/client/resty/v2"
+	"github.com/jpfaria/goignite/pkg/logging/logrus"
 )
 
 func main() {
 
-	client := v1.NewClient(&model.Options{})
+	config.Parse()
+	log := logrus.FromContext(context.Background())
+
+	client := resty.NewClient(&model.Options{})
+	request := client.R().EnableTrace()
 
 
 
-	
+	response, err := request.Get("http://google.com")
+	if err!= nil {
+		log.Fatal(err)
+	}
+
+	log.Info(response.Request.Header)
+	log.Info(response)
+
 }

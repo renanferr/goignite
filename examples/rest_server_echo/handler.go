@@ -1,32 +1,26 @@
 package main
 
 import (
-    "context"
-    "net/http"
+	"net/http"
 
-    e "github.com/labstack/echo"
+	"github.com/jpfaria/goignite/pkg/http/server/echo/parser"
+	e "github.com/labstack/echo"
 
-    "github.com/jpfaria/goignite/pkg/config"
-    "github.com/jpfaria/goignite/pkg/logging/logrus"
+	"github.com/jpfaria/goignite/pkg/config"
 )
 
 func NewHandler() *Handler {
-    return &Handler{}
+	return &Handler{}
 }
 
 type Handler struct {
 }
 
-func (u *Handler) Get(c e.Context) error {
+func (u *Handler) Get(c e.Context) (err error) {
 
-    log := logrus.FromContext(context.Background())
+	resp := Response{}
 
-    resp := Response{}
+	err = config.Unmarshal(&resp)
 
-    err := config.Unmarshal(&resp)
-    if err != nil {
-        log.Error(err)
-    }
-
-    return c.JSON(http.StatusOK, resp)
+	return parser.JSONResponse(c, http.StatusOK, resp, err)
 }

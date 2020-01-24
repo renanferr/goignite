@@ -19,3 +19,15 @@ func init() {
 	config.Add(HealthRoute, "/health", "define health url")
 
 }
+
+func GetPort() int {
+	return config.Instance.Int(Port)
+}
+
+func GetStatusRoute() string {
+	return config.Instance.String(StatusRoute)
+}
+
+func GetHealthRoute() string {
+	return config.Instance.String(HealthRoute)
+}

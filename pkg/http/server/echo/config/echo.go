@@ -15,3 +15,8 @@ func init() {
 	config.Add(HideBanner, true, "echo hide/show banner")
 
 }
+
+
+func GetHideBanner() bool {
+	return config.Instance.Bool(HideBanner)
+}

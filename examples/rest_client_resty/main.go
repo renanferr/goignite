@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"log"
 
 	"github.com/jpfaria/goignite/pkg/config"
 	"github.com/jpfaria/goignite/pkg/http/client/resty/model"
@@ -11,20 +12,21 @@ import (
 
 func main() {
 
-	config.Parse()
-	log := logrus.FromContext(context.Background())
+	err := config.Parse()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	l := logrus.FromContext(context.Background())
 
 	client := resty.NewClient(&model.Options{})
 	request := client.R().EnableTrace()
 
-
-
 	response, err := request.Get("http://google.com")
 	if err!= nil {
-		log.Fatal(err)
+		l.Fatal(err)
 	}
 
-	log.Info(response.Request.Header)
-	log.Info(response)
-
+	l.Info(response.Request.Header)
+	l.Info(response)
 }

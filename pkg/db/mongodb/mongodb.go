@@ -2,30 +2,23 @@ package mongodb
 
 import (
 	"context"
-	"log"
 	"strings"
 
 	"github.com/jpfaria/goignite/pkg/config"
+	h "github.com/jpfaria/goignite/pkg/db/mongodb/health"
+	"github.com/jpfaria/goignite/pkg/db/mongodb/model"
+	"github.com/jpfaria/goignite/pkg/health"
+	"github.com/jpfaria/goignite/pkg/logging/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/connstring"
 )
 
-const Uri = "mongodb.uri"
+func NewClient(ctx context.Context, o model.Options) (client *mongo.Client, database *mongo.Database, err error) {
 
-func init() {
+	log := logrus.FromContext(ctx)
 
-	log.Println("getting configurations for mongodb")
-
-	config.Add(Uri, "mongodb://localhost:27017/temp", "define mongodb uri")
-
-}
-
-func NewClient( uri string ) (client *mongo.Client, database *mongo.Database, err error) {
-
-	ctx := context.Background()
-
-	client, err = mongo.Connect(ctx, options.Client().ApplyURI(uri))
+	client, err = mongo.Connect(ctx, options.Client().ApplyURI(o.Uri))
 
 	if err != nil {
 		return nil, nil, err
@@ -38,7 +31,7 @@ func NewClient( uri string ) (client *mongo.Client, database *mongo.Database, er
 		return nil, nil, err
 	}
 
-	connFields, err := connstring.Parse(uri)
+	connFields, err := connstring.Parse(o.Uri)
 
 	if err != nil {
 		return nil, nil, err
@@ -48,12 +41,30 @@ func NewClient( uri string ) (client *mongo.Client, database *mongo.Database, er
 
 	log.Printf("Connected to MongoDB server: %v", strings.Join(connFields.Hosts, ","))
 
+	if o.Health.Enabled {
+		configureHealthCheck(client, o)
+	}
+
 	return client, database, err
 }
 
-func NewDefaultClient() (*mongo.Client, *mongo.Database, error) {
+func NewDefaultClient(ctx context.Context) (*mongo.Client, *mongo.Database, error) {
 
-	uri := config.String(Uri)
+	log := logrus.FromContext(ctx)
 
-	return NewClient(uri)
+	o := model.Options{}
+
+	err := config.UnmarshalWithPath("mongodb", &o)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return NewClient(ctx, o)
+}
+
+func configureHealthCheck(client *mongo.Client, o model.Options) {
+	mc := h.NewMongoChecker(client)
+	hc := health.NewHealthChecker("mongodb", o.Health.Description, mc, o.Health.Required)
+
+	health.Add(hc)
 }

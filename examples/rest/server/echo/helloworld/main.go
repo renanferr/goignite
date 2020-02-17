@@ -1,7 +1,7 @@
 package main
 
 import (
-    "context"
+	"context"
     "log"
     "net/http"
 
@@ -61,7 +61,7 @@ func main() {
         log.Fatal(err)
     }
 
-	info.AppName = "rest_server_echo"
+	info.AppName = "helloworld"
 
 	instance := echo.Start()
 

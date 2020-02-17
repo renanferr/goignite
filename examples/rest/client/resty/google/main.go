@@ -17,11 +17,13 @@ func main() {
 		log.Fatal(err)
 	}
 
+	ctx := context.Background()
+
 	logrus.Start()
 
-	l := logrus.FromContext(context.Background())
+	l := logrus.FromContext(ctx)
 
-	client := resty.NewClient(&model.Options{})
+	client := resty.NewClient(ctx, &model.Options{})
 	request := client.R().EnableTrace()
 
 	response, err := request.Get("http://google.com")

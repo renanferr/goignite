@@ -17,10 +17,10 @@ import (
 	"github.com/labstack/echo/middleware"
 )
 
-const HelloWorldEndpoint = "app.endpoint.google"
+const Endpoint = "app.endpoint.google"
 
 func init() {
-	config.Add(HelloWorldEndpoint, "/google", "google endpoint")
+	config.Add(Endpoint, "/google", "google endpoint")
 }
 
 type Config struct {
@@ -91,11 +91,11 @@ func main() {
 	instance.Use(middleware.RequestID())
 
 	o := model.OptionsBuilder.
-		Host("http://www.googlelslksdlkdslkdslkdskl.com").
+		Host("http://www.google.com").
 		Health(
 			model.OptionsHealthBuilder.
 				Enabled(true).
-				Required(false).
+				Required(true).
 				Description("google dependency").
 				Endpoint("/").
 				Build()).

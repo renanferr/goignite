@@ -21,13 +21,13 @@ func init() {
 }
 
 func GetPort() int {
-	return config.Instance.Int(Port)
+	return config.Int(Port)
 }
 
 func GetStatusRoute() string {
-	return config.Instance.String(StatusRoute)
+	return config.String(StatusRoute)
 }
 
 func GetHealthRoute() string {
-	return config.Instance.String(HealthRoute)
+	return config.String(HealthRoute)
 }

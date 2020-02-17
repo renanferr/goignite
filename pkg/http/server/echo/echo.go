@@ -10,7 +10,6 @@ import (
 	"github.com/labstack/echo/middleware"
 	m "github.com/neko-neko/echo-logrus"
 	"github.com/neko-neko/echo-logrus/log"
-	l "github.com/sirupsen/logrus"
 )
 
 var (
@@ -49,7 +48,7 @@ func setDefaultRouters(instance *echo.Echo) {
 }
 
 func Serve() {
-	l.Println("starting echo server")
+	log.Info("starting echo server. https://echo.labstack.com/")
 	instance.Logger.Fatal(instance.Start(getServerPort()))
 }
 

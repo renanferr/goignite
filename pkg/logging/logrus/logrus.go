@@ -15,15 +15,15 @@ import (
 
 func Start() {
 
-	if c.Instance.Bool(config.RedisEnabled) {
+	if c.Bool(config.RedisEnabled) {
 
 		hookConfig := logredis.HookConfig{
-			Host:   c.Instance.String(config.RedisHost),
-			Key:    c.Instance.String(config.RedisKey),
-			Format: c.Instance.String(config.RedisFormat),
-			App:    c.Instance.String(config.RedisApp),
-			Port:   c.Instance.Int(config.RedisPort),
-			DB:     c.Instance.Int(config.RedisDb),
+			Host:   c.String(config.RedisHost),
+			Key:    c.String(config.RedisKey),
+			Format: c.String(config.RedisFormat),
+			App:    c.String(config.RedisApp),
+			Port:   c.Int(config.RedisPort),
+			DB:     c.Int(config.RedisDb),
 		}
 
 		hook, err := logredis.NewHook(hookConfig)
@@ -35,13 +35,13 @@ func Start() {
 
 	}
 
-	if c.Instance.Bool(LogFileEnabled) {
+	if c.Bool(LogFileEnabled) {
 
-		formatter := getFormatter(c.Instance.String(config.FileFormatter))
+		formatter := getFormatter(c.String(config.FileFormatter))
 
 		log.SetFormatter(formatter)
 
-		s := []string{c.Instance.String(LogFilePath), "/", c.Instance.String(LogFileName)}
+		s := []string{c.String(LogFilePath), "/", c.String(LogFileName)}
 		logFile := strings.Join(s, "")
 
 		f, err := os.OpenFile(logFile, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0600)
@@ -51,9 +51,9 @@ func Start() {
 
 		log.SetOutput(f)
 
-	} else if c.Instance.Bool(LogConsoleEnabled) {
+	} else if c.Bool(LogConsoleEnabled) {
 
-		formatter := getFormatter(c.Instance.String(config.ConsoleFormatter))
+		formatter := getFormatter(c.String(config.ConsoleFormatter))
 
 		log.SetFormatter(formatter)
 
@@ -65,7 +65,7 @@ func Start() {
 
 	}
 
-	switch level := c.Instance.String(LogLevel); level {
+	switch level := c.String(LogLevel); level {
 
 	case "DEBUG":
 		log.SetLevel(log.DebugLevel)
@@ -100,7 +100,7 @@ func getFormatter(format string) log.Formatter {
 			},
 		}
 
-		fmt.TimestampFormat = c.Instance.String(c.FormatTimestamp)
+		fmt.TimestampFormat = c.String(c.FormatTimestamp)
 
 		formatter = fmt
 
@@ -114,7 +114,7 @@ func getFormatter(format string) log.Formatter {
 	default:
 
 		fmt := &log.TextFormatter{}
-		fmt.TimestampFormat = c.Instance.String(c.FormatTimestamp)
+		fmt.TimestampFormat = c.String(c.FormatTimestamp)
 
 		formatter = fmt
 

@@ -16,7 +16,6 @@ func init() {
 
 }
 
-
 func GetHideBanner() bool {
-	return config.Instance.Bool(HideBanner)
+	return config.Bool(HideBanner)
 }

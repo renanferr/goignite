@@ -3,8 +3,10 @@ package config
 import (
 	"errors"
 	"fmt"
+	"net"
 	"os"
 	"strings"
+	"time"
 
 	"path/filepath"
 
@@ -21,7 +23,7 @@ import (
 
 var (
 	entries  []config
-	Instance *koanf.Koanf
+	instance *koanf.Koanf
 	f        *flag.FlagSet
 )
 
@@ -47,7 +49,7 @@ func prepare() {
 
 	entries = []config{}
 
-	Instance = koanf.New(".")
+	instance = koanf.New(".")
 
 	// Use the POSIX compliant pflag lib instead of Go's flag lib.
 	f = flag.NewFlagSet("config", flag.ContinueOnError)
@@ -80,13 +82,13 @@ func Parse() error {
 			return errors.New(fmt.Sprintf("error on check extension of file %s", c))
 		}
 
-		if err := Instance.Load(file.Provider(c), parser); err != nil {
+		if err := instance.Load(file.Provider(c), parser); err != nil {
 			return err
 		}
 	}
 
 	// Env vars
-	err := Instance.Load(env.Provider("", ".", func(s string) string {
+	err := instance.Load(env.Provider("", ".", func(s string) string {
 		return strings.Replace(strings.ToLower(
 			strings.TrimPrefix(s, "")), "_", ".", -1)
 	}), nil)
@@ -95,17 +97,13 @@ func Parse() error {
 	}
 
 	// Load flags
-	flap := posflag.Provider(f, ".", Instance)
+	flap := posflag.Provider(f, ".", instance)
 
-	if err := Instance.Load(flap, nil); err != nil {
+	if err := instance.Load(flap, nil); err != nil {
 		return err
 	}
 
 	return nil
-}
-
-func Unmarshal(o interface{}) error {
-	return Instance.UnmarshalWithConf("", &o, koanf.UnmarshalConf{Tag: "config"})
 }
 
 func parseFlags() {
@@ -116,10 +114,14 @@ func parseFlags() {
 
 		case string:
 			f.String(v.key, t, v.description)
-		case bool:
-			f.Bool(v.key, t, v.description)
 		case []string:
 			f.StringSlice(v.key, t, v.description)
+		case bool:
+			f.Bool(v.key, t, v.description)
+		case []bool:
+			f.BoolSlice(v.key, t, v.description)
+		case int:
+			f.Int(v.key, t, v.description)
 		case []int:
 			f.IntSlice(v.key, t, v.description)
 		case int64:
@@ -130,8 +132,8 @@ func parseFlags() {
 			f.Int16(v.key, t, v.description)
 		case int8:
 			f.Int8(v.key, t, v.description)
-		case int:
-			f.Int(v.key, t, v.description)
+		case uint:
+			f.Uint(v.key, t, v.description)
 		case []uint:
 			f.UintSlice(v.key, t, v.description)
 		case uint64:
@@ -142,8 +144,22 @@ func parseFlags() {
 			f.Uint16(v.key, t, v.description)
 		case uint8:
 			f.Uint8(v.key, t, v.description)
-		case uint:
-			f.Uint(v.key, t, v.description)
+		case time.Duration:
+			f.Duration(v.key, t, v.description)
+		case []time.Duration:
+			f.DurationSlice(v.key, t, v.description)
+		case []byte:
+			f.BytesBase64(v.key, t, v.description)
+		case float32:
+			f.Float32(v.key, t, v.description)
+		case float64:
+			f.Float64(v.key, t, v.description)
+		case net.IP:
+			f.IP(v.key, t, v.description)
+		case []net.IP:
+			f.IPSlice(v.key, t, v.description)
+		case net.IPMask:
+			f.IPMask(v.key, t, v.description)
 		default:
 			fmt.Println("type unknown")
 		}

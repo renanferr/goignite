@@ -21,10 +21,10 @@ func NewClient(options *model.Options) *resty.Client {
     client := resty.New()
 
     client.
-        SetTimeout(time.Duration(c.Instance.Int(config.RequestTimeout)) * time.Millisecond).
-        SetRetryCount(c.Instance.Int(config.RetryCount)).
-        SetRetryWaitTime(time.Duration(c.Instance.Int(config.RetryWaitTime)) * time.Millisecond).
-        SetRetryMaxWaitTime(time.Duration(c.Instance.Int(config.RetryMaxWaitTime)) * time.Millisecond).
+        SetTimeout(time.Duration(c.Int(config.RequestTimeout)) * time.Millisecond).
+        SetRetryCount(c.Int(config.RetryCount)).
+        SetRetryWaitTime(time.Duration(c.Int(config.RetryWaitTime)) * time.Millisecond).
+        SetRetryMaxWaitTime(time.Duration(c.Int(config.RetryMaxWaitTime)) * time.Millisecond).
         SetDebug(false).
         SetHostURL(options.Host).
         AddRetryCondition(statusCodeRetryCondition).
@@ -38,7 +38,7 @@ func NewClient(options *model.Options) *resty.Client {
                 return false
             })
 
-    if options.Debug || c.Instance.Bool(config.Debug) {
+    if options.Debug || c.Bool(config.Debug) {
         client.OnBeforeRequest(logBeforeResponse)
         client.OnAfterResponse(logAfterResponse)
         client.SetDebug(true)

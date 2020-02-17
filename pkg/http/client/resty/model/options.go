@@ -1,14 +1,15 @@
 package model
 
-import "github.com/lann/builder"
+import (
+	"github.com/lann/builder"
+)
 
 type Options struct {
-	Debug            bool
-	RequestTimeout   int
-	RetryCount       int
-	RetryWaitTime    int
-	RetryMaxWaitTime int
-	Host             string
+	Debug          bool
+	RequestTimeout int
+	Retry          OptionsRetry
+	Health         OptionsHealth
+	Host           string
 }
 
 type optionsBuilder builder.Builder
@@ -17,16 +18,12 @@ func (b optionsBuilder) RequestTimeout(timeout int) optionsBuilder {
 	return builder.Set(b, "RequestTimeout", timeout).(optionsBuilder)
 }
 
-func (b optionsBuilder) RetryCount(retryCount int) optionsBuilder {
-	return builder.Set(b, "RetryCount", retryCount).(optionsBuilder)
+func (b optionsBuilder) Retry(retry OptionsRetry) optionsBuilder {
+	return builder.Set(b, "Retry", retry).(optionsBuilder)
 }
 
-func (b optionsBuilder) RetryWaitTime(retryWaitTime int) optionsBuilder {
-	return builder.Set(b, "RetryWaitTime", retryWaitTime).(optionsBuilder)
-}
-
-func (b optionsBuilder) RetryMaxWaitTime(retryMaxWaitTime int) optionsBuilder {
-	return builder.Set(b, "RetryMaxWaitTime", retryMaxWaitTime).(optionsBuilder)
+func (b optionsBuilder) Health(health OptionsHealth) optionsBuilder {
+	return builder.Set(b, "Health", health).(optionsBuilder)
 }
 
 func (b optionsBuilder) Host(host string) optionsBuilder {

@@ -36,9 +36,18 @@ func setDefaultMiddlewares(instance *echo.Echo) {
 
 func setDefaultRouters(instance *echo.Echo) {
 	statusRoute := srvconfig.GetStatusRoute()
+
 	log.Infof("configuring status router on %s", statusRoute)
-	statusHandler := handler.NewResourceStatusHandler()
+
+	statusHandler := handler.NewHealthHandler()
 	instance.GET(statusRoute, statusHandler.Get)
+
+	healthRoute := srvconfig.GetHealthRoute()
+
+	log.Infof("configuring health router on %s", healthRoute)
+
+	healthHandler := handler.NewHealthHandler()
+	instance.GET(healthRoute, healthHandler.Get)
 }
 
 func Serve() {

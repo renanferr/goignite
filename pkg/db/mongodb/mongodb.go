@@ -53,10 +53,6 @@ func NewClient( uri string ) (client *mongo.Client, database *mongo.Database, er
 
 func NewDefaultClient() (*mongo.Client, *mongo.Database, error) {
 
-	if err := config.Parse(); err != nil {
-		return nil, nil, err
-	}
-
 	uri := config.String(Uri)
 
 	return NewClient(uri)

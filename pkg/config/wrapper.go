@@ -6,6 +6,10 @@ import (
 	"github.com/knadh/koanf"
 )
 
+func UnmarshalWithPath(path string, o interface{}) error {
+	return instance.UnmarshalWithConf(path, &o, koanf.UnmarshalConf{Tag: "config"})
+}
+
 func Unmarshal(o interface{}) error {
 	return instance.UnmarshalWithConf("", &o, koanf.UnmarshalConf{Tag: "config"})
 }

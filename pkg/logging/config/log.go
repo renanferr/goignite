@@ -16,7 +16,7 @@ func init() {
 
 	log.Println("getting configurations for logging")
 
-	config.Add(LogLevel, "ERROR", "log level")
+	config.Add(LogLevel, "INFO", "log level")
 	config.Add(LogConsoleEnabled, true, "enable/disable console logging")
 	config.Add(LogFileEnabled, false, "enable/disable file logging")
 	config.Add(LogFilePath, "/tmp", "log path")

@@ -3,7 +3,7 @@ package echo
 import (
 	"strconv"
 
-	sconfig "github.com/jpfaria/goignite/pkg/http/server/config"
+	srvconfig "github.com/jpfaria/goignite/pkg/http/server/config"
 	"github.com/jpfaria/goignite/pkg/http/server/echo/config"
 	"github.com/jpfaria/goignite/pkg/http/server/echo/handler"
 	"github.com/labstack/echo"
@@ -23,25 +23,19 @@ func Start() *echo.Echo {
 	instance.HideBanner = config.GetHideBanner()
 	instance.Logger = log.Logger()
 
-	setMiddlewares(instance)
+	setDefaultMiddlewares(instance)
 	setDefaultRouters(instance)
 
 	return instance
 }
 
-func setMiddlewares(instance *echo.Echo) {
-	// Echo.Logger = logrusmiddleware.Logger{Logger: logrus.StandardLogger()}
-	// Echo.Use(logrusmiddleware.Hook())
-
-	// Echo.Use(middleware.RequestID())
-	// Echo.Use(middleware.CORS())
-	// Echo.Use(middleware.Gzip())
+func setDefaultMiddlewares(instance *echo.Echo) {
 	instance.Use(m.Logger())
 	instance.Use(middleware.Recover())
 }
 
 func setDefaultRouters(instance *echo.Echo) {
-	statusRoute := sconfig.GetStatusRoute()
+	statusRoute := srvconfig.GetStatusRoute()
 	log.Infof("configuring status router on %s", statusRoute)
 	statusHandler := handler.NewResourceStatusHandler()
 	instance.GET(statusRoute, statusHandler.Get)
@@ -53,5 +47,5 @@ func Serve() {
 }
 
 func getServerPort() string {
-	return ":" + strconv.Itoa(sconfig.GetPort())
+	return ":" + strconv.Itoa(srvconfig.GetPort())
 }

@@ -2,15 +2,16 @@ package main
 
 import (
 	"context"
-    "log"
-    "net/http"
+	"log"
+	"net/http"
 
-    "github.com/jpfaria/goignite/pkg/config"
-    "github.com/jpfaria/goignite/pkg/http/server/echo"
-    "github.com/jpfaria/goignite/pkg/http/server/echo/parser"
-    "github.com/jpfaria/goignite/pkg/info"
-    "github.com/jpfaria/goignite/pkg/logging/logrus"
-    e "github.com/labstack/echo"
+	"github.com/jpfaria/goignite/internal/pkg/info"
+	"github.com/jpfaria/goignite/pkg/config"
+	"github.com/jpfaria/goignite/pkg/http/server/echo"
+	"github.com/jpfaria/goignite/pkg/http/server/echo/parser"
+	"github.com/jpfaria/goignite/pkg/logging/logrus"
+	e "github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 const HelloWorldEndpoint = "app.endpoint.helloworld"
@@ -24,7 +25,7 @@ func init() {
 type Config struct {
 	App struct {
 		Endpoint struct {
-		    Helloworld string
+			Helloworld string
 		}
 	}
 }
@@ -56,16 +57,20 @@ func main() {
 
 	c := Config{}
 
-    err = config.Unmarshal(&c)
-    if err != nil {
-        log.Fatal(err)
-    }
+	err = config.Unmarshal(&c)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	logrus.Start()
 
 	info.AppName = "helloworld"
 
 	instance := echo.Start()
+
+	instance.Use(middleware.Gzip())
+	instance.Use(middleware.CORS())
+	instance.Use(middleware.RequestID())
 
 	instance.GET(c.App.Endpoint.Helloworld, Get)
 

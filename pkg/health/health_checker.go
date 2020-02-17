@@ -1,17 +1,22 @@
 package health
 
-type healthChecker struct {
-	name        string
-	description string
-	checker     Checker
-	required    bool
+type HealthChecker struct {
+	Name        string
+	Description string
+	Checker     Checker
+	Required    bool
 }
 
-func NewHealthChecker(name string, description string, checker Checker, required bool) *healthChecker {
-	return &healthChecker{
-		name:        name,
-		description: description,
-		checker:     checker,
-		required:    required,
+func (c *HealthChecker) IsRequired() bool {
+	return c.Required
+}
+
+
+func NewHealthChecker(name string, description string, checker Checker, required bool) *HealthChecker {
+	return &HealthChecker{
+		Name:        name,
+		Description: description,
+		Checker:     checker,
+		Required:    required,
 	}
 }

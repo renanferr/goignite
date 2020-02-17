@@ -2,20 +2,20 @@ package health
 
 import "time"
 
-type checkResult struct {
-	healthCheck healthChecker
-	duration    time.Duration
-	ok          bool
+type CheckResult struct {
+	HealthCheck *HealthChecker
+	Duration    time.Duration
+	Ok          bool
 }
 
-func (c *checkResult) isOk() bool {
-	return c.ok
+func (c *CheckResult) IsOk() bool {
+	return c.Ok
 }
 
-func NewCheckResult(healthCheck healthChecker, duration time.Duration, ok bool) *checkResult {
-	return &checkResult{
-		healthCheck: healthCheck,
-		duration:    duration,
-		ok:          ok,
+func NewCheckResult(healthCheck *HealthChecker, duration time.Duration, ok bool) *CheckResult {
+	return &CheckResult{
+		HealthCheck: healthCheck,
+		Duration:    duration,
+		Ok:          ok,
 	}
 }

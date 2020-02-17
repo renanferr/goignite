@@ -61,6 +61,8 @@ func main() {
         log.Fatal(err)
     }
 
+	logrus.Start()
+
 	info.AppName = "helloworld"
 
 	instance := echo.Start()

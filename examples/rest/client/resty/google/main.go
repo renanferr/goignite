@@ -17,6 +17,8 @@ func main() {
 		log.Fatal(err)
 	}
 
+	logrus.Start()
+
 	l := logrus.FromContext(context.Background())
 
 	client := resty.NewClient(&model.Options{})

@@ -7,9 +7,9 @@ import (
 )
 
 type Options struct {
-	Url     string
-	MaxReconnects     int
-	ReconnectWait time.Duration
+	Url           string
+	MaxReconnects int           `config:"maxreconnects"`
+	ReconnectWait time.Duration `config:"reconnectwait"`
 }
 
 type optionsBuilder builder.Builder

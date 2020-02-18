@@ -35,13 +35,13 @@ func Start() {
 
 	}
 
-	if c.Bool(LogFileEnabled) {
+	if c.Bool(FileEnabled) {
 
 		formatter := getFormatter(c.String(config.FileFormatter))
 
 		log.SetFormatter(formatter)
 
-		s := []string{c.String(LogFilePath), "/", c.String(LogFileName)}
+		s := []string{c.String(FilePath), "/", c.String(FileName)}
 		logFile := strings.Join(s, "")
 
 		f, err := os.OpenFile(logFile, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0600)
@@ -51,7 +51,7 @@ func Start() {
 
 		log.SetOutput(f)
 
-	} else if c.Bool(LogConsoleEnabled) {
+	} else if c.Bool(ConsoleEnabled) {
 
 		formatter := getFormatter(c.String(config.ConsoleFormatter))
 
@@ -65,7 +65,7 @@ func Start() {
 
 	}
 
-	switch level := c.String(LogLevel); level {
+	switch level := c.String(Level); level {
 
 	case "DEBUG":
 		log.SetLevel(log.DebugLevel)

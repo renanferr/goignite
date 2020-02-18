@@ -6,15 +6,15 @@ import (
 	"github.com/jpfaria/goignite/pkg/config"
 )
 
-const RedisEnabled = "log.redis.enabled"
-const RedisHost = "log.redis.host"
-const RedisKey = "log.redis.key"
-const RedisFormat = "log.redis.format"
-const RedisApp = "log.redis.app"
-const RedisPort = "log.redis.port"
-const RedisDb = "log.redis.db"
-const ConsoleFormatter = "log.console.formatter"
-const FileFormatter = "log.file.formatter"
+const RedisEnabled = "logging.logrus.redis.enabled"
+const RedisHost = "logging.logrus.redis.host"
+const RedisKey = "logging.logrus.redis.key"
+const RedisFormat = "logging.logrus.redis.format"
+const RedisApp = "logging.logrus.redis.app"
+const RedisPort = "logging.logrus.redis.port"
+const RedisDb = "logging.logrus.redis.db"
+const ConsoleFormatter = "logging.logrus.console.formatter"
+const FileFormatter = "logging.logrus.file.formatter"
 
 func init() {
 

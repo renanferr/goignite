@@ -6,10 +6,10 @@ import (
 	"log"
 )
 
-const Uri = "mongodb.uri"
-const HealthEnabled = "mongodb.health.enabled"
-const HealthDescription = "mongodb.health.description"
-const HealthRequired = "mongodb.health.required"
+const Uri = "db.mongodb.uri"
+const HealthEnabled = "db.mongodb.health.enabled"
+const HealthDescription = "db.mongodb.health.description"
+const HealthRequired = "db.mongodb.health.required"
 
 func init() {
 

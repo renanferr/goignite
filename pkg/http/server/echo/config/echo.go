@@ -6,7 +6,7 @@ import (
 	"github.com/jpfaria/goignite/pkg/config"
 )
 
-const HideBanner = "server.http.echo.hidebanner"
+const HideBanner = "http.server.echo.hidebanner"
 
 func init() {
 

@@ -54,7 +54,7 @@ func NewDefaultClient(ctx context.Context) (*mongo.Client, *mongo.Database, erro
 
 	o := model.Options{}
 
-	err := config.UnmarshalWithPath("mongodb", &o)
+	err := config.UnmarshalWithPath("db.mongodb", &o)
 	if err != nil {
 		log.Fatal(err)
 	}

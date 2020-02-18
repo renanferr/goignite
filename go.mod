@@ -22,6 +22,7 @@ require (
 	github.com/labstack/gommon v0.3.0 // indirect
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
+	github.com/nats-io/nats.go v1.9.1
 	github.com/neko-neko/echo-logrus v1.1.0
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/ravernkoh/cwlogsfmt v0.0.0-20180121032441-917bad983b4c

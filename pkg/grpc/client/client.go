@@ -14,7 +14,7 @@ import (
 	"google.golang.org/grpc/encoding/gzip"
 )
 
-func NewConnection(options *model.Options) *grpc.ClientConn {
+func NewClient(options *model.Options) *grpc.ClientConn {
 
 	var err error
 	var conn *grpc.ClientConn

@@ -39,7 +39,7 @@ func setDefaultRouters(instance *echo.Echo) {
 
 	log.Infof("configuring status router on %s", statusRoute)
 
-	statusHandler := handler.NewHealthHandler()
+	statusHandler := handler.NewResourceStatusHandler()
 	instance.GET(statusRoute, statusHandler.Get)
 
 	healthRoute := srvconfig.GetHealthRoute()

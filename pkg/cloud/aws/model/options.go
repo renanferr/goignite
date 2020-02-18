@@ -16,7 +16,7 @@ func (b optionsBuilder) AccessKeyId(value string) optionsBuilder {
 }
 
 func (b optionsBuilder) SecretAccessKey(value string) optionsBuilder {
-	return builder.Set(b, "AccessKeSecretAccessKeyyId", value).(optionsBuilder)
+	return builder.Set(b, "SecretAccessKey", value).(optionsBuilder)
 }
 
 func (b optionsBuilder) DefaultRegion(value string) optionsBuilder {

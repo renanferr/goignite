@@ -7,11 +7,11 @@ import (
 )
 
 const (
-	Addr     = "ftp.addr"
-	Username = "ftp.username"
-	Password = "ftp.password"
-	Timeout  = "ftp.timeout"
-	Retry    = "ftp.retry"
+	Addr     = "ftp.client.addr"
+	Username = "ftp.client.username"
+	Password = "ftp.client.password"
+	Timeout  = "ftp.client.timeout"
+	Retry    = "ftp.client.retry"
 )
 
 func init() {

@@ -6,7 +6,7 @@ import (
 
 	"github.com/jpfaria/goignite/pkg/config"
 	"github.com/jpfaria/goignite/pkg/http/client/resty/model"
-	resty "github.com/jpfaria/goignite/pkg/http/client/resty/v2"
+	"github.com/jpfaria/goignite/pkg/http/client/resty/v2"
 	"github.com/jpfaria/goignite/pkg/logging/logrus"
 )
 

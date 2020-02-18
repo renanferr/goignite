@@ -9,7 +9,7 @@ import (
 	"github.com/jpfaria/goignite/internal/pkg/info"
 	"github.com/jpfaria/goignite/pkg/config"
 	"github.com/jpfaria/goignite/pkg/http/client/resty/model"
-	"github.com/jpfaria/goignite/pkg/http/client/resty/v2"
+	r "github.com/jpfaria/goignite/pkg/http/client/resty/v2"
 	"github.com/jpfaria/goignite/pkg/http/server/echo"
 	"github.com/jpfaria/goignite/pkg/http/server/echo/parser"
 	"github.com/jpfaria/goignite/pkg/logging/logrus"
@@ -101,7 +101,7 @@ func main() {
 				Build()).
 		Build()
 
-	client := v2.NewClient(ctx, &o)
+	client := r.NewClient(ctx, &o)
 
 	handler := NewHandler(client)
 	instance.GET(c.App.Endpoint.Google, handler.Get)

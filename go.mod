@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/DataDog/zstd v1.4.4 // indirect
+	github.com/aws/aws-sdk-go-v2 v0.19.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/go-playground/validator/v10 v10.1.0
 	github.com/go-resty/resty/v2 v2.1.0

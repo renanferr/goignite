@@ -7,7 +7,6 @@ type Options struct {
 	SecretAccessKey string `config:"secret.access.key"`
 	DefaultRegion   string `config:"default.region"`
 	SessionToken    string `config:"session.token"`
-	CustomEndpoint  string `config:"custom.endpoint"`
 }
 
 type optionsBuilder builder.Builder
@@ -26,10 +25,6 @@ func (b optionsBuilder) DefaultRegion(value string) optionsBuilder {
 
 func (b optionsBuilder) SessionToken(value string) optionsBuilder {
 	return builder.Set(b, "SessionToken", value).(optionsBuilder)
-}
-
-func (b optionsBuilder) CustomEndpoint(value string) optionsBuilder {
-	return builder.Set(b, "CustomEndpoint", value).(optionsBuilder)
 }
 
 func (b optionsBuilder) Build() Options {

@@ -1,11 +1,15 @@
 package model
 
-import "github.com/lann/builder"
+import (
+	"time"
+
+	"github.com/lann/builder"
+)
 
 type OptionsRetry struct {
 	Count       int
-	WaitTime    int
-	MaxWaitTime int
+	WaitTime    time.Duration
+	MaxWaitTime time.Duration
 }
 
 type optionsRetryBuilder builder.Builder
@@ -14,11 +18,11 @@ func (b optionsRetryBuilder) RetryCount(retryCount int) optionsRetryBuilder {
 	return builder.Set(b, "Count", retryCount).(optionsRetryBuilder)
 }
 
-func (b optionsRetryBuilder) RetryWaitTime(retryWaitTime int) optionsRetryBuilder {
+func (b optionsRetryBuilder) RetryWaitTime(retryWaitTime time.Duration) optionsRetryBuilder {
 	return builder.Set(b, "WaitTime", retryWaitTime).(optionsRetryBuilder)
 }
 
-func (b optionsRetryBuilder) RetryMaxWaitTime(retryMaxWaitTime int) optionsRetryBuilder {
+func (b optionsRetryBuilder) RetryMaxWaitTime(retryMaxWaitTime time.Duration) optionsRetryBuilder {
 	return builder.Set(b, "MaxWaitTime", retryMaxWaitTime).(optionsRetryBuilder)
 }
 

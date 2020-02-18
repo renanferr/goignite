@@ -1,12 +1,14 @@
 package model
 
 import (
+	"time"
+
 	"github.com/lann/builder"
 )
 
 type Options struct {
 	Debug          bool
-	RequestTimeout int
+	RequestTimeout time.Duration
 	Retry          OptionsRetry
 	Health         OptionsHealth
 	Host           string
@@ -14,7 +16,7 @@ type Options struct {
 
 type optionsBuilder builder.Builder
 
-func (b optionsBuilder) RequestTimeout(timeout int) optionsBuilder {
+func (b optionsBuilder) RequestTimeout(timeout time.Duration) optionsBuilder {
 	return builder.Set(b, "RequestTimeout", timeout).(optionsBuilder)
 }
 

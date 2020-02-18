@@ -1,8 +1,9 @@
-package v2
+package resty
 
 import (
 	"context"
 	"encoding/json"
+	"net"
 	"net/http"
 	"time"
 
@@ -20,27 +21,43 @@ func NewClient(ctx context.Context, options *model.Options) *resty.Client {
 
 	log := logrus.FromContext(ctx)
 
-	log.Trace("creating resty client")
+	log.Info("creating resty client")
 
 	client := resty.New()
 
+	dialer := &net.Dialer{
+		Timeout:   30 * time.Second,
+		KeepAlive: 30 * time.Second,
+		DualStack: true,
+	}
+
+	transport := &http.Transport{
+		DisableCompression:    c.Bool(config.TransportDisableCompression),
+		DisableKeepAlives:     c.Bool(config.TransportDisableKeepAlives),
+		MaxIdleConnsPerHost:   c.Int(config.TransportMaxConnsPerHost),
+		ResponseHeaderTimeout: c.Duration(config.TransportResponseHeaderTimeout),
+		Proxy:                 http.ProxyFromEnvironment,
+		DialContext:           dialer.DialContext,
+		ForceAttemptHTTP2:     c.Bool(config.TransportForceAttemptHTTP2),
+		MaxIdleConns:          c.Int(config.TransportMaxIdleConns),
+		MaxConnsPerHost:       c.Int(config.TransportMaxConnsPerHost),
+		IdleConnTimeout:       c.Duration(config.TransportIdleConnTimeout),
+		TLSHandshakeTimeout:   c.Duration(config.TransportTLSHandshakeTimeout),
+		ExpectContinueTimeout: c.Duration(config.TransportExpectContinueTimeout),
+	}
+
 	client.
-		SetTimeout(time.Duration(c.Int(config.RequestTimeout)) * time.Millisecond).
+		SetTransport(transport).
+		SetTimeout(c.Duration(config.RequestTimeout)).
 		SetRetryCount(c.Int(config.RetryCount)).
-		SetRetryWaitTime(time.Duration(c.Int(config.RetryWaitTime)) * time.Millisecond).
-		SetRetryMaxWaitTime(time.Duration(c.Int(config.RetryMaxWaitTime)) * time.Millisecond).
+		SetRetryWaitTime(c.Duration(config.RetryWaitTime)).
+		SetRetryMaxWaitTime(c.Duration(config.RetryMaxWaitTime)).
 		SetDebug(false).
 		SetHostURL(options.Host).
-		AddRetryCondition(statusCodeRetryCondition).
-		AddRetryCondition(
-			func(r *resty.Response, err error) (bool, ) {
+		AddRetryCondition(statusCodeRetryCondition)
 
-				if r.Time() > time.Duration(options.RequestTimeout)*time.Millisecond {
-					return true
-				}
+	addTimeoutRetryCondition(client, options)
 
-				return false
-			})
 
 	if options.Debug || c.Bool(config.Debug) {
 		client.OnBeforeRequest(logBeforeResponse)
@@ -49,7 +66,7 @@ func NewClient(ctx context.Context, options *model.Options) *resty.Client {
 	}
 
 	if options.RequestTimeout > -1 {
-		client.SetTimeout(time.Duration(options.RequestTimeout) * time.Millisecond)
+		client.SetTimeout(options.RequestTimeout)
 	}
 
 	if options.Retry.Count > -1 {
@@ -57,11 +74,11 @@ func NewClient(ctx context.Context, options *model.Options) *resty.Client {
 	}
 
 	if options.Retry.WaitTime > -1 {
-		client.SetRetryWaitTime(time.Duration(options.Retry.WaitTime) * time.Millisecond)
+		client.SetRetryWaitTime(options.Retry.WaitTime)
 	}
 
 	if options.Retry.MaxWaitTime > -1 {
-		client.SetRetryMaxWaitTime(time.Duration(options.Retry.MaxWaitTime) * time.Millisecond)
+		client.SetRetryMaxWaitTime(options.Retry.WaitTime)
 	}
 
 	if options.Health.Enabled {
@@ -70,6 +87,28 @@ func NewClient(ctx context.Context, options *model.Options) *resty.Client {
 
 	return client
 }
+
+func addTimeoutRetryCondition(client *resty.Client, options *model.Options) {
+
+	client.AddRetryCondition(
+		func(r *resty.Response, err error) (bool, ) {
+
+			var timeout time.Duration
+
+			if options.RequestTimeout > 0 {
+				timeout = options.RequestTimeout
+			} else {
+				timeout = c.Duration(config.RequestTimeout)
+			}
+
+			if r.Time() > timeout {
+				return true
+			}
+
+			return false
+		})
+}
+
 
 func statusCodeRetryCondition(r *resty.Response, err error) bool {
 	switch statusCode := r.StatusCode(); statusCode {

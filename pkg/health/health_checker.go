@@ -11,7 +11,6 @@ func (c *HealthChecker) IsRequired() bool {
 	return c.Required
 }
 
-
 func NewHealthChecker(name string, description string, checker Checker, required bool) *HealthChecker {
 	return &HealthChecker{
 		Name:        name,

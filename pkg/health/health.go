@@ -23,14 +23,7 @@ func CheckAll(ctx context.Context) []*CheckResult {
 
 		elapsed := time.Since(start)
 
-		ok := true
-
-		if err != nil {
-
-			ok = false
-		}
-
-		results = append(results, NewCheckResult(v, elapsed, ok))
+		results = append(results, NewCheckResult(v, elapsed, err))
 	}
 
 	return results

@@ -5,17 +5,17 @@ import "time"
 type CheckResult struct {
 	HealthCheck *HealthChecker
 	Duration    time.Duration
-	Ok          bool
+	Error       error
 }
 
 func (c *CheckResult) IsOk() bool {
-	return c.Ok
+	return c.Error == nil
 }
 
-func NewCheckResult(healthCheck *HealthChecker, duration time.Duration, ok bool) *CheckResult {
+func NewCheckResult(healthCheck *HealthChecker, duration time.Duration, err error) *CheckResult {
 	return &CheckResult{
 		HealthCheck: healthCheck,
 		Duration:    duration,
-		Ok:          ok,
+		Error:       err,
 	}
 }

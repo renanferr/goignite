@@ -9,6 +9,7 @@ require (
 	github.com/go-playground/validator/v10 v10.1.0
 	github.com/go-resty/resty/v2 v2.1.0
 	github.com/go-stack/stack v1.8.0 // indirect
+	github.com/golang/protobuf v1.3.2
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/jpfaria/logrus-redis-hook v1.0.2
 	github.com/juju/errors v0.0.0-20190930114154-d42613fe1ab9
@@ -30,7 +31,9 @@ require (
 	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
 	github.com/xdg/stringprep v1.0.0 // indirect
 	go.mongodb.org/mongo-driver v1.2.1
+	golang.org/x/net v0.0.0-20190628185345-da137c7871d7
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
+	google.golang.org/grpc v1.27.1
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22 // indirect
 	gopkg.in/resty.v1 v1.12.0 // indirect

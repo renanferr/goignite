@@ -6,10 +6,12 @@ import (
 	"log"
 )
 
-const Uri = "db.mongodb.uri"
-const HealthEnabled = "db.mongodb.health.enabled"
-const HealthDescription = "db.mongodb.health.description"
-const HealthRequired = "db.mongodb.health.required"
+const (
+	Uri               = "db.mongodb.uri"
+	HealthEnabled     = "db.mongodb.health.enabled"
+	HealthDescription = "db.mongodb.health.description"
+	HealthRequired    = "db.mongodb.health.required"
+)
 
 func init() {
 
@@ -21,4 +23,3 @@ func init() {
 	config.Add(HealthRequired, "default connection", "define health description")
 
 }
-

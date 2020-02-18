@@ -6,9 +6,11 @@ import (
 	"github.com/jpfaria/goignite/pkg/config"
 )
 
-const Port = "http.server.port"
-const StatusRoute = "http.server.route.status"
-const HealthRoute = "http.server.route.health"
+const (
+	Port        = "http.server.port"
+	StatusRoute = "http.server.route.status"
+	HealthRoute = "http.server.route.health"
+)
 
 func init() {
 

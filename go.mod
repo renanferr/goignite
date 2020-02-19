@@ -5,6 +5,7 @@ go 1.13
 require (
 	github.com/DataDog/zstd v1.4.4 // indirect
 	github.com/aws/aws-sdk-go-v2 v0.19.0
+	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/go-playground/validator/v10 v10.1.0
 	github.com/go-resty/resty/v2 v2.1.0
@@ -22,6 +23,8 @@ require (
 	github.com/labstack/gommon v0.3.0 // indirect
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
+	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2 // indirect
+	github.com/nats-io/nats-server/v2 v2.1.4 // indirect
 	github.com/nats-io/nats.go v1.9.1
 	github.com/neko-neko/echo-logrus v1.1.0
 	github.com/pkg/errors v0.9.1 // indirect
@@ -29,6 +32,7 @@ require (
 	github.com/sirupsen/logrus v1.4.0
 	github.com/spf13/pflag v1.0.3
 	github.com/stretchr/testify v1.4.0
+	github.com/tidwall/pretty v1.0.1 // indirect
 	github.com/valyala/fasttemplate v1.1.0 // indirect
 	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
 	github.com/xdg/stringprep v1.0.0 // indirect
@@ -39,6 +43,5 @@ require (
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22 // indirect
-	gopkg.in/resty.v1 v1.12.0 // indirect
 	gopkg.in/yaml.v2 v2.2.4 // indirect
 )

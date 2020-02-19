@@ -4,7 +4,7 @@ import "github.com/lann/builder"
 
 type HealthResponse struct {
 	Status  HealthStatus           `json:"status" binding:"required"`
-	Details []HealthDetailResponse `json:"details" binding:"required"`
+	Details []HealthDetailResponse `json:"details,omitempty" binding:"required"`
 }
 
 type healthResponseBuilder builder.Builder

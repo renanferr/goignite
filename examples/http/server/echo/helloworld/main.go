@@ -15,11 +15,9 @@ import (
 )
 
 const HelloWorldEndpoint = "app.endpoint.helloworld"
-const ResponseMessage = "message"
 
 func init() {
 	config.Add(HelloWorldEndpoint, "/hello-world", "helloworld endpoint")
-	config.Add(ResponseMessage, "hello world!!!", "default response message")
 }
 
 type Config struct {
@@ -38,7 +36,9 @@ func Get(c e.Context) (err error) {
 
 	l := logrus.FromContext(context.Background())
 
-	resp := Response{}
+	resp := Response{
+		Message: "Hello World!!",
+	}
 
 	err = config.Unmarshal(&resp)
 	if err != nil {

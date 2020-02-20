@@ -1,4 +1,4 @@
-FROM registry.b2w.io/docker-run/base
+FROM golang:1.13-buster
 
 COPY build/docker/app /usr/local/bin/app
 

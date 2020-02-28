@@ -5,11 +5,11 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/jpfaria/goignite/internal/pkg/info"
 	"github.com/jpfaria/goignite/pkg/config"
 	"github.com/jpfaria/goignite/pkg/http/server/echo"
 	"github.com/jpfaria/goignite/pkg/http/server/echo/parser"
 	"github.com/jpfaria/goignite/pkg/info"
+	"github.com/jpfaria/goignite/pkg/log/logrus"
 	e "github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )

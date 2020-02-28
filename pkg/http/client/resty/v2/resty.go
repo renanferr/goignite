@@ -12,7 +12,7 @@ import (
 	"github.com/jpfaria/goignite/pkg/http/client/resty/config"
 	h "github.com/jpfaria/goignite/pkg/http/client/resty/health"
 	"github.com/jpfaria/goignite/pkg/http/client/resty/model"
-	"github.com/jpfaria/goignite/pkg/logging/logrus"
+	"github.com/jpfaria/goignite/pkg/log/logrus"
 
 	c "github.com/jpfaria/goignite/pkg/config"
 )

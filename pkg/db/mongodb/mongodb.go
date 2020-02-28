@@ -8,7 +8,7 @@ import (
 	h "github.com/jpfaria/goignite/pkg/db/mongodb/health"
 	"github.com/jpfaria/goignite/pkg/db/mongodb/model"
 	"github.com/jpfaria/goignite/pkg/health"
-	"github.com/jpfaria/goignite/pkg/logging/logrus"
+	"github.com/jpfaria/goignite/pkg/log/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/connstring"

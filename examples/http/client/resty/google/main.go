@@ -7,7 +7,7 @@ import (
 	"github.com/jpfaria/goignite/pkg/config"
 	"github.com/jpfaria/goignite/pkg/http/client/resty/model"
 	"github.com/jpfaria/goignite/pkg/http/client/resty/v2"
-	"github.com/jpfaria/goignite/pkg/logging/logrus"
+	"github.com/jpfaria/goignite/pkg/log/logrus"
 )
 
 func main() {

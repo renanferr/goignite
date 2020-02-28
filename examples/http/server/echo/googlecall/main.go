@@ -6,13 +6,13 @@ import (
 	"net/http"
 
 	"github.com/go-resty/resty/v2"
-	"github.com/jpfaria/goignite/internal/pkg/info"
 	"github.com/jpfaria/goignite/pkg/config"
 	"github.com/jpfaria/goignite/pkg/http/client/resty/model"
 	r "github.com/jpfaria/goignite/pkg/http/client/resty/v2"
 	"github.com/jpfaria/goignite/pkg/http/server/echo"
 	"github.com/jpfaria/goignite/pkg/http/server/echo/parser"
 	"github.com/jpfaria/goignite/pkg/info"
+	"github.com/jpfaria/goignite/pkg/log/logrus"
 	e "github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )
@@ -50,7 +50,7 @@ func (h *Handler) Get(c e.Context) (err error) {
 	request := h.client.R().EnableTrace()
 
 	_, err = request.Get("http://google.com")
-	if err!= nil {
+	if err != nil {
 		l.Fatal(err)
 	}
 

@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	c "github.com/jpfaria/goignite/pkg/config"
-	. "github.com/jpfaria/goignite/pkg/logging/config"
-	"github.com/jpfaria/goignite/pkg/logging/logrus/config"
+	. "github.com/jpfaria/goignite/pkg/log/config"
+	"github.com/jpfaria/goignite/pkg/log/logrus/config"
 	"github.com/jpfaria/logrus-redis-hook"
 	"github.com/ravernkoh/cwlogsfmt"
 	log "github.com/sirupsen/logrus"

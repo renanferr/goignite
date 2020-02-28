@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	v2 "github.com/jpfaria/goignite/pkg/cloud/aws/v2"
 	"github.com/jpfaria/goignite/pkg/config"
-	"github.com/jpfaria/goignite/pkg/logging/logrus"
+	"github.com/jpfaria/goignite/pkg/log/logrus"
 )
 
 const Bucket = "cloud.aws.s3.bucket"

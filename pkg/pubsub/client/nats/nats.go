@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/jpfaria/goignite/pkg/config"
-	"github.com/jpfaria/goignite/pkg/logging/logrus"
-	"github.com/jpfaria/goignite/pkg/pubsub/nats/model"
+	"github.com/jpfaria/goignite/pkg/log/logrus"
+	"github.com/jpfaria/goignite/pkg/pubsub/client/nats/model"
 	"github.com/nats-io/nats.go"
 )
 

@@ -62,11 +62,13 @@ func main() {
 		log.Fatal(err)
 	}
 
+	ctx := context.Background()
+
 	logrus.Start()
 
 	info.AppName = "helloworld"
 
-	instance := echo.Start()
+	instance := echo.Start(ctx)
 
 	instance.Use(middleware.Gzip())
 	instance.Use(middleware.CORS())
@@ -74,5 +76,5 @@ func main() {
 
 	instance.GET(c.App.Endpoint.Helloworld, Get)
 
-	echo.Serve()
+	echo.Serve(ctx)
 }

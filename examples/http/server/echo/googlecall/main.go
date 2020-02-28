@@ -84,7 +84,7 @@ func main() {
 
 	info.AppName = "google"
 
-	instance := echo.Start()
+	instance := echo.Start(ctx)
 
 	instance.Use(middleware.Gzip())
 	instance.Use(middleware.CORS())
@@ -106,5 +106,5 @@ func main() {
 	handler := NewHandler(client)
 	instance.GET(c.App.Endpoint.Google, handler.Get)
 
-	echo.Serve()
+	echo.Serve(ctx)
 }

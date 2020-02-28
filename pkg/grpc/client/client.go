@@ -1,6 +1,7 @@
 package client
 
 import (
+	"context"
 	"crypto/tls"
 	"crypto/x509"
 	"io/ioutil"
@@ -8,23 +9,25 @@ import (
 
 	"github.com/jpfaria/goignite/pkg/grpc/client/interceptor"
 	"github.com/jpfaria/goignite/pkg/grpc/client/model"
-	log "github.com/sirupsen/logrus"
+	"github.com/jpfaria/goignite/pkg/log/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/encoding/gzip"
 )
 
-func NewClient(options *model.Options) *grpc.ClientConn {
+func NewClient(ctx context.Context, options *model.Options) *grpc.ClientConn {
 
 	var err error
 	var conn *grpc.ClientConn
 	var opts []grpc.DialOption
 
+	log := logrus.FromContext(ctx)
+
 	serverAddr := options.Host + ":" + strconv.Itoa(options.Port)
 
 	if options.Tls {
 
-		opts = addTlsOptions(options, opts)
+		opts = addTlsOptions(ctx, options, opts)
 
 	} else {
 
@@ -54,7 +57,10 @@ func NewClient(options *model.Options) *grpc.ClientConn {
 
 }
 
-func addTlsOptions(options *model.Options, opts []grpc.DialOption) []grpc.DialOption {
+func addTlsOptions(ctx context.Context, options *model.Options, opts []grpc.DialOption) []grpc.DialOption {
+
+	log := logrus.FromContext(ctx)
+
 	// Load the client certificates from disk
 	cert, err := tls.LoadX509KeyPair(options.CertFile, options.KeyFile)
 	if err != nil {

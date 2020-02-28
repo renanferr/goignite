@@ -1,16 +1,17 @@
 package server
 
 import (
+	"context"
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net"
 
 	c "github.com/jpfaria/goignite/pkg/config"
 	"github.com/jpfaria/goignite/pkg/grpc/server/config"
 	"github.com/jpfaria/goignite/pkg/grpc/server/interceptor"
+	"github.com/jpfaria/goignite/pkg/log/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/channelz/service"
 	"google.golang.org/grpc/credentials"
@@ -22,7 +23,9 @@ type Server struct {
 	grpc *grpc.Server
 }
 
-func (s *Server) Start() {
+func (s *Server) Start(ctx context.Context) {
+
+	log := logrus.FromContext(ctx)
 
 	log.Println("grpc server starting")
 
@@ -50,9 +53,9 @@ func (s *Server) GetInstance() *grpc.Server {
 	return s.grpc
 }
 
-func New() *Server {
+func New(ctx context.Context) *Server {
 
-	c.Parse()
+	log := logrus.FromContext(ctx)
 
 	gzip.SetLevel(9)
 

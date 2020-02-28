@@ -3,13 +3,15 @@ package interceptor
 import (
 	"time"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/jpfaria/goignite/pkg/log/logrus"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
 
 func DebugStreamServerInterceptor() grpc.StreamServerInterceptor {
 	return func(srv interface{}, stream grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
+		log := logrus.FromContext(context.Background())
+
 		start := time.Now()
 		wrapper := &recvWrapper{stream}
 		err := handler(srv, wrapper)
@@ -21,6 +23,9 @@ func DebugStreamServerInterceptor() grpc.StreamServerInterceptor {
 
 func DebugUnaryServerInterceptor() grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+
+		log := logrus.FromContext(ctx)
+
 		start := time.Now()
 		r, err := handler(ctx, req)
 		log.Debugf("invoke server method=%s duration=%s error=%v response=%v", info.FullMethod,

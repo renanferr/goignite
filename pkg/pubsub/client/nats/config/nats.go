@@ -9,9 +9,12 @@ import (
 )
 
 const (
-	Url           = "pubsub.nats.url"
-	MaxReconnects = "pubsub.nats.maxreconnects"
-	ReconnectWait = "pubsub.nats.reconnectwait"
+	Url           = "pubsub.client.nats.url"
+	MaxReconnects = "pubsub.client.nats.maxreconnects"
+	ReconnectWait = "pubsub.client.nats.reconnectwait"
+	HealthEnabled     = "pubsub.client.nats.health.enabled"
+	HealthDescription = "pubsub.client.nats.health.description"
+	HealthRequired    = "pubsub.client.nats.health.required"
 )
 
 func init() {
@@ -21,4 +24,8 @@ func init() {
 	config.Add(Url, nats.DefaultURL, "define nats server url")
 	config.Add(MaxReconnects, 1000, "define max reconnects to nats server")
 	config.Add(ReconnectWait, 1 * time.Second, "define reconnects waiting before reconnect to nats server")
+	config.Add(HealthEnabled, true, "enabled/disable health check")
+	config.Add(HealthDescription, "default connection", "define health description")
+	config.Add(HealthRequired, "default connection", "define health description")
+
 }

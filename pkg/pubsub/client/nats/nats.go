@@ -4,7 +4,9 @@ import (
 	"context"
 
 	"github.com/jpfaria/goignite/pkg/config"
+	"github.com/jpfaria/goignite/pkg/health"
 	"github.com/jpfaria/goignite/pkg/log/logrus"
+	h "github.com/jpfaria/goignite/pkg/pubsub/client/nats/health"
 	"github.com/jpfaria/goignite/pkg/pubsub/client/nats/model"
 	"github.com/nats-io/nats.go"
 )
@@ -13,7 +15,7 @@ func NewClient(ctx context.Context, options model.Options) (*nats.Conn, error) {
 
 	log := logrus.FromContext(ctx)
 
-	natsConnection, err := nats.Connect(
+	conn, err := nats.Connect(
 		options.Url,
 		nats.MaxReconnects(options.MaxReconnects),
 		nats.ReconnectWait(options.ReconnectWait))
@@ -22,14 +24,16 @@ func NewClient(ctx context.Context, options model.Options) (*nats.Conn, error) {
 		return nil, err
 	}
 
-	// defer natsConnection.Close()
+	// defer conn.Close()
+
+	if options.Health.Enabled {
+		configureHealthCheck(conn, options)
+	}
 
 	log.Infof("Connected to NATS server: %s", options.Url)
 
-	return natsConnection, nil
-
+	return conn, nil
 }
-
 
 func NewDefaultClient(ctx context.Context) (*nats.Conn, error) {
 
@@ -37,11 +41,18 @@ func NewDefaultClient(ctx context.Context) (*nats.Conn, error) {
 
 	o := model.Options{}
 
-	err := config.UnmarshalWithPath("pubsub.nats", &o)
+	err := config.UnmarshalWithPath("pubsub.client.nats", &o)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	return NewClient(ctx, o)
 
+}
+
+func configureHealthCheck(conn *nats.Conn, o model.Options) {
+	cc := h.NewClientChecker(conn)
+	hc := health.NewHealthChecker("nats", o.Health.Description, cc, o.Health.Required)
+
+	health.Add(hc)
 }

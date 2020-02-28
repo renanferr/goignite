@@ -9,7 +9,7 @@ import (
 	"github.com/jpfaria/goignite/pkg/config"
 	"github.com/jpfaria/goignite/pkg/http/server/echo"
 	"github.com/jpfaria/goignite/pkg/http/server/echo/parser"
-	"github.com/jpfaria/goignite/pkg/logging/logrus"
+	"github.com/jpfaria/goignite/pkg/info"
 	e "github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )

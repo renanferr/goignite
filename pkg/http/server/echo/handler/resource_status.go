@@ -3,8 +3,8 @@ package handler
 import (
 	"net/http"
 
-	"github.com/jpfaria/goignite/internal/pkg/info"
 	"github.com/jpfaria/goignite/pkg/http/server/model/response"
+	"github.com/jpfaria/goignite/pkg/info"
 	"github.com/labstack/echo"
 )
 

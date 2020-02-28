@@ -14,7 +14,6 @@ const (
 	RetryCount                     = "http.client.resty.retry.count"
 	RetryWaitTime                  = "http.client.resty.retry.waittime"
 	RetryMaxWaitTime               = "http.client.resty.retry.maxwaittime"
-	HealthEnabled                  = "http.client.resty.health.enabled"
 	TransportDisableCompression    = "http.client.resty.transport.disablecompression"
 	TransportDisableKeepAlives     = "http.client.resty.transport.disablekeepalives"
 	TransportMaxIdleConnsPerHost   = "http.client.resty.transport.maxidleconnsperhost"
@@ -35,7 +34,6 @@ func init() {
 	config.Add(RetryCount, 0, "defines global max http retries")
 	config.Add(RetryWaitTime, 200*time.Millisecond, "defines global retry wait time (ms)")
 	config.Add(RetryMaxWaitTime, 2*time.Second, "defines global max retry wait time (ms)")
-	config.Add(HealthEnabled, true, "enabled/disable health check")
 
 	config.Add(TransportDisableCompression, false, "enabled/disable transport compression")
 	config.Add(TransportDisableKeepAlives, false, "enabled/disable transport keep alives")

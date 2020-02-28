@@ -28,7 +28,7 @@ func TestPFlag(t *testing.T) {
 
 	Parse()
 
-	assert.Equal(t, "value", Instance.String("key"), "they should be equal")
+	assert.Equal(t, "value", instance.String("key"), "they should be equal")
 }
 
 func TestEnv(t *testing.T) {
@@ -40,7 +40,7 @@ func TestEnv(t *testing.T) {
 	err := Parse()
 	assert.Nil(t, err, "they should be nil")
 
-	assert.Equal(t, "value", Instance.String("k.env"), "they should be equal")
+	assert.Equal(t, "value", instance.String("k.env"), "they should be equal")
 }
 
 func TestConf(t *testing.T) {
@@ -52,8 +52,8 @@ func TestConf(t *testing.T) {
 	err := Parse()
 	assert.Nil(t, err, "they should be nil")
 
-	assert.True(t, Instance.Bool("debug"), "they should be true")
-	assert.Equal(t, "127.0.0.13", Instance.String("redis.host"), "they should be equal")
+	assert.True(t, instance.Bool("debug"), "they should be true")
+	assert.Equal(t, "127.0.0.13", instance.String("redis.host"), "they should be equal")
 }
 
 func TestUnmarshal(t *testing.T) {

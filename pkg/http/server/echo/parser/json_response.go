@@ -42,7 +42,7 @@ func JSONErrorResponse(c echo.Context, err error) error {
 
 				verr := response.ValidationErrorResponse{
 					FieldName: fe.Field(),
-					Message:   fe.Namespace(),
+					Message:   "invalid value",
 				}
 
 				verrs = append(verrs, verr)

@@ -6,7 +6,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/jpfaria/goignite/pkg/http/server/model/response"
 	"github.com/juju/errors"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 func JSONResponse(c echo.Context, code int, i interface{}, err error) error {

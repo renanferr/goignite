@@ -1,0 +1,8 @@
+language: go
+go:
+  - 1.11
+  - master
+os:
+  - linux
+script:
+  - GO111MODULE=on go build

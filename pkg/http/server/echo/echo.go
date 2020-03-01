@@ -8,10 +8,10 @@ import (
 	"github.com/jpfaria/goignite/pkg/http/server/echo/config"
 	"github.com/jpfaria/goignite/pkg/http/server/echo/handler"
 	"github.com/jpfaria/goignite/pkg/log/logrus"
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
-	m "github.com/neko-neko/echo-logrus"
-	"github.com/neko-neko/echo-logrus/log"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+	m "github.com/neko-neko/echo-logrus/v2"
+	"github.com/neko-neko/echo-logrus/v2/log"
 )
 
 var (

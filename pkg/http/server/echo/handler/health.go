@@ -5,7 +5,7 @@ import (
 
 	"github.com/jpfaria/goignite/pkg/health"
 	"github.com/jpfaria/goignite/pkg/http/server/model/response"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 func NewHealthHandler() *HealthHandler {

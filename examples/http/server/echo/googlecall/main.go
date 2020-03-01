@@ -13,8 +13,8 @@ import (
 	"github.com/jpfaria/goignite/pkg/http/server/echo/parser"
 	"github.com/jpfaria/goignite/pkg/info"
 	"github.com/jpfaria/goignite/pkg/log/logrus"
-	e "github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
+	e "github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 const Endpoint = "app.endpoint.google"

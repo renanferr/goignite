@@ -2,14 +2,15 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"log"
-	"net/http"
 
     "github.com/go-playground/validator/v10"
 	"github.com/jpfaria/goignite/pkg/config"
 	"github.com/jpfaria/goignite/pkg/http/server/echo"
 	"github.com/jpfaria/goignite/pkg/http/server/echo/parser"
 	"github.com/jpfaria/goignite/pkg/log/logrus"
+	"github.com/cloudevents/sdk-go"
 	e "github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	{{- range .Packages}}
@@ -26,45 +27,59 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 }
 
 {{ range .RequestMaps}}
-func {{.Handler.Alias}}{{.Handler.Func}}{{.Method}}(c e.Context) error {
-
+func {{.Handler.Alias}}{{.Handler.Func}}{{.Method}}CloudEventsWrapper(ctx context.Context, e cloudevents.Event, resp *cloudevents.EventResponse) error {
     h := {{.Handler.Alias}}.{{.Handler.Func}}
+
+    return h(ctx, e, resp)
+}
+
+func {{.Handler.Alias}}{{.Handler.Func}}{{.Method}}EchoWrapper(c e.Context) error {
+
+    var err error
+
+    h := {{.Handler.Alias}}{{.Handler.Func}}{{.Method}}CloudEventsWrapper
+
+    request := cloudevents.Event{
+        Context: cloudevents.EventContextV03{
+            Source: *cloudevents.ParseURLRef("/mod3"),
+            Type:   "samples.http.mod3",
+        }.AsV03(),
+    }
 
     {{- if or (eq .Method "POST") (eq .Method "PUT") (eq .Method "PATCH") }}
 
     st := new({{.Body.Alias}}.{{.Body.Struct}})
 
-    if err := c.Bind(&st); err != nil {
+    if err = c.Bind(&st); err != nil {
         return parser.JSONErrorResponse(c, err)
     }
 
-    if err := c.Validate(st); err != nil {
+    if err = c.Validate(st); err != nil {
         return parser.JSONErrorResponse(c, err)
     }
 
-    response, err := h(c.Request(), st)
+    var str []byte
 
-    {{- else }}
+    str, err = json.Marshal(st)
+    if err != nil {
+        return parser.JSONErrorResponse(c, err)
+    }
+    request.Data = str
 
-    response, err := h(c.Request())
+    {{- end }}
 
-    {{- end}}
+    resp := cloudevents.EventResponse{
+        Context: cloudevents.EventContextV03{
+            Source: *cloudevents.ParseURLRef("/mod3"),
+            Type:   "samples.http.mod3",
+        }.AsV03(),
+    }
 
-    {{- if (eq .Method "GET") }}
-    statusCode := http.StatusOK
-    {{- else if (eq .Method "POST") }}
-    statusCode := http.StatusCreated
-    {{- else if (eq .Method "PUT") }}
-    statusCode := http.StatusNoContent
-    {{- else if (eq .Method "PATCH") }}
-    statusCode := http.StatusNoContent
-    {{- else if (eq .Method "DELETE") }}
-    statusCode := http.StatusNoContent
-    {{- end}}
+    err = h(c.Request().Context(), request, &resp)
 
-	return parser.JSONResponse(c, statusCode, response, err)
+	return parser.JSONResponse(c, {{.HttpCode}}, resp.Event.Data, err)
 }
-{{- end}}
+{{ end}}
 
 func main() {
 
@@ -86,7 +101,7 @@ func main() {
 	instance.Use(middleware.RequestID())
 
     {{ range .RequestMaps}}
-	instance.{{.Method}}("{{.Endpoint}}", {{.Handler.Alias}}{{.Handler.Func}}{{.Method}})
+	instance.{{.Method}}("{{.Endpoint}}", {{.Handler.Alias}}{{.Handler.Func}}{{.Method}}EchoWrapper)
 	{{- end}}
 
 	echo.Serve(ctx)

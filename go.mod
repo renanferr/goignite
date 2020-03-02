@@ -6,9 +6,9 @@ require (
 	github.com/DataDog/zstd v1.4.4 // indirect
 	github.com/aws/aws-sdk-go-v2 v0.19.0
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
+	github.com/cloudevents/sdk-go v1.0.0
 	github.com/go-playground/validator/v10 v10.1.0
 	github.com/go-resty/resty/v2 v2.1.0
-	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/golang/protobuf v1.3.2
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/jlaffaye/ftp v0.0.0-20191218041957-e1b8fdd0dcc3
@@ -17,7 +17,6 @@ require (
 	github.com/juju/loggo v0.0.0-20190526231331-6e530bcce5d8 // indirect
 	github.com/juju/testing v0.0.0-20191001232224-ce9dec17d28b // indirect
 	github.com/knadh/koanf v0.8.1
-	github.com/kr/pretty v0.1.0 // indirect
 	github.com/labstack/echo/v4 v4.1.15
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
@@ -37,7 +36,6 @@ require (
 	golang.org/x/net v0.0.0-20200226121028-0de0cce0169b
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
 	google.golang.org/grpc v1.27.1
-	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22 // indirect
 	gopkg.in/yaml.v2 v2.2.4 // indirect

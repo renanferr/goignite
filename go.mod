@@ -16,7 +16,7 @@ require (
 	github.com/juju/errors v0.0.0-20190930114154-d42613fe1ab9
 	github.com/juju/loggo v0.0.0-20190526231331-6e530bcce5d8 // indirect
 	github.com/juju/testing v0.0.0-20191001232224-ce9dec17d28b // indirect
-	github.com/knadh/koanf v0.6.0
+	github.com/knadh/koanf v0.8.1
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/labstack/echo/v4 v4.1.15
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0

@@ -7,11 +7,11 @@ import (
 
 	"github.com/cloudevents/sdk-go"
 	"github.com/go-playground/validator/v10"
-	"github.com/jpfaria/goignite/pkg/config"
-	"github.com/jpfaria/goignite/pkg/log/logrus"
-	"github.com/jpfaria/goignite/pkg/serverless/cloudevents/example/handler"
-	"github.com/jpfaria/goignite/pkg/serverless/cloudevents/example/model/event"
-	c "github.com/jpfaria/goignite/pkg/serverless/cloudevents/transport/http"
+	"github.com/b2wdigital/goignite/pkg/config"
+	"github.com/b2wdigital/goignite/pkg/log/logrus"
+	"github.com/b2wdigital/goignite/pkg/serverless/cloudevents/example/handler"
+	"github.com/b2wdigital/goignite/pkg/serverless/cloudevents/example/model/event"
+	c "github.com/b2wdigital/goignite/pkg/serverless/cloudevents/transport/http"
 )
 
 type Example struct {

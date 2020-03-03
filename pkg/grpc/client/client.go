@@ -7,9 +7,9 @@ import (
 	"io/ioutil"
 	"strconv"
 
-	"github.com/jpfaria/goignite/pkg/grpc/client/interceptor"
-	"github.com/jpfaria/goignite/pkg/grpc/client/model"
-	"github.com/jpfaria/goignite/pkg/log/logrus"
+	"github.com/b2wdigital/goignite/pkg/grpc/client/interceptor"
+	"github.com/b2wdigital/goignite/pkg/grpc/client/model"
+	"github.com/b2wdigital/goignite/pkg/log/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/encoding/gzip"

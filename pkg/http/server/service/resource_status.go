@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	"github.com/jpfaria/goignite/pkg/http/server/model/response"
-	"github.com/jpfaria/goignite/pkg/info"
+	"github.com/b2wdigital/goignite/pkg/http/server/model/response"
+	"github.com/b2wdigital/goignite/pkg/info"
 )
 
 func ResourceStatus(ctx context.Context) response.ResourceStatusResponse {

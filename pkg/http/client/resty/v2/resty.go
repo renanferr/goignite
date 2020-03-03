@@ -8,13 +8,13 @@ import (
 	"time"
 
 	"github.com/go-resty/resty/v2"
-	"github.com/jpfaria/goignite/pkg/health"
-	"github.com/jpfaria/goignite/pkg/http/client/resty/config"
-	h "github.com/jpfaria/goignite/pkg/http/client/resty/health"
-	"github.com/jpfaria/goignite/pkg/http/client/resty/model"
-	"github.com/jpfaria/goignite/pkg/log/logrus"
+	"github.com/b2wdigital/goignite/pkg/health"
+	"github.com/b2wdigital/goignite/pkg/http/client/resty/config"
+	h "github.com/b2wdigital/goignite/pkg/http/client/resty/health"
+	"github.com/b2wdigital/goignite/pkg/http/client/resty/model"
+	"github.com/b2wdigital/goignite/pkg/log/logrus"
 
-	c "github.com/jpfaria/goignite/pkg/config"
+	c "github.com/b2wdigital/goignite/pkg/config"
 )
 
 func NewClient(ctx context.Context, options *model.Options) *resty.Client {

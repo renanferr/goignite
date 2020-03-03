@@ -5,10 +5,10 @@ import (
 	"os"
 	"strings"
 
-	c "github.com/jpfaria/goignite/pkg/config"
-	. "github.com/jpfaria/goignite/pkg/log/config"
-	"github.com/jpfaria/goignite/pkg/log/logrus/config"
-	"github.com/jpfaria/logrus-redis-hook"
+	c "github.com/b2wdigital/goignite/pkg/config"
+	. "github.com/b2wdigital/goignite/pkg/log/config"
+	"github.com/b2wdigital/goignite/pkg/log/logrus/config"
+	"github.com/b2wdigital/logrus-redis-hook"
 	"github.com/ravernkoh/cwlogsfmt"
 	log "github.com/sirupsen/logrus"
 )

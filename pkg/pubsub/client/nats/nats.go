@@ -3,11 +3,11 @@ package nats
 import (
 	"context"
 
-	"github.com/jpfaria/goignite/pkg/config"
-	"github.com/jpfaria/goignite/pkg/health"
-	"github.com/jpfaria/goignite/pkg/log/logrus"
-	h "github.com/jpfaria/goignite/pkg/pubsub/client/nats/health"
-	"github.com/jpfaria/goignite/pkg/pubsub/client/nats/model"
+	"github.com/b2wdigital/goignite/pkg/config"
+	"github.com/b2wdigital/goignite/pkg/health"
+	"github.com/b2wdigital/goignite/pkg/log/logrus"
+	h "github.com/b2wdigital/goignite/pkg/pubsub/client/nats/health"
+	"github.com/b2wdigital/goignite/pkg/pubsub/client/nats/model"
 	"github.com/nats-io/nats.go"
 )
 

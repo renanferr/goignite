@@ -4,8 +4,8 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/jpfaria/goignite/pkg/health"
-	"github.com/jpfaria/goignite/pkg/http/server/model/response"
+	"github.com/b2wdigital/goignite/pkg/health"
+	"github.com/b2wdigital/goignite/pkg/http/server/model/response"
 )
 
 func Health(ctx context.Context) response.HealthResponse {

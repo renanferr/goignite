@@ -4,10 +4,10 @@ import (
 	"context"
 	"log"
 
-	"github.com/jpfaria/goignite/pkg/config"
-	"github.com/jpfaria/goignite/pkg/http/client/resty/model"
-	"github.com/jpfaria/goignite/pkg/http/client/resty/v2"
-	"github.com/jpfaria/goignite/pkg/log/logrus"
+	"github.com/b2wdigital/goignite/pkg/config"
+	"github.com/b2wdigital/goignite/pkg/http/client/resty/model"
+	"github.com/b2wdigital/goignite/pkg/http/client/resty/v2"
+	"github.com/b2wdigital/goignite/pkg/log/logrus"
 )
 
 func main() {

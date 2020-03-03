@@ -3,8 +3,8 @@ package handler
 import (
 	"net/http"
 
-	"github.com/jpfaria/goignite/pkg/http/server/echo/parser"
-	"github.com/jpfaria/goignite/pkg/http/server/service"
+	"github.com/b2wdigital/goignite/pkg/http/server/echo/parser"
+	"github.com/b2wdigital/goignite/pkg/http/server/service"
 	"github.com/labstack/echo/v4"
 )
 

@@ -1,4 +1,4 @@
-module github.com/jpfaria/logrus-redis-hook
+module github.com/b2wdigital/logrus-redis-hook
 
 require (
 	github.com/gomodule/redigo v2.0.0+incompatible

@@ -1,20 +1,20 @@
 generator:
   start:
-    package: "github.com/jpfaria/goignite/pkg/serverless/cloudevents/example/handler"
+    package: "github.com/b2wdigital/goignite/pkg/serverless/cloudevents/example/handler"
     func:    "Start"
   requestMaps:
     - method:   "GET"
       endpoint: "/test1/:test"
       handler:
-        package: "github.com/jpfaria/goignite/pkg/serverless/cloudevents/example/handler"
+        package: "github.com/b2wdigital/goignite/pkg/serverless/cloudevents/example/handler"
         func:    "Test1"
       httpCode: 200
     - method:   "POST"
       endpoint: "/test2"
       handler:
-        package: "github.com/jpfaria/goignite/pkg/serverless/cloudevents/example/handler"
+        package: "github.com/b2wdigital/goignite/pkg/serverless/cloudevents/example/handler"
         func:    "Test2"
       body:
-        package: "github.com/jpfaria/goignite/pkg/serverless/cloudevents/example/model/event"
+        package: "github.com/b2wdigital/goignite/pkg/serverless/cloudevents/example/model/event"
         struct: "User"
       httpCode: 201

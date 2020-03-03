@@ -3,7 +3,7 @@ package config
 import (
 	"log"
 
-	"github.com/jpfaria/goignite/pkg/config"
+	"github.com/b2wdigital/goignite/pkg/config"
 )
 
 const RedisEnabled = "logging.logrus.redis.enabled"

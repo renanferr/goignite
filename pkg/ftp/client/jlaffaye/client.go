@@ -4,9 +4,9 @@ import (
 	"time"
 
 	"github.com/jlaffaye/ftp"
-	"github.com/jpfaria/goignite/pkg/config"
-	. "github.com/jpfaria/goignite/pkg/ftp/client/config"
-	. "github.com/jpfaria/goignite/pkg/ftp/client/model"
+	"github.com/b2wdigital/goignite/pkg/config"
+	. "github.com/b2wdigital/goignite/pkg/ftp/client/config"
+	. "github.com/b2wdigital/goignite/pkg/ftp/client/model"
 	"gopkg.in/matryer/try.v1"
 )
 

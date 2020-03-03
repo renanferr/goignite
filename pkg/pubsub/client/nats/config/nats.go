@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/jpfaria/goignite/pkg/config"
+	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/nats-io/nats.go"
 )
 

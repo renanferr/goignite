@@ -3,7 +3,7 @@ package interceptor
 import (
 	"time"
 
-	"github.com/jpfaria/goignite/pkg/log/logrus"
+	"github.com/b2wdigital/goignite/pkg/log/logrus"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )

@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/go-resty/resty/v2"
-	"github.com/jpfaria/goignite/pkg/http/client/resty/model"
+	"github.com/b2wdigital/goignite/pkg/http/client/resty/model"
 )
 
 type RestyChecker struct {

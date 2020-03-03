@@ -9,9 +9,9 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/jpfaria/goignite/internal/app/generator/http/server/model"
-	"github.com/jpfaria/goignite/pkg/config"
-	"github.com/jpfaria/goignite/pkg/log/logrus"
+	"github.com/b2wdigital/goignite/internal/app/generator/http/server/model"
+	"github.com/b2wdigital/goignite/pkg/config"
+	"github.com/b2wdigital/goignite/pkg/log/logrus"
 )
 
 const (

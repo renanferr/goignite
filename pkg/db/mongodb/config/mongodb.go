@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/jpfaria/goignite/pkg/config"
+	"github.com/b2wdigital/goignite/pkg/config"
 
 	"log"
 )

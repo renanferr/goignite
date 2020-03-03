@@ -5,9 +5,9 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/aws/external"
-	"github.com/jpfaria/goignite/pkg/cloud/aws/model"
-	"github.com/jpfaria/goignite/pkg/config"
-	"github.com/jpfaria/goignite/pkg/log/logrus"
+	"github.com/b2wdigital/goignite/pkg/cloud/aws/model"
+	"github.com/b2wdigital/goignite/pkg/config"
+	"github.com/b2wdigital/goignite/pkg/log/logrus"
 )
 
 func NewConfig(ctx context.Context, options model.Options) aws.Config {

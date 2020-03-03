@@ -4,12 +4,40 @@ import (
 	"context"
 
 	"github.com/cloudevents/sdk-go"
+	"github.com/jpfaria/goignite/pkg/config"
 	"github.com/jpfaria/goignite/pkg/log/logrus"
 	"github.com/jpfaria/goignite/pkg/serverless/cloudevents/example/model/event"
 )
 
+var (
+	options *Response
+)
+
+func init() {
+	config.Add("local.message", "gen", "generator output path")
+}
+
+
 type Response struct {
 	Message string
+}
+
+func Start(ctx context.Context) {
+	log := logrus.FromContext(ctx)
+
+	log.Info("starting application")
+
+	options = new(Response)
+
+	err := config.UnmarshalWithPath("local", &options)
+	if err != nil {
+		log.Error(err)
+	}
+}
+
+func Stop(ctx context.Context) {
+	log := logrus.FromContext(ctx)
+	log.Info("stopping application")
 }
 
 func Test2(ctx context.Context, e cloudevents.Event, resp *cloudevents.EventResponse) error {
@@ -29,7 +57,7 @@ func Test2(ctx context.Context, e cloudevents.Event, resp *cloudevents.EventResp
 			Type:   "samples.http.mod3",
 		}.AsV03(),
 		Data: Response{
-			Message: "Test 2!!",
+			Message: "Test 3!!",
 		},
 	}
 

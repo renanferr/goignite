@@ -1,4 +1,7 @@
 generator:
+  start:
+    package: "github.com/jpfaria/goignite/pkg/serverless/cloudevents/example/handler"
+    func:    "Start"
   requestMaps:
     - method:   "GET"
       endpoint: "/test1/:test"
@@ -6,7 +9,6 @@ generator:
         package: "github.com/jpfaria/goignite/pkg/serverless/cloudevents/example/handler"
         func:    "Test1"
       httpCode: 200
-
     - method:   "POST"
       endpoint: "/test2"
       handler:

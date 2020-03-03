@@ -9,7 +9,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/jpfaria/goignite/internal/app/generator/model"
+	"github.com/jpfaria/goignite/internal/app/generator/http/server/model"
 	"github.com/jpfaria/goignite/pkg/config"
 	"github.com/jpfaria/goignite/pkg/log/logrus"
 )

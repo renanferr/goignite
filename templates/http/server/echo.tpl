@@ -26,7 +26,7 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 	return cv.validator.Struct(i)
 }
 
-{{ range .RequestMaps}}
+{{ range .RequestMaps }}
 func {{.Handler.Alias}}{{.Handler.Func}}{{.Method}}CloudEventsWrapper(ctx context.Context, e cloudevents.Event, resp *cloudevents.EventResponse) error {
     h := {{.Handler.Alias}}.{{.Handler.Func}}
 
@@ -79,7 +79,7 @@ func {{.Handler.Alias}}{{.Handler.Func}}{{.Method}}EchoWrapper(c e.Context) erro
 
 	return parser.JSONResponse(c, {{.HttpCode}}, resp.Event.Data, err)
 }
-{{ end}}
+{{ end }}
 
 func main() {
 

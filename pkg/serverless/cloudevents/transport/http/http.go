@@ -8,16 +8,18 @@ import (
 	"github.com/jpfaria/goignite/pkg/serverless/cloudevents/transport/http/config"
 )
 
-func Start(ctx context.Context, fn interface{}) {
+func Start(ctx context.Context, fn interface{}, method string) {
 
 	log := logrus.FromContext(ctx)
 
 	port := config.GetPort()
 	path := config.GetPath()
+	contentType := config.GetContentType()
 
 	t, err := cloudevents.NewHTTPTransport(
 		cloudevents.WithPort(port),
 		cloudevents.WithPath(path),
+		cloudevents.WithMethod(method),
 	)
 	if err != nil {
 		log.Fatalf("failed to create transport: %s", err.Error())
@@ -25,6 +27,7 @@ func Start(ctx context.Context, fn interface{}) {
 	c, err := cloudevents.NewClient(t,
 		cloudevents.WithUUIDs(),
 		cloudevents.WithTimeNow(),
+		cloudevents.WithDataContentType(contentType),
 	)
 	if err != nil {
 		log.Fatalf("failed to create client: %s", err.Error())

@@ -6,8 +6,11 @@ import (
 	"net/http"
 
 	"github.com/cloudevents/sdk-go"
+	"github.com/go-playground/validator/v10"
 	"github.com/jpfaria/goignite/pkg/config"
 	"github.com/jpfaria/goignite/pkg/log/logrus"
+	"github.com/jpfaria/goignite/pkg/serverless/cloudevents/example/handler"
+	"github.com/jpfaria/goignite/pkg/serverless/cloudevents/example/model/event"
 	c "github.com/jpfaria/goignite/pkg/serverless/cloudevents/transport/http"
 )
 
@@ -16,43 +19,33 @@ type Example struct {
 	Message  string `json:"message"`
 }
 
-func gotEvent(ctx context.Context, event cloudevents.Event, resp *cloudevents.EventResponse) error {
-	
-	log := logrus.FromContext(ctx)
-	
-	log.Printf("Got Event Context: %+v\n", event.Context)
-	data := &Example{}
-	if err := event.DataAs(data); err != nil {
-		log.Printf("Got Data Error: %s\n", err.Error())
-	}
-	log.Printf("Got Data: %+v\n", data)
-	log.Printf("Got Transport Context: %+v\n", cloudevents.HTTPTransportContextFrom(ctx))
-	log.Printf("----------------------------\n")
+func Test2(ctx context.Context, e cloudevents.Event, resp *cloudevents.EventResponse) error {
 
-	if data.Sequence%3 == 0 {
-		r := cloudevents.Event{
-			Context: cloudevents.EventContextV02{
+	l := logrus.FromContext(ctx)
+
+	user := &event.User{}
+	if err := e.DataAs(user); err != nil {
+		l.Printf("Got Data Error: %s\n", err.Error())
+	}
+
+	validate := validator.New()
+	err := validate.Struct(user)
+	if err != nil {
+
+		resp.Status = http.StatusUnprocessableEntity
+		resp.Event = &cloudevents.Event{
+			Context: cloudevents.EventContextV03{
 				Source: *cloudevents.ParseURLRef("/mod3"),
 				Type:   "samples.http.mod3",
-			}.AsV02(),
-			Data: Example{
-				Sequence: data.Sequence,
-				Message:  "mod 3!",
-			},
+			}.AsV03(),
 		}
-		resp.RespondWith(200, &r)
-		resp.Context = &cloudevents.HTTPTransportResponseContext{
-			Header: func() http.Header {
-				h := http.Header{}
-				h.Set("sample", "magic header")
-				h.Set("mod", "3")
-				return h
-			}(),
-		}
-		return nil
+
+		return err
 	}
 
-	return nil
+	resp.Status = http.StatusCreated
+
+	return handler.Test2(ctx, e, resp)
 }
 
 func main() {
@@ -66,5 +59,5 @@ func main() {
 
 	logrus.Start()
 
-	c.Start(ctx, gotEvent)
+	c.Start(ctx, Test2, "POST")
 }

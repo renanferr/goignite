@@ -3,8 +3,8 @@ package handler
 import (
 	"net/http"
 
-	"github.com/jpfaria/goignite/pkg/http/server/model/response"
-	"github.com/jpfaria/goignite/pkg/info"
+	"github.com/jpfaria/goignite/pkg/http/server/echo/parser"
+	"github.com/jpfaria/goignite/pkg/http/server/service"
 	"github.com/labstack/echo/v4"
 )
 
@@ -16,14 +16,5 @@ type ResourceStatusHandler struct {
 }
 
 func (u *ResourceStatusHandler) Get(c echo.Context) error {
-
-	resourceStatus := response.ResourceStatusResponseBuilder.
-		ApplicationName(info.AppName).
-		ImplementationBuild(info.BuildVersion).
-		ImplementationVersion(info.Version).
-		BuildDate(info.BuildDate).
-		CommitSHA(info.CommitSHA).
-		Build()
-
-	return c.JSON(http.StatusOK, resourceStatus)
+	return parser.JSONResponse(c, http.StatusOK, service.ResourceStatus(c.Request().Context()), nil)
 }

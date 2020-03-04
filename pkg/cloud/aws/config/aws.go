@@ -7,11 +7,11 @@ import (
 )
 
 const (
-	Key            = "cloud.aws.access.key.id"
-	Secret         = "cloud.aws.secret.access.key"
-	Region         = "cloud.aws.default.region"
-	Session        = "cloud.aws.session.token"
-	CustomEndpoint = "cloud.aws.custom.endpoint"
+	Key            = "aws.access.key.id"
+	Secret         = "aws.secret.access.key"
+	Region         = "aws.default.region"
+	Session        = "aws.session.token"
+	CustomEndpoint = "aws.custom.endpoint"
 )
 
 func init() {

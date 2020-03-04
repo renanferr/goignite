@@ -3,6 +3,7 @@ package config
 import (
 	"errors"
 	"fmt"
+	"log"
 	"net"
 	"os"
 	"strings"
@@ -100,6 +101,7 @@ func Parse() error {
 	flap := posflag.Provider(f, ".", instance)
 
 	if err := instance.Load(flap, nil); err != nil {
+		log.Fatal(err)
 		return err
 	}
 

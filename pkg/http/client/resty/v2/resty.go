@@ -7,12 +7,12 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/go-resty/resty/v2"
 	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/http/client/resty/config"
 	h "github.com/b2wdigital/goignite/pkg/http/client/resty/health"
 	"github.com/b2wdigital/goignite/pkg/http/client/resty/model"
 	"github.com/b2wdigital/goignite/pkg/log/logrus"
+	"github.com/go-resty/resty/v2"
 
 	c "github.com/b2wdigital/goignite/pkg/config"
 )
@@ -57,7 +57,6 @@ func NewClient(ctx context.Context, options *model.Options) *resty.Client {
 		AddRetryCondition(statusCodeRetryCondition)
 
 	addTimeoutRetryCondition(client, options)
-
 
 	if options.Debug || c.Bool(config.Debug) {
 		client.OnBeforeRequest(logBeforeResponse)
@@ -108,7 +107,6 @@ func addTimeoutRetryCondition(client *resty.Client, options *model.Options) {
 			return false
 		})
 }
-
 
 func statusCodeRetryCondition(r *resty.Response, err error) bool {
 	switch statusCode := r.StatusCode(); statusCode {

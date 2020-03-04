@@ -3,9 +3,9 @@ package http
 import (
 	"context"
 
-	"github.com/cloudevents/sdk-go"
 	"github.com/b2wdigital/goignite/pkg/log/logrus"
 	"github.com/b2wdigital/goignite/pkg/serverless/cloudevents/transport/http/config"
+	"github.com/cloudevents/sdk-go"
 )
 
 func Start(ctx context.Context, fn interface{}, method string) {

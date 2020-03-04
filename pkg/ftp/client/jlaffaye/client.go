@@ -3,10 +3,10 @@ package jlaffaye
 import (
 	"time"
 
-	"github.com/jlaffaye/ftp"
 	"github.com/b2wdigital/goignite/pkg/config"
 	. "github.com/b2wdigital/goignite/pkg/ftp/client/config"
 	. "github.com/b2wdigital/goignite/pkg/ftp/client/model"
+	"github.com/jlaffaye/ftp"
 	"gopkg.in/matryer/try.v1"
 )
 

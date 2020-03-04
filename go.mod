@@ -3,14 +3,12 @@ module github.com/b2wdigital/goignite
 go 1.13
 
 require (
-	github.com/DataDog/zstd v1.4.4 // indirect
 	github.com/aws/aws-sdk-go-v2 v0.19.0
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cloudevents/sdk-go v1.0.0
-	github.com/go-playground/validator/v10 v10.1.0
-	github.com/go-resty/resty/v2 v2.1.0
-	github.com/golang/protobuf v1.3.2
-	github.com/golang/snappy v0.0.1 // indirect
+	github.com/go-playground/validator/v10 v10.2.0
+	github.com/go-resty/resty/v2 v2.2.0
+	github.com/golang/protobuf v1.3.4
 	github.com/jlaffaye/ftp v0.0.0-20191218041957-e1b8fdd0dcc3
 	github.com/jpfaria/logrus-redis-hook v1.0.2
 	github.com/juju/errors v0.0.0-20190930114154-d42613fe1ab9
@@ -26,13 +24,12 @@ require (
 	github.com/neko-neko/echo-logrus/v2 v2.0.1
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/ravernkoh/cwlogsfmt v0.0.0-20180121032441-917bad983b4c
-	github.com/sirupsen/logrus v1.4.0
+	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/pflag v1.0.3
 	github.com/stretchr/testify v1.4.0
 	github.com/tidwall/pretty v1.0.1 // indirect
-	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
 	github.com/xdg/stringprep v1.0.0 // indirect
-	go.mongodb.org/mongo-driver v1.2.1
+	go.mongodb.org/mongo-driver v1.3.1
 	golang.org/x/net v0.0.0-20200226121028-0de0cce0169b
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
 	google.golang.org/grpc v1.27.1

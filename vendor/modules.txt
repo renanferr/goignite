@@ -1,5 +1,3 @@
-# github.com/DataDog/zstd v1.4.4
-github.com/DataDog/zstd
 # github.com/aws/aws-sdk-go-v2 v0.19.0
 github.com/aws/aws-sdk-go-v2/aws
 github.com/aws/aws-sdk-go-v2/aws/arn
@@ -82,6 +80,12 @@ github.com/jmespath/go-jmespath
 github.com/jpfaria/logrus-redis-hook
 # github.com/juju/errors v0.0.0-20190930114154-d42613fe1ab9
 github.com/juju/errors
+# github.com/klauspost/compress v1.9.5
+github.com/klauspost/compress/fse
+github.com/klauspost/compress/huff0
+github.com/klauspost/compress/snappy
+github.com/klauspost/compress/zstd
+github.com/klauspost/compress/zstd/internal/xxhash
 # github.com/knadh/koanf v0.8.1
 github.com/knadh/koanf
 github.com/knadh/koanf/maps
@@ -134,7 +138,7 @@ github.com/pkg/errors
 github.com/pmezard/go-difflib/difflib
 # github.com/ravernkoh/cwlogsfmt v0.0.0-20180121032441-917bad983b4c
 github.com/ravernkoh/cwlogsfmt
-# github.com/sirupsen/logrus v1.4.0
+# github.com/sirupsen/logrus v1.4.2
 github.com/sirupsen/logrus
 # github.com/spf13/pflag v1.0.3
 github.com/spf13/pflag
@@ -148,7 +152,7 @@ github.com/valyala/fasttemplate
 github.com/xdg/scram
 # github.com/xdg/stringprep v1.0.0
 github.com/xdg/stringprep
-# go.mongodb.org/mongo-driver v1.2.1
+# go.mongodb.org/mongo-driver v1.3.1
 go.mongodb.org/mongo-driver/bson
 go.mongodb.org/mongo-driver/bson/bsoncodec
 go.mongodb.org/mongo-driver/bson/bsonoptions
@@ -211,7 +215,6 @@ golang.org/x/crypto/acme/autocert
 golang.org/x/crypto/ed25519
 golang.org/x/crypto/ed25519/internal/edwards25519
 golang.org/x/crypto/pbkdf2
-golang.org/x/crypto/ssh/terminal
 # golang.org/x/net v0.0.0-20200226121028-0de0cce0169b
 golang.org/x/net/context
 golang.org/x/net/http/httpguts
@@ -226,7 +229,6 @@ golang.org/x/net/trace
 golang.org/x/sync/semaphore
 # golang.org/x/sys v0.0.0-20200223170610-d5e6a3e2c0ae
 golang.org/x/sys/unix
-golang.org/x/sys/windows
 # golang.org/x/text v0.3.2
 golang.org/x/text/secure/bidirule
 golang.org/x/text/transform

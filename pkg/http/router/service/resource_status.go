@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	"github.com/b2wdigital/goignite/pkg/http/server/model/response"
+	"github.com/b2wdigital/goignite/pkg/http/router/model/response"
 	"github.com/b2wdigital/goignite/pkg/info"
 )
 

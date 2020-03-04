@@ -6,8 +6,8 @@ import (
 	"net/http"
 
 	"github.com/b2wdigital/goignite/pkg/config"
-	"github.com/b2wdigital/goignite/pkg/http/server/echo"
-	"github.com/b2wdigital/goignite/pkg/http/server/echo/parser"
+	"github.com/b2wdigital/goignite/pkg/http/router/echo"
+	"github.com/b2wdigital/goignite/pkg/http/router/echo/parser"
 	"github.com/b2wdigital/goignite/pkg/info"
 	"github.com/b2wdigital/goignite/pkg/log/logrus"
 	e "github.com/labstack/echo/v4"

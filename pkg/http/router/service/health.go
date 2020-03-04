@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/b2wdigital/goignite/pkg/health"
-	"github.com/b2wdigital/goignite/pkg/http/server/model/response"
+	"github.com/b2wdigital/goignite/pkg/http/router/model/response"
 )
 
 func Health(ctx context.Context) response.HealthResponse {

@@ -4,9 +4,9 @@ import (
 	"context"
 	"strconv"
 
-	srvconfig "github.com/b2wdigital/goignite/pkg/http/server/config"
-	"github.com/b2wdigital/goignite/pkg/http/server/echo/config"
-	"github.com/b2wdigital/goignite/pkg/http/server/echo/handler"
+	srvconfig "github.com/b2wdigital/goignite/pkg/http/router/config"
+	"github.com/b2wdigital/goignite/pkg/http/router/echo/config"
+	"github.com/b2wdigital/goignite/pkg/http/router/echo/handler"
 	"github.com/b2wdigital/goignite/pkg/log/logrus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"

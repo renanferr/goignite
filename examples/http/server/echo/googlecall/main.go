@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/go-resty/resty/v2"
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/http/client/resty/model"
 	r "github.com/b2wdigital/goignite/pkg/http/client/resty/v2"
@@ -13,6 +12,7 @@ import (
 	"github.com/b2wdigital/goignite/pkg/http/server/echo/parser"
 	"github.com/b2wdigital/goignite/pkg/info"
 	"github.com/b2wdigital/goignite/pkg/log/logrus"
+	"github.com/go-resty/resty/v2"
 	e "github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )

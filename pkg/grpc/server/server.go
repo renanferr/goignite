@@ -19,41 +19,11 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-type Server struct {
-	grpc *grpc.Server
-}
+var	(
+	instance *grpc.Server
+)
 
-func (s *Server) Start(ctx context.Context) {
-
-	log := logrus.FromContext(ctx)
-
-	log.Println("grpc server starting")
-
-	service.RegisterChannelzServiceToServer(s.grpc)
-
-	// Register reflection service on gRPC server.
-	reflection.Register(s.grpc)
-
-	port := c.Int(config.Port)
-
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
-		return
-	}
-
-	if err := s.grpc.Serve(lis); err != nil {
-		log.Fatalf("failed to serve: %v", err)
-		return
-	}
-
-}
-
-func (s *Server) GetInstance() *grpc.Server {
-	return s.grpc
-}
-
-func New(ctx context.Context) *Server {
+func Start(ctx context.Context) *grpc.Server {
 
 	log := logrus.FromContext(ctx)
 
@@ -109,5 +79,34 @@ func New(ctx context.Context) *Server {
 
 	}
 
-	return &Server{grpc: s}
+	instance = s
+
+	return instance
+}
+
+
+func Serve(ctx context.Context) {
+
+	log := logrus.FromContext(ctx)
+
+	service.RegisterChannelzServiceToServer(instance)
+
+	// Register reflection service on gRPC server.
+	reflection.Register(instance)
+
+	port := c.Int(config.Port)
+
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+		return
+	}
+
+	log.Infof("grpc server started on port %v", port)
+
+	if err := instance.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+		return
+	}
+
 }

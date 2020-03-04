@@ -23,9 +23,16 @@ func main() {
 		Message: "mensagem da requisição",
 	}
 
+	health := model.OptionsHealthBuilder.
+		Description("example grpc server").
+		Required(true).
+		Enabled(true).
+		Build()
+
 	options := model.OptionsBuilder.
 		Host("localhost").
 		Port(9090).
+		Health(health).
 		Build()
 
 	conn := client.NewClient(ctx, &options)
@@ -39,4 +46,6 @@ func main() {
 	}
 
 	log.Info(test.Message)
+
+	log.Info(conn.GetState())
 }

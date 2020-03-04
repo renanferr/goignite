@@ -7,8 +7,10 @@ import (
 	"io/ioutil"
 	"strconv"
 
+	h "github.com/b2wdigital/goignite/pkg/grpc/client/health"
 	"github.com/b2wdigital/goignite/pkg/grpc/client/interceptor"
 	"github.com/b2wdigital/goignite/pkg/grpc/client/model"
+	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/log/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -53,8 +55,18 @@ func NewClient(ctx context.Context, options *model.Options) *grpc.ClientConn {
 		return nil
 	}
 
-	return conn
+	if options.Health.Enabled {
+		configureHealthCheck(conn, options)
+	}
 
+	return conn
+}
+
+func configureHealthCheck(conn *grpc.ClientConn, o *model.Options) {
+	cc := h.NewClientChecker(conn)
+	hc := health.NewHealthChecker("grpc", o.Health.Description, cc, o.Health.Required)
+
+	health.Add(hc)
 }
 
 func addTlsOptions(ctx context.Context, options *model.Options, opts []grpc.DialOption) []grpc.DialOption {

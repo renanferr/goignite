@@ -13,6 +13,7 @@ type Options struct {
 	HostOverwrite      string
 	Port               int
 	InsecureSkipVerify bool
+	Health             OptionsHealth
 }
 
 type optionsBuilder builder.Builder
@@ -60,6 +61,10 @@ func (b optionsBuilder) Port(port int) optionsBuilder {
 	}
 
 	return builder.Set(b, "Port", port).(optionsBuilder)
+}
+
+func (b optionsBuilder) Health(health OptionsHealth) optionsBuilder {
+	return builder.Set(b, "Health", health).(optionsBuilder)
 }
 
 func (b optionsBuilder) Build() Options {

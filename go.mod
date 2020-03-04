@@ -12,7 +12,7 @@ require (
 	github.com/golang/protobuf v1.3.2
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/jlaffaye/ftp v0.0.0-20191218041957-e1b8fdd0dcc3
-	github.com/b2wdigital/logrus-redis-hook v1.0.2
+	github.com/jpfaria/logrus-redis-hook v1.0.2
 	github.com/juju/errors v0.0.0-20190930114154-d42613fe1ab9
 	github.com/juju/loggo v0.0.0-20190526231331-6e530bcce5d8 // indirect
 	github.com/juju/testing v0.0.0-20191001232224-ce9dec17d28b // indirect

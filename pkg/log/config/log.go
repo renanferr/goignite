@@ -7,11 +7,11 @@ import (
 )
 
 const (
-	Level          = "logging.level"
-	ConsoleEnabled = "logging.console.enabled"
-	FileEnabled    = "logging.file.enabled"
-	FilePath       = "logging.file.path"
-	FileName       = "logging.file.name"
+	Level          = "log.level"
+	ConsoleEnabled = "log.console.enabled"
+	FileEnabled    = "log.file.enabled"
+	FilePath       = "log.file.path"
+	FileName       = "log.file.name"
 )
 
 func init() {

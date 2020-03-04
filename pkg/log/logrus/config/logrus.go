@@ -6,15 +6,15 @@ import (
 	"github.com/b2wdigital/goignite/pkg/config"
 )
 
-const RedisEnabled = "logging.logrus.redis.enabled"
-const RedisHost = "logging.logrus.redis.host"
-const RedisKey = "logging.logrus.redis.key"
-const RedisFormat = "logging.logrus.redis.format"
-const RedisApp = "logging.logrus.redis.app"
-const RedisPort = "logging.logrus.redis.port"
-const RedisDb = "logging.logrus.redis.db"
-const ConsoleFormatter = "logging.logrus.console.formatter"
-const FileFormatter = "logging.logrus.file.formatter"
+const RedisEnabled = "log.logrus.redis.enabled"
+const RedisHost = "log.logrus.redis.host"
+const RedisKey = "log.logrus.redis.key"
+const RedisFormat = "log.logrus.redis.format"
+const RedisApp = "log.logrus.redis.app"
+const RedisPort = "log.logrus.redis.port"
+const RedisDb = "log.logrus.redis.db"
+const ConsoleFormatter = "log.logrus.console.formatter"
+const FileFormatter = "log.logrus.file.formatter"
 
 func init() {
 

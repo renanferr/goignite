@@ -1,6 +1,6 @@
 # Redis Hook for [Logrus](https://github.com/Sirupsen/logrus) <img src="http://i.imgur.com/hTeVwmJ.png" width="40" height="40" alt=":walrus:" class="emoji" title=":walrus:"/>
 
-[![CircleCI](https://circleci.com/gh/jpfaria/logrus-redis-hook.svg?style=svg)](https://circleci.com/gh/jpfaria/logrus-redis-hook) [![Coverage Status](https://coveralls.io/repos/github/jpfaria/logrus-redis-hook/badge.svg?branch=master)](https://coveralls.io/github/jpfaria/logrus-redis-hook?branch=master) [![Go Report Card](https://goreportcard.com/badge/github.com/b2wdigital/logrus-redis-hook)](https://goreportcard.com/report/github.com/b2wdigital/logrus-redis-hook)
+[![CircleCI](https://circleci.com/gh/jpfaria/logrus-redis-hook.svg?style=svg)](https://circleci.com/gh/jpfaria/logrus-redis-hook) [![Coverage Status](https://coveralls.io/repos/github/jpfaria/logrus-redis-hook/badge.svg?branch=master)](https://coveralls.io/github/jpfaria/logrus-redis-hook?branch=master) [![Go Report Card](https://goreportcard.com/badge/github.com/jpfaria/logrus-redis-hook)](https://goreportcard.com/report/github.com/jpfaria/logrus-redis-hook)
 
 ## Why?
 
@@ -9,7 +9,7 @@ Useful for centralized logging, using a RELK stack (Redis, Elasticsearch, Logsta
 ## Install
 
 ```shell
-$ go get github.com/b2wdigital/logrus-redis-hook
+$ go get github.com/jpfaria/logrus-redis-hook
 ```
 
 ![Colored](http://i.imgur.com/3sWfI4s.jpg)
@@ -24,7 +24,7 @@ import (
 	"io/ioutil"
 
 	"github.com/sirupsen/logrus"
-	"github.com/b2wdigital/logrus-redis-hook"
+	"github.com/jpfaria/logrus-redis-hook"
 )
 
 func init() {

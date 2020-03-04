@@ -8,7 +8,7 @@ import (
 	"github.com/b2wdigital/goignite/pkg/http/router/model/response"
 )
 
-func Health(ctx context.Context) response.HealthResponse {
+func Health(ctx context.Context) (response.HealthResponse, int) {
 
 	var details []response.HealthDetailResponse
 
@@ -51,5 +51,5 @@ func Health(ctx context.Context) response.HealthResponse {
 		}
 	}
 
-	return response.HealthResponseBuilder.Details(details).Status(healthStatus).Build()
+	return response.HealthResponseBuilder.Details(details).Status(healthStatus).Build(), httpStatus
 }

@@ -93,11 +93,11 @@ func main() {
 	instance.Use(middleware.RequestID())
 
 	o := model.OptionsBuilder.
-		Host("http://www.googeeele.com").
+		Host("http://www.google.com").
 		Health(
 			model.OptionsHealthBuilder.
 				Enabled(true).
-				Required(true).
+				Required(false).
 				Description("google dependency").
 				Endpoint("/").
 				Build()).

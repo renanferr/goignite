@@ -62,9 +62,9 @@ func prepare() {
 
 }
 
-func Parse() error {
+func Load() error {
 
-	// Parse flags
+	// Load flags
 	parseFlags()
 
 	// Load the config files provided in the commandline.

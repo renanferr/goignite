@@ -16,5 +16,8 @@ type HealthHandler struct {
 }
 
 func (u *HealthHandler) Get(c echo.Context) error {
-	return parser.JSONResponse(c, http.StatusOK, service.Health(c.Request().Context()), nil)
+
+	resp := service.Health(c.Request().Context())
+
+	return parser.JSONResponse(c, resp.Status, resp, nil)
 }

@@ -13,7 +13,7 @@ func main() {
 
 	ctx := context.Background()
 
-	config.Parse()
+	config.Load()
 
 	logrus.Start()
 

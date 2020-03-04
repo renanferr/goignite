@@ -3,8 +3,8 @@ package parser
 import (
 	"net/http"
 
-	"github.com/go-playground/validator/v10"
 	"github.com/b2wdigital/goignite/pkg/http/router/model/response"
+	"github.com/go-playground/validator/v10"
 	"github.com/juju/errors"
 	"github.com/labstack/echo/v4"
 )

@@ -50,7 +50,7 @@ func Get(c e.Context) (err error) {
 
 func main() {
 
-	err := config.Parse()
+	err := config.Load()
 	if err != nil {
 		log.Fatal(err)
 	}

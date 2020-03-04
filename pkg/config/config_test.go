@@ -26,7 +26,7 @@ func TestPFlag(t *testing.T) {
 
 	Add("key", "value", "test")
 
-	Parse()
+	Load()
 
 	assert.Equal(t, "value", instance.String("key"), "they should be equal")
 }
@@ -37,7 +37,7 @@ func TestEnv(t *testing.T) {
 
 	os.Setenv("K_ENV", "value")
 
-	err := Parse()
+	err := Load()
 	assert.Nil(t, err, "they should be nil")
 
 	assert.Equal(t, "value", instance.String("k.env"), "they should be equal")
@@ -49,7 +49,7 @@ func TestConf(t *testing.T) {
 
 	os.Args = []string{"--conf", "./testdata/config.json", "--conf", "./testdata/config.yaml"}
 
-	err := Parse()
+	err := Load()
 	assert.Nil(t, err, "they should be nil")
 
 	assert.True(t, instance.Bool("debug"), "they should be true")
@@ -64,7 +64,7 @@ func TestUnmarshal(t *testing.T) {
 
 	os.Args = []string{"--conf", "./testdata/config.json", "--conf", "./testdata/config.yaml"}
 
-	err = Parse()
+	err = Load()
 	assert.Nil(t, err, "they should be nil")
 
 	c := Config{}

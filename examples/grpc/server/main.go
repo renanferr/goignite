@@ -13,7 +13,7 @@ func main() {
 
 	ctx := context.Background()
 
-	err := config.Parse()
+	err := config.Load()
 	if err != nil {
 		log.Fatal(err)
 	}

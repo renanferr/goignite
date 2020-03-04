@@ -66,7 +66,7 @@ func Test2(ctx context.Context, e cloudevents.Event, resp *cloudevents.EventResp
 
 func main() {
 
-	err := config.Parse()
+	err := config.Load()
 	if err != nil {
 		log.Fatal(err)
 	}

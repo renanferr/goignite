@@ -54,7 +54,9 @@ func (h *Handler) Get(c e.Context) (err error) {
 		l.Fatal(err)
 	}
 
-	resp := Response{}
+	resp := Response{
+		Message: "Hello Google!!",
+	}
 
 	err = config.Unmarshal(&resp)
 	if err != nil {
@@ -66,7 +68,7 @@ func (h *Handler) Get(c e.Context) (err error) {
 
 func main() {
 
-	err := config.Parse()
+	err := config.Load()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -91,7 +93,7 @@ func main() {
 	instance.Use(middleware.RequestID())
 
 	o := model.OptionsBuilder.
-		Host("http://www.google.com").
+		Host("http://www.googeeele.com").
 		Health(
 			model.OptionsHealthBuilder.
 				Enabled(true).

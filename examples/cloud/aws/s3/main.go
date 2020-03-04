@@ -21,7 +21,7 @@ func init() {
 func main() {
 
 	// parse config
-	err := config.Parse()
+	err := config.Load()
 	if err != nil {
 		log.Fatal(err)
 	}

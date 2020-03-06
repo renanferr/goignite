@@ -22,6 +22,8 @@ import (
 	flag "github.com/spf13/pflag"
 )
 
+const ConfArgument = "conf"
+
 var (
 	entries  []config
 	instance *koanf.Koanf
@@ -68,7 +70,7 @@ func Load() error {
 	parseFlags()
 
 	// Load the config files provided in the commandline.
-	files, _ := f.GetStringSlice("conf")
+	files, _ := f.GetStringSlice(ConfArgument)
 	for _, c := range files {
 
 		var parser koanf.Parser

@@ -13,7 +13,6 @@ func init() {
 	log.Println("getting configurations for echo")
 
 	config.Add(HideBanner, true, "echo hide/show banner")
-
 }
 
 func GetHideBanner() bool {

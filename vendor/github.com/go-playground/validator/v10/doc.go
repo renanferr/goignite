@@ -158,7 +158,7 @@ handy in ignoring embedded structs from being validated. (Usage: -)
 Or Operator
 
 This is the 'or' operator allowing multiple validators to be used and
-accepted. (Usage: rbg|rgba) <-- this would allow either rgb or rgba
+accepted. (Usage: rgb|rgba) <-- this would allow either rgb or rgba
 colors to be accepted. This can also be combined with 'and' for example
 ( Usage: omitempty,rgb|rgba)
 
@@ -641,6 +641,18 @@ hashtag (#)
 
 		Usage: hexcolor
 
+Lowercase String
+
+This validates that a string value contains only lowercase characters. An empty string is not a valid lowercase string.
+
+	Usage: lowercase
+
+Uppercase String
+
+This validates that a string value contains only uppercase characters. An empty string is not a valid uppercase string.
+
+	Usage: uppercase
+
 RGB String
 
 This validates that a string value contains a valid rgb color
@@ -672,6 +684,12 @@ This may not conform to all possibilities of any rfc standard, but neither
 does any email provider accept all possibilities.
 
 	Usage: email
+
+JSON String
+
+This validates that a string value is valid JSON
+
+	Usage: json
 
 File path
 
@@ -1036,6 +1054,20 @@ it exists on the machine.
 This is done using os.Stat, which is a platform independent function.
 
 	Usage: dir
+
+HostPort
+
+This validates that a string value contains a valid DNS hostname and port that
+can be used to valiate fields typically passed to sockets and connections.
+
+	Usage: hostname_port
+
+Datetime
+
+This validates that a string value is a valid datetime based on the supplied datetime format.
+Supplied format must match the official Go time format layout as documented in https://golang.org/pkg/time/
+
+	Usage: datetime=2006-01-02
 
 Alias Validators and Tags
 

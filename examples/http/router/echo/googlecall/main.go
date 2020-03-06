@@ -92,6 +92,11 @@ func main() {
 	instance.Use(middleware.CORS())
 	instance.Use(middleware.RequestID())
 
+	instance.AddErrorAdvice(customErrors.InvalidPayload, 400)
+	instance.AddErrorAdvice(customErrors.InvalidPayload, 400)
+	instance.AddErrorAdvice(customErrors.InvalidPayload, 400)
+	instance.AddErrorAdvice(customErrors.InvalidPayload, 400)
+
 	o := model.OptionsBuilder.
 		Host("http://www.google.com").
 		Health(

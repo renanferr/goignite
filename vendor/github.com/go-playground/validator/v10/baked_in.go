@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 	"net"
 	"net/url"
@@ -166,6 +167,11 @@ var (
 		"html_encoded":         isHTMLEncoded,
 		"url_encoded":          isURLEncoded,
 		"dir":                  isDir,
+		"json":                 isJSON,
+		"hostname_port":        isHostnamePort,
+		"lowercase":            isLowercase,
+		"uppercase":            isUppercase,
+		"datetime":             isDatetime,
 	}
 )
 
@@ -2003,6 +2009,82 @@ func isDir(fl FieldLevel) bool {
 		}
 
 		return fileInfo.IsDir()
+	}
+
+	panic(fmt.Sprintf("Bad field type %T", field.Interface()))
+}
+
+// isJSON is the validation function for validating if the current field's value is a valid json string.
+func isJSON(fl FieldLevel) bool {
+	field := fl.Field()
+
+	if field.Kind() == reflect.String {
+		val := field.String()
+		return json.Valid([]byte(val))
+	}
+
+	panic(fmt.Sprintf("Bad field type %T", field.Interface()))
+}
+
+// isHostnamePort validates a <dns>:<port> combination for fields typically used for socket address.
+func isHostnamePort(fl FieldLevel) bool {
+	val := fl.Field().String()
+	host, port, err := net.SplitHostPort(val)
+	if err != nil {
+		return false
+	}
+	// Port must be a iny <= 65535.
+	if portNum, err := strconv.ParseInt(port, 10, 32); err != nil || portNum > 65535 || portNum < 1 {
+		return false
+	}
+
+	// If host is specified, it should match a DNS name
+	if host != "" {
+		return hostnameRegexRFC1123.MatchString(host)
+	}
+	return true
+}
+
+// isLowercase is the validation function for validating if the current field's value is a lowercase string.
+func isLowercase(fl FieldLevel) bool {
+	field := fl.Field()
+
+	if field.Kind() == reflect.String {
+		if field.String() == "" {
+			return false
+		}
+		return field.String() == strings.ToLower(field.String())
+	}
+
+	panic(fmt.Sprintf("Bad field type %T", field.Interface()))
+}
+
+// isUppercase is the validation function for validating if the current field's value is an uppercase string.
+func isUppercase(fl FieldLevel) bool {
+	field := fl.Field()
+
+	if field.Kind() == reflect.String {
+		if field.String() == "" {
+			return false
+		}
+		return field.String() == strings.ToUpper(field.String())
+	}
+
+	panic(fmt.Sprintf("Bad field type %T", field.Interface()))
+}
+
+// isDatetime is the validation function for validating if the current field's value is a valid datetime string.
+func isDatetime(fl FieldLevel) bool {
+	field := fl.Field()
+	param := fl.Param()
+
+	if field.Kind() == reflect.String {
+		_, err := time.Parse(param, field.String())
+		if err != nil {
+			return false
+		}
+
+		return true
 	}
 
 	panic(fmt.Sprintf("Bad field type %T", field.Interface()))

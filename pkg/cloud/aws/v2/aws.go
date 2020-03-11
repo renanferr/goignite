@@ -5,18 +5,18 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/aws/external"
-	"github.com/b2wdigital/goignite/pkg/cloud/aws/model"
+	aws2 "github.com/b2wdigital/goignite/pkg/cloud/aws"
 	"github.com/b2wdigital/goignite/pkg/config"
-	"github.com/b2wdigital/goignite/pkg/log/logrus"
+	"github.com/b2wdigital/goignite/pkg/log"
 )
 
-func NewConfig(ctx context.Context, options model.Options) aws.Config {
+func NewConfig(ctx context.Context, options aws2.Options) aws.Config {
 
-	log := logrus.FromContext(ctx)
+	l := log.FromContext(ctx)
 
 	cfg, err := external.LoadDefaultAWSConfig()
 	if err != nil {
-		log.Panicf("unable to load AWS SDK config, %s", err.Error())
+		l.Panicf("unable to load AWS SDK config, %s", err.Error())
 	}
 
 	cfg.Region = options.DefaultRegion
@@ -27,13 +27,13 @@ func NewConfig(ctx context.Context, options model.Options) aws.Config {
 
 func NewDefaultConfig(ctx context.Context) aws.Config {
 
-	log := logrus.FromContext(ctx)
+	l := log.FromContext(ctx)
 
-	o := model.Options{}
+	o := aws2.Options{}
 
 	err := config.UnmarshalWithPath("cloud.aws", &o)
 	if err != nil {
-		log.Fatal(err)
+		l.Fatalf(err.Error())
 	}
 
 	return NewConfig(ctx, o)

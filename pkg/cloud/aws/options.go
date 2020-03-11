@@ -30,3 +30,5 @@ func (b optionsBuilder) SessionToken(value string) optionsBuilder {
 func (b optionsBuilder) Build() Options {
 	return builder.GetStruct(b).(Options)
 }
+
+var OptionsBuilder = builder.Register(optionsBuilder{}, Options{}).(optionsBuilder)

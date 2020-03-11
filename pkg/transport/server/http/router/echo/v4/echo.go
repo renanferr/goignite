@@ -6,6 +6,7 @@ import (
 
 	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/b2wdigital/goignite/pkg/transport/server/http/rest"
+	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	m "github.com/neko-neko/echo-logrus/v2"
 	elog "github.com/neko-neko/echo-logrus/v2/log"

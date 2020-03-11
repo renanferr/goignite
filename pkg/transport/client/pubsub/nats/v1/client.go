@@ -1,0 +1,57 @@
+package nats
+
+import (
+	"context"
+
+	"github.com/b2wdigital/goignite/pkg/config"
+	"github.com/b2wdigital/goignite/pkg/health"
+	"github.com/b2wdigital/goignite/pkg/log"
+	rootnats "github.com/b2wdigital/goignite/pkg/transport/client/pubsub/nats"
+	"github.com/nats-io/nats.go"
+)
+
+func NewClient(ctx context.Context, options rootnats.Options) (*nats.Conn, error) {
+
+	l := log.FromContext(ctx)
+
+	conn, err := nats.Connect(
+		options.Url,
+		nats.MaxReconnects(options.MaxReconnects),
+		nats.ReconnectWait(options.ReconnectWait))
+
+	if err != nil {
+		return nil, err
+	}
+
+	// defer conn.Close()
+
+	if options.Health.Enabled {
+		configureHealthCheck(conn, options)
+	}
+
+	l.Infof("Connected to NATS server: %s", options.Url)
+
+	return conn, nil
+}
+
+func NewDefaultClient(ctx context.Context) (*nats.Conn, error) {
+
+	l := log.FromContext(ctx)
+
+	o := rootnats.Options{}
+
+	err := config.UnmarshalWithPath("pubsub.client.nats", &o)
+	if err != nil {
+		l.Fatalf(err.Error())
+	}
+
+	return NewClient(ctx, o)
+
+}
+
+func configureHealthCheck(conn *nats.Conn, o rootnats.Options) {
+	cc := NewClientChecker(conn)
+	hc := health.NewHealthChecker("nats", o.Health.Description, cc, o.Health.Required)
+
+	health.Add(hc)
+}

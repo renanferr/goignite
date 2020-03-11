@@ -1,9 +1,7 @@
 package config
 
 import (
-	"errors"
 	"fmt"
-	"log"
 	"net"
 	"os"
 	"strings"
@@ -64,7 +62,7 @@ func prepare() {
 
 }
 
-func Load() error {
+func Load() {
 
 	// Load flags
 	parseFlags()
@@ -82,11 +80,11 @@ func Load() error {
 		} else if filepath.Ext(c) == ".json" {
 			parser = json.Parser()
 		} else {
-			return errors.New(fmt.Sprintf("error on check extension of file %s", c))
+			panic(fmt.Sprintf("error on check extension of file %s", c))
 		}
 
 		if err := instance.Load(file.Provider(c), parser); err != nil {
-			return err
+			panic(err)
 		}
 	}
 
@@ -96,18 +94,16 @@ func Load() error {
 			strings.TrimPrefix(s, "")), "_", ".", -1)
 	}), nil)
 	if err != nil {
-		return err
+		panic(err)
 	}
 
 	// Load flags
 	flap := posflag.Provider(f, ".", instance)
 
 	if err := instance.Load(flap, nil); err != nil {
-		log.Fatalf(err)
-		return err
+		panic(err)
 	}
 
-	return nil
 }
 
 func parseFlags() {

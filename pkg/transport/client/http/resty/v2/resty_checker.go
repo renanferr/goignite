@@ -5,6 +5,8 @@ import (
 	"errors"
 	"strconv"
 	"strings"
+
+	"github.com/go-resty/resty/v2"
 )
 
 type RestyChecker struct {

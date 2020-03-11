@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/b2wdigital/goignite/pkg/log"
+	"github.com/cloudevents/sdk-go"
 )
 
 func Start(ctx context.Context, fn interface{}, method string) {

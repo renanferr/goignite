@@ -37,8 +37,7 @@ func TestEnv(t *testing.T) {
 
 	os.Setenv("K_ENV", "value")
 
-	err := Load()
-	assert.Nil(t, err, "they should be nil")
+	Load()
 
 	assert.Equal(t, "value", instance.String("k.env"), "they should be equal")
 }
@@ -49,8 +48,7 @@ func TestConf(t *testing.T) {
 
 	os.Args = []string{"--conf", "./testdata/config.json", "--conf", "./testdata/config.yaml"}
 
-	err := Load()
-	assert.Nil(t, err, "they should be nil")
+	Load()
 
 	assert.True(t, instance.Bool("debug"), "they should be true")
 	assert.Equal(t, "127.0.0.13", instance.String("redis.host"), "they should be equal")
@@ -64,8 +62,7 @@ func TestUnmarshal(t *testing.T) {
 
 	os.Args = []string{"--conf", "./testdata/config.json", "--conf", "./testdata/config.yaml"}
 
-	err = Load()
-	assert.Nil(t, err, "they should be nil")
+	Load()
 
 	c := Config{}
 	err = Unmarshal(&c)

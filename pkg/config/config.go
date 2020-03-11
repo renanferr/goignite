@@ -103,7 +103,7 @@ func Load() error {
 	flap := posflag.Provider(f, ".", instance)
 
 	if err := instance.Load(flap, nil); err != nil {
-		log.Fatal(err)
+		log.Fatalf(err)
 		return err
 	}
 

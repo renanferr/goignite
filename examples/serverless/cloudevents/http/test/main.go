@@ -2,10 +2,10 @@ package main
 
 import (
 	"context"
-	"log"
 	"net/http"
 
 	"github.com/b2wdigital/goignite/pkg/config"
+	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/b2wdigital/goignite/pkg/log/logrus"
 	c "github.com/b2wdigital/goignite/pkg/serverless/cloudevents/transport/http"
 	"github.com/cloudevents/sdk-go"
@@ -23,57 +23,53 @@ type User struct {
 	CPF   string `json:"cpf"`
 }
 
+func main() {
+
+	var err error
+
+	err = config.Load()
+	if err != nil {
+		panic(err)
+	}
+
+	ctx := context.Background()
+
+	log.NewLogger(logrus.NewLogger())
+
+	c.Start(ctx, Test2, "POST")
+}
+
 func Test2(ctx context.Context, e cloudevents.Event, resp *cloudevents.EventResponse) error {
 
-	l := logrus.FromContext(ctx)
+	l := log.FromContext(ctx)
 
 	user := &User{}
 	if err := e.DataAs(user); err != nil {
-		l.Printf("Got Data Error: %s\n", err.Error())
+		l.Errorf("Got Data Error: %s\n", err.Error())
 	}
 
 	validate := validator.New()
 	err := validate.Struct(user)
 	if err != nil {
 
+		re := cloudevents.NewEvent()
+		re.SetSource("/mod1")
+		re.SetType("samples.http.mod3")
+
 		resp.Status = http.StatusUnprocessableEntity
-		resp.Event = &cloudevents.Event{
-			Context: cloudevents.EventContextV03{
-				Source: *cloudevents.ParseURLRef("/mod3"),
-				Type:   "samples.http.mod3",
-			}.AsV03(),
-		}
+		resp.Event = &re
 
 		return err
 	}
 
 	resp.Status = http.StatusCreated
 
-	r := cloudevents.Event{
-		Context: cloudevents.EventContextV03{
-			Source: *cloudevents.ParseURLRef("/mod3"),
-			Type:   "samples.http.mod3",
-		}.AsV03(),
-		Data: Example{
-			Message: "Test 3!!",
-		},
-	}
+	r := cloudevents.NewEvent()
+	r.SetData(Example{Message: "Test 3!!"})
+	r.SetSource("/mod1")
+	r.SetType("samples.http.mod3")
 
 	resp.Event = &r
 
 	return nil
-}
-
-func main() {
-
-	err := config.Load()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	ctx := context.Background()
-
-	logrus.Start()
-
-	c.Start(ctx, Test2, "POST")
 }

@@ -2,13 +2,13 @@ package main
 
 import (
 	"context"
-	"log"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/aws/awserr"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	v2 "github.com/b2wdigital/goignite/pkg/cloud/aws/v2"
 	"github.com/b2wdigital/goignite/pkg/config"
+	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/b2wdigital/goignite/pkg/log/logrus"
 )
 
@@ -21,19 +21,21 @@ func init() {
 func main() {
 
 	// parse config
-	err := config.Load()
+	var err error
+
+	err = config.Load()
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	// create background context
 	ctx := context.Background()
 
 	// start logrus
-	logrus.Start()
+	log.NewLogger(logrus.NewLogger())
 
 	// get logrus instance from context
-	l := logrus.FromContext(ctx)
+	l := log.FromContext(ctx)
 
 	// create default aws config
 	awsConfig := v2.NewDefaultConfig(ctx)
@@ -51,7 +53,6 @@ func main() {
 		Key:    aws.String(filename),
 	}
 
-
 	// make a call
 	req := s3Client.HeadObjectRequest(input)
 
@@ -60,14 +61,16 @@ func main() {
 	if err != nil {
 
 		if aerr, ok := err.(awserr.Error); ok && aerr.Code() == "NotFound" {
-			log.Fatal(err)
+			log.Fatalf(err.Error())
 		}
 
-		log.Fatalf("unable check file %s in s3 bucket %s", filename, bucket)
+		l.Fatalf("unable check file %s in s3 bucket %s", filename, bucket)
 	}
 
-	l = l.WithField("lastModified", head.LastModified).
-		WithField("versionId", head.VersionId)
+	l = l.WithFields(
+		log.Fields{"lastModified": head.LastModified,
+			"versionId": head.VersionId,
+		})
 
 	l.Debugf("file %s exists on bucket %s", filename, bucket)
 

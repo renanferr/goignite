@@ -12,10 +12,10 @@ type DBConfig struct {
 }
 
 type Config struct {
-	Addr      string
-	Debug     string
-	DB        DBConfig `config:"db"`
-	Redis     struct {
+	Addr  string
+	Debug string
+	DB    DBConfig `config:"db"`
+	Redis struct {
 		Host string `config:"h"`
 	} `config:"red"`
 }

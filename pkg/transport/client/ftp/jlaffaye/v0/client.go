@@ -4,12 +4,10 @@ import (
 	"time"
 
 	"github.com/b2wdigital/goignite/pkg/config"
-	rootftp "github.com/b2wdigital/goignite/pkg/transport/client/ftp"
 	"github.com/jlaffaye/ftp"
-	"gopkg.in/matryer/try.v1"
 )
 
-func NewClient(options *rootftp.Options) (*ftp.ServerConn, error) {
+func NewClient(options *Options) (*ftp.ServerConn, error) {
 
 	var conn *ftp.ServerConn
 
@@ -32,11 +30,11 @@ func NewClient(options *rootftp.Options) (*ftp.ServerConn, error) {
 
 func NewDefaultClient() (*ftp.ServerConn, error) {
 
-	options := rootftp.OptionsBuilder.
-		Addr(config.String(rootftp.Addr)).
-		User(config.String(rootftp.Username)).
-		Password(config.String(rootftp.Password)).
-		Timeout(config.Int(rootftp.Timeout)).
+	options := OptionsBuilder.
+		Addr(config.String(Addr)).
+		User(config.String(Username)).
+		Password(config.String(Password)).
+		Timeout(config.Int(Timeout)).
 		Build()
 
 	return NewClient(&options)

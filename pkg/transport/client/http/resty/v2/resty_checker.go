@@ -5,14 +5,11 @@ import (
 	"errors"
 	"strconv"
 	"strings"
-
-	rootresty "github.com/b2wdigital/goignite/pkg/transport/client/http/resty"
-	"github.com/go-resty/resty/v2"
 )
 
 type RestyChecker struct {
 	client  *resty.Client
-	options *rootresty.Options
+	options *Options
 }
 
 func (c *RestyChecker) Check(ctx context.Context) (err error) {
@@ -30,6 +27,6 @@ func (c *RestyChecker) Check(ctx context.Context) (err error) {
 	return err
 }
 
-func NewRestyChecker(client *resty.Client, options *rootresty.Options) *RestyChecker {
+func NewRestyChecker(client *resty.Client, options *Options) *RestyChecker {
 	return &RestyChecker{client: client, options: options}
 }

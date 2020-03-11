@@ -6,10 +6,8 @@ import (
 
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/log"
-	rootzap "github.com/b2wdigital/goignite/pkg/log/zap"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func NewLogger() log.Logger {
@@ -19,7 +17,7 @@ func NewLogger() log.Logger {
 	if config.Bool(log.ConsoleEnabled) {
 		level := getZapLevel(config.String(log.ConsoleLevel))
 		writer := zapcore.Lock(os.Stdout)
-		core := zapcore.NewCore(getEncoder(config.String(rootzap.ConsoleFormatter)), writer, level)
+		core := zapcore.NewCore(getEncoder(config.String(ConsoleFormatter)), writer, level)
 		cores = append(cores, core)
 	}
 
@@ -34,7 +32,7 @@ func NewLogger() log.Logger {
 			Compress: config.Bool(log.FileCompress),
 			MaxAge:   config.Int(log.FileMaxAge),
 		})
-		core := zapcore.NewCore(getEncoder(config.String(rootzap.FileFormatter)), writer, level)
+		core := zapcore.NewCore(getEncoder(config.String(FileFormatter)), writer, level)
 		cores = append(cores, core)
 	}
 

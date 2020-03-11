@@ -5,7 +5,7 @@ import (
 
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/log"
-	"github.com/b2wdigital/goignite/pkg/transport/client/grpc"
+	"github.com/b2wdigital/goignite/pkg/log/logrus/v1"
 	"github.com/b2wdigital/goignite/pkg/transport/client/grpc/v1"
 )
 
@@ -13,14 +13,9 @@ func main() {
 
 	ctx := context.Background()
 
-	var err error
+	config.Load()
 
-	err = config.Load()
-	if err != nil {
-		panic(err)
-	}
-
-	log.NewLogger(v1.NewLogger())
+	log.NewLogger(logrus.NewLogger())
 
 	request := &TestRequest{
 		Message: "mensagem da requisição",
@@ -38,7 +33,7 @@ func main() {
 		Health(health).
 		Build()
 
-	conn := v1.NewClient(ctx, &options)
+	conn := grpc.NewClient(ctx, &options)
 	defer conn.Close()
 
 	c := NewExampleClient(conn)

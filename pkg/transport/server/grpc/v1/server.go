@@ -1,4 +1,4 @@
-package v1
+package grpc
 
 import (
 	"context"
@@ -10,7 +10,6 @@ import (
 
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/log"
-	rootgrpc "github.com/b2wdigital/goignite/pkg/transport/server/grpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/channelz/service"
 	"google.golang.org/grpc/credentials"
@@ -30,17 +29,17 @@ func Start(ctx context.Context) *grpc.Server {
 
 	var s *grpc.Server
 
-	if config.Bool(rootgrpc.TlsEnabled) {
+	if config.Bool(TlsEnabled) {
 
 		// Load the certificates from disk
-		certificate, err := tls.LoadX509KeyPair(config.String(rootgrpc.CertFile), config.String(rootgrpc.KeyFile))
+		certificate, err := tls.LoadX509KeyPair(config.String(CertFile), config.String(KeyFile))
 		if err != nil {
 			l.Fatalf("could not load server key pair: %s", err)
 		}
 
 		// Create a certificate pool from the certificate authority
 		certPool := x509.NewCertPool()
-		ca, err := ioutil.ReadFile(config.String(rootgrpc.CaFile))
+		ca, err := ioutil.ReadFile(config.String(CaFile))
 		if err != nil {
 			l.Fatalf("could not read ca certificate: %s", err)
 		}
@@ -59,7 +58,7 @@ func Start(ctx context.Context) *grpc.Server {
 
 		s = grpc.NewServer(
 			grpc.Creds(creds),
-			grpc.MaxConcurrentStreams(uint32(config.Int64(rootgrpc.MaxConcurrentStreams))),
+			grpc.MaxConcurrentStreams(uint32(config.Int64(MaxConcurrentStreams))),
 			// grpc.InitialConnWindowSize(100),
 			// grpc.InitialWindowSize(100),
 			grpc.StreamInterceptor(DebugStreamServerInterceptor()),
@@ -69,7 +68,7 @@ func Start(ctx context.Context) *grpc.Server {
 	} else {
 
 		s = grpc.NewServer(
-			grpc.MaxConcurrentStreams(uint32(config.Int64(rootgrpc.MaxConcurrentStreams))),
+			grpc.MaxConcurrentStreams(uint32(config.Int64(MaxConcurrentStreams))),
 			// grpc.InitialConnWindowSize(100),
 			// grpc.InitialWindowSize(100),
 			grpc.StreamInterceptor(DebugStreamServerInterceptor()),
@@ -92,7 +91,7 @@ func Serve(ctx context.Context) {
 	// Register reflection service on gRPC server.
 	reflection.Register(instance)
 
-	port := config.Int(rootgrpc.Port)
+	port := config.Int(Port)
 
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {

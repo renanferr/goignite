@@ -5,8 +5,7 @@ import (
 	"strconv"
 
 	"github.com/b2wdigital/goignite/pkg/log"
-	"github.com/b2wdigital/goignite/pkg/transport/server/http/router"
-	"github.com/labstack/echo/v4"
+	"github.com/b2wdigital/goignite/pkg/transport/server/http/rest"
 	"github.com/labstack/echo/v4/middleware"
 	m "github.com/neko-neko/echo-logrus/v2"
 	elog "github.com/neko-neko/echo-logrus/v2/log"
@@ -38,14 +37,14 @@ func setDefaultRouters(ctx context.Context, instance *echo.Echo) {
 
 	l := log.FromContext(ctx)
 
-	statusRoute := router.GetStatusRoute()
+	statusRoute := rest.GetStatusRoute()
 
 	l.Infof("configuring status router on %s", statusRoute)
 
 	statusHandler := NewResourceStatusHandler()
 	instance.GET(statusRoute, statusHandler.Get)
 
-	healthRoute := router.GetHealthRoute()
+	healthRoute := rest.GetHealthRoute()
 
 	l.Infof("configuring health router on %s", healthRoute)
 
@@ -61,5 +60,5 @@ func Serve(ctx context.Context) {
 }
 
 func getServerPort() string {
-	return ":" + strconv.Itoa(router.GetPort())
+	return ":" + strconv.Itoa(rest.GetPort())
 }

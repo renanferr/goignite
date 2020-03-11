@@ -1,4 +1,4 @@
-package v1
+package grpc
 
 import (
 	"context"
@@ -9,13 +9,12 @@ import (
 
 	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/log"
-	grpc2 "github.com/b2wdigital/goignite/pkg/transport/client/grpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/encoding/gzip"
 )
 
-func NewClient(ctx context.Context, options *grpc2.Options) *grpc.ClientConn {
+func NewClient(ctx context.Context, options *Options) *grpc.ClientConn {
 
 	var err error
 	var conn *grpc.ClientConn
@@ -60,14 +59,14 @@ func NewClient(ctx context.Context, options *grpc2.Options) *grpc.ClientConn {
 	return conn
 }
 
-func configureHealthCheck(conn *grpc.ClientConn, o *grpc2.Options) {
+func configureHealthCheck(conn *grpc.ClientConn, o *Options) {
 	cc := NewClientChecker(conn)
 	hc := health.NewHealthChecker("grpc", o.Health.Description, cc, o.Health.Required)
 
 	health.Add(hc)
 }
 
-func addTlsOptions(ctx context.Context, options *grpc2.Options, opts []grpc.DialOption) []grpc.DialOption {
+func addTlsOptions(ctx context.Context, options *Options, opts []grpc.DialOption) []grpc.DialOption {
 
 	l := log.FromContext(ctx)
 

@@ -8,26 +8,24 @@ import (
 
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/log"
-	rootlogrus "github.com/b2wdigital/goignite/pkg/log/logrus"
 	logredis "github.com/jpfaria/logrus-redis-hook"
 	"github.com/ravernkoh/cwlogsfmt"
 	"github.com/sirupsen/logrus"
-	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func NewLogger() log.Logger {
 
 	lLogger := new(logrus.Logger)
 
-	if config.Bool(rootlogrus.RedisEnabled) {
+	if config.Bool(RedisEnabled) {
 
 		hookConfig := logredis.HookConfig{
-			Host:   config.String(rootlogrus.RedisHost),
-			Key:    config.String(rootlogrus.RedisKey),
-			Format: config.String(rootlogrus.RedisFormat),
-			App:    config.String(rootlogrus.RedisApp),
-			Port:   config.Int(rootlogrus.RedisPort),
-			DB:     config.Int(rootlogrus.RedisDb),
+			Host:   config.String(RedisHost),
+			Key:    config.String(RedisKey),
+			Format: config.String(RedisFormat),
+			App:    config.String(RedisApp),
+			Port:   config.Int(RedisPort),
+			DB:     config.Int(RedisDb),
 		}
 
 		hook, err := logredis.NewHook(hookConfig)
@@ -66,7 +64,7 @@ func NewLogger() log.Logger {
 	}
 
 	level := getLogLevel(config.String(log.ConsoleLevel))
-	formatter := getFormatter(config.String(rootlogrus.Formatter))
+	formatter := getFormatter(config.String(Formatter))
 
 	lLogger.SetLevel(level)
 	lLogger.SetFormatter(formatter)

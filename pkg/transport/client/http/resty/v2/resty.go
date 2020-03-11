@@ -7,15 +7,12 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/log"
-	rootresty "github.com/b2wdigital/goignite/pkg/transport/client/http/resty"
-	"github.com/go-resty/resty/v2"
-
-	"github.com/b2wdigital/goignite/pkg/config"
 )
 
-func NewClient(ctx context.Context, options *rootresty.Options) *resty.Client {
+func NewClient(ctx context.Context, options *Options) *resty.Client {
 
 	l := log.FromContext(ctx)
 
@@ -30,33 +27,33 @@ func NewClient(ctx context.Context, options *rootresty.Options) *resty.Client {
 	}
 
 	transport := &http.Transport{
-		DisableCompression:    config.Bool(rootresty.TransportDisableCompression),
-		DisableKeepAlives:     config.Bool(rootresty.TransportDisableKeepAlives),
-		MaxIdleConnsPerHost:   config.Int(rootresty.TransportMaxConnsPerHost),
-		ResponseHeaderTimeout: config.Duration(rootresty.TransportResponseHeaderTimeout),
+		DisableCompression:    config.Bool(TransportDisableCompression),
+		DisableKeepAlives:     config.Bool(TransportDisableKeepAlives),
+		MaxIdleConnsPerHost:   config.Int(TransportMaxConnsPerHost),
+		ResponseHeaderTimeout: config.Duration(TransportResponseHeaderTimeout),
 		Proxy:                 http.ProxyFromEnvironment,
 		DialContext:           dialer.DialContext,
-		ForceAttemptHTTP2:     config.Bool(rootresty.TransportForceAttemptHTTP2),
-		MaxIdleConns:          config.Int(rootresty.TransportMaxIdleConns),
-		MaxConnsPerHost:       config.Int(rootresty.TransportMaxConnsPerHost),
-		IdleConnTimeout:       config.Duration(rootresty.TransportIdleConnTimeout),
-		TLSHandshakeTimeout:   config.Duration(rootresty.TransportTLSHandshakeTimeout),
-		ExpectContinueTimeout: config.Duration(rootresty.TransportExpectContinueTimeout),
+		ForceAttemptHTTP2:     config.Bool(TransportForceAttemptHTTP2),
+		MaxIdleConns:          config.Int(TransportMaxIdleConns),
+		MaxConnsPerHost:       config.Int(TransportMaxConnsPerHost),
+		IdleConnTimeout:       config.Duration(TransportIdleConnTimeout),
+		TLSHandshakeTimeout:   config.Duration(TransportTLSHandshakeTimeout),
+		ExpectContinueTimeout: config.Duration(TransportExpectContinueTimeout),
 	}
 
 	client.
 		SetTransport(transport).
-		SetTimeout(config.Duration(rootresty.RequestTimeout)).
-		SetRetryCount(config.Int(rootresty.RetryCount)).
-		SetRetryWaitTime(config.Duration(rootresty.RetryWaitTime)).
-		SetRetryMaxWaitTime(config.Duration(rootresty.RetryMaxWaitTime)).
+		SetTimeout(config.Duration(RequestTimeout)).
+		SetRetryCount(config.Int(RetryCount)).
+		SetRetryWaitTime(config.Duration(RetryWaitTime)).
+		SetRetryMaxWaitTime(config.Duration(RetryMaxWaitTime)).
 		SetDebug(false).
 		SetHostURL(options.Host).
 		AddRetryCondition(statusCodeRetryCondition)
 
 	addTimeoutRetryCondition(client, options)
 
-	if options.Debug || config.Bool(rootresty.Debug) {
+	if options.Debug || config.Bool(Debug) {
 		client.OnBeforeRequest(logBeforeResponse)
 		client.OnAfterResponse(logAfterResponse)
 		client.SetDebug(true)
@@ -85,7 +82,7 @@ func NewClient(ctx context.Context, options *rootresty.Options) *resty.Client {
 	return client
 }
 
-func addTimeoutRetryCondition(client *resty.Client, options *rootresty.Options) {
+func addTimeoutRetryCondition(client *resty.Client, options *Options) {
 
 	client.AddRetryCondition(
 		func(r *resty.Response, err error) bool {
@@ -95,7 +92,7 @@ func addTimeoutRetryCondition(client *resty.Client, options *rootresty.Options) 
 			if options.RequestTimeout > 0 {
 				timeout = options.RequestTimeout
 			} else {
-				timeout = config.Duration(rootresty.RequestTimeout)
+				timeout = config.Duration(RequestTimeout)
 			}
 
 			if r.Time() > timeout {
@@ -171,7 +168,7 @@ func logAfterResponse(client *resty.Client, response *resty.Response) error {
 	return nil
 }
 
-func configureHealthCheck(client *resty.Client, o *rootresty.Options) {
+func configureHealthCheck(client *resty.Client, o *Options) {
 
 	mc := NewRestyChecker(client, o)
 	hc := health.NewHealthChecker("http rest client", o.Health.Description, mc, o.Health.Required)

@@ -6,11 +6,9 @@ import (
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/log"
-	rootnats "github.com/b2wdigital/goignite/pkg/transport/client/pubsub/nats"
-	"github.com/nats-io/nats.go"
 )
 
-func NewClient(ctx context.Context, options rootnats.Options) (*nats.Conn, error) {
+func NewClient(ctx context.Context, options Options) (*nats.Conn, error) {
 
 	l := log.FromContext(ctx)
 
@@ -38,7 +36,7 @@ func NewDefaultClient(ctx context.Context) (*nats.Conn, error) {
 
 	l := log.FromContext(ctx)
 
-	o := rootnats.Options{}
+	o := Options{}
 
 	err := config.UnmarshalWithPath("pubsub.client.nats", &o)
 	if err != nil {
@@ -49,7 +47,7 @@ func NewDefaultClient(ctx context.Context) (*nats.Conn, error) {
 
 }
 
-func configureHealthCheck(conn *nats.Conn, o rootnats.Options) {
+func configureHealthCheck(conn *nats.Conn, o Options) {
 	cc := NewClientChecker(conn)
 	hc := health.NewHealthChecker("nats", o.Health.Description, cc, o.Health.Required)
 

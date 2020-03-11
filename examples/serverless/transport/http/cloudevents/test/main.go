@@ -7,7 +7,7 @@ import (
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/b2wdigital/goignite/pkg/log/logrus/v1"
-	cloudevents2 "github.com/b2wdigital/goignite/pkg/transport/serverless/transport/http/cloudevents"
+	transport "github.com/b2wdigital/goignite/pkg/serverless/transport/http/cloudevents/v1"
 	"github.com/cloudevents/sdk-go"
 	"github.com/go-playground/validator/v10"
 )
@@ -25,18 +25,13 @@ type User struct {
 
 func main() {
 
-	var err error
-
-	err = config.Load()
-	if err != nil {
-		panic(err)
-	}
+	config.Load()
 
 	ctx := context.Background()
 
-	log.NewLogger(v1.NewLogger())
+	log.NewLogger(logrus.NewLogger())
 
-	cloudevents2.Start(ctx, Test2, "POST")
+	transport.Start(ctx, Test2, "POST")
 }
 
 func Test2(ctx context.Context, e cloudevents.Event, resp *cloudevents.EventResponse) error {

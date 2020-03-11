@@ -1,16 +1,15 @@
-package v2
+package aws
 
 import (
 	"context"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/aws/external"
-	aws2 "github.com/b2wdigital/goignite/pkg/cloud/aws"
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/log"
 )
 
-func NewConfig(ctx context.Context, options aws2.Options) aws.Config {
+func NewConfig(ctx context.Context, options Options) aws.Config {
 
 	l := log.FromContext(ctx)
 
@@ -29,9 +28,9 @@ func NewDefaultConfig(ctx context.Context) aws.Config {
 
 	l := log.FromContext(ctx)
 
-	o := aws2.Options{}
+	o := Options{}
 
-	err := config.UnmarshalWithPath("cloud.aws", &o)
+	err := config.UnmarshalWithPath("aws", &o)
 	if err != nil {
 		l.Fatalf(err.Error())
 	}

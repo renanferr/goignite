@@ -22,7 +22,7 @@ type Config struct {
 
 func TestPFlag(t *testing.T) {
 
-	prepare()
+	flagLoad()
 
 	Add("key", "value", "test")
 
@@ -33,7 +33,7 @@ func TestPFlag(t *testing.T) {
 
 func TestEnv(t *testing.T) {
 
-	prepare()
+	flagLoad()
 
 	os.Setenv("K_ENV", "value")
 
@@ -44,7 +44,7 @@ func TestEnv(t *testing.T) {
 
 func TestConf(t *testing.T) {
 
-	prepare()
+	flagLoad()
 
 	os.Args = []string{"--conf", "./testdata/config.json", "--conf", "./testdata/config.yaml"}
 
@@ -56,7 +56,7 @@ func TestConf(t *testing.T) {
 
 func TestUnmarshal(t *testing.T) {
 
-	prepare()
+	flagLoad()
 
 	var err error
 

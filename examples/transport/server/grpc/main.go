@@ -5,28 +5,24 @@ import (
 
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/log"
-	"github.com/b2wdigital/goignite/pkg/transport/server/grpc/v2"
+	"github.com/b2wdigital/goignite/pkg/log/logrus/v1"
+	"github.com/b2wdigital/goignite/pkg/transport/server/grpc/v1"
 )
 
 func main() {
 
 	ctx := context.Background()
 
-	var err error
-
-	err = config.Load()
-	if err != nil {
-		panic(err)
-	}
+	config.Load()
 
 	// start logrus
-	log.NewLogger(v1.NewLogger())
+	log.NewLogger(logrus.NewLogger())
 
-	s := v1.Start(ctx)
+	s := grpc.Start(ctx)
 
 	RegisterExampleServer(s, &Service{})
 
-	v1.Serve(ctx)
+	grpc.Serve(ctx)
 }
 
 type Service struct {

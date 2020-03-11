@@ -3,7 +3,7 @@ package echo
 import (
 	"net/http"
 
-	"github.com/b2wdigital/goignite/pkg/transport/server/http/router"
+	"github.com/b2wdigital/goignite/pkg/transport/server/http/rest"
 	"github.com/labstack/echo/v4"
 )
 
@@ -15,5 +15,5 @@ type ResourceStatusHandler struct {
 }
 
 func (u *ResourceStatusHandler) Get(c echo.Context) error {
-	return JSONResponse(c, http.StatusOK, router.ResourceStatus(c.Request().Context()), nil)
+	return JSONResponse(c, http.StatusOK, rest.ResourceStatus(c.Request().Context()), nil)
 }

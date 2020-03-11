@@ -7,10 +7,7 @@ import (
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/info"
 	"github.com/b2wdigital/goignite/pkg/log"
-	resty2 "github.com/b2wdigital/goignite/pkg/transport/client/http/resty"
-	r "github.com/b2wdigital/goignite/pkg/transport/client/http/resty/v2"
-	"github.com/b2wdigital/goignite/pkg/transport/server/http/router/echo/v4"
-	"github.com/go-resty/resty/v2"
+	"github.com/b2wdigital/goignite/pkg/transport/client/http/resty/v2"
 	e "github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -92,10 +89,10 @@ func main() {
 
 	//instance.AddErrorAdvice(customErrors.InvalidPayload, 400)
 
-	o := resty2.OptionsBuilder.
+	o := resty.OptionsBuilder.
 		Host("http://www.google.com").
 		Health(
-			resty2.OptionsHealthBuilder.
+			resty.OptionsHealthBuilder.
 				Enabled(true).
 				Required(false).
 				Description("google dependency").
@@ -103,7 +100,7 @@ func main() {
 				Build()).
 		Build()
 
-	client := r.NewClient(ctx, &o)
+	client := resty.NewClient(ctx, &o)
 
 	handler := NewHandler(client)
 	instance.GET(c.App.Endpoint.Google, handler.Get)

@@ -9,6 +9,7 @@ import (
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/info"
 	"github.com/b2wdigital/goignite/pkg/log"
+	"github.com/b2wdigital/goignite/pkg/log/logrus/v1"
 	"github.com/b2wdigital/goignite/pkg/transport/server/http/router/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/wesovilabs/beyond/api"
@@ -44,11 +45,11 @@ func main() {
 
 	ctx := context.Background()
 
-	log.NewLogger(v1.NewLogger())
+	log.NewLogger(logrus.NewLogger())
 
 	info.AppName = "google"
 
-	instance := v4.Start(ctx)
+	instance := echo.Start(ctx)
 
 	instance.Use(middleware.Gzip())
 	instance.Use(middleware.CORS())

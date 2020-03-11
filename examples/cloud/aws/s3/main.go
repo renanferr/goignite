@@ -6,13 +6,13 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/aws/awserr"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
-	localaws "github.com/b2wdigital/goignite/pkg/cloud/aws/v2"
+	awsv2 "github.com/b2wdigital/goignite/pkg/cloud/aws/v2"
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/log"
-	_ "github.com/b2wdigital/goignite/pkg/log/zap/v1"
+	"github.com/b2wdigital/goignite/pkg/log/logrus/v1"
 )
 
-const Bucket = "cloud.aws.s3.bucket"
+const Bucket = "aws.s3.bucket"
 
 func init() {
 	config.Add(Bucket, "example", "s3 example bucket")
@@ -20,22 +20,20 @@ func init() {
 
 func main() {
 
-	// parse config
-	var err error
-
 	config.Load()
 
 	// create background context
 	ctx := context.Background()
 
 	// start logrus
-// 	log.NewLogger(zap.NewLogger())
+	//	log.NewLogger(zap.NewLogger())
+	log.NewLogger(logrus.NewLogger())
 
 	// get logrus instance from context
 	l := log.FromContext(ctx)
 
 	// create default aws config
-	awsConfig := localaws.NewDefaultConfig(ctx)
+	awsConfig := awsv2.NewDefaultConfig(ctx)
 
 	// create s3 client
 	s3Client := s3.New(awsConfig)

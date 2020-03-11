@@ -11,6 +11,7 @@ import (
 	logredis "github.com/jpfaria/logrus-redis-hook"
 	"github.com/ravernkoh/cwlogsfmt"
 	"github.com/sirupsen/logrus"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func NewLogger() log.Logger {

@@ -10,6 +10,7 @@ import (
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/log"
+	"github.com/go-resty/resty/v2"
 )
 
 func NewClient(ctx context.Context, options *Options) *resty.Client {

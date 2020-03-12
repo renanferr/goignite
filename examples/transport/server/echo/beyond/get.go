@@ -1,9 +1,8 @@
-package handler
+package main
 
 import (
 	"net/http"
 
-	"github.com/b2wdigital/goignite/examples/transport/server/echo/aop/model/response"
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/b2wdigital/goignite/pkg/transport/server/echo/v4"
@@ -14,7 +13,7 @@ func Get(c e.Context) (err error) {
 
 	l := log.FromContext(c.Request().Context())
 
-	resp := response.Response{
+	resp := Response{
 		Message: "Hello Google!!",
 	}
 

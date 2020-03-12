@@ -8,7 +8,7 @@ import (
 
 const (
 	ConsoleFormatter = "log.zap.console.formatter"
-	FileFormatter    = "log.file.console.formatter"
+	FileFormatter    = "log.zap.file.formatter"
 )
 
 func init() {

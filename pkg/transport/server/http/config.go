@@ -1,4 +1,4 @@
-package rest
+package http
 
 import (
 	"log"
@@ -7,9 +7,9 @@ import (
 )
 
 const (
-	Port        = "http.server.port"
-	StatusRoute = "http.server.route.status"
-	HealthRoute = "http.server.route.health"
+	Port        = "transport.server.http.port"
+	StatusRoute = "transport.server.http.route.status"
+	HealthRoute = "transport.server.http.route.health"
 )
 
 func init() {

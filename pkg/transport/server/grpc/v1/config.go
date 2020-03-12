@@ -7,12 +7,12 @@ import (
 )
 
 const (
-	Port                 = "grpc.server.port"
-	MaxConcurrentStreams = "grpc.server.maxconcurrentstreams"
-	TlsEnabled = "grpc.server.tls.enabled"
-	CertFile   = "grpc.server.tls.certfile"
-	KeyFile    = "grpc.server.tls.keyfile"
-	CaFile     = "grpc.server.tls.cafile"
+	Port                 = "transport.server.grpc.port"
+	MaxConcurrentStreams = "transport.server.grpc.maxconcurrentstreams"
+	TlsEnabled           = "transport.server.grpc.tls.enabled"
+	CertFile             = "transport.server.grpc.tls.certfile"
+	KeyFile              = "transport.server.grpc.tls.keyfile"
+	CaFile               = "transport.server.grpc.tls.cafile"
 )
 
 func init() {

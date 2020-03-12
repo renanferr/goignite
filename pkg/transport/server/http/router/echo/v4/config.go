@@ -6,7 +6,7 @@ import (
 	"github.com/b2wdigital/goignite/pkg/config"
 )
 
-const HideBanner = "http.server.echo.hidebanner"
+const HideBanner = "transport.server.http.router.echo.hidebanner"
 
 func init() {
 

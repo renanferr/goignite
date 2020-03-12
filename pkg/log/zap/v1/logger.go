@@ -1,6 +1,7 @@
 package zap
 
 import (
+	"gopkg.in/natefinch/lumberjack.v2"
 	"os"
 	"strings"
 

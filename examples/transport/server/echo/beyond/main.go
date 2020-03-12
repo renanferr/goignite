@@ -3,9 +3,6 @@ package main
 import (
 	"context"
 
-	"github.com/b2wdigital/goignite/examples/transport/server/echo/aop/advice"
-	"github.com/b2wdigital/goignite/examples/transport/server/echo/aop/handler"
-	c "github.com/b2wdigital/goignite/examples/transport/server/echo/aop/model/config"
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/info"
 	"github.com/b2wdigital/goignite/pkg/log"
@@ -23,8 +20,8 @@ func init() {
 
 func Beyond() *api.Beyond {
 	return api.New().
-		WithBefore(advice.NewTracingAdvice, "handler.Get(...)").
-		WithBefore(advice.NewTracingAdviceWithPrefix("[beyond]"), "handler.*(...)...")
+		WithBefore(NewTracingAdvice, "handler.Get(...)").
+		WithBefore(NewTracingAdviceWithPrefix("[beyond]"), "handler.*(...)...")
 }
 
 func main() {
@@ -33,7 +30,7 @@ func main() {
 
 	config.Load()
 
-	c := c.Config{}
+	c := Config{}
 
 	err = config.Unmarshal(&c)
 	if err != nil {
@@ -52,7 +49,7 @@ func main() {
 	instance.Use(middleware.CORS())
 	instance.Use(middleware.RequestID())
 
-	instance.GET(c.App.Endpoint.Google, handler.Get)
+	instance.GET(c.App.Endpoint.Google, Get)
 
 	echo.Serve(ctx)
 }

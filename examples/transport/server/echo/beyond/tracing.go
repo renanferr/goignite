@@ -1,4 +1,4 @@
-package advice
+package main
 
 import (
 	"context"

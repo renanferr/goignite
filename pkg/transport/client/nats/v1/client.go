@@ -6,6 +6,7 @@ import (
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/log"
+	"github.com/nats-io/nats.go"
 )
 
 func NewClient(ctx context.Context, options Options) (*nats.Conn, error) {
@@ -38,7 +39,7 @@ func NewDefaultClient(ctx context.Context) (*nats.Conn, error) {
 
 	o := Options{}
 
-	err := config.UnmarshalWithPath("pubsub.client.nats", &o)
+	err := config.UnmarshalWithPath("transport.client.nats", &o)
 	if err != nil {
 		l.Fatalf(err.Error())
 	}

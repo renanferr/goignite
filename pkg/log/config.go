@@ -7,15 +7,15 @@ import (
 )
 
 const (
-	ConsoleEnabled = "l.console.enabled"
-	ConsoleLevel   = "l.console.level"
-	FileEnabled    = "l.file.enabled"
-	FileLevel      = "l.file.level"
-	FilePath       = "l.file.path"
-	FileName       = "l.file.name"
-	FileMaxSize    = "l.file.maxsize"
-	FileCompress   = "l.file.compress"
-	FileMaxAge     = "l.file.maxage"
+	ConsoleEnabled = "log.console.enabled"
+	ConsoleLevel   = "log.console.level"
+	FileEnabled    = "log.file.enabled"
+	FileLevel      = "log.file.level"
+	FilePath       = "log.file.path"
+	FileName       = "log.file.name"
+	FileMaxSize    = "log.file.maxsize"
+	FileCompress   = "log.file.compress"
+	FileMaxAge     = "log.file.maxage"
 )
 
 func init() {

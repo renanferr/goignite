@@ -1,4 +1,4 @@
-package jlaffaye
+package ftp
 
 import (
 	"log"
@@ -7,11 +7,11 @@ import (
 )
 
 const (
-	Addr     = "ftp.client.addr"
-	Username = "ftp.client.username"
-	Password = "ftp.client.password"
-	Timeout  = "ftp.client.timeout"
-	Retry    = "ftp.client.retry"
+	Addr     = "transport.client.ftp.addr"
+	Username = "transport.client.ftp.username"
+	Password = "transport.client.ftp.password"
+	Timeout  = "transport.client.ftp.timeout"
+	Retry    = "transport.client.ftp.retry"
 )
 
 func init() {

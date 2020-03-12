@@ -9,12 +9,12 @@ import (
 )
 
 const (
-	MaxReconnects     = "pubsub.client.nats.maxreconnects"
-	ReconnectWait     = "pubsub.client.nats.reconnectwait"
-	HealthEnabled     = "pubsub.client.nats.health.enabled"
-	HealthDescription = "pubsub.client.nats.health.description"
-	HealthRequired    = "pubsub.client.nats.health.required"
-	Url = "pubsub.client.nats.url"
+	MaxReconnects     = "transport.client.pubsub.nats.maxreconnects"
+	ReconnectWait     = "transport.client.pubsub.nats.reconnectwait"
+	HealthEnabled     = "transport.client.pubsub.nats.health.enabled"
+	HealthDescription = "transport.client.pubsub.nats.health.description"
+	HealthRequired    = "transport.client.pubsub.nats.health.required"
+	Url               = "transport.client.pubsub.nats.url"
 )
 
 func init() {

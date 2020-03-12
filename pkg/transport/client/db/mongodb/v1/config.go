@@ -7,10 +7,10 @@ import (
 )
 
 const (
-	Uri               = "db.mongodb.uri"
-	HealthEnabled     = "db.mongodb.health.enabled"
-	HealthDescription = "db.mongodb.health.description"
-	HealthRequired    = "db.mongodb.health.required"
+	Uri               = "transport.client.db.mongodb.uri"
+	HealthEnabled     = "transport.client.db.mongodb.health.enabled"
+	HealthDescription = "transport.client.db.mongodb.health.description"
+	HealthRequired    = "transport.client.db.mongodb.health.required"
 )
 
 func init() {

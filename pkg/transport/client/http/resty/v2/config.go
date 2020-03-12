@@ -9,21 +9,21 @@ import (
 )
 
 const (
-	Debug                          = "http.client.resty.debug"
-	RequestTimeout                 = "http.client.resty.request.timeout"
-	RetryCount                     = "http.client.resty.retry.count"
-	RetryWaitTime                  = "http.client.resty.retry.waittime"
-	RetryMaxWaitTime               = "http.client.resty.retry.maxwaittime"
-	TransportDisableCompression    = "http.client.resty.transport.disablecompression"
-	TransportDisableKeepAlives     = "http.client.resty.transport.disablekeepalives"
-	TransportMaxIdleConnsPerHost   = "http.client.resty.transport.maxidleconnsperhost"
-	TransportResponseHeaderTimeout = "http.client.resty.transport.responseheadertimeout"
-	TransportForceAttemptHTTP2     = "http.client.resty.transport.forceattempthttp2"
-	TransportMaxIdleConns          = "http.client.resty.transport.maxidleconns"
-	TransportMaxConnsPerHost       = "http.client.resty.transport.maxconnsperhost"
-	TransportIdleConnTimeout       = "http.client.resty.transport.idleconntimeout"
-	TransportTLSHandshakeTimeout   = "http.client.resty.transport.tlshandshaketimeout"
-	TransportExpectContinueTimeout = "http.client.resty.transport.expectcontinuetimeout"
+	Debug                          = "transport.client.http.resty.debug"
+	RequestTimeout                 = "transport.client.http.resty.request.timeout"
+	RetryCount                     = "transport.client.http.resty.retry.count"
+	RetryWaitTime                  = "transport.client.http.resty.retry.waittime"
+	RetryMaxWaitTime               = "transport.client.http.resty.retry.maxwaittime"
+	TransportDisableCompression    = "transport.client.http.resty.transport.disablecompression"
+	TransportDisableKeepAlives     = "transport.client.http.resty.transport.disablekeepalives"
+	TransportMaxIdleConnsPerHost   = "transport.client.http.resty.transport.maxidleconnsperhost"
+	TransportResponseHeaderTimeout = "transport.client.http.resty.transport.responseheadertimeout"
+	TransportForceAttemptHTTP2     = "transport.client.http.resty.transport.forceattempthttp2"
+	TransportMaxIdleConns          = "transport.client.http.resty.transport.maxidleconns"
+	TransportMaxConnsPerHost       = "transport.client.http.resty.transport.maxconnsperhost"
+	TransportIdleConnTimeout       = "transport.client.http.resty.transport.idleconntimeout"
+	TransportTLSHandshakeTimeout   = "transport.client.http.resty.transport.tlshandshaketimeout"
+	TransportExpectContinueTimeout = "transport.client.http.resty.transport.expectcontinuetimeout"
 )
 
 func init() {

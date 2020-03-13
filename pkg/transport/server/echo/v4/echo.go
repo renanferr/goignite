@@ -7,8 +7,6 @@ import (
 	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	m "github.com/neko-neko/echo-logrus/v2"
-	elog "github.com/neko-neko/echo-logrus/v2/log"
 )
 
 var (
@@ -20,7 +18,7 @@ func Start(ctx context.Context) *echo.Echo {
 	instance = echo.New()
 
 	instance.HideBanner = GetHideBanner()
-	instance.Logger = elog.Logger()
+	instance.Logger = Wrap(log.GetLogger())
 
 	setDefaultMiddlewares(ctx, instance)
 	setDefaultRouters(ctx, instance)
@@ -29,8 +27,14 @@ func Start(ctx context.Context) *echo.Echo {
 }
 
 func setDefaultMiddlewares(ctx context.Context, instance *echo.Echo) {
-	instance.Use(m.Logger())
-	instance.Use(middleware.Recover())
+
+	if GetMiddlewareLogEnabled() {
+		instance.Use(Logger())
+	}
+
+	if GetMiddlewareRecoverEnabled() {
+		instance.Use(middleware.Recover())
+	}
 }
 
 func setDefaultRouters(ctx context.Context, instance *echo.Echo) {

@@ -144,6 +144,48 @@ type logger struct {
 	fields log.Fields
 }
 
+func (l *logger) Tracef(format string, args ...interface{}) {
+	l.logger.Tracef(format, args...)
+}
+
+func (l *logger) Trace(args ...interface{}) {
+	l.logger.Trace(args...)
+}
+
+func (l *logger) Debug(args ...interface{}) {
+	l.logger.Debug(args...)
+}
+
+func (l *logger) Info(args ...interface{}) {
+	l.logger.Info(args...)
+}
+
+func (l *logger) Warn(args ...interface{}) {
+	l.logger.Warn(args...)
+}
+
+func (l *logger) Error(args ...interface{}) {
+	l.logger.Error(args...)
+}
+
+func (l *logger) Fatal(args ...interface{}) {
+	l.logger.Fatal(args...)
+}
+
+func (l *logger) Panic(args ...interface{}) {
+	l.logger.Panic(args...)
+}
+
+func (l *logger) WithField(key string, value interface{}) log.Logger {
+
+	entry := l.logger.WithField(key, value)
+
+	return &logEntry{
+		entry:  entry,
+		fields: convertToFields(entry.Data),
+	}
+}
+
 func (l *logger) Debugf(format string, args ...interface{}) {
 	l.logger.Debugf(format, args...)
 }
@@ -187,6 +229,48 @@ func (l *logger) Output() io.Writer {
 type logEntry struct {
 	entry  *logrus.Entry
 	fields log.Fields
+}
+
+func (l *logEntry) Tracef(format string, args ...interface{}) {
+	l.entry.Tracef(format, args...)
+}
+
+func (l *logEntry) Trace(args ...interface{}) {
+	l.entry.Trace(args...)
+}
+
+func (l *logEntry) Debug(args ...interface{}) {
+	l.entry.Debug(args...)
+}
+
+func (l *logEntry) Info(args ...interface{}) {
+	l.entry.Info(args...)
+}
+
+func (l *logEntry) Warn(args ...interface{}) {
+	l.entry.Warn(args...)
+}
+
+func (l *logEntry) Error(args ...interface{}) {
+	l.entry.Error(args...)
+}
+
+func (l *logEntry) Fatal(args ...interface{}) {
+	l.entry.Fatal(args...)
+}
+
+func (l *logEntry) Panic(args ...interface{}) {
+	l.entry.Panic(args...)
+}
+
+func (l *logEntry) WithField(key string, value interface{}) log.Logger {
+
+	entry := l.entry.WithField(key, value)
+
+	return &logEntry{
+		entry:  entry,
+		fields: convertToFields(entry.Data),
+	}
 }
 
 func (l *logEntry) Output() io.Writer {
@@ -234,3 +318,12 @@ func convertToLogrusFields(fields log.Fields) logrus.Fields {
 	}
 	return logrusFields
 }
+
+func convertToFields(logrusFields logrus.Fields) log.Fields {
+	fields := log.Fields{}
+	for index, val := range logrusFields {
+		fields[index] = val
+	}
+	return fields
+}
+

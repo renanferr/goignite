@@ -16,27 +16,32 @@ import (
 func NewLogger() log.Logger {
 
 	cores := []zapcore.Core{}
+	var writers []io.Writer
 
 	if config.Bool(log.ConsoleEnabled) {
 		level := getZapLevel(config.String(log.ConsoleLevel))
 		writer := zapcore.Lock(os.Stdout)
-		core := zapcore.NewCore(getEncoder(config.String(ConsoleFormatter)), writer, level)
-		cores = append(cores, core)
+		coreconsole := zapcore.NewCore(getEncoder(config.String(ConsoleFormatter)), writer, level)
+		cores = append(cores, coreconsole)
+		writers = append(writers, writer)
 	}
 
 	if config.Bool(log.FileEnabled) {
 		s := []string{config.String(log.FilePath), "/", config.String(log.FileName)}
 		fileLocation := strings.Join(s, "")
 
-		level := getZapLevel(config.String(log.FileLevel))
-		writer := zapcore.AddSync(&lumberjack.Logger{
+		lumber := &lumberjack.Logger{
 			Filename: fileLocation,
 			MaxSize:  config.Int(log.FileMaxSize),
 			Compress: config.Bool(log.FileCompress),
 			MaxAge:   config.Int(log.FileMaxAge),
-		})
-		core := zapcore.NewCore(getEncoder(config.String(FileFormatter)), writer, level)
-		cores = append(cores, core)
+		}
+
+		level := getZapLevel(config.String(log.FileLevel))
+		writer := zapcore.AddSync(lumber)
+		corefile := zapcore.NewCore(getEncoder(config.String(FileFormatter)), writer, level)
+		cores = append(cores, corefile)
+		writers = append(writers, lumber)
 	}
 
 	combinedCore := zapcore.NewTee(cores...)
@@ -50,6 +55,7 @@ func NewLogger() log.Logger {
 
 	return &zapLogger{
 		sugaredLogger: logger,
+		writers: writers,
 	}
 }
 
@@ -92,10 +98,11 @@ func getZapLevel(level string) zapcore.Level {
 type zapLogger struct {
 	sugaredLogger *zap.SugaredLogger
 	fields        log.Fields
+	writers       []io.Writer
 }
 
 func (l *zapLogger) Output() io.Writer {
-	return nil
+	return io.MultiWriter(l.writers...)
 }
 
 func (l *zapLogger) Debugf(format string, args ...interface{}) {
@@ -129,7 +136,7 @@ func (l *zapLogger) WithFields(fields log.Fields) log.Logger {
 		f = append(f, v)
 	}
 	newLogger := l.sugaredLogger.With(f...)
-	return &zapLogger{newLogger, fields}
+	return &zapLogger{newLogger, fields, l.writers}
 }
 
 func (l *zapLogger) GetFields() log.Fields {

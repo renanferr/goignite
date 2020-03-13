@@ -7,7 +7,7 @@ import (
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/info"
 	"github.com/b2wdigital/goignite/pkg/log"
-	"github.com/b2wdigital/goignite/pkg/log/logrus/v1"
+	"github.com/b2wdigital/goignite/pkg/log/zap/v1"
 	r "github.com/b2wdigital/goignite/pkg/transport/client/resty/v2"
 	e "github.com/b2wdigital/goignite/pkg/transport/server/echo/v4"
 	"github.com/go-resty/resty/v2"
@@ -77,7 +77,7 @@ func main() {
 
 	ctx := context.Background()
 
-	log.NewLogger(logrus.NewLogger())
+	log.NewLogger(zap.NewLogger())
 
 	info.AppName = "google"
 

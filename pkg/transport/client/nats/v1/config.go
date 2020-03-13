@@ -25,7 +25,7 @@ func init() {
 	config.Add(ReconnectWait, 1*time.Second, "define reconnects waiting before reconnect to nats server")
 	config.Add(HealthEnabled, true, "enabled/disable health check")
 	config.Add(HealthDescription, "default connection", "define health description")
-	config.Add(HealthRequired, "default connection", "define health description")
+	config.Add(HealthRequired, true, "define health description")
 	config.Add(Url, nats.DefaultURL, "define nats server url")
 
 }

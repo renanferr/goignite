@@ -1,9 +1,11 @@
 package zap
 
 import (
-	"gopkg.in/natefinch/lumberjack.v2"
+	"io"
 	"os"
 	"strings"
+
+	"gopkg.in/natefinch/lumberjack.v2"
 
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/log"
@@ -90,6 +92,10 @@ func getZapLevel(level string) zapcore.Level {
 type zapLogger struct {
 	sugaredLogger *zap.SugaredLogger
 	fields        log.Fields
+}
+
+func (l *zapLogger) Output() io.Writer {
+	return nil
 }
 
 func (l *zapLogger) Debugf(format string, args ...interface{}) {

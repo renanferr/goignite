@@ -13,8 +13,7 @@ type wrappedLogger struct {
 }
 
 func (wl wrappedLogger) Output() io.Writer {
-	wl.logger.Errorf("Output(): implement me")
-	return nil
+	return wl.logger.Output()
 }
 
 func (wl wrappedLogger) Prefix() string {
@@ -23,60 +22,60 @@ func (wl wrappedLogger) Prefix() string {
 }
 
 func (wl wrappedLogger) SetPrefix(p string) {
-	wl.logger.Errorf("SetPrefix(p string): implement me")
+	wl.logger.Errorf("wrappedLogger.SetPrefix(p string): implement me")
 }
 
 func (wl wrappedLogger) Level() log.Lvl {
-	wl.logger.Errorf("Level(): implement me")
+	wl.logger.Errorf("wrappedLogger.Level(): implement me")
 	return log.INFO
 }
 
 func (wl wrappedLogger) SetLevel(v log.Lvl) {
-	panic("SetLevel(v log.Lvl): implement me")
+	wl.logger.Errorf("wrappedLogger.SetLevel(v log.Lvl): implement me")
 }
 
 func (wl wrappedLogger) SetHeader(h string) {
-	panic("SetHeader(h string): implement me")
+	wl.logger.Errorf("wrappedLogger.SetHeader(h string): implement me")
 }
 
 func (wl wrappedLogger) Printj(j log.JSON) {
-	panic("Printj(j log.JSON): implement me")
+	wl.logger.Errorf("wrappedLogger.Printj(j log.JSON): implement me")
 }
 
 func (wl wrappedLogger) Debugj(j log.JSON) {
-	panic("Debugj(j log.JSON) implement me")
+	wl.logger.Errorf("wrappedLogger.Debugj(j log.JSON) implement me")
 }
 
 func (wl wrappedLogger) Infoj(j log.JSON) {
-	panic("Infoj(j log.JSON): implement me")
+	wl.logger.Errorf("wrappedLogger.Infoj(j log.JSON): implement me")
 }
 
 func (wl wrappedLogger) Warnj(j log.JSON) {
-	panic("Warnj(j log.JSON): implement me")
+	wl.logger.Errorf("wrappedLogger.Warnj(j log.JSON): implement me")
 }
 
 func (wl wrappedLogger) Errorj(j log.JSON) {
-	panic("Errorj(j log.JSON): implement me")
+	wl.logger.Errorf("wrappedLogger.Errorj(j log.JSON): implement me")
 }
 
 func (wl wrappedLogger) Fatalj(j log.JSON) {
-	panic("Fatalj(j log.JSON): implement me")
+	wl.logger.Errorf("wrappedLogger.Fatalj(j log.JSON): implement me")
 }
 
 func (wl wrappedLogger) Panic(i ...interface{}) {
-	panic("Panic(i ...interface{}): implement me")
+	wl.logger.Errorf("wrappedLogger.Panic(i ...interface{}): implement me")
 }
 
 func (wl wrappedLogger) Panicj(j log.JSON) {
-	panic("Panicj(j log.JSON): implement me")
+	wl.logger.Errorf("wrappedLogger.Panicj(j log.JSON): implement me")
 }
 
 func (wl wrappedLogger) Panicf(format string, args ...interface{}) {
-	panic(fmt.Sprintf(format, args...))
+	wl.logger.Errorf(fmt.Sprintf(format, args...))
 }
 
 func (wl wrappedLogger) SetOutput(w io.Writer) {
-	wl.logger.Panicf("Zap can only have its output set at creation time with the Output() option. SetOutput() does not work.")
+	wl.logger.Errorf("wrappedLogger.SetOutput(w io.Writer): implement me")
 }
 
 func (wl wrappedLogger) Print(i ...interface{}) {

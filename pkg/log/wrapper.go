@@ -39,3 +39,7 @@ func WithFields(keyValues Fields) Logger {
 func GetFields() Fields {
 	return l.GetFields()
 }
+
+func GetLogger() Logger {
+	return l
+}

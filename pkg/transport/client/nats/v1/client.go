@@ -16,13 +16,15 @@ func NewClient(ctx context.Context, options Options) (*nats.Conn, error) {
 	conn, err := nats.Connect(
 		options.Url,
 		nats.MaxReconnects(options.MaxReconnects),
-		nats.ReconnectWait(options.ReconnectWait))
+		nats.ReconnectWait(options.ReconnectWait),
+		nats.DisconnectErrHandler(disconnectedErrHandler),
+		nats.ReconnectHandler(reconnectedHandler),
+		nats.ClosedHandler(closedHandler),
+	)
 
 	if err != nil {
 		return nil, err
 	}
-
-	// defer conn.Close()
 
 	if options.Health.Enabled {
 		configureHealthCheck(conn, options)
@@ -45,7 +47,6 @@ func NewDefaultClient(ctx context.Context) (*nats.Conn, error) {
 	}
 
 	return NewClient(ctx, o)
-
 }
 
 func configureHealthCheck(conn *nats.Conn, o Options) {
@@ -53,4 +54,16 @@ func configureHealthCheck(conn *nats.Conn, o Options) {
 	hc := health.NewHealthChecker("nats", o.Health.Description, cc, o.Health.Required)
 
 	health.Add(hc)
+}
+
+func disconnectedErrHandler(nc *nats.Conn, err error) {
+	log.Errorf("Disconnected due to:%s, will attempt reconnects for %.0fm", err)
+}
+
+func reconnectedHandler(nc *nats.Conn) {
+	log.Warnf("Reconnected [%s]", nc.ConnectedUrl())
+}
+
+func closedHandler(nc *nats.Conn) {
+	log.Errorf("Exiting: %v", nc.LastError())
 }

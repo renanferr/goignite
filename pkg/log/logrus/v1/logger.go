@@ -71,10 +71,12 @@ func NewLogger() log.Logger {
 	lLogger.SetLevel(level)
 	lLogger.SetFormatter(formatter)
 
-	return &logger{
+	logger := &logger{
 		logger: lLogger,
 	}
 
+	log.NewLogger(logger)
+	return logger
 }
 
 func getLogLevel(level string) logrus.Level {

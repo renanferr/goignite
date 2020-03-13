@@ -1,5 +1,7 @@
 package log
 
+import "io"
+
 // Logger is our contract for the logger
 type Logger interface {
 	Debugf(format string, args ...interface{})
@@ -17,4 +19,6 @@ type Logger interface {
 	WithFields(keyValues Fields) Logger
 
 	GetFields() Fields
+
+	Output() io.Writer
 }

@@ -180,9 +180,17 @@ func (l *logger) GetFields() log.Fields {
 	return l.fields
 }
 
+func (l *logger) Output() io.Writer {
+	return l.logger.Out
+}
+
 type logEntry struct {
 	entry  *logrus.Entry
 	fields log.Fields
+}
+
+func (l *logEntry) Output() io.Writer {
+	return l.entry.Logger.Out
 }
 
 func (l *logEntry) Debugf(format string, args ...interface{}) {

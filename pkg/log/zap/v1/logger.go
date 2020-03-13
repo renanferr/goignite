@@ -53,10 +53,13 @@ func NewLogger() log.Logger {
 		zap.AddCaller(),
 	).Sugar()
 
-	return &zapLogger{
+	newlogger := &zapLogger{
 		sugaredLogger: logger,
 		writers: writers,
 	}
+
+	log.NewLogger(newlogger)
+	return newlogger
 }
 
 func getEncoder(format string) zapcore.Encoder {
@@ -137,6 +140,7 @@ func (l *zapLogger) WithField(key string, value interface{}) log.Logger {
 
 	fields := log.Fields{}
 	fields[key] = value
+	l.fields[key] = value
 
 	var f = make([]interface{}, 0)
 	for k, v := range fields {
@@ -144,7 +148,7 @@ func (l *zapLogger) WithField(key string, value interface{}) log.Logger {
 		f = append(f, v)
 	}
 	newLogger := l.sugaredLogger.With(f...)
-	return &zapLogger{newLogger, fields, l.writers}
+	return &zapLogger{newLogger, l.fields, l.writers}
 }
 
 func (l *zapLogger) Output() io.Writer {
@@ -180,9 +184,10 @@ func (l *zapLogger) WithFields(fields log.Fields) log.Logger {
 	for k, v := range fields {
 		f = append(f, k)
 		f = append(f, v)
+		l.fields[k] = v
 	}
 	newLogger := l.sugaredLogger.With(f...)
-	return &zapLogger{newLogger, fields, l.writers}
+	return &zapLogger{newLogger, l.fields, l.writers}
 }
 
 func (l *zapLogger) GetFields() log.Fields {

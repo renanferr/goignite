@@ -54,8 +54,9 @@ func NewLogger() log.Logger {
 	).Sugar()
 
 	newlogger := &zapLogger{
+		fields:        log.Fields{},
 		sugaredLogger: logger,
-		writers: writers,
+		writers:       writers,
 	}
 
 	log.NewLogger(newlogger)

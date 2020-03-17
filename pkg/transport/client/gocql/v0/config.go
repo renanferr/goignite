@@ -10,7 +10,7 @@ import (
 
 const (
 	Hosts                    = "transport.client.gocql.hosts"
-	Port                     = "transport.client.gocql."
+	Port                     = "transport.client.gocql.port"
 	Username                 = "transport.client.gocql.username"
 	Password                 = "transport.client.gocql.password"
 	CQLVersion               = "transport.client.gocql.cqlversion"

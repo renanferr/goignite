@@ -6,13 +6,13 @@ type Options struct {
 	Debug              bool
 	Tls                bool
 	Gzip               bool
-	CertFile           string
-	KeyFile            string
-	CAFile             string
+	CertFile           string `config:"certfile"`
+	KeyFile            string `config:"keyfile"`
+	CAFile             string `config:"cafile"`
 	Host               string
-	HostOverwrite      string
+	HostOverwrite      string `config:"hostoverwrite"`
 	Port               int
-	InsecureSkipVerify bool
+	InsecureSkipVerify bool `config:"insecureskipverify"`
 	Health             OptionsHealth
 }
 

@@ -8,6 +8,7 @@ require (
 	github.com/cloudevents/sdk-go v1.1.2
 	github.com/go-playground/validator/v10 v10.2.0
 	github.com/go-resty/resty/v2 v2.2.0
+	github.com/gocql/gocql v0.0.0-20200228163523-cd4b606dd2fb
 	github.com/golang/protobuf v1.3.4
 	github.com/jlaffaye/ftp v0.0.0-20200309171336-6841a2daa0d5
 	github.com/jpfaria/logrus-redis-hook v1.0.2

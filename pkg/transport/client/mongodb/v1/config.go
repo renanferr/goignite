@@ -20,6 +20,6 @@ func init() {
 	config.Add(Uri, "mongodb://localhost:27017/temp", "define mongodb uri")
 	config.Add(HealthEnabled, true, "enabled/disable health check")
 	config.Add(HealthDescription, "default connection", "define health description")
-	config.Add(HealthRequired, "default connection", "define health description")
+	config.Add(HealthRequired, true, "define health description")
 
 }

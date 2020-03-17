@@ -48,19 +48,24 @@ func NewLogger() log.Logger {
 
 	// AddCallerSkip skips 2 number of callers, this is important else the file that gets
 	// logged will always be the wrapped file. In our case zap.go
-	logger := zap.New(combinedCore,
-		zap.AddCallerSkip(2),
-		zap.AddCaller(),
-	).Sugar()
+	zaplogger := newSugaredLogger(combinedCore)
 
 	newlogger := &zapLogger{
 		fields:        log.Fields{},
-		sugaredLogger: logger,
+		sugaredLogger: zaplogger,
 		writers:       writers,
+		core:          combinedCore,
 	}
 
 	log.NewLogger(newlogger)
 	return newlogger
+}
+
+func newSugaredLogger(core zapcore.Core) *zap.SugaredLogger {
+	return zap.New(core,
+		zap.AddCallerSkip(2),
+		zap.AddCaller(),
+	).Sugar()
 }
 
 func getEncoder(format string) zapcore.Encoder {
@@ -103,6 +108,7 @@ type zapLogger struct {
 	sugaredLogger *zap.SugaredLogger
 	fields        log.Fields
 	writers       []io.Writer
+	core          zapcore.Core
 }
 
 func (l *zapLogger) Tracef(format string, args ...interface{}) {
@@ -138,18 +144,12 @@ func (l *zapLogger) Panic(args ...interface{}) {
 }
 
 func (l *zapLogger) WithField(key string, value interface{}) log.Logger {
+	newFields := l.fields
+	newFields[key] = value
 
-	fields := log.Fields{}
-	fields[key] = value
-	l.fields[key] = value
-
-	var f = make([]interface{}, 0)
-	for k, v := range fields {
-		f = append(f, k)
-		f = append(f, v)
-	}
-	newLogger := l.sugaredLogger.With(f...)
-	return &zapLogger{newLogger, l.fields, l.writers}
+	f := mapToSlice(newFields)
+	newLogger := newSugaredLogger(l.core).With(f...)
+	return &zapLogger{newLogger, newFields, l.writers, l.core}
 }
 
 func (l *zapLogger) Output() io.Writer {
@@ -181,16 +181,26 @@ func (l *zapLogger) Panicf(format string, args ...interface{}) {
 }
 
 func (l *zapLogger) WithFields(fields log.Fields) log.Logger {
-	var f = make([]interface{}, 0)
+	newFields := l.fields
 	for k, v := range fields {
-		f = append(f, k)
-		f = append(f, v)
-		l.fields[k] = v
+		newFields[k] = v
 	}
-	newLogger := l.sugaredLogger.With(f...)
-	return &zapLogger{newLogger, l.fields, l.writers}
+
+	f := mapToSlice(newFields)
+	newLogger := newSugaredLogger(l.core).With(f...)
+	return &zapLogger{newLogger, newFields, l.writers, l.core}
 }
 
 func (l *zapLogger) GetFields() log.Fields {
 	return l.fields
+}
+
+func mapToSlice(m log.Fields) []interface{} {
+	var f = make([]interface{}, 0)
+	for k, v := range m {
+		f = append(f, k)
+		f = append(f, v)
+	}
+
+	return f
 }

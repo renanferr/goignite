@@ -29,7 +29,6 @@ func (b healthBuilder) Build() Health {
 
 var HealthBuilder = builder.Register(healthBuilder{}, Health{}).(healthBuilder)
 
-
 func NewHealth(ctx context.Context) (Health, int) {
 
 	var details []HealthDetail

@@ -8,9 +8,7 @@ import (
 	"strings"
 	"time"
 
-
 	flag "github.com/spf13/pflag"
-
 
 	"github.com/knadh/koanf"
 	"github.com/knadh/koanf/parsers/json"

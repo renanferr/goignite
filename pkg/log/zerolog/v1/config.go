@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	Formatter    = "log.zerolog.formatter"
+	Formatter = "log.zerolog.formatter"
 )
 
 func init() {
@@ -15,5 +15,3 @@ func init() {
 
 	config.Add(Formatter, "TEXT", "formatter TEXT/JSON")
 }
-
-

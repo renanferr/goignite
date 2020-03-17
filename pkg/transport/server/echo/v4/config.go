@@ -51,4 +51,3 @@ func GetMiddlewareLogEnabled() bool {
 func GetMiddlewareRecoverEnabled() bool {
 	return config.Bool(MiddlewareRecoverEnabled)
 }
-

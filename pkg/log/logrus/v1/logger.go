@@ -328,4 +328,3 @@ func convertToFields(logrusFields logrus.Fields) log.Fields {
 	}
 	return fields
 }
-

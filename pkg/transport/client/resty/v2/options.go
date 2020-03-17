@@ -8,7 +8,7 @@ import (
 
 type Options struct {
 	Debug          bool
-	RequestTimeout time.Duration
+	RequestTimeout time.Duration `config:"requesttimeout"`
 	Retry          OptionsRetry
 	Health         OptionsHealth
 	Host           string

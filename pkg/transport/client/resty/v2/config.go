@@ -10,7 +10,7 @@ import (
 
 const (
 	Debug                          = "transport.client.resty.debug"
-	RequestTimeout                 = "transport.client.resty.request.timeout"
+	RequestTimeout                 = "transport.client.resty.requesttimeout"
 	RetryCount                     = "transport.client.resty.retry.count"
 	RetryWaitTime                  = "transport.client.resty.retry.waittime"
 	RetryMaxWaitTime               = "transport.client.resty.retry.maxwaittime"

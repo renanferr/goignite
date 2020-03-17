@@ -4,7 +4,6 @@ import "io"
 
 // Logger is our contract for the logger
 type Logger interface {
-
 	Tracef(format string, args ...interface{})
 
 	Trace(args ...interface{})

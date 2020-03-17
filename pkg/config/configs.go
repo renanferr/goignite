@@ -1,9 +1,8 @@
 package config
 
 var (
-	entries  []config
+	entries []config
 )
-
 
 func Add(key string, value interface{}, description string) {
 	entries = append(entries, config{
@@ -12,6 +11,3 @@ func Add(key string, value interface{}, description string) {
 		description: description,
 	})
 }
-
-
-

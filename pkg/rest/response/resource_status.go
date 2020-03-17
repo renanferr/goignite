@@ -41,7 +41,6 @@ func (b resourceStatusResponseBuilder) Build() ResourceStatusResponse {
 
 var ResourceStatusResponseBuilder = builder.Register(resourceStatusResponseBuilder{}, ResourceStatusResponse{}).(resourceStatusResponseBuilder)
 
-
 func NewResourceStatus() ResourceStatusResponse {
 
 	return ResourceStatusResponseBuilder.

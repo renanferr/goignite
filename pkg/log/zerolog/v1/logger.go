@@ -34,7 +34,6 @@ func NewLogger() log.Logger {
 	level := getLogLevel(config.String(log.ConsoleLevel))
 	zerologger = zerologger.Level(level)
 
-
 	logger := &logger{
 		logger: &zerologger,
 		fields: fields,
@@ -194,19 +193,31 @@ func (l *logger) Panic(args ...interface{}) {
 func (l *logger) WithField(key string, value interface{}) log.Logger {
 	fields := make(log.Fields)
 	fields[key] = value
-	l.fields[key] = value
+	newFields := log.Fields{}
+	newFields[key] = value
+	for k, v := range l.fields {
+		newFields[k] = v
+	}
 
-	newLogger := l.logger.With().Fields(fields).Logger()
-	return &logger{&newLogger, l.fields, l.writer}
+	l.eraseFields()
+	newLogger := l.logger.With().Fields(newFields).Logger()
+	return &logger{&newLogger, newFields, l.writer}
 }
 
 func (l *logger) WithFields(fields log.Fields) log.Logger {
-	for k, v := range fields {
-		l.fields[k] = v
+	newFields := log.Fields{}
+
+	for k, v := range l.fields {
+		newFields[k] = v
 	}
 
-	newLogger := l.logger.With().Fields(fields).Logger()
-	return &logger{&newLogger, l.fields, l.writer}
+	for k, v := range fields {
+		newFields[k] = v
+	}
+
+	l.eraseFields()
+	newLogger := l.logger.With().Fields(newFields).Logger()
+	return &logger{&newLogger, newFields, l.writer}
 }
 
 func (l *logger) GetFields() log.Fields {
@@ -215,4 +226,12 @@ func (l *logger) GetFields() log.Fields {
 
 func (l *logger) Output() io.Writer {
 	return l.writer
+}
+
+func (l *logger) eraseFields() {
+	// zerolog does no de-duplication of fields
+	// we cover this generating a new zerolog.Context
+	l.logger.UpdateContext(func(c zerolog.Context) zerolog.Context {
+		return zerolog.Context{}
+	})
 }

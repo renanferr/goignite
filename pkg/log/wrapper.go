@@ -56,6 +56,14 @@ func Panic(args ...interface{}) {
 	l.Panic(args...)
 }
 
+func Tracef(format string, args ...interface{}) {
+	l.Tracef(format, args...)
+}
+
+func Trace(args ...interface{}) {
+	l.Trace(args...)
+}
+
 func WithFields(keyValues Fields) Logger {
 	return l.WithFields(keyValues)
 }

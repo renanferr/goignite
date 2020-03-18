@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/health"
@@ -25,6 +26,8 @@ func main() {
 
 	all := health.CheckAll(context.Background())
 
-	log.Info(all)
+	j, _ := json.Marshal(all)
+
+	log.Info(string(j))
 
 }

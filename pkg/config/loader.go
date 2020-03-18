@@ -31,8 +31,6 @@ func init() {
 }
 
 func flagLoad() {
-	entries = []config{}
-
 	instance = koanf.New(".")
 
 	// Use the POSIX compliant pflag lib instead of Go's flag lib.
@@ -102,10 +100,10 @@ func parseFlags() {
 			f.Bool(v.key, t, v.description)
 		case []bool:
 			f.BoolSlice(v.key, t, v.description)
-		case int:
-			f.Int(v.key, t, v.description)
 		case []int:
 			f.IntSlice(v.key, t, v.description)
+		case int:
+			f.Int(v.key, t, v.description)
 		case int64:
 			f.Int64(v.key, t, v.description)
 		case int32:

@@ -36,7 +36,7 @@ const (
 
 func init() {
 
-	log.Println("getting configurations for mongodb")
+	log.Println("getting configurations for gocql (Cassandra)")
 
 	config.Add(Hosts, []string{"127.0.0.1"}, "addresses for the initial connections")
 	config.Add(Port, 9042, "define port")

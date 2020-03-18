@@ -8,11 +8,11 @@ import (
 	"google.golang.org/grpc/connectivity"
 )
 
-type ClientChecker struct {
+type ClientConnChecker struct {
 	conn *grpc.ClientConn
 }
 
-func (c *ClientChecker) Check(ctx context.Context) error {
+func (c *ClientConnChecker) Check(ctx context.Context) error {
 
 	var err error
 
@@ -23,6 +23,6 @@ func (c *ClientChecker) Check(ctx context.Context) error {
 	return err
 }
 
-func NewClientChecker(conn *grpc.ClientConn) *ClientChecker {
-	return &ClientChecker{conn: conn}
+func NewClientConnChecker(conn *grpc.ClientConn) *ClientConnChecker {
+	return &ClientConnChecker{conn: conn}
 }

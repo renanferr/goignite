@@ -117,7 +117,7 @@ func NewDefaultSession(ctx context.Context) (*gocql.Session, error) {
 }
 
 func configureHealthCheck(session *gocql.Session, o Options) {
-	mc := NewCassandraChecker(session)
+	mc := NewSessionChecker(session)
 	hc := health.NewHealthChecker("cassandra", o.Health.Description, mc, o.Health.Required)
 
 	health.Add(hc)

@@ -8,7 +8,7 @@ import (
 	"gopkg.in/matryer/try.v1"
 )
 
-func NewClient(options *Options) (*ftp.ServerConn, error) {
+func NewServerConn(options *Options) (*ftp.ServerConn, error) {
 
 	var conn *ftp.ServerConn
 
@@ -29,7 +29,7 @@ func NewClient(options *Options) (*ftp.ServerConn, error) {
 	return conn, nil
 }
 
-func NewDefaultClient() (*ftp.ServerConn, error) {
+func NewDefaultServerConn() (*ftp.ServerConn, error) {
 
 	options := OptionsBuilder.
 		Addr(config.String(Addr)).
@@ -38,6 +38,6 @@ func NewDefaultClient() (*ftp.ServerConn, error) {
 		Timeout(config.Int(Timeout)).
 		Build()
 
-	return NewClient(&options)
+	return NewServerConn(&options)
 
 }

@@ -61,7 +61,7 @@ func NewDefaultClient(ctx context.Context) (*mongo.Client, *mongo.Database, erro
 }
 
 func configureHealthCheck(client *mongo.Client, o Options) {
-	mc := NewMongoChecker(client)
+	mc := NewClientChecker(client)
 	hc := health.NewHealthChecker("mongodb", o.Health.Description, mc, o.Health.Required)
 
 	health.Add(hc)

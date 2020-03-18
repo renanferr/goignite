@@ -1,9 +1,10 @@
 package jlaffaye
 
 import (
+	"context"
 	"time"
 
-	"github.com/b2wdigital/goignite/pkg/config"
+	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/jlaffaye/ftp"
 	"gopkg.in/matryer/try.v1"
 )
@@ -29,15 +30,15 @@ func NewServerConn(options *Options) (*ftp.ServerConn, error) {
 	return conn, nil
 }
 
-func NewDefaultServerConn() (*ftp.ServerConn, error) {
+func NewDefaultServerConn(ctx context.Context) (*ftp.ServerConn, error) {
 
-	options := OptionsBuilder.
-		Addr(config.String(Addr)).
-		User(config.String(Username)).
-		Password(config.String(Password)).
-		Timeout(config.Int(Timeout)).
-		Build()
+	l := log.FromContext(ctx)
 
-	return NewServerConn(&options)
+	o, err := DefaultOptions()
+	if err != nil {
+		l.Fatalf(err.Error())
+	}
+
+	return NewServerConn(o)
 
 }

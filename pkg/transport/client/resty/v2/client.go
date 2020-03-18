@@ -171,7 +171,7 @@ func logAfterResponse(client *resty.Client, response *resty.Response) error {
 
 func configureHealthCheck(client *resty.Client, o *Options) {
 
-	mc := NewRestyChecker(client, o)
+	mc := NewClientChecker(client, o)
 	hc := health.NewHealthChecker("http rest client", o.Health.Description, mc, o.Health.Required)
 
 	health.Add(hc)

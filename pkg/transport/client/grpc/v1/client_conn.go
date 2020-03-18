@@ -14,7 +14,7 @@ import (
 	"google.golang.org/grpc/encoding/gzip"
 )
 
-func NewClient(ctx context.Context, options *Options) *grpc.ClientConn {
+func NewClientConn(ctx context.Context, options *Options) *grpc.ClientConn {
 
 	var err error
 	var conn *grpc.ClientConn
@@ -60,7 +60,7 @@ func NewClient(ctx context.Context, options *Options) *grpc.ClientConn {
 }
 
 func configureHealthCheck(conn *grpc.ClientConn, o *Options) {
-	cc := NewClientChecker(conn)
+	cc := NewClientConnChecker(conn)
 	hc := health.NewHealthChecker("grpc", o.Health.Description, cc, o.Health.Required)
 
 	health.Add(hc)

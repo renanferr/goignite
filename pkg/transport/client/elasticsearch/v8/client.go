@@ -97,7 +97,7 @@ func NewDefaultClient(ctx context.Context) (*elasticsearch.Client, error) {
 }
 
 func configureHealthCheck(client *elasticsearch.Client, o Options) {
-	mc := NewElasticSearchChecker(client)
+	mc := NewClientChecker(client)
 	hc := health.NewHealthChecker("elasticsearch", o.Health.Description, mc, o.Health.Required)
 
 	health.Add(hc)

@@ -9,12 +9,12 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-type RestyChecker struct {
+type ClientChecker struct {
 	client  *resty.Client
 	options *Options
 }
 
-func (c *RestyChecker) Check(ctx context.Context) (err error) {
+func (c *ClientChecker) Check(ctx context.Context) (err error) {
 
 	request := c.client.R().EnableTrace()
 
@@ -29,6 +29,6 @@ func (c *RestyChecker) Check(ctx context.Context) (err error) {
 	return err
 }
 
-func NewRestyChecker(client *resty.Client, options *Options) *RestyChecker {
-	return &RestyChecker{client: client, options: options}
+func NewClientChecker(client *resty.Client, options *Options) *ClientChecker {
+	return &ClientChecker{client: client, options: options}
 }

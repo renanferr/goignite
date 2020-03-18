@@ -13,7 +13,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
 
-func NewClient(ctx context.Context, o Options) (client *elasticsearch.Client, err error) {
+func NewClient(ctx context.Context, o *Options) (client *elasticsearch.Client, err error) {
 
 	l := log.FromContext(ctx)
 
@@ -86,9 +86,7 @@ func NewDefaultClient(ctx context.Context) (*elasticsearch.Client, error) {
 
 	l := log.FromContext(ctx)
 
-	o := Options{}
-
-	err := config.UnmarshalWithPath("transport.client.elasticsearch", &o)
+	o, err := DefaultOptions()
 	if err != nil {
 		l.Fatalf(err.Error())
 	}
@@ -96,7 +94,7 @@ func NewDefaultClient(ctx context.Context) (*elasticsearch.Client, error) {
 	return NewClient(ctx, o)
 }
 
-func configureHealthCheck(client *elasticsearch.Client, o Options) {
+func configureHealthCheck(client *elasticsearch.Client, o *Options) {
 	mc := NewClientChecker(client)
 	hc := health.NewHealthChecker("elasticsearch", o.Health.Description, mc, o.Health.Required)
 

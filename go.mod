@@ -7,6 +7,7 @@ require (
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cloudevents/sdk-go v1.1.2
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20200317081958-768e1006adac
+	github.com/go-chi/chi v4.0.3+incompatible
 	github.com/go-playground/validator/v10 v10.2.0
 	github.com/go-resty/resty/v2 v2.2.0
 	github.com/gocql/gocql v0.0.0-20200228163523-cd4b606dd2fb

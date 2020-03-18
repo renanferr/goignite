@@ -6,6 +6,7 @@ require (
 	github.com/aws/aws-sdk-go-v2 v0.19.0
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cloudevents/sdk-go v1.1.2
+	github.com/elastic/go-elasticsearch/v8 v8.0.0-20200317081958-768e1006adac
 	github.com/go-playground/validator/v10 v10.2.0
 	github.com/go-resty/resty/v2 v2.2.0
 	github.com/gocql/gocql v0.0.0-20200228163523-cd4b606dd2fb
@@ -31,7 +32,6 @@ require (
 	go.mongodb.org/mongo-driver v1.3.1
 	go.uber.org/zap v1.14.0
 	golang.org/x/net v0.0.0-20200301022130-244492dfa37a
-	golang.org/x/sync v0.0.0-20190423024810-112230192c58
 	google.golang.org/grpc v1.28.0
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22 // indirect

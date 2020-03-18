@@ -1,6 +1,9 @@
 package mongodb
 
-import "github.com/lann/builder"
+import (
+	"github.com/b2wdigital/goignite/pkg/config"
+	"github.com/lann/builder"
+)
 
 type Options struct {
 	Uri    string
@@ -22,3 +25,16 @@ func (b optionsBuilder) Build() Options {
 }
 
 var OptionsBuilder = builder.Register(optionsBuilder{}, Options{}).(optionsBuilder)
+
+func DefaultOptions() (*Options, error) {
+
+	o := &Options{}
+
+	err := config.UnmarshalWithPath("transport.client.mongodb", o)
+	if err != nil {
+		return nil, err
+	}
+
+	return o, nil
+
+}

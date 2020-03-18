@@ -3,6 +3,7 @@ package nats
 import (
 	"time"
 
+	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/lann/builder"
 )
 
@@ -36,3 +37,17 @@ func (b optionsBuilder) Build() Options {
 }
 
 var OptionsBuilder = builder.Register(optionsBuilder{}, Options{}).(optionsBuilder)
+
+
+func DefaultOptions() (*Options, error) {
+
+	o := &Options{}
+
+	err := config.UnmarshalWithPath("transport.client.nats", o)
+	if err != nil {
+		return nil, err
+	}
+
+	return o, nil
+}
+

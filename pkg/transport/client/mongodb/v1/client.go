@@ -4,7 +4,6 @@ import (
 	"context"
 	"strings"
 
-	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/log"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -12,7 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/x/mongo/driver/connstring"
 )
 
-func NewClient(ctx context.Context, o Options) (client *mongo.Client, database *mongo.Database, err error) {
+func NewClient(ctx context.Context, o *Options) (client *mongo.Client, database *mongo.Database, err error) {
 
 	l := log.FromContext(ctx)
 
@@ -50,9 +49,7 @@ func NewDefaultClient(ctx context.Context) (*mongo.Client, *mongo.Database, erro
 
 	l := log.FromContext(ctx)
 
-	o := Options{}
-
-	err := config.UnmarshalWithPath("transport.client.mongodb", &o)
+	o, err := DefaultOptions()
 	if err != nil {
 		l.Fatalf(err.Error())
 	}
@@ -60,7 +57,7 @@ func NewDefaultClient(ctx context.Context) (*mongo.Client, *mongo.Database, erro
 	return NewClient(ctx, o)
 }
 
-func configureHealthCheck(client *mongo.Client, o Options) {
+func configureHealthCheck(client *mongo.Client, o *Options) {
 	mc := NewClientChecker(client)
 	hc := health.NewHealthChecker("mongodb", o.Health.Description, mc, o.Health.Required)
 

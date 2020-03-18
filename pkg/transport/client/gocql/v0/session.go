@@ -4,13 +4,12 @@ import (
 	"context"
 	"strings"
 
-	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/gocql/gocql"
 )
 
-func NewSession(ctx context.Context, o Options) (session *gocql.Session, err error) {
+func NewSession(ctx context.Context, o *Options) (session *gocql.Session, err error) {
 
 	l := log.FromContext(ctx)
 
@@ -106,9 +105,7 @@ func NewDefaultSession(ctx context.Context) (*gocql.Session, error) {
 
 	l := log.FromContext(ctx)
 
-	o := Options{}
-
-	err := config.UnmarshalWithPath("transport.client.gocql", &o)
+	o, err := DefaultOptions()
 	if err != nil {
 		l.Fatalf(err.Error())
 	}
@@ -116,7 +113,7 @@ func NewDefaultSession(ctx context.Context) (*gocql.Session, error) {
 	return NewSession(ctx, o)
 }
 
-func configureHealthCheck(session *gocql.Session, o Options) {
+func configureHealthCheck(session *gocql.Session, o *Options) {
 	mc := NewSessionChecker(session)
 	hc := health.NewHealthChecker("cassandra", o.Health.Description, mc, o.Health.Required)
 

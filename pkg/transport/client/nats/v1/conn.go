@@ -3,13 +3,12 @@ package nats
 import (
 	"context"
 
-	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/nats-io/nats.go"
 )
 
-func NewConnection(ctx context.Context, options Options) (*nats.Conn, error) {
+func NewConnection(ctx context.Context, options *Options) (*nats.Conn, error) {
 
 	l := log.FromContext(ctx)
 
@@ -39,9 +38,7 @@ func NewDefaultConnection(ctx context.Context) (*nats.Conn, error) {
 
 	l := log.FromContext(ctx)
 
-	o := Options{}
-
-	err := config.UnmarshalWithPath("transport.client.nats", &o)
+	o, err := DefaultOptions()
 	if err != nil {
 		l.Fatalf(err.Error())
 	}
@@ -49,7 +46,7 @@ func NewDefaultConnection(ctx context.Context) (*nats.Conn, error) {
 	return NewConnection(ctx, o)
 }
 
-func configureHealthCheck(conn *nats.Conn, o Options) {
+func configureHealthCheck(conn *nats.Conn, o *Options) {
 	cc := NewConnectionChecker(conn)
 	hc := health.NewHealthChecker("nats", o.Health.Description, cc, o.Health.Required)
 

@@ -9,7 +9,7 @@ import (
 	"github.com/nats-io/nats.go"
 )
 
-func NewClient(ctx context.Context, options Options) (*nats.Conn, error) {
+func NewConnection(ctx context.Context, options Options) (*nats.Conn, error) {
 
 	l := log.FromContext(ctx)
 
@@ -35,7 +35,7 @@ func NewClient(ctx context.Context, options Options) (*nats.Conn, error) {
 	return conn, nil
 }
 
-func NewDefaultClient(ctx context.Context) (*nats.Conn, error) {
+func NewDefaultConnection(ctx context.Context) (*nats.Conn, error) {
 
 	l := log.FromContext(ctx)
 
@@ -46,11 +46,11 @@ func NewDefaultClient(ctx context.Context) (*nats.Conn, error) {
 		l.Fatalf(err.Error())
 	}
 
-	return NewClient(ctx, o)
+	return NewConnection(ctx, o)
 }
 
 func configureHealthCheck(conn *nats.Conn, o Options) {
-	cc := NewClientChecker(conn)
+	cc := NewConnectionChecker(conn)
 	hc := health.NewHealthChecker("nats", o.Health.Description, cc, o.Health.Required)
 
 	health.Add(hc)

@@ -33,7 +33,7 @@ func main() {
 		Health(health).
 		Build()
 
-	conn := grpc.NewClient(ctx, &options)
+	conn := grpc.NewClientConn(ctx, &options)
 	defer conn.Close()
 
 	c := NewExampleClient(conn)

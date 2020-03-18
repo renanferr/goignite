@@ -7,11 +7,11 @@ import (
 	"github.com/nats-io/nats.go"
 )
 
-type ClientChecker struct {
+type ConnectionChecker struct {
 	conn *nats.Conn
 }
 
-func (c *ClientChecker) Check(ctx context.Context) error {
+func (c *ConnectionChecker) Check(ctx context.Context) error {
 
 	var err error
 
@@ -22,6 +22,6 @@ func (c *ClientChecker) Check(ctx context.Context) error {
 	return err
 }
 
-func NewClientChecker(conn *nats.Conn) *ClientChecker {
-	return &ClientChecker{conn: conn}
+func NewConnectionChecker(conn *nats.Conn) *ConnectionChecker {
+	return &ConnectionChecker{conn: conn}
 }

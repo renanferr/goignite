@@ -31,6 +31,8 @@ require (
 	github.com/wesovilabs/beyond v1.0.1
 	go.mongodb.org/mongo-driver v1.3.1
 	go.uber.org/zap v1.14.0
+	gocloud.dev v0.19.0
+	gocloud.dev/pubsub/kafkapubsub v0.19.0
 	golang.org/x/net v0.0.0-20200301022130-244492dfa37a
 	google.golang.org/grpc v1.28.0
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e

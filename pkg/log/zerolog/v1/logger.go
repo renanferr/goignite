@@ -191,15 +191,10 @@ func (l *logger) Panic(args ...interface{}) {
 }
 
 func (l *logger) WithField(key string, value interface{}) log.Logger {
-	fields := make(log.Fields)
-	fields[key] = value
+
 	newFields := log.Fields{}
 	newFields[key] = value
-	for k, v := range l.fields {
-		newFields[k] = v
-	}
 
-	l.eraseFields()
 	newLogger := l.logger.With().Fields(newFields).Logger()
 	return &logger{&newLogger, newFields, l.writer}
 }

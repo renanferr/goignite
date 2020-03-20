@@ -1,6 +1,9 @@
 package log
 
-import "io"
+import (
+	"context"
+	"io"
+)
 
 // Logger is our contract for the logger
 type Logger interface {
@@ -36,7 +39,9 @@ type Logger interface {
 
 	WithField(key string, value interface{}) Logger
 
-	GetFields() Fields
+	ToContext(ctx context.Context) context.Context
+
+	FromContext(ctx context.Context) Logger
 
 	Output() io.Writer
 }

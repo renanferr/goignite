@@ -1,6 +1,7 @@
 package zap
 
 import (
+	"context"
 	"io"
 	"os"
 	"strings"
@@ -12,6 +13,10 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
+
+type ctxKey string
+
+const key ctxKey = "ctxfields"
 
 func NewLogger() log.Logger {
 
@@ -193,6 +198,41 @@ func (l *zapLogger) WithFields(fields log.Fields) log.Logger {
 
 func (l *zapLogger) GetFields() log.Fields {
 	return l.fields
+}
+
+func (l *zapLogger) ToContext(ctx context.Context) context.Context {
+	fields := l.GetFields()
+
+	ctxFields := fieldsFromContext(ctx)
+
+	if ctxFields == nil {
+		ctxFields = map[string]interface{}{}
+	}
+
+	for k, v := range fields {
+		ctxFields[k] = v
+	}
+
+	return context.WithValue(ctx, key, ctxFields)
+}
+
+func (l *zapLogger) FromContext(ctx context.Context) log.Logger {
+	fields := fieldsFromContext(ctx)
+	return l.WithFields(fields)
+}
+
+func fieldsFromContext(ctx context.Context) log.Fields {
+	var fields log.Fields
+
+	if ctx == nil {
+		return log.Fields{}
+	}
+
+	if f, ok := ctx.Value(key).(log.Fields); ok && f != nil {
+		fields = f
+	}
+
+	return fields
 }
 
 func mapToSlice(m log.Fields) []interface{} {

@@ -8,9 +8,9 @@ import (
 )
 
 const (
-	Port        = "serverless.transport.http.cloudevents.port"
-	Path        = "serverless.transport.http.cloudevents.path"
-	ContentType = "serverless.transport.http.cloudevents.contenttype"
+	Port        = "transport.server.cloudevents.http.port"
+	Path        = "transport.server.cloudevents.http.path"
+	ContentType = "transport.server.cloudevents.http.contenttype"
 )
 
 func init() {

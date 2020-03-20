@@ -32,7 +32,7 @@ func Start(ctx context.Context, fn interface{}, method string) {
 		l.Fatalf("failed to create client: %s", err.Error())
 	}
 
-	l.Infof("listening on :%d%s", port, path)
+	l.Infof("listening on %d:%s", port, path)
 
 	if err := c.StartReceiver(ctx, fn); err != nil {
 		l.Fatalf("failed to start receiver: %s", err.Error())

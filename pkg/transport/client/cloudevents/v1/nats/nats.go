@@ -1,4 +1,4 @@
-package http
+package nats
 
 import (
 	"context"

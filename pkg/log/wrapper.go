@@ -72,10 +72,6 @@ func WithField(key string, value string) Logger {
 	return l.WithField(key, value)
 }
 
-func GetFields() Fields {
-	return l.GetFields()
-}
-
 func GetLogger() Logger {
 	return l
 }

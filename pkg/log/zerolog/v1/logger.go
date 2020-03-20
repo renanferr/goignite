@@ -2,6 +2,7 @@ package zerolog
 
 import (
 	"bytes"
+	"context"
 	"io"
 	"os"
 	"strings"
@@ -15,15 +16,13 @@ import (
 func NewLogger() log.Logger {
 	fileEnabled := config.Bool(log.FileEnabled)
 	consoleEnabled := config.Bool(log.ConsoleEnabled)
-	fields := make(log.Fields)
 
 	format := config.String(Formatter)
 	writer := getWriter(format, fileEnabled, consoleEnabled)
 	if writer == nil {
 		zerologger := zerolog.Nop()
 		return &logger{
-			logger: &zerologger,
-			fields: fields,
+			logger: zerologger,
 		}
 	}
 
@@ -35,8 +34,7 @@ func NewLogger() log.Logger {
 	zerologger = zerologger.Level(level)
 
 	logger := &logger{
-		logger: &zerologger,
-		fields: fields,
+		logger: zerologger,
 		writer: writer,
 	}
 
@@ -45,8 +43,7 @@ func NewLogger() log.Logger {
 }
 
 type logger struct {
-	logger *zerolog.Logger
-	fields log.Fields
+	logger zerolog.Logger
 	writer io.Writer
 }
 
@@ -191,42 +188,32 @@ func (l *logger) Panic(args ...interface{}) {
 }
 
 func (l *logger) WithField(key string, value interface{}) log.Logger {
+	newField := log.Fields{}
+	newField[key] = value
 
-	newFields := log.Fields{}
-	newFields[key] = value
-
-	newLogger := l.logger.With().Fields(newFields).Logger()
-	return &logger{&newLogger, newFields, l.writer}
+	newLogger := l.logger.With().Fields(newField).Logger()
+	return &logger{newLogger, l.writer}
 }
 
 func (l *logger) WithFields(fields log.Fields) log.Logger {
-	newFields := log.Fields{}
-
-	for k, v := range l.fields {
-		newFields[k] = v
-	}
-
-	for k, v := range fields {
-		newFields[k] = v
-	}
-
-	l.eraseFields()
-	newLogger := l.logger.With().Fields(newFields).Logger()
-	return &logger{&newLogger, newFields, l.writer}
-}
-
-func (l *logger) GetFields() log.Fields {
-	return l.fields
+	newLogger := l.logger.With().Fields(fields).Logger()
+	return &logger{newLogger, l.writer}
 }
 
 func (l *logger) Output() io.Writer {
 	return l.writer
 }
 
-func (l *logger) eraseFields() {
-	// zerolog does no de-duplication of fields
-	// we cover this generating a new zerolog.Context
-	l.logger.UpdateContext(func(c zerolog.Context) zerolog.Context {
-		return zerolog.Context{}
-	})
+func (l *logger) ToContext(ctx context.Context) context.Context {
+	logger := l.logger
+	return logger.WithContext(ctx)
+}
+
+func (l *logger) FromContext(ctx context.Context) log.Logger {
+	zerologger := zerolog.Ctx(ctx)
+	if zerologger.GetLevel() == zerolog.Disabled {
+		return l
+	}
+
+	return &logger{*zerologger,l.writer}
 }

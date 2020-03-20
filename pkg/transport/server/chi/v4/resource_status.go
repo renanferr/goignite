@@ -15,7 +15,7 @@ type ResourceStatusHandler struct {
 
 func (u *ResourceStatusHandler) Get() http.HandlerFunc {
 
-	body,_:= json.Marshal(map[string]string{
+	body, _ := json.Marshal(map[string]string{
 		"applicationName": info.AppName,
 	})
 

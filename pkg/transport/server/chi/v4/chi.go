@@ -46,7 +46,7 @@ func setDefaultRouters(ctx context.Context, instance *chi.Mux) {
 	l.Infof("configuring status router on %s", statusRoute)
 
 	statusHandler := NewResourceStatusHandler()
-	instance.Get(GetStatusRoute(),statusHandler.Get())
+	instance.Get(GetStatusRoute(), statusHandler.Get())
 
 	healthRoute := GetHealthRoute()
 
@@ -56,4 +56,3 @@ func setDefaultRouters(ctx context.Context, instance *chi.Mux) {
 
 	instance.Get(healthRoute, healthHandler.Get(ctx))
 }
-

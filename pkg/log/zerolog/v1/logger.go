@@ -215,5 +215,5 @@ func (l *logger) FromContext(ctx context.Context) log.Logger {
 		return l
 	}
 
-	return &logger{*zerologger,l.writer}
+	return &logger{*zerologger, l.writer}
 }

@@ -40,12 +40,12 @@ func (l *Logger) LogRoundTrip(
 	// Log event.
 	//
 	logger := log.WithFields(log.Fields{
-		"method": req.Method,
+		"method":      req.Method,
 		"status_code": res.StatusCode,
-		"duration": dur,
-		"req_bytes": nReq,
-		"res_bytes": nRes,
-		"url": req.URL.String(),
+		"duration":    dur,
+		"req_bytes":   nReq,
+		"res_bytes":   nRes,
+		"url":         req.URL.String(),
 	})
 
 	switch {

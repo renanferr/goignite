@@ -12,12 +12,12 @@ type Options struct {
 	Port                     int
 	Username                 string
 	Password                 string
-	CQLVersion               string        `config:"cqlversion"`
-	ProtoVersion             int           `config:"protoversion"`
+	CQLVersion               string `config:"cqlversion"`
+	ProtoVersion             int    `config:"protoversion"`
 	Timeout                  time.Duration
 	ConnectTimeout           time.Duration `config:"connecttimeout"`
 	Keyspace                 string
-	NumConns                 int           `config:"numconns"`
+	NumConns                 int `config:"numconns"`
 	Consistency              string
 	SocketKeepalive          time.Duration `config:"socketkeepalive"`
 	MaxPreparedStmts         int           `config:"maxpreparedstmts"`

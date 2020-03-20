@@ -7,11 +7,11 @@ import (
 )
 
 const (
-	StatusRoute              = "transport.server.chi.route.status"
-	HealthRoute              = "transport.server.chi.route.health"
-	MiddlewareLogEnabled     = "transport.server.chi.middleware.log.enabled"
-	MiddlewareRecoverEnabled = "transport.server.chi.middleware.recover.enabled"
-	MiddlewareRealIPEnabled = "transport.server.chi.middleware.RealIP.enabled"
+	StatusRoute                = "transport.server.chi.route.status"
+	HealthRoute                = "transport.server.chi.route.health"
+	MiddlewareLogEnabled       = "transport.server.chi.middleware.log.enabled"
+	MiddlewareRecoverEnabled   = "transport.server.chi.middleware.recover.enabled"
+	MiddlewareRealIPEnabled    = "transport.server.chi.middleware.RealIP.enabled"
 	MiddlewareRequestIDEnabled = "transport.server.chi.middleware.RequestID.enabled"
 )
 
@@ -47,5 +47,3 @@ func GetMiddlewareRealIPEnabled() bool {
 func GetMiddlewareRequestIDEnabled() bool {
 	return config.Bool(MiddlewareRequestIDEnabled)
 }
-
-

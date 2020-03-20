@@ -65,10 +65,7 @@ func main() {
 	instance.Get(c.App.Endpoint.Helloworld, Get(ctx))
 
 	log.Infof("starting chi server.")
-	err= http.ListenAndServe(":8080", instance)
-	log.Fatalf("cannot start chi server",err)
+	err = http.ListenAndServe(":8080", instance)
+	log.Fatalf("cannot start chi server", err)
 
 }
-
-
-

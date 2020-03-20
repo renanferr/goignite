@@ -1,6 +1,7 @@
 package logrus
 
 import (
+	"context"
 	"io"
 	"io/ioutil"
 	"os"
@@ -14,6 +15,10 @@ import (
 	"github.com/sirupsen/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
+
+type ctxKey string
+
+const key ctxKey = "ctxfields"
 
 func NewLogger() log.Logger {
 
@@ -228,6 +233,14 @@ func (l *logger) Output() io.Writer {
 	return l.logger.Out
 }
 
+func (l *logger) ToContext(ctx context.Context) context.Context {
+	return toContext(ctx, l.fields)
+}
+
+func (l *logger) FromContext(ctx context.Context) log.Logger {
+	return fromContext(ctx, l)
+}
+
 type logEntry struct {
 	entry  *logrus.Entry
 	fields log.Fields
@@ -309,8 +322,45 @@ func (l *logEntry) WithFields(fields log.Fields) log.Logger {
 	}
 }
 
-func (l *logEntry) GetFields() log.Fields {
-	return l.fields
+func (l *logEntry) ToContext(ctx context.Context) context.Context {
+	return toContext(ctx, l.fields)
+}
+
+func (l *logEntry) FromContext(ctx context.Context) log.Logger {
+	return fromContext(ctx, l)
+}
+
+func toContext(ctx context.Context, fields log.Fields) context.Context {
+	ctxFields := fieldsFromContext(ctx)
+
+	if ctxFields == nil {
+		ctxFields = map[string]interface{}{}
+	}
+
+	for k, v := range fields {
+		ctxFields[k] = v
+	}
+
+	return context.WithValue(ctx, key, ctxFields)
+}
+
+func fromContext(ctx context.Context, l log.Logger) log.Logger {
+	fields := fieldsFromContext(ctx)
+	return l.WithFields(fields)
+}
+
+func fieldsFromContext(ctx context.Context) log.Fields {
+	var fields log.Fields
+
+	if ctx == nil {
+		return log.Fields{}
+	}
+
+	if f, ok := ctx.Value(key).(log.Fields); ok && f != nil {
+		fields = f
+	}
+
+	return fields
 }
 
 func convertToLogrusFields(fields log.Fields) logrus.Fields {

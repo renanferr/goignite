@@ -9,6 +9,7 @@ require (
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20200317081958-768e1006adac
 	github.com/go-chi/chi v4.0.3+incompatible
 	github.com/go-playground/validator/v10 v10.2.0
+	github.com/go-redis/redis/v7 v7.2.0
 	github.com/go-resty/resty/v2 v2.2.0
 	github.com/gocql/gocql v0.0.0-20200228163523-cd4b606dd2fb
 	github.com/golang/protobuf v1.3.4

@@ -1,7 +1,13 @@
 package log
 
+import "github.com/b2wdigital/goignite/pkg/log/zerolog/v1"
+
 // A global variable so that l functions can be directly accessed
 var l Logger
+
+func init() {
+	l = zerolog.NewLogger()
+}
 
 // NewLogger returns an instance of logger
 func NewLogger(logger Logger) {

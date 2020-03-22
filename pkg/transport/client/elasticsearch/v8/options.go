@@ -32,11 +32,11 @@ func (b optionsBuilder) Addresses(value []string) optionsBuilder {
 	return builder.Set(b, "Addresses", value).(optionsBuilder)
 }
 
-func (b optionsBuilder) Username(value int) optionsBuilder {
+func (b optionsBuilder) Username(value string) optionsBuilder {
 	return builder.Set(b, "Username", value).(optionsBuilder)
 }
 
-func (b optionsBuilder) Password(value int) optionsBuilder {
+func (b optionsBuilder) Password(value string) optionsBuilder {
 	return builder.Set(b, "Password", value).(optionsBuilder)
 }
 
@@ -44,15 +44,15 @@ func (b optionsBuilder) CloudID(value string) optionsBuilder {
 	return builder.Set(b, "CloudID", value).(optionsBuilder)
 }
 
-func (b optionsBuilder) APIKey(value int) optionsBuilder {
+func (b optionsBuilder) APIKey(value string) optionsBuilder {
 	return builder.Set(b, "APIKey", value).(optionsBuilder)
 }
 
-func (b optionsBuilder) CACert(value []int) optionsBuilder {
+func (b optionsBuilder) CACert(value string) optionsBuilder {
 	return builder.Set(b, "CACert", value).(optionsBuilder)
 }
 
-func (b optionsBuilder) RetryOnStatus(value time.Duration) optionsBuilder {
+func (b optionsBuilder) RetryOnStatus(value []string) optionsBuilder {
 	return builder.Set(b, "RetryOnStatus", value).(optionsBuilder)
 }
 

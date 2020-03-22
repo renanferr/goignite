@@ -14,7 +14,7 @@ type Options struct {
 	CloudID               string        `config:"cloudid"`
 	APIKey                string        `config:"apikey"`
 	CACert                string        `config:"cacert"`
-	RetryOnStatus         []string      `config:"retryonstatus"`
+	RetryOnStatus         []int         `config:"retryonstatus"`
 	DisableRetry          bool          `config:"disableretry"`
 	EnableRetryOnTimeout  bool          `config:"enableretryontimeout"`
 	MaxRetries            int           `config:"maxretries"`
@@ -52,7 +52,7 @@ func (b optionsBuilder) CACert(value string) optionsBuilder {
 	return builder.Set(b, "CACert", value).(optionsBuilder)
 }
 
-func (b optionsBuilder) RetryOnStatus(value []string) optionsBuilder {
+func (b optionsBuilder) RetryOnStatus(value []int) optionsBuilder {
 	return builder.Set(b, "RetryOnStatus", value).(optionsBuilder)
 }
 
@@ -97,7 +97,6 @@ func (b optionsBuilder) Build() Options {
 }
 
 var OptionsBuilder = builder.Register(optionsBuilder{}, Options{}).(optionsBuilder)
-
 
 func DefaultOptions() (*Options, error) {
 

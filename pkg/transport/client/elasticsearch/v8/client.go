@@ -2,7 +2,6 @@ package elasticsearch
 
 import (
 	"context"
-	"strconv"
 	"strings"
 	"time"
 
@@ -23,7 +22,7 @@ func NewClient(ctx context.Context, o *Options) (client *elasticsearch.Client, e
 		Password:              o.Password,
 		CloudID:               o.CloudID,
 		APIKey:                o.APIKey,
-		RetryOnStatus:         stringToIntSlice(o.RetryOnStatus),
+		RetryOnStatus:         o.RetryOnStatus,
 		DisableRetry:          o.DisableRetry,
 		EnableRetryOnTimeout:  o.EnableRetryOnTimeout,
 		MaxRetries:            o.MaxRetries,
@@ -63,23 +62,6 @@ func NewClient(ctx context.Context, o *Options) (client *elasticsearch.Client, e
 func backOff(attempt int) time.Duration {
 	b := config.Duration(RetryBackoff)
 	return time.Duration(attempt) * b
-}
-
-// BUG: https://github.com/knadh/koanf/issues/24
-func stringToIntSlice(values []string) []int {
-	var valuesInt []int
-
-	for i := range values {
-		text := values[i]
-		number, err := strconv.Atoi(text)
-		if err != nil {
-			log.Error(err)
-			continue
-		}
-		valuesInt = append(valuesInt, number)
-	}
-
-	return valuesInt
 }
 
 func NewDefaultClient(ctx context.Context) (*elasticsearch.Client, error) {

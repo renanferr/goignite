@@ -39,7 +39,7 @@ func init() {
 	config.Add(CloudID, "", "endpoint for the Elastic Service (https://elastic.co/cloud)")
 	config.Add(APIKey, "", "base64-encoded token for authorization; if set, overrides username and password")
 	config.Add(CACert, "", "PEM-encoded certificate authorities")
-	config.Add(RetryOnStatus, []string{"502", "503", "504"}, "List of status codes for retry")
+	config.Add(RetryOnStatus, []int{502, 503, 504}, "List of status codes for retry")
 	config.Add(DisableRetry, false, "")
 	config.Add(EnableRetryOnTimeout, false, "")
 	config.Add(MaxRetries, 3, "")

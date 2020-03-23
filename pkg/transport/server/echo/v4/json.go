@@ -3,9 +3,9 @@ package echo
 import (
 	"net/http"
 
+	"github.com/b2wdigital/goignite/pkg/errors"
 	"github.com/b2wdigital/goignite/pkg/rest/response"
 	"github.com/go-playground/validator/v10"
-	"github.com/juju/errors"
 	"github.com/labstack/echo/v4"
 )
 
@@ -27,8 +27,7 @@ func JSONError(c echo.Context, err error) error {
 			http.StatusNotFound,
 			response.Error{HttpStatusCode: http.StatusNotFound, Message: err.Error()},
 			"  ")
-	} else if errors.IsNotValid(err) {
-
+	} else if errors.IsNotValid(err) || errors.IsBadRequest(err) {
 		return c.JSONPretty(
 			http.StatusBadRequest,
 			response.Error{HttpStatusCode: http.StatusBadRequest, Message: err.Error()},

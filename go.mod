@@ -17,7 +17,7 @@ require (
 	github.com/jpfaria/logrus-redis-hook v1.0.2
 	github.com/juju/loggo v0.0.0-20190526231331-6e530bcce5d8 // indirect
 	github.com/juju/testing v0.0.0-20191001232224-ce9dec17d28b // indirect
-	github.com/knadh/koanf v0.8.1
+	github.com/knadh/koanf v0.8.2
 	github.com/labstack/echo/v4 v4.1.15
 	github.com/labstack/gommon v0.3.0
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0

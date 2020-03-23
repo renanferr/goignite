@@ -23,13 +23,13 @@ func init() {
 	log.Println("getting configurations for logging")
 
 	config.Add(ConsoleEnabled, true, "enable/disable console logging")
-	config.Add(ConsoleLevel, "INFO", "console l level")
+	config.Add(ConsoleLevel, "INFO", "console log level")
 	config.Add(FileEnabled, false, "enable/disable file logging")
-	config.Add(FileLevel, "INFO", "console l level")
-	config.Add(FilePath, "/tmp", "l path")
-	config.Add(FileName, "application.l", "l filename")
-	config.Add(FileMaxSize, 100, "l file max size (MB)")
-	config.Add(FileCompress, true, "l file compress")
-	config.Add(FileMaxAge, 28, "l file max age (days)")
+	config.Add(FileLevel, "INFO", "console log level")
+	config.Add(FilePath, "/tmp", "log path")
+	config.Add(FileName, "application.l", "log filename")
+	config.Add(FileMaxSize, 100, "log file max size (MB)")
+	config.Add(FileCompress, true, "log file compress")
+	config.Add(FileMaxAge, 28, "log file max age (days)")
 
 }

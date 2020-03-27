@@ -38,7 +38,6 @@ func (b optionsBuilder) Build() Options {
 
 var OptionsBuilder = builder.Register(optionsBuilder{}, Options{}).(optionsBuilder)
 
-
 func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
@@ -50,4 +49,3 @@ func DefaultOptions() (*Options, error) {
 
 	return o, nil
 }
-

@@ -6,7 +6,7 @@ import (
 	cloudeventsnats "github.com/cloudevents/sdk-go/pkg/cloudevents/transport/nats"
 )
 
-func NewClient(url string, subject string) (client.Client, error){
+func NewClient(url string, subject string) (client.Client, error) {
 
 	t, err := cloudeventsnats.New(url, subject)
 	if err != nil {

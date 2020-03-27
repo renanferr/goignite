@@ -27,6 +27,7 @@ require (
 	github.com/nats-io/nats.go v1.9.1
 	github.com/ravernkoh/cwlogsfmt v0.0.0-20180121032441-917bad983b4c
 	github.com/rs/zerolog v1.18.0
+	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.5.1

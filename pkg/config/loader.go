@@ -90,6 +90,11 @@ func parseFlags() {
 
 	for _, v := range entries {
 
+		fl := f.Lookup(v.key)
+		if fl != nil {
+			continue
+		}
+
 		switch t := v.value.(type) {
 
 		case string:
@@ -146,8 +151,15 @@ func parseFlags() {
 
 	}
 
-	// Path to one or more config files to load into koanf along with some config params.
-	f.StringSlice("conf", nil, "path to one or more config files")
 
-	f.Parse(os.Args[0:])
+	flc := f.Lookup(ConfArgument)
+	if flc == nil {
+		// Path to one or more config files to load into koanf along with some config params.
+		f.StringSlice(ConfArgument, nil, "path to one or more config files")
+	}
+
+	err := f.Parse(os.Args[0:])
+	if err != nil {
+		panic(err)
+	}
 }

@@ -20,6 +20,7 @@ import (
 )
 
 const ConfArgument = "conf"
+const ConfEnvironment = "CONF"
 
 var (
 	instance *koanf.Koanf
@@ -47,8 +48,17 @@ func Load() {
 	// Load flags
 	parseFlags()
 
-	// Load the config files provided in the commandline.
-	files, _ := f.GetStringSlice(ConfArgument)
+	var files []string
+
+	confEnv := os.Getenv(ConfEnvironment)
+	if confEnv != "" {
+		// Load the config files provided in the environment var.
+		files = strings.Split(confEnv, ",")
+	} else {
+		// Load the config files provided in the commandline.
+		files, _ = f.GetStringSlice(ConfArgument)
+	}
+
 	for _, c := range files {
 
 		var parser koanf.Parser

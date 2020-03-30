@@ -1,9 +1,11 @@
 package chi
 
 import (
+	"bytes"
 	"encoding/json"
-	"github.com/b2wdigital/goignite/pkg/info"
 	"net/http"
+
+	"github.com/b2wdigital/goignite/pkg/rest/response"
 )
 
 func NewResourceStatusHandler() *ResourceStatusHandler {
@@ -14,13 +16,13 @@ type ResourceStatusHandler struct {
 }
 
 func (u *ResourceStatusHandler) Get() http.HandlerFunc {
-
-	body,_:= json.Marshal(map[string]string{
-		"applicationName": info.AppName,
-	})
+	resourceStatus := response.NewResourceStatus()
+	reqBodyBytes := new(bytes.Buffer)
+	json.NewEncoder(reqBodyBytes).Encode(resourceStatus)
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(body)
+		w.Write(reqBodyBytes.Bytes())
+		w.WriteHeader(http.StatusOK)
 	}
 }

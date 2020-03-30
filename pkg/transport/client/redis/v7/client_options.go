@@ -5,9 +5,9 @@ import (
 )
 
 type ClientOptions struct {
-	Addr               string
-	Network            string
-	DB                 int  `config:"db"`
+	Addr    string
+	Network string
+	DB      int `config:"db"`
 }
 
 type clientOptionsBuilder builder.Builder

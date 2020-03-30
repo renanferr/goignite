@@ -149,7 +149,11 @@ func (l *zapLogger) Panic(args ...interface{}) {
 }
 
 func (l *zapLogger) WithField(key string, value interface{}) log.Logger {
-	newFields := l.fields
+	newFields := log.Fields{}
+	for k, v := range l.fields {
+		newFields[k] = v
+	}
+
 	newFields[key] = value
 
 	f := mapToSlice(newFields)
@@ -186,7 +190,12 @@ func (l *zapLogger) Panicf(format string, args ...interface{}) {
 }
 
 func (l *zapLogger) WithFields(fields log.Fields) log.Logger {
-	newFields := l.fields
+	newFields := log.Fields{}
+
+	for k, v := range l.fields {
+		newFields[k] = v
+	}
+
 	for k, v := range fields {
 		newFields[k] = v
 	}

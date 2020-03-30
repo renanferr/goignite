@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	Url     = "transport.client.cloudevents.nats.sender.url"
+	Url = "transport.client.cloudevents.nats.sender.url"
 )
 
 func init() {

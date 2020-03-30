@@ -10,6 +10,7 @@ import (
 	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/b2wdigital/goignite/pkg/log/logrus/v1"
 	"github.com/b2wdigital/goignite/pkg/transport/server/chi/v4"
+	server "github.com/b2wdigital/goignite/pkg/transport/server/http"
 )
 
 const HelloWorldEndpoint = "app.endpoint.helloworld"
@@ -65,10 +66,7 @@ func main() {
 	instance.Get(c.App.Endpoint.Helloworld, Get(ctx))
 
 	log.Infof("starting chi server.")
-	err= http.ListenAndServe(":8080", instance)
-	log.Fatalf("cannot start chi server",err)
+	err = server.NewServer(instance).ListenAndServe()
+	log.Fatalf("cannot start chi server", err)
 
 }
-
-
-

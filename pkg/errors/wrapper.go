@@ -13,7 +13,6 @@ type wrapper interface {
 	Underlying() error
 }
 
-
 // wrap is a helper to construct an *wrapper.
 func wrap(err error, format, suffix string, args ...interface{}) Err {
 	newErr := Err{

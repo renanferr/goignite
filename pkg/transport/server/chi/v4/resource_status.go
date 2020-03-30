@@ -3,8 +3,9 @@ package chi
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/b2wdigital/goignite/pkg/rest/response"
 	"net/http"
+
+	"github.com/b2wdigital/goignite/pkg/rest/response"
 )
 
 func NewResourceStatusHandler() *ResourceStatusHandler {

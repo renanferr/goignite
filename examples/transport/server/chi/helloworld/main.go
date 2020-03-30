@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	server "github.com/b2wdigital/goignite/pkg/transport/server/http"
 	"net/http"
 
 	"github.com/b2wdigital/goignite/pkg/config"
@@ -11,6 +10,7 @@ import (
 	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/b2wdigital/goignite/pkg/log/logrus/v1"
 	"github.com/b2wdigital/goignite/pkg/transport/server/chi/v4"
+	server "github.com/b2wdigital/goignite/pkg/transport/server/http"
 )
 
 const HelloWorldEndpoint = "app.endpoint.helloworld"

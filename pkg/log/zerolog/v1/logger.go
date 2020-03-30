@@ -21,9 +21,12 @@ func NewLogger() log.Logger {
 	writer := getWriter(format, fileEnabled, consoleEnabled)
 	if writer == nil {
 		zerologger := zerolog.Nop()
-		return &logger{
+		logger := &logger{
 			logger: zerologger,
 		}
+
+		log.NewLogger(logger)
+		return logger
 	}
 
 	zerolog.MessageFieldName = "log_message"

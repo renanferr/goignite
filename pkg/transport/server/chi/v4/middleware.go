@@ -124,6 +124,9 @@ func NewNewRelicMiddleware(next http.Handler) http.Handler {
 		txn := newrelic.App.StartTransaction(path)
 		defer txn.End()
 
+		txn.SetWebRequestHTTP(r)
+		w = txn.SetWebResponse(w)
+
 		txn.AddAttribute("request.url", fmt.Sprintf("http://%s%s", r.Host, url))
 
 		qs := r.URL.Query()

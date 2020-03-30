@@ -7,14 +7,14 @@ import (
 )
 
 const (
-	StatusRoute                = "transport.client.chi.route.status"
-	HealthRoute                = "transport.client.chi.route.health"
-	MiddlewareLogEnabled       = "transport.client.chi.middleware.log.enabled"
-	MiddlewareRecoverEnabled   = "transport.client.chi.middleware.recover.enabled"
-	MiddlewareRealIPEnabled    = "transport.client.chi.middleware.realip.enabled"
-	MiddlewareRequestIDEnabled = "transport.client.chi.middleware.requestid.enabled"
-	MiddlewareNewTID           = "transport.client.chi.middleware.newtid.enabled"
-	MiddlewareNewRelic         = "transport.client.chi.middleware.newrelic.enabled"
+	StatusRoute                = "transport.server.chi.route.status"
+	HealthRoute                = "transport.server.chi.route.health"
+	MiddlewareLogEnabled       = "transport.server.chi.middleware.log.enabled"
+	MiddlewareRecoverEnabled   = "transport.server.chi.middleware.recover.enabled"
+	MiddlewareRealIPEnabled    = "transport.server.chi.middleware.realip.enabled"
+	MiddlewareRequestIDEnabled = "transport.server.chi.middleware.requestid.enabled"
+	MiddlewareNewTID           = "transport.server.chi.middleware.newtid.enabled"
+	MiddlewareNewRelic         = "transport.server.chi.middleware.newrelic.enabled"
 )
 
 func init() {

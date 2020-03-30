@@ -151,7 +151,6 @@ func parseFlags() {
 
 	}
 
-
 	flc := f.Lookup(ConfArgument)
 	if flc == nil {
 		// Path to one or more config files to load into koanf along with some config params.

@@ -9,7 +9,6 @@ import (
 	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/b2wdigital/goignite/pkg/log/logrus/v1"
 	"github.com/b2wdigital/goignite/pkg/transport/client/elasticsearch/v8"
-
 )
 
 func main() {

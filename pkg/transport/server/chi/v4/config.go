@@ -7,12 +7,13 @@ import (
 )
 
 const (
-	StatusRoute              = "transport.server.chi.route.status"
-	HealthRoute              = "transport.server.chi.route.health"
-	MiddlewareLogEnabled     = "transport.server.chi.middleware.log.enabled"
-	MiddlewareRecoverEnabled = "transport.server.chi.middleware.recover.enabled"
-	MiddlewareRealIPEnabled = "transport.server.chi.middleware.RealIP.enabled"
-	MiddlewareRequestIDEnabled = "transport.server.chi.middleware.RequestID.enabled"
+	StatusRoute                = "transport.client.chi.route.status"
+	HealthRoute                = "transport.client.chi.route.health"
+	MiddlewareLogEnabled       = "transport.client.chi.middleware.log.enabled"
+	MiddlewareRecoverEnabled   = "transport.client.chi.middleware.recover.enabled"
+	MiddlewareRealIPEnabled    = "transport.client.chi.middleware.realip.enabled"
+	MiddlewareRequestIDEnabled = "transport.client.chi.middleware.requestid.enabled"
+	MiddlewareNewTID           = "transport.client.chi.middleware.newtid.enabled"
 )
 
 func init() {
@@ -25,6 +26,7 @@ func init() {
 	config.Add(MiddlewareRecoverEnabled, true, "enable/disable recover middleware")
 	config.Add(MiddlewareRealIPEnabled, true, "enable/disable real ip middleware")
 	config.Add(MiddlewareRequestIDEnabled, true, "enable/disable request id middleware")
+	config.Add(MiddlewareNewTID, true, "enable/disable new tid middleware")
 }
 
 func GetStatusRoute() string {
@@ -48,4 +50,6 @@ func GetMiddlewareRequestIDEnabled() bool {
 	return config.Bool(MiddlewareRequestIDEnabled)
 }
 
-
+func GetMiddlewareNewTidEnabled() bool {
+	return config.Bool(MiddlewareNewTID)
+}

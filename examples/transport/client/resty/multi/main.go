@@ -22,7 +22,7 @@ func main() {
 	l := log.FromContext(ctx)
 
 	// call google
-	
+
 	googleopt := new(resty.Options)
 
 	err = config.UnmarshalWithPath("app.client.resty.google", googleopt)

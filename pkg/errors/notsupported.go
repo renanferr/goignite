@@ -1,6 +1,5 @@
 package errors
 
-
 // notSupported represents an error when something is not supported.
 type notSupported struct {
 	Err

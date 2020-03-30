@@ -26,14 +26,17 @@ func setDefaultMiddlewares(ctx context.Context, instance *chi.Mux) {
 	if GetMiddlewareRecoverEnabled() {
 		instance.Use(middleware.Recoverer)
 	}
-	if GetMiddlewareLoggerEnabled() {
-		instance.Use(middleware.Logger)
-	}
 	if GetMiddlewareRealIPEnabled() {
 		instance.Use(middleware.RealIP)
 	}
 	if GetMiddlewareRequestIDEnabled() {
 		instance.Use(middleware.RequestID)
+	}
+	if GetMiddlewareNewTidEnabled() {
+		instance.Use(NewTidMiddleware())
+	}
+	if GetMiddlewareLoggerEnabled() {
+		instance.Use(NewLogMiddleware)
 	}
 }
 
@@ -46,7 +49,7 @@ func setDefaultRouters(ctx context.Context, instance *chi.Mux) {
 	l.Infof("configuring status router on %s", statusRoute)
 
 	statusHandler := NewResourceStatusHandler()
-	instance.Get(GetStatusRoute(),statusHandler.Get())
+	instance.Get(GetStatusRoute(), statusHandler.Get())
 
 	healthRoute := GetHealthRoute()
 
@@ -56,4 +59,3 @@ func setDefaultRouters(ctx context.Context, instance *chi.Mux) {
 
 	instance.Get(healthRoute, healthHandler.Get(ctx))
 }
-

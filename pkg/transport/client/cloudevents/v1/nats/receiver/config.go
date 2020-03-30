@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	Url     = "transport.client.cloudevents.nats.receiver.url"
+	Url      = "transport.client.cloudevents.nats.receiver.url"
 	Subjects = "transport.client.cloudevents.nats.receiver.subjects"
 )
 

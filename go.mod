@@ -26,6 +26,7 @@ require (
 	github.com/newrelic/go-agent/v3 v3.4.0
 	github.com/ravernkoh/cwlogsfmt v0.0.0-20180121032441-917bad983b4c
 	github.com/rs/zerolog v1.18.0
+	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.5.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.5.1

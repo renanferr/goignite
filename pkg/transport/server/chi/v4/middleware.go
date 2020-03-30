@@ -2,13 +2,17 @@ package chi
 
 import (
 	"fmt"
-	"github.com/b2wdigital/goignite/pkg/info"
-	"github.com/b2wdigital/goignite/pkg/log"
-	"github.com/go-chi/chi/middleware"
-	uuid "github.com/satori/go.uuid"
 	"net/http"
 	"runtime/debug"
+	"strings"
 	"time"
+
+	"github.com/b2wdigital/goignite/pkg/info"
+	"github.com/b2wdigital/goignite/pkg/log"
+	"github.com/b2wdigital/goignite/pkg/transport/client/newrelic/v3"
+	"github.com/go-chi/chi/middleware"
+	nr "github.com/newrelic/go-agent/v3/newrelic"
+	uuid "github.com/satori/go.uuid"
 )
 
 // NewTidMiddleware is a middleware that looks for a XTID value inside the http.Request
@@ -105,6 +109,36 @@ func NewLogMiddleware(next http.Handler) http.Handler {
 			}
 			logger.Error(message)
 		}
+	}
+
+	return http.HandlerFunc(fn)
+}
+
+func NewNewRelicMiddleware(next http.Handler) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		ctx := r.Context()
+
+		url := r.URL.String()
+		path := r.URL.Path
+
+		txn := newrelic.App.StartTransaction(path)
+		defer txn.End()
+
+		txn.AddAttribute("request.url", fmt.Sprintf("http://%s%s", r.Host, url))
+
+		qs := r.URL.Query()
+		for key, value := range qs {
+			txn.AddAttribute(key, strings.Join(value, "|"))
+		}
+
+		if reqID := middleware.GetReqID(ctx); reqID != "" {
+			txn.AddAttribute("request.id", reqID)
+		}
+
+		nrCtx := nr.NewContext(ctx, txn)
+		r = r.WithContext(nrCtx)
+
+		next.ServeHTTP(w, r)
 	}
 
 	return http.HandlerFunc(fn)

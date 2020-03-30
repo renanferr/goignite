@@ -8,6 +8,8 @@ import (
 	nr "github.com/newrelic/go-agent/v3/newrelic"
 )
 
+var App *nr.Application
+
 func NewClient(ctx context.Context) (*nr.Application, error) {
 	l := log.FromContext(ctx)
 
@@ -28,5 +30,6 @@ func NewClient(ctx context.Context) (*nr.Application, error) {
 		l.Infof("started a new NewRelic application: %s", appName)
 	}
 
+	App = app
 	return app, nil
 }

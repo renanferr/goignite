@@ -35,6 +35,9 @@ func setDefaultMiddlewares(ctx context.Context, instance *chi.Mux) {
 	if GetMiddlewareNewTidEnabled() {
 		instance.Use(NewTidMiddleware())
 	}
+	if GetMiddlewareNewRelicEnabled() {
+		instance.Use(NewNewRelicMiddleware)
+	}
 	if GetMiddlewareLoggerEnabled() {
 		instance.Use(NewLogMiddleware)
 	}

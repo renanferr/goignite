@@ -14,6 +14,7 @@ const (
 	MiddlewareRealIPEnabled    = "transport.client.chi.middleware.realip.enabled"
 	MiddlewareRequestIDEnabled = "transport.client.chi.middleware.requestid.enabled"
 	MiddlewareNewTID           = "transport.client.chi.middleware.newtid.enabled"
+	MiddlewareNewRelic         = "transport.client.chi.middleware.newrelic.enabled"
 )
 
 func init() {
@@ -27,6 +28,7 @@ func init() {
 	config.Add(MiddlewareRealIPEnabled, true, "enable/disable real ip middleware")
 	config.Add(MiddlewareRequestIDEnabled, true, "enable/disable request id middleware")
 	config.Add(MiddlewareNewTID, true, "enable/disable new tid middleware")
+	config.Add(MiddlewareNewRelic, false, "enable/disable new relic middleware")
 }
 
 func GetStatusRoute() string {
@@ -52,4 +54,8 @@ func GetMiddlewareRequestIDEnabled() bool {
 
 func GetMiddlewareNewTidEnabled() bool {
 	return config.Bool(MiddlewareNewTID)
+}
+
+func GetMiddlewareNewRelicEnabled() bool {
+	return config.Bool(MiddlewareNewRelic)
 }

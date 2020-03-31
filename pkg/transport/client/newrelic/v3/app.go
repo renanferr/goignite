@@ -17,13 +17,13 @@ func Application() *newrelic.Application {
 func NewApplication(ctx context.Context) (*newrelic.Application, error) {
 	l := log.FromContext(ctx)
 
-	enabled := config.Bool(NewRelicEnabled)
-	appName := config.String(NewRelicAppName)
+	enabled := config.Bool(Enabled)
+	appName := config.String(AppName)
 	a, err := newrelic.NewApplication(
 		newrelic.ConfigAppName(appName),
-		newrelic.ConfigLicense(config.String(NewRelicLicense)),
+		newrelic.ConfigLicense(config.String(License)),
 		newrelic.ConfigEnabled(enabled),
-		newrelic.ConfigDistributedTracerEnabled(config.Bool(NewRelicDistributedTracerEnabled)),
+		newrelic.ConfigDistributedTracerEnabled(config.Bool(TracerEnabled)),
 	)
 
 	if err != nil {

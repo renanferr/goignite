@@ -38,7 +38,7 @@ const (
 
 func init() {
 
-	log.Println("getting default configurations for google client")
+	log.Println("getting configurations for example google client")
 
 	config.Add(GoogleHost, "http://www.google.com", "defines host")
 	config.Add(GoogleDebug, false, "defines client debug request")
@@ -51,7 +51,7 @@ func init() {
 	config.Add(GoogleHealthEndpoint, "http://www.google.com", "defines health endpoint")
 	config.Add(GoogleHealthRequired, true, "enable/disable health required dependency")
 
-	log.Println("getting default configurations for acom client")
+	log.Println("getting configurations for example acom client")
 
 	config.Add(ACOMHost, "http://www.americanas.com", "defines host")
 	config.Add(ACOMDebug, false, "defines client debug request")

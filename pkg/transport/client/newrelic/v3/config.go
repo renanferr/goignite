@@ -1,17 +1,24 @@
 package newrelic
 
-import "github.com/b2wdigital/goignite/pkg/config"
+import (
+	"log"
+
+	"github.com/b2wdigital/goignite/pkg/config"
+)
 
 const (
-	NewRelicAppName                  = "transport.client.newrelic.appname"
-	NewRelicLicense                  = "transport.client.newrelic.license"
-	NewRelicEnabled                  = "transport.client.newrelic.enabled"
-	NewRelicDistributedTracerEnabled = "transport.client.newrelic.tracerenabled"
+	AppName       = "transport.client.newrelic.appname"
+	License       = "transport.client.newrelic.license"
+	Enabled       = "transport.client.newrelic.enabled"
+	TracerEnabled = "transport.client.newrelic.tracerenabled"
 )
 
 func init() {
-	config.Add(NewRelicAppName, "", "application name for new relic")
-	config.Add(NewRelicLicense, "", "new relic license key")
-	config.Add(NewRelicEnabled, false, "enables new relic")
-	config.Add(NewRelicDistributedTracerEnabled, false, "enables new relic distributed tracer")
+
+	log.Println("getting configurations for newrelic")
+
+	config.Add(AppName, "", "application name for new relic")
+	config.Add(License, "", "new relic license key")
+	config.Add(Enabled, false, "enables new relic")
+	config.Add(TracerEnabled, false, "enables new relic distributed tracer")
 }

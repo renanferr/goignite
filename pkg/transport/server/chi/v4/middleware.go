@@ -139,8 +139,7 @@ func NewNewRelicMiddleware(next http.Handler) http.Handler {
 			txn.AddAttribute("request.id", reqID)
 		}
 
-		nrCtx := nr.NewContext(ctx, txn)
-		r = r.WithContext(nrCtx)
+		r = nr.RequestWithTransactionContext(r, txn)
 
 		next.ServeHTTP(w, r)
 	}

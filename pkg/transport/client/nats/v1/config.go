@@ -19,7 +19,7 @@ const (
 
 func init() {
 
-	log.Println("getting default configurations for nats")
+	log.Println("getting configurations for nats")
 
 	config.Add(MaxReconnects, 1000, "define max reconnects to nats server")
 	config.Add(ReconnectWait, 1*time.Second, "define reconnects waiting before reconnect to nats server")

@@ -115,13 +115,14 @@ func NewLogMiddleware(next http.Handler) http.Handler {
 }
 
 func NewNewRelicMiddleware(next http.Handler) http.Handler {
+
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 
 		url := r.URL.String()
 		path := r.URL.Path
 
-		txn := newrelic.App.StartTransaction(path)
+		txn := newrelic.Application().StartTransaction(path)
 		defer txn.End()
 
 		txn.SetWebRequestHTTP(r)

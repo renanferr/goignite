@@ -6,6 +6,7 @@ require (
 	github.com/aws/aws-sdk-go-v2 v0.20.0
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cloudevents/sdk-go v1.1.2
+	github.com/cloudevents/sdk-go/v2 v2.0.0-preview8
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20200325130818-3a5eff96ee35
 	github.com/go-chi/chi v4.0.4+incompatible
 	github.com/go-playground/validator/v10 v10.2.0

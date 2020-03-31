@@ -72,6 +72,10 @@ func WithField(key string, value string) Logger {
 	return l.WithField(key, value)
 }
 
+func WithTypeOf(obj interface{}) Logger {
+	return l.WithTypeOf(obj)
+}
+
 func GetLogger() Logger {
 	return l
 }

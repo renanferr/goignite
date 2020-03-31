@@ -5,6 +5,7 @@ import (
 	"context"
 	"io"
 	"os"
+	"reflect"
 	"strings"
 
 	"github.com/b2wdigital/goignite/pkg/config"
@@ -201,6 +202,16 @@ func (l *logger) WithField(key string, value interface{}) log.Logger {
 func (l *logger) WithFields(fields log.Fields) log.Logger {
 	newLogger := l.logger.With().Fields(fields).Logger()
 	return &logger{newLogger, l.writer}
+}
+
+func (l *logger) WithTypeOf(obj interface{}) log.Logger {
+
+	t := reflect.TypeOf(obj)
+
+	return l.WithFields(log.Fields{
+		"reflect.type.name": t.Name(),
+		"reflect.type.package": t.PkgPath(),
+	})
 }
 
 func (l *logger) Output() io.Writer {

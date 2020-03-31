@@ -5,6 +5,7 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"reflect"
 	"strings"
 
 	"github.com/b2wdigital/goignite/pkg/config"
@@ -225,6 +226,17 @@ func (l *logger) WithFields(fields log.Fields) log.Logger {
 	}
 }
 
+func (l *logger) WithTypeOf(obj interface{}) log.Logger {
+
+	t := reflect.TypeOf(obj)
+
+	return l.WithFields(log.Fields{
+		"reflect.type.name": t.Name(),
+		"reflect.type.package": t.PkgPath(),
+	})
+}
+
+
 func (l *logger) GetFields() log.Fields {
 	return l.fields
 }
@@ -320,6 +332,16 @@ func (l *logEntry) WithFields(fields log.Fields) log.Logger {
 	return &logEntry{
 		entry: l.entry.WithFields(convertToLogrusFields(fields)),
 	}
+}
+
+func (l *logEntry) WithTypeOf(obj interface{}) log.Logger {
+
+	t := reflect.TypeOf(obj)
+
+	return l.WithFields(log.Fields{
+		"reflect.type.name": t.Name(),
+		"reflect.type.package": t.PkgPath(),
+	})
 }
 
 func (l *logEntry) ToContext(ctx context.Context) context.Context {

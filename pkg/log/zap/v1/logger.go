@@ -4,6 +4,7 @@ import (
 	"context"
 	"io"
 	"os"
+	"reflect"
 	"strings"
 
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -203,6 +204,16 @@ func (l *zapLogger) WithFields(fields log.Fields) log.Logger {
 	f := mapToSlice(newFields)
 	newLogger := newSugaredLogger(l.core).With(f...)
 	return &zapLogger{newLogger, newFields, l.writers, l.core}
+}
+
+func (l *zapLogger) WithTypeOf(obj interface{}) log.Logger {
+
+	t := reflect.TypeOf(obj)
+
+	return l.WithFields(log.Fields{
+		"reflect.type.name": t.Name(),
+		"reflect.type.package": t.PkgPath(),
+	})
 }
 
 func (l *zapLogger) GetFields() log.Fields {

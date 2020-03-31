@@ -27,7 +27,7 @@ const (
 )
 
 func init() {
-	log.Println("getting default configurations for resty")
+	log.Println("getting configurations for resty")
 
 	config.Add(Debug, false, "defines global debug request")
 	config.Add(RequestTimeout, 2*time.Second, "defines global http request timeout (ms)")

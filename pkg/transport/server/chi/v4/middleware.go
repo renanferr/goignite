@@ -121,8 +121,9 @@ func NewNewRelicMiddleware(next http.Handler) http.Handler {
 
 		url := r.URL.String()
 		path := r.URL.Path
+		txnName := strings.Join([]string{r.Method, path}, " ")
 
-		txn := newrelic.Application().StartTransaction(path)
+		txn := newrelic.Application().StartTransaction(txnName)
 		defer txn.End()
 
 		txn.SetWebRequestHTTP(r)

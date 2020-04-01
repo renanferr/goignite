@@ -209,7 +209,7 @@ func (l *logger) WithTypeOf(obj interface{}) log.Logger {
 	t := reflect.TypeOf(obj)
 
 	return l.WithFields(log.Fields{
-		"reflect.type.name": t.Name(),
+		"reflect.type.name":    t.Name(),
 		"reflect.type.package": t.PkgPath(),
 	})
 }

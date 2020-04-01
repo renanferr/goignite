@@ -8,7 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/b2wdigital/goignite/pkg/log"
+	"log"
+
 	flag "github.com/spf13/pflag"
 
 	"github.com/knadh/koanf"
@@ -170,6 +171,6 @@ func parseFlags() {
 
 	err := f.Parse(os.Args[0:])
 	if err != nil {
-		log.Warn(err)
+		log.Println(err)
 	}
 }

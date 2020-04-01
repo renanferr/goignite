@@ -24,7 +24,7 @@ func init() {
 	config.Add(RedisEnabled, false, "enable/disable redis logging")
 	config.Add(RedisHost, "localhost", "redis host")
 	config.Add(RedisKey, "", "redis key")
-	config.Add(RedisFormat, "b2w", "redis format")
+	config.Add(RedisFormat, "v1", "redis format")
 	config.Add(RedisApp, "logger", "redis app")
 	config.Add(RedisPort, 6379, "redis port")
 	config.Add(RedisDb, 0, "redis db")

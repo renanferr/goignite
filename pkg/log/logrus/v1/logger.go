@@ -219,7 +219,6 @@ func (l *logger) Panicf(format string, args ...interface{}) {
 }
 
 func (l *logger) WithFields(fields log.Fields) log.Logger {
-	l.fields = fields
 	return &logEntry{
 		entry:  l.logger.WithFields(convertToLogrusFields(fields)),
 		fields: fields,
@@ -249,7 +248,8 @@ func (l *logger) ToContext(ctx context.Context) context.Context {
 }
 
 func (l *logger) FromContext(ctx context.Context) log.Logger {
-	return fromContext(ctx, l)
+	fields := fieldsFromContext(ctx)
+	return l.WithFields(fields)
 }
 
 type logEntry struct {
@@ -348,7 +348,8 @@ func (l *logEntry) ToContext(ctx context.Context) context.Context {
 }
 
 func (l *logEntry) FromContext(ctx context.Context) log.Logger {
-	return fromContext(ctx, l)
+	fields := fieldsFromContext(ctx)
+	return l.WithFields(fields)
 }
 
 func toContext(ctx context.Context, fields log.Fields) context.Context {
@@ -363,11 +364,6 @@ func toContext(ctx context.Context, fields log.Fields) context.Context {
 	}
 
 	return context.WithValue(ctx, key, ctxFields)
-}
-
-func fromContext(ctx context.Context, l log.Logger) log.Logger {
-	fields := fieldsFromContext(ctx)
-	return l.WithFields(fields)
 }
 
 func fieldsFromContext(ctx context.Context) log.Fields {

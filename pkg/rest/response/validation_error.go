@@ -1,6 +1,7 @@
 package response
 
 type ValidationError struct {
-	FieldName string `json:"fieldName"`
-	Message   string `json:"message"`
+	FieldName       string `json:"fieldName"`
+	RestrictionType string `json:"restrictionType"`
+	Message         string `json:"message"`
 }

@@ -2,7 +2,10 @@ package response
 
 import (
 	"net/http"
+	"regexp"
+	"strings"
 
+	v "github.com/b2wdigital/goignite/pkg/validator"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -20,9 +23,15 @@ func NewUnprocessableEntity(err validator.ValidationErrors) UnprocessableEntityE
 
 		fe = err[i].(validator.FieldError)
 
+		restrictionType := v.REQUIRED
+		if strings.ToUpper(fe.Tag()) != v.REQUIRED {
+			restrictionType = v.INVALID
+		}
+
 		verr := ValidationError{
-			FieldName: fe.Field(),
-			Message:   "invalid value",
+			FieldName:       transformFieldName(fe.Namespace()),
+			RestrictionType: restrictionType,
+			Message:         transformMessage(fe, err.Error()),
 		}
 
 		verrs = append(verrs, verr)
@@ -35,4 +44,29 @@ func NewUnprocessableEntity(err validator.ValidationErrors) UnprocessableEntityE
 		},
 		ValidationErrors: verrs,
 	}
+}
+
+func transformMessage(fe validator.FieldError, errorMessage string) string {
+
+	instance := v.Translator()
+	if instance == nil {
+		return "invalid value"
+	}
+
+	message := fe.Translate(instance)
+
+	// When don't exists message registered,
+	// override default
+
+	if strings.Contains(errorMessage, message) {
+		return "invalid value"
+	}
+
+	return message
+}
+
+func transformFieldName(fieldName string) string {
+
+	re := regexp.MustCompile("^(.*?)\\.(.*)$")
+	return re.ReplaceAllString(fieldName, "$2")
 }

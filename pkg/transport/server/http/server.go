@@ -8,7 +8,7 @@ import (
 // NewServer returns a pointer with new Server
 func NewServer(handler http.Handler) *http.Server {
 	return &http.Server{
-		Addr:              config.String(ServerAdress),
+		Addr:              config.String(ServerAddress),
 		Handler:           handler,
 		MaxHeaderBytes:    config.Int(MaxHeaderBytes),
 		ReadTimeout:       config.Duration(ReadTimeout),

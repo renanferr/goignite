@@ -3,10 +3,10 @@ package aws
 import "github.com/lann/builder"
 
 type Options struct {
-	AccessKeyId     string `config:"access.key.id"`
-	SecretAccessKey string `config:"secret.access.key"`
-	DefaultRegion   string `config:"default.region"`
-	SessionToken    string `config:"session.token"`
+	AccessKeyId     string `config:"id"`
+	SecretAccessKey string `config:"key"`
+	DefaultRegion   string `config:"region"`
+	SessionToken    string `config:"token"`
 }
 
 type optionsBuilder builder.Builder

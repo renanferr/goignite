@@ -2,6 +2,7 @@ package chi
 
 import (
 	"context"
+
 	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"

@@ -19,19 +19,18 @@ func NewConfig(ctx context.Context, options *Options) aws.Config {
 		return aws.Config{}
 	}
 
-	if options.DefaultRegion != "" {
-		cfg.Region = options.DefaultRegion
-	}
+	cfg.Region = options.DefaultRegion
 
-	if options.AccessKeyId != "" || options.SecretAccessKey != "" || options.SessionToken != "" {
+	if options.SessionToken == "" {
 		cfg.Credentials = aws.NewStaticCredentialsProvider(options.AccessKeyId, options.SecretAccessKey, options.SessionToken)
 	}
+
 	return cfg
 }
 
 func NewDefaultConfig(ctx context.Context) aws.Config {
 
-	l := log.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o := &Options{}
 
@@ -39,22 +38,22 @@ func NewDefaultConfig(ctx context.Context) aws.Config {
 
 	err = config.UnmarshalWithPath("aws.access.key", o)
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	err = config.UnmarshalWithPath("aws.secret.access", o)
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	err = config.UnmarshalWithPath("aws.default", o)
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	err = config.UnmarshalWithPath("aws.session", o)
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	return NewConfig(ctx, o)

@@ -1,8 +1,9 @@
 package http
 
 import (
-	"github.com/b2wdigital/goignite/pkg/config"
 	"net/http"
+
+	"github.com/b2wdigital/goignite/pkg/config"
 )
 
 // NewServer returns a pointer with new Server

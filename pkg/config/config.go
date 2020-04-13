@@ -1,7 +1,7 @@
 package config
 
-type config struct {
-	key         string
-	value       interface{}
-	description string
+type Config struct {
+	Key         string
+	Value       interface{}
+	Description string
 }

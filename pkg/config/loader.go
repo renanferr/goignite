@@ -102,61 +102,61 @@ func parseFlags() {
 
 	for _, v := range entries {
 
-		fl := f.Lookup(v.key)
+		fl := f.Lookup(v.Key)
 		if fl != nil {
 			continue
 		}
 
-		switch t := v.value.(type) {
+		switch t := v.Value.(type) {
 
 		case string:
-			f.String(v.key, t, v.description)
+			f.String(v.Key, t, v.Description)
 		case []string:
-			f.StringSlice(v.key, t, v.description)
+			f.StringSlice(v.Key, t, v.Description)
 		case bool:
-			f.Bool(v.key, t, v.description)
+			f.Bool(v.Key, t, v.Description)
 		case []bool:
-			f.BoolSlice(v.key, t, v.description)
+			f.BoolSlice(v.Key, t, v.Description)
 		case []int:
-			f.IntSlice(v.key, t, v.description)
+			f.IntSlice(v.Key, t, v.Description)
 		case int:
-			f.Int(v.key, t, v.description)
+			f.Int(v.Key, t, v.Description)
 		case int64:
-			f.Int64(v.key, t, v.description)
+			f.Int64(v.Key, t, v.Description)
 		case int32:
-			f.Int32(v.key, t, v.description)
+			f.Int32(v.Key, t, v.Description)
 		case int16:
-			f.Int16(v.key, t, v.description)
+			f.Int16(v.Key, t, v.Description)
 		case int8:
-			f.Int8(v.key, t, v.description)
+			f.Int8(v.Key, t, v.Description)
 		case uint:
-			f.Uint(v.key, t, v.description)
+			f.Uint(v.Key, t, v.Description)
 		case []uint:
-			f.UintSlice(v.key, t, v.description)
+			f.UintSlice(v.Key, t, v.Description)
 		case uint64:
-			f.Uint64(v.key, t, v.description)
+			f.Uint64(v.Key, t, v.Description)
 		case uint32:
-			f.Uint32(v.key, t, v.description)
+			f.Uint32(v.Key, t, v.Description)
 		case uint16:
-			f.Uint16(v.key, t, v.description)
+			f.Uint16(v.Key, t, v.Description)
 		case uint8:
-			f.Uint8(v.key, t, v.description)
+			f.Uint8(v.Key, t, v.Description)
 		case time.Duration:
-			f.Duration(v.key, t, v.description)
+			f.Duration(v.Key, t, v.Description)
 		case []time.Duration:
-			f.DurationSlice(v.key, t, v.description)
+			f.DurationSlice(v.Key, t, v.Description)
 		case []byte:
-			f.BytesBase64(v.key, t, v.description)
+			f.BytesBase64(v.Key, t, v.Description)
 		case float32:
-			f.Float32(v.key, t, v.description)
+			f.Float32(v.Key, t, v.Description)
 		case float64:
-			f.Float64(v.key, t, v.description)
+			f.Float64(v.Key, t, v.Description)
 		case net.IP:
-			f.IP(v.key, t, v.description)
+			f.IP(v.Key, t, v.Description)
 		case []net.IP:
-			f.IPSlice(v.key, t, v.description)
+			f.IPSlice(v.Key, t, v.Description)
 		case net.IPMask:
-			f.IPMask(v.key, t, v.description)
+			f.IPMask(v.Key, t, v.Description)
 		default:
 			fmt.Println("type unknown")
 		}

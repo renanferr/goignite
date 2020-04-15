@@ -1,10 +1,10 @@
-package echo
+package middleware
 
 import (
 	"strconv"
 	"time"
 
-	l "github.com/b2wdigital/goignite/pkg/log"
+	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/labstack/echo/v4"
 )
 
@@ -31,7 +31,7 @@ func Logger() echo.MiddlewareFunc {
 				reqSize = "0"
 			}
 
-			l.Infof("%s %s %s %-7s %s %3d %s %s %13v %s %s",
+			log.Infof("%s %s %s %-7s %s %3d %s %s %13v %s %s",
 				id,
 				c.RealIP(),
 				req.Host,

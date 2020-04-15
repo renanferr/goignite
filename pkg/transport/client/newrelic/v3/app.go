@@ -24,6 +24,9 @@ func NewApplication(ctx context.Context) (*newrelic.Application, error) {
 		newrelic.ConfigLicense(config.String(License)),
 		newrelic.ConfigEnabled(enabled),
 		newrelic.ConfigDistributedTracerEnabled(config.Bool(TracerEnabled)),
+		func(cfg *newrelic.Config) { // configure labels
+			cfg.Labels = config.StringMap(License)
+		},
 	)
 
 	if err != nil {

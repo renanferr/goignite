@@ -8,6 +8,7 @@ require (
 	github.com/cloudevents/sdk-go v1.1.2
 	github.com/cloudevents/sdk-go/v2 v2.0.0-preview8
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20200325130818-3a5eff96ee35
+	github.com/globocom/echo-prometheus v0.1.2
 	github.com/go-chi/chi v4.0.4+incompatible
 	github.com/go-playground/validator/v10 v10.2.0
 	github.com/go-redis/redis/v7 v7.2.0
@@ -25,6 +26,7 @@ require (
 	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2 // indirect
 	github.com/nats-io/nats.go v1.9.1
 	github.com/newrelic/go-agent/v3 v3.4.0
+	github.com/prometheus/client_golang v1.1.0
 	github.com/ravernkoh/cwlogsfmt v0.0.0-20180121032441-917bad983b4c
 	github.com/rs/zerolog v1.18.0
 	github.com/satori/go.uuid v1.2.0

@@ -17,6 +17,10 @@ func JSON(c echo.Context, code int, i interface{}, err error) error {
 
 	}
 
+	if i == nil {
+		return c.NoContent(code)
+	}
+
 	return c.JSONPretty(code, i, "  ")
 }
 

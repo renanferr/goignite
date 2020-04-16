@@ -5,11 +5,13 @@ import (
 	"strconv"
 
 	"github.com/b2wdigital/goignite/pkg/log"
+	"github.com/b2wdigital/goignite/pkg/transport/client/newrelic/v3"
 	mware "github.com/b2wdigital/goignite/pkg/transport/server/echo/v4/middleware"
 	prometheus "github.com/globocom/echo-prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/newrelic/go-agent/v3/integrations/nrecho-v4"
 )
 
 var (
@@ -40,7 +42,7 @@ func setDefaultMiddlewares(instance *echo.Echo) {
 	}
 
 	if GetMiddlewareNewRelicEnabled() {
-		instance.Use(mware.NewRelic())
+		instance.Use(nrecho.Middleware(newrelic.Application()))
 	}
 
 	if GetMiddlewarePrometheusEnabled() {
@@ -48,7 +50,7 @@ func setDefaultMiddlewares(instance *echo.Echo) {
 	}
 
 	if GetMiddlewareBodyDumpEnabled() {
-		instance.Use(middleware.BodyDumpWithConfig(middleware.BodyDumpConfig{Handler: bodyDump}))
+		instance.Use(middleware.BodyDump(bodyDump))
 	}
 
 	if GetMiddlewareBodyLimitEnabled() {

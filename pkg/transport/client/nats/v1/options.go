@@ -11,7 +11,8 @@ type Options struct {
 	Url           string
 	MaxReconnects int           `config:"maxreconnects"`
 	ReconnectWait time.Duration `config:"reconnectwait"`
-	Health        OptionsHealth
+	Health        HealthOptions
+	NewRelic      NewRelicOptions
 }
 
 type optionsBuilder builder.Builder
@@ -28,8 +29,12 @@ func (b optionsBuilder) ReconnectWait(value time.Duration) optionsBuilder {
 	return builder.Set(b, "ReconnectWait", value).(optionsBuilder)
 }
 
-func (b optionsBuilder) Health(health OptionsHealth) optionsBuilder {
+func (b optionsBuilder) Health(health HealthOptions) optionsBuilder {
 	return builder.Set(b, "Health", health).(optionsBuilder)
+}
+
+func (b optionsBuilder) NewRelic(value NewRelicOptions) optionsBuilder {
+	return builder.Set(b, "NewRelic", value).(optionsBuilder)
 }
 
 func (b optionsBuilder) Build() Options {

@@ -2,6 +2,7 @@ package newrelic
 
 import (
 	"context"
+	"time"
 
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/log"
@@ -25,9 +26,16 @@ func NewApplication(ctx context.Context) (*newrelic.Application, error) {
 		newrelic.ConfigEnabled(enabled),
 		newrelic.ConfigDistributedTracerEnabled(config.Bool(TracerEnabled)),
  		newrelic.ConfigLogger(NewLogger()),
- 		newrelic.ConfigDebugLogger(log.GetLogger().Output()),
- 		func(cfg *newrelic.Config) { // configure labels
+ 		// newrelic.ConfigDebugLogger(log.GetLogger().Output()),
+ 		func(cfg *newrelic.Config) {
  			cfg.Labels = config.StringMap(Labels)
+ 			cfg.ServerlessMode.Enabled = config.Bool(ServerlessModeEnabled)
+			cfg.ServerlessMode.AccountID = config.String(ServerlessModeAccountID)
+			cfg.ServerlessMode.TrustedAccountKey = config.String(ServerlessModeTrustedAccountKey)
+			cfg.ServerlessMode.PrimaryAppID = config.String(ServerlessModePrimaryAppID)
+			if apdex, err := time.ParseDuration(config.String(ServerlessModeApdexThreshold) + "s"); nil == err {
+				cfg.ServerlessMode.ApdexThreshold = apdex
+			}
  		},
 	)
 

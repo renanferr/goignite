@@ -10,8 +10,8 @@ import (
 	prometheus "github.com/globocom/echo-prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/newrelic/go-agent/v3/integrations/nrecho-v4"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var (

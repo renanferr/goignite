@@ -15,6 +15,7 @@ const (
 	HealthDescription = "transport.client.nats.health.description"
 	HealthRequired    = "transport.client.nats.health.required"
 	Url               = "transport.client.nats.url"
+	NewRelicEnabled   = "transport.client.nats.newrelic.enabled"
 )
 
 func init() {
@@ -27,5 +28,6 @@ func init() {
 	config.Add(HealthDescription, "default connection", "define health description")
 	config.Add(HealthRequired, true, "define health description")
 	config.Add(Url, nats.DefaultURL, "define nats server url")
+	config.Add(NewRelicEnabled, false, "enable/disable newrelic")
 
 }

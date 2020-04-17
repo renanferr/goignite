@@ -6,6 +6,7 @@ import (
 	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/go-redis/redis/v7"
+	"github.com/newrelic/go-agent/v3/integrations/nrredis-v7"
 )
 
 func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error) {
@@ -30,6 +31,10 @@ func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error
 		IdleTimeout:        o.IdleTimeout,
 		IdleCheckFrequency: o.IdleCheckFrequency,
 	})
+
+	if o.NewRelic.Enabled {
+		client.AddHook(nrredis.NewHook(client.Options()))
+	}
 
 	ping := client.Conn().Ping()
 	if ping.Err() != nil {

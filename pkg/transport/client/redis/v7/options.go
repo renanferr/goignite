@@ -23,7 +23,8 @@ type Options struct {
 	IdleCheckFrequency time.Duration `config:"idlecheckfrequency"`
 	Client             ClientOptions
 	Cluster            ClusterOptions
-	Health             OptionsHealth
+	Health             HealthOptions
+	NewRelic           NewRelicOptions
 }
 
 type optionsBuilder builder.Builder
@@ -80,8 +81,20 @@ func (b optionsBuilder) IdleCheckFrequency(value time.Duration) optionsBuilder {
 	return builder.Set(b, "IdleCheckFrequency", value).(optionsBuilder)
 }
 
-func (b optionsBuilder) Health(health OptionsHealth) optionsBuilder {
-	return builder.Set(b, "Health", health).(optionsBuilder)
+func (b optionsBuilder) Health(value HealthOptions) optionsBuilder {
+	return builder.Set(b, "Health", value).(optionsBuilder)
+}
+
+func (b optionsBuilder) NewRelic(value NewRelicOptions) optionsBuilder {
+	return builder.Set(b, "NewRelic", value).(optionsBuilder)
+}
+
+func (b optionsBuilder) Client(value ClientOptions) optionsBuilder {
+	return builder.Set(b, "Client", value).(optionsBuilder)
+}
+
+func (b optionsBuilder) Cluster(value ClusterOptions) optionsBuilder {
+	return builder.Set(b, "Cluster", value).(optionsBuilder)
 }
 
 func (b optionsBuilder) Build() Options {

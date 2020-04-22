@@ -8,10 +8,10 @@ require (
 	github.com/cloudevents/sdk-go v1.1.2
 	github.com/cloudevents/sdk-go/v2 v2.0.0-preview8
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20200408073057-6f36a473b19f
-	github.com/globocom/echo-prometheus v0.1.2 // indirect
-	github.com/go-chi/chi v4.1.0+incompatible
 	github.com/go-playground/locales v0.13.0
 	github.com/go-playground/universal-translator v0.17.0
+	github.com/globocom/echo-prometheus v0.1.2
+	github.com/go-chi/chi v4.1.0+incompatible
 	github.com/go-playground/validator/v10 v10.2.0
 	github.com/go-redis/redis/v7 v7.2.0
 	github.com/go-resty/resty/v2 v2.2.0
@@ -28,10 +28,10 @@ require (
 	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2 // indirect
 	github.com/nats-io/nats.go v1.9.2
 	github.com/newrelic/go-agent/v3 v3.4.0
-	github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0 // indirect
-	github.com/newrelic/go-agent/v3/integrations/nrnats v1.1.0 // indirect
-	github.com/newrelic/go-agent/v3/integrations/nrredis-v7 v1.0.0 // indirect
-	github.com/prometheus/client_golang v1.5.1 // indirect
+	github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0
+	github.com/newrelic/go-agent/v3/integrations/nrnats v1.1.0
+	github.com/newrelic/go-agent/v3/integrations/nrredis-v7 v1.0.0
+	github.com/prometheus/client_golang v1.5.1
 	github.com/ravernkoh/cwlogsfmt v0.0.0-20180121032441-917bad983b4c
 	github.com/rs/zerolog v1.18.0
 	github.com/satori/go.uuid v1.2.0

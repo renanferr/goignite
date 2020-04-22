@@ -1,4 +1,4 @@
-package nats
+package redis
 
 import "github.com/lann/builder"
 

@@ -7,6 +7,7 @@ type Options struct {
 	SecretAccessKey string `config:"key"`
 	DefaultRegion   string `config:"region"`
 	SessionToken    string `config:"token"`
+	NewRelic        NewRelicOptions
 }
 
 type optionsBuilder builder.Builder

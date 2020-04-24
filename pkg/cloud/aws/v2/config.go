@@ -7,11 +7,12 @@ import (
 )
 
 const (
-	Key            = "aws.access.key.id"
-	Secret         = "aws.secret.access.key"
-	Region         = "aws.default.region"
-	Session        = "aws.session.token"
-	CustomEndpoint = "aws.custom.endpoint"
+	Key             = "aws.access.key.id"
+	Secret          = "aws.secret.access.key"
+	Region          = "aws.default.region"
+	Session         = "aws.session.token"
+	CustomEndpoint  = "aws.custom.endpoint"
+	NewRelicEnabled = "aws.newrelic.enabled"
 )
 
 func init() {
@@ -23,5 +24,6 @@ func init() {
 	config.Add(Region, "", "defines the aws region")
 	config.Add(Session, "", "defines the aws session token")
 	config.Add(CustomEndpoint, false, "defines if should point to localhost")
+	config.Add(NewRelicEnabled, false, "enable/disable newrelic")
 
 }

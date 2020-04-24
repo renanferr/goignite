@@ -7,6 +7,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws/external"
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/log"
+
+	"github.com/newrelic/go-agent/_integrations/nrawssdk/v2"
 )
 
 func NewConfig(ctx context.Context, options *Options) aws.Config {
@@ -23,6 +25,10 @@ func NewConfig(ctx context.Context, options *Options) aws.Config {
 
 	if options.SessionToken == "" {
 		cfg.Credentials = aws.NewStaticCredentialsProvider(options.AccessKeyId, options.SecretAccessKey, options.SessionToken)
+	}
+
+	if options.NewRelic.Enabled {
+		nrawssdk.InstrumentHandlers(&cfg.Handlers)
 	}
 
 	return cfg

@@ -28,6 +28,7 @@ require (
 	github.com/newrelic/go-agent v3.4.0+incompatible
 	github.com/newrelic/go-agent/v3 v3.4.0
 	github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0
+	github.com/newrelic/go-agent/v3/integrations/nrmongo v1.0.0
 	github.com/newrelic/go-agent/v3/integrations/nrnats v1.1.0
 	github.com/newrelic/go-agent/v3/integrations/nrredis-v7 v1.0.0
 	github.com/prometheus/client_golang v1.5.1

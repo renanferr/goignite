@@ -1,8 +1,9 @@
 package zerolog
 
 import (
-	"github.com/b2wdigital/goignite/pkg/config"
 	"log"
+
+	"github.com/b2wdigital/goignite/pkg/config"
 )
 
 const (

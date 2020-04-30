@@ -6,6 +6,7 @@ import (
 
 	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/log"
+	"github.com/newrelic/go-agent/v3/integrations/nrmongo"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/connstring"
@@ -15,7 +16,15 @@ func NewClient(ctx context.Context, o *Options) (client *mongo.Client, database 
 
 	l := log.FromContext(ctx)
 
-	client, err = mongo.Connect(ctx, options.Client().ApplyURI(o.Uri))
+	nrMon := nrmongo.NewCommandMonitor(nil)
+
+	clientOptions := options.Client().ApplyURI(o.Uri)
+
+	if o.NewRelic.Enabled {
+		clientOptions.SetMonitor(nrMon)
+	}
+
+	client, err = mongo.Connect(ctx, clientOptions)
 
 	if err != nil {
 		return nil, nil, err

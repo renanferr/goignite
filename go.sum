@@ -478,6 +478,8 @@ github.com/newrelic/go-agent/v3 v3.4.0 h1:PZTDUw+8h0yRkpkkXKrHSlRsDk0uYJ4I3Dv2lr
 github.com/newrelic/go-agent/v3 v3.4.0/go.mod h1:H28zDNUC0U/b7kLoY4EFOhuth10Xu/9dchozUiOseQQ=
 github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0 h1:t5Onzlsdl4qMxRx62ag2n/wZlyzHoVDw75b/eCViOwM=
 github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0/go.mod h1:OaWlBA7HaVlDpvNsJ3JhH1IN45kP1lwIGa3+LJBnYuE=
+github.com/newrelic/go-agent/v3/integrations/nrmongo v1.0.0 h1:+4iKT7xD1hHzfmfz/bE4rFKj+IkXHD5cE/wTjDomMhs=
+github.com/newrelic/go-agent/v3/integrations/nrmongo v1.0.0/go.mod h1:Tl8gPEnwucxyzQ4RbsE++NRcNwSzkILQpNEbKR+eSg4=
 github.com/newrelic/go-agent/v3/integrations/nrnats v1.1.0 h1:aOWfSB1GR9qe6eLsC74YrbvqyClgZHgK0/DTl3dx1L4=
 github.com/newrelic/go-agent/v3/integrations/nrnats v1.1.0/go.mod h1:WdkydPOO6KanfqvG54orfa+gjtLxqV6uADWQp9M9l5E=
 github.com/newrelic/go-agent/v3/integrations/nrredis-v7 v1.0.0 h1:omBtnzG57tIsmqTq0MDdIOkvlVPQ3Tik1OElsirMTZA=
@@ -641,6 +643,7 @@ github.com/xordataexchange/crypt v0.0.3-0.20170626215501-b2862e3d0a77/go.mod h1:
 github.com/zenazn/goji v0.9.0/go.mod h1:7S9M489iMyHBNxwZnk9/EHS098H4/F6TATF2mIxtB1Q=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
+go.mongodb.org/mongo-driver v1.0.0/go.mod h1:u7ryQJ+DOzQmeO7zB6MHyr8jkEQvC8vH7qLUO4lqsUM=
 go.mongodb.org/mongo-driver v1.3.1 h1:op56IfTQiaY2679w922KVWa3qcHdml2K/Io8ayAOUEQ=
 go.mongodb.org/mongo-driver v1.3.1/go.mod h1:MSWZXKOynuguX+JSvwP8i+58jYCXxbia8HS3gZBapIE=
 go.mongodb.org/mongo-driver v1.3.2 h1:IYppNjEV/C+/3VPbhHVxQ4t04eVW0cLp0/pNdW++6Ug=

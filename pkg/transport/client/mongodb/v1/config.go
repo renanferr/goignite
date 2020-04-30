@@ -11,6 +11,7 @@ const (
 	HealthEnabled     = "transport.client.mongodb.health.enabled"
 	HealthDescription = "transport.client.mongodb.health.description"
 	HealthRequired    = "transport.client.mongodb.health.required"
+	NewRelicEnabled   = "transport.client.mongodb.newrelic.enabled"
 )
 
 func init() {
@@ -21,5 +22,6 @@ func init() {
 	config.Add(HealthEnabled, true, "enabled/disable health check")
 	config.Add(HealthDescription, "default connection", "define health description")
 	config.Add(HealthRequired, true, "define health description")
+	config.Add(NewRelicEnabled, false, "enable/disable newrelic")
 
 }

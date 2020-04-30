@@ -6,8 +6,9 @@ import (
 )
 
 type Options struct {
-	Uri    string
-	Health OptionsHealth
+	Uri      string
+	Health   OptionsHealth
+	NewRelic OptionsNewRelic
 }
 
 type optionsBuilder builder.Builder
@@ -18,6 +19,10 @@ func (b optionsBuilder) RequestTimeout(uri string) optionsBuilder {
 
 func (b optionsBuilder) Health(health OptionsHealth) optionsBuilder {
 	return builder.Set(b, "Health", health).(optionsBuilder)
+}
+
+func (b optionsBuilder) NewRelic(value OptionsNewRelic) optionsBuilder {
+	return builder.Set(b, "NewRelic", value).(optionsBuilder)
 }
 
 func (b optionsBuilder) Build() Options {

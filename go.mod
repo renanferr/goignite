@@ -27,6 +27,7 @@ require (
 	github.com/nats-io/nats.go v1.9.2
 	github.com/newrelic/go-agent v3.4.0+incompatible
 	github.com/newrelic/go-agent/v3 v3.4.0
+	github.com/newrelic/go-agent/v3/integrations/nrawssdk-v2 v1.0.0
 	github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0
 	github.com/newrelic/go-agent/v3/integrations/nrmongo v1.0.0
 	github.com/newrelic/go-agent/v3/integrations/nrnats v1.1.0

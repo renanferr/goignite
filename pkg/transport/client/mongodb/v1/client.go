@@ -4,27 +4,64 @@ import (
 	"context"
 	"strings"
 
+	"github.com/b2wdigital/goignite/pkg/errors"
 	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/log"
-	"github.com/newrelic/go-agent/v3/integrations/nrmongo"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/connstring"
 )
 
+func NewClientWithIntegrations(ctx context.Context, o *Options, integrations []Integrator) (client *mongo.Client, database *mongo.Database, err error) {
+
+	co := clientOptions(o)
+
+	for _, integrator := range integrations {
+		err = integrator.Integrate(ctx, co)
+		if err != nil {
+			return nil, nil, errors.Wrap(err, errors.Internalf("error on integrate mongodb"))
+		}
+	}
+
+	return newClient(ctx, co, o)
+}
+
 func NewClient(ctx context.Context, o *Options) (client *mongo.Client, database *mongo.Database, err error) {
+
+	co := clientOptions(o)
+
+	return newClient(ctx, co, o)
+}
+
+func NewDefaultClientWithIntegrations(ctx context.Context, integrations []Integrator) (*mongo.Client, *mongo.Database, error) {
 
 	l := log.FromContext(ctx)
 
-	nrMon := nrmongo.NewCommandMonitor(nil)
-
-	clientOptions := options.Client().ApplyURI(o.Uri)
-
-	if o.NewRelic.Enabled {
-		clientOptions.SetMonitor(nrMon)
+	o, err := DefaultOptions()
+	if err != nil {
+		l.Fatalf(err.Error())
 	}
 
-	client, err = mongo.Connect(ctx, clientOptions)
+	return NewClientWithIntegrations(ctx, o, integrations)
+}
+
+func NewDefaultClient(ctx context.Context) (*mongo.Client, *mongo.Database, error) {
+
+	l := log.FromContext(ctx)
+
+	o, err := DefaultOptions()
+	if err != nil {
+		l.Fatalf(err.Error())
+	}
+
+	return NewClient(ctx, o)
+}
+
+func newClient(ctx context.Context, co *options.ClientOptions, o *Options) (client *mongo.Client, database *mongo.Database, err error) {
+
+	l := log.FromContext(ctx)
+
+	client, err = mongo.Connect(ctx, co)
 
 	if err != nil {
 		return nil, nil, err
@@ -54,16 +91,8 @@ func NewClient(ctx context.Context, o *Options) (client *mongo.Client, database 
 	return client, database, err
 }
 
-func NewDefaultClient(ctx context.Context) (*mongo.Client, *mongo.Database, error) {
-
-	l := log.FromContext(ctx)
-
-	o, err := DefaultOptions()
-	if err != nil {
-		l.Fatalf(err.Error())
-	}
-
-	return NewClient(ctx, o)
+func clientOptions(o *Options) *options.ClientOptions {
+	return options.Client().ApplyURI(o.Uri)
 }
 
 func configureHealthCheck(client *mongo.Client, o *Options) {

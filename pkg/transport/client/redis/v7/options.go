@@ -24,7 +24,6 @@ type Options struct {
 	Client             ClientOptions
 	Cluster            ClusterOptions
 	Health             HealthOptions
-	NewRelic           NewRelicOptions
 }
 
 type optionsBuilder builder.Builder
@@ -85,10 +84,6 @@ func (b optionsBuilder) Health(value HealthOptions) optionsBuilder {
 	return builder.Set(b, "Health", value).(optionsBuilder)
 }
 
-func (b optionsBuilder) NewRelic(value NewRelicOptions) optionsBuilder {
-	return builder.Set(b, "NewRelic", value).(optionsBuilder)
-}
-
 func (b optionsBuilder) Client(value ClientOptions) optionsBuilder {
 	return builder.Set(b, "Client", value).(optionsBuilder)
 }
@@ -107,7 +102,7 @@ func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
 
-	err := config.UnmarshalWithPath("transport.client.redis", o)
+	err := config.UnmarshalWithPath(ConfigRoot, o)
 	if err != nil {
 		return nil, err
 	}

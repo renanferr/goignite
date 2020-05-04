@@ -7,11 +7,12 @@ import (
 )
 
 const (
-	Uri               = "transport.client.mongodb.uri"
-	HealthEnabled     = "transport.client.mongodb.health.enabled"
-	HealthDescription = "transport.client.mongodb.health.description"
-	HealthRequired    = "transport.client.mongodb.health.required"
-	NewRelicEnabled   = "transport.client.mongodb.newrelic.enabled"
+	ConfigRoot		  = "transport.client.mongodb"
+	Uri               = ConfigRoot + ".uri"
+	HealthEnabled     = ConfigRoot + ".enabled"
+	HealthDescription = ConfigRoot + ".health.description"
+	HealthRequired    = ConfigRoot + ".health.required"
+	NewRelicEnabled   = ConfigRoot + ".newrelic.enabled"
 )
 
 func init() {

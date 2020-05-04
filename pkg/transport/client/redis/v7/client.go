@@ -3,11 +3,28 @@ package redis
 import (
 	"context"
 
+	"github.com/b2wdigital/goignite/pkg/errors"
 	"github.com/b2wdigital/goignite/pkg/health"
 	"github.com/b2wdigital/goignite/pkg/log"
 	"github.com/go-redis/redis/v7"
-	"github.com/newrelic/go-agent/v3/integrations/nrredis-v7"
 )
+
+func NewClientWithIntegrations(ctx context.Context, o *Options, integrations []Integrator) (client *redis.Client, err error) {
+
+	client, err = NewClient(ctx, o)
+	if err != nil {
+		return client, err
+	}
+
+	for _, integrator := range integrations {
+		err = integrator.Integrate(ctx, client)
+		if err != nil {
+			return nil, errors.Wrap(err, errors.Internalf("error on integrate mongodb"))
+		}
+	}
+
+	return client, err
+}
 
 func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error) {
 
@@ -32,10 +49,6 @@ func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error
 		IdleCheckFrequency: o.IdleCheckFrequency,
 	})
 
-	if o.NewRelic.Enabled {
-		client.AddHook(nrredis.NewHook(client.Options()))
-	}
-
 	ping := client.Conn().Ping()
 	if ping.Err() != nil {
 		return nil, ping.Err()
@@ -48,6 +61,18 @@ func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error
 	}
 
 	return client, err
+}
+
+func NewDefaultClientWithIntegrations(ctx context.Context, integrations []Integrator) (*redis.Client, error) {
+
+	l := log.FromContext(ctx)
+
+	o, err := DefaultOptions()
+	if err != nil {
+		l.Fatalf(err.Error())
+	}
+
+	return NewClientWithIntegrations(ctx, o, integrations)
 }
 
 func NewDefaultClient(ctx context.Context) (*redis.Client, error) {

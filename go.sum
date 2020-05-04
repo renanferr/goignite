@@ -59,6 +59,7 @@ github.com/aws/aws-sdk-go v1.15.27/go.mod h1:mFuSZ37Z9YOHbQEwBWztmVzqXrEkub65tZo
 github.com/aws/aws-sdk-go v1.19.18/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
 github.com/aws/aws-sdk-go v1.19.45 h1:jAxmC8qqa7mW531FDgM8Ahbqlb3zmiHgTpJU6fY3vJ0=
 github.com/aws/aws-sdk-go v1.19.45/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
+github.com/aws/aws-sdk-go-v2 v0.8.0/go.mod h1:sa1GePZ/LfBGI4dSq30f6uR4Tthll8axxtEPvlpXZ8U=
 github.com/aws/aws-sdk-go-v2 v0.19.0 h1:jVKVeRBQah2OwqXRoy8bnWWgpo2sXk/bWf2J2tog+lk=
 github.com/aws/aws-sdk-go-v2 v0.19.0/go.mod h1:JWVYvqSMppoMJC0x5wdwiImzgXTI9FuZwxzkQq9wy+g=
 github.com/aws/aws-sdk-go-v2 v0.20.0 h1:/yefUjgMrda9PNFwWctBU63nL10CJMdBwkAmaQ4w4Hs=
@@ -476,6 +477,8 @@ github.com/newrelic/go-agent/v3 v3.0.0 h1:YK9ddXLcMoWr/Bqj30T+cQo1wniFVR5SS/mVuV
 github.com/newrelic/go-agent/v3 v3.0.0/go.mod h1:H28zDNUC0U/b7kLoY4EFOhuth10Xu/9dchozUiOseQQ=
 github.com/newrelic/go-agent/v3 v3.4.0 h1:PZTDUw+8h0yRkpkkXKrHSlRsDk0uYJ4I3Dv2lrws/EU=
 github.com/newrelic/go-agent/v3 v3.4.0/go.mod h1:H28zDNUC0U/b7kLoY4EFOhuth10Xu/9dchozUiOseQQ=
+github.com/newrelic/go-agent/v3/integrations/nrawssdk-v2 v1.0.0 h1:uWyNOUyCnfcoxPBNOjRf/jPGglUFTeaW5QtVVXr0Paw=
+github.com/newrelic/go-agent/v3/integrations/nrawssdk-v2 v1.0.0/go.mod h1:tQRbEvH2cpx9ZqwqLj9RV1ojNBWhSYUHWXZBlns5d38=
 github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0 h1:t5Onzlsdl4qMxRx62ag2n/wZlyzHoVDw75b/eCViOwM=
 github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0/go.mod h1:OaWlBA7HaVlDpvNsJ3JhH1IN45kP1lwIGa3+LJBnYuE=
 github.com/newrelic/go-agent/v3/integrations/nrmongo v1.0.0 h1:+4iKT7xD1hHzfmfz/bE4rFKj+IkXHD5cE/wTjDomMhs=

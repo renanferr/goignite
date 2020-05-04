@@ -1,4 +1,4 @@
-package mongodb
+package newrelic
 
 import (
 	"github.com/b2wdigital/goignite/pkg/config"
@@ -6,18 +6,13 @@ import (
 )
 
 type Options struct {
-	Uri      string
-	Health   OptionsHealth
+	Enabled bool
 }
 
 type optionsBuilder builder.Builder
 
-func (b optionsBuilder) RequestTimeout(uri string) optionsBuilder {
-	return builder.Set(b, "Uri", uri).(optionsBuilder)
-}
-
-func (b optionsBuilder) Health(health OptionsHealth) optionsBuilder {
-	return builder.Set(b, "Health", health).(optionsBuilder)
+func (b optionsBuilder) Enabled(value bool) optionsBuilder {
+	return builder.Set(b, "Enabled", value).(optionsBuilder)
 }
 
 func (b optionsBuilder) Build() Options {
@@ -30,7 +25,7 @@ func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
 
-	err := config.UnmarshalWithPath(ConfigRoot, o)
+	err := config.UnmarshalWithPath("aws.integration.newrelic", o)
 	if err != nil {
 		return nil, err
 	}

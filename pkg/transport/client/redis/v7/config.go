@@ -9,31 +9,31 @@ import (
 )
 
 const (
-	Password           = "transport.client.redis.password"
-	MaxRetries         = "transport.client.redis.maxretries"
-	MinRetryBackoff    = "transport.client.redis.minretrybackoff"
-	MaxRetryBackoff    = "transport.client.redis.maxretrybackoff"
-	DialTimeout        = "transport.client.redis.dialtimeout"
-	ReadTimeout        = "transport.client.redis.readtimeout"
-	WriteTimeout       = "transport.client.redis.writetimeout"
-	PoolSize           = "transport.client.redis.poolsize"
-	MinIdleConns       = "transport.client.redis.minidleconns"
-	MaxConnAge         = "transport.client.redis.maxconnage"
-	PoolTimeout        = "transport.client.redis.pooltimeout"
-	IdleTimeout        = "transport.client.redis.idletimeout"
-	IdleCheckFrequency = "transport.client.redis.idlecheckfrequency"
-	Addr               = "transport.client.redis.client.addr"
-	Network            = "transport.client.redis.client.network"
-	DB                 = "transport.client.redis.client.db"
-	Addrs              = "transport.client.redis.cluster.addrs"
-	MaxRedirects       = "transport.client.redis.cluster.maxredirects"
-	ReadOnly           = "transport.client.redis.cluster.readonly"
-	RouteByLatency     = "transport.client.redis.cluster.routebylatency"
-	RouteRandomly      = "transport.client.redis.cluster.routerandomly"
-	HealthEnabled      = "transport.client.redis.health.enabled"
-	HealthDescription  = "transport.client.redis.health.description"
-	HealthRequired     = "transport.client.redis.health.required"
-	NewRelicEnabled    = "transport.client.redis.newrelic.enabled"
+	ConfigRoot         = "transport.client.redis"
+	Password           = ConfigRoot + ".password"
+	MaxRetries         = ConfigRoot + ".maxretries"
+	MinRetryBackoff    = ConfigRoot + ".minretrybackoff"
+	MaxRetryBackoff    = ConfigRoot + ".maxretrybackoff"
+	DialTimeout        = ConfigRoot + ".dialtimeout"
+	ReadTimeout        = ConfigRoot + ".readtimeout"
+	WriteTimeout       = ConfigRoot + ".writetimeout"
+	PoolSize           = ConfigRoot + ".poolsize"
+	MinIdleConns       = ConfigRoot + ".minidleconns"
+	MaxConnAge         = ConfigRoot + ".maxconnage"
+	PoolTimeout        = ConfigRoot + ".pooltimeout"
+	IdleTimeout        = ConfigRoot + ".idletimeout"
+	IdleCheckFrequency = ConfigRoot + ".idlecheckfrequency"
+	Addr               = ConfigRoot + ".client.addr"
+	Network            = ConfigRoot + ".client.network"
+	DB                 = ConfigRoot + ".client.db"
+	Addrs              = ConfigRoot + ".cluster.addrs"
+	MaxRedirects       = ConfigRoot + ".cluster.maxredirects"
+	ReadOnly           = ConfigRoot + ".cluster.readonly"
+	RouteByLatency     = ConfigRoot + ".cluster.routebylatency"
+	RouteRandomly      = ConfigRoot + ".cluster.routerandomly"
+	HealthEnabled      = ConfigRoot + ".health.enabled"
+	HealthDescription  = ConfigRoot + ".health.description"
+	HealthRequired     = ConfigRoot + ".health.required"
 )
 
 func init() {
@@ -64,5 +64,4 @@ func init() {
 	config.Add(HealthEnabled, true, "enabled/disable health check")
 	config.Add(HealthDescription, "default connection", "define health description")
 	config.Add(HealthRequired, true, "define health description")
-	config.Add(NewRelicEnabled, false, "enable/disable newrelic")
 }

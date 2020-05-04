@@ -7,9 +7,21 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws/external"
 	"github.com/b2wdigital/goignite/pkg/config"
 	"github.com/b2wdigital/goignite/pkg/log"
-
-	"github.com/newrelic/go-agent/_integrations/nrawssdk/v2"
 )
+
+func NewConfigWithIntegrations(ctx context.Context, options *Options, integrations []Integrator) aws.Config {
+
+	cfg := NewConfig(ctx, options)
+
+	for _, integrator := range integrations {
+		err := integrator.Integrate(ctx, &cfg)
+		if err != nil {
+			continue
+		}
+	}
+
+	return cfg
+}
 
 func NewConfig(ctx context.Context, options *Options) aws.Config {
 
@@ -27,14 +39,24 @@ func NewConfig(ctx context.Context, options *Options) aws.Config {
 		cfg.Credentials = aws.NewStaticCredentialsProvider(options.AccessKeyId, options.SecretAccessKey, options.SessionToken)
 	}
 
-	if options.NewRelic.Enabled {
-		nrawssdk.InstrumentHandlers(&cfg.Handlers)
-	}
-
 	return cfg
 }
 
 func NewDefaultConfig(ctx context.Context) aws.Config {
+
+	o := loadDefaultOptions(ctx)
+
+	return NewConfig(ctx, o)
+}
+
+func NewDefaultConfigWithIntegrations(ctx context.Context, integrations []Integrator) aws.Config {
+
+	o := loadDefaultOptions(ctx)
+
+	return NewConfigWithIntegrations(ctx, o, integrations)
+}
+
+func loadDefaultOptions(ctx context.Context) *Options {
 
 	logger := log.FromContext(ctx)
 
@@ -62,6 +84,5 @@ func NewDefaultConfig(ctx context.Context) aws.Config {
 		logger.Fatalf(err.Error())
 	}
 
-	return NewConfig(ctx, o)
-
+	return o
 }

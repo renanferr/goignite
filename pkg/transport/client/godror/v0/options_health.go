@@ -1,4 +1,4 @@
-package elasticsearch
+package godror
 
 import "github.com/lann/builder"
 

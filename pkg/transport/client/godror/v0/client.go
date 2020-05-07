@@ -13,15 +13,15 @@ func NewDB(ctx context.Context, o *Options) (db *sql.DB, err error) {
 
 	l := log.FromContext(ctx)
 
-	db, err = sql.Open("godror", "us_ti_joao_faria/mudar123@10.13.172.79:1524/BWRMSHM")
+	db, err = sql.Open("godror", o.DataSourceName)
 	if err != nil {
 		return nil, err
 	}
 	defer db.Close()
 
-	db.SetConnMaxLifetime()
-	db.SetMaxIdleConns()
-	db.SetMaxOpenConns()
+	db.SetConnMaxLifetime(o.ConnMaxLifetime)
+	db.SetMaxIdleConns(o.MaxIdleConns)
+	db.SetMaxOpenConns(o.MaxOpenConns)
 
 	if err = db.Ping(); err != nil {
 		return nil, err

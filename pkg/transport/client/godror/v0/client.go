@@ -27,7 +27,7 @@ func NewDB(ctx context.Context, o *Options) (db *sql.DB, err error) {
 		return nil, err
 	}
 
-	l.Infof("Connected to Oracle (godror) server: %v")
+	l.Info("Connected to Oracle (godror) server")
 
 	if o.Health.Enabled {
 		configureHealthCheck(db, o)

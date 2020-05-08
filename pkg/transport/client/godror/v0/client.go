@@ -17,7 +17,7 @@ func NewDB(ctx context.Context, o *Options) (db *sql.DB, err error) {
 	if err != nil {
 		return nil, err
 	}
-	defer db.Close()
+	// defer db.Close()
 
 	db.SetConnMaxLifetime(o.ConnMaxLifetime)
 	db.SetMaxIdleConns(o.MaxIdleConns)

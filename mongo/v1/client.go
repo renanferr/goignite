@@ -29,7 +29,7 @@ func NewClient(ctx context.Context, o *Options) (client *mongo.Client, database 
 	}
 
 	gieventbus.Publish(TopicClient, client)
-	gieventbus.Publish(TopicDatabase, client)
+	gieventbus.Publish(TopicDatabase, database)
 
 	return client, database, err
 }

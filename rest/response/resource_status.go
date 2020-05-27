@@ -1,7 +1,7 @@
 package response
 
 import (
-	"github.com/b2wdigital/goignite/pkg/info"
+	"github.com/b2wdigital/goignite/info"
 	"github.com/lann/builder"
 )
 

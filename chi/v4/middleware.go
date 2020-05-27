@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/b2wdigital/goignite/info"
 	gilog "github.com/b2wdigital/goignite/log"
 	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
-	"github.com/b2wdigital/goignite/pkg/info"
 	"github.com/go-chi/chi/middleware"
 	nr "github.com/newrelic/go-agent/v3/newrelic"
 	uuid "github.com/satori/go.uuid"

@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 
 	giconfig "github.com/b2wdigital/goignite/config"
-	"github.com/b2wdigital/goignite/health"
+	gihealth "github.com/b2wdigital/goignite/health"
 	gihealthredis "github.com/b2wdigital/goignite/health/ext/redis/v7"
 	gilog "github.com/b2wdigital/goignite/log"
 	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"

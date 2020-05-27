@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/b2wdigital/goignite/health"
+	gihealth "github.com/b2wdigital/goignite/health"
 	"github.com/lann/builder"
 )
 
@@ -33,7 +33,7 @@ func NewHealth(ctx context.Context) (Health, int) {
 
 	var details []HealthDetail
 
-	all := health.CheckAll(ctx)
+	all := gihealth.CheckAll(ctx)
 
 	httpStatus := http.StatusOK
 	healthStatus := Ok

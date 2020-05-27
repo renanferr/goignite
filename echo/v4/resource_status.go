@@ -3,7 +3,7 @@ package giecho
 import (
 	"net/http"
 
-	"github.com/b2wdigital/goignite/pkg/rest/response"
+	"github.com/b2wdigital/goignite/rest/response"
 	"github.com/labstack/echo/v4"
 )
 

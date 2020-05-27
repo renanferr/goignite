@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/b2wdigital/goignite/pkg/rest/response"
+	"github.com/b2wdigital/goignite/rest/response"
 )
 
 func NewResourceStatusHandler() *ResourceStatusHandler {

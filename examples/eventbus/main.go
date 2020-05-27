@@ -12,7 +12,14 @@ func main() {
 	gilogrus.NewLogger()
 
 	gieventbus.Subscribe("exampleint", ExampleInt)
+	defer gieventbus.Unsubscribe("exampleint", ExampleInt)
 	gieventbus.Subscribe("examplestring", ExampleString)
+	defer gieventbus.Unsubscribe("examplestring", ExampleString)
+
+	gieventbus.Subscribe("examplestring", ExampleString1)
+	defer gieventbus.Unsubscribe("examplestring", ExampleString1)
+	gieventbus.Subscribe("examplestring", ExampleString2)
+	defer gieventbus.Unsubscribe("examplestring", ExampleString2)
 
 	gieventbus.Publish("exampleint", 1)
 	gieventbus.Publish("examplestring", "Hello World!!")
@@ -24,4 +31,12 @@ func ExampleInt(i int) {
 
 func ExampleString(m string) {
 	gilog.Infof("logging string %s", m)
+}
+
+func ExampleString1(m string) {
+	gilog.Infof("logging string 2 %s", m)
+}
+
+func ExampleString2(m string) {
+	gilog.Infof("logging string 1 %s", m)
 }

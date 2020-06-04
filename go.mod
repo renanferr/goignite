@@ -35,6 +35,7 @@ require (
 	github.com/newrelic/go-agent/v3/integrations/nrnats v1.1.0
 	github.com/newrelic/go-agent/v3/integrations/nrredis-v7 v1.0.0
 	github.com/prometheus/client_golang v1.5.1
+	github.com/prometheus/common v0.9.1
 	github.com/ravernkoh/cwlogsfmt v0.0.0-20180121032441-917bad983b4c
 	github.com/rs/zerolog v1.18.0
 	github.com/satori/go.uuid v1.2.0

@@ -12,7 +12,6 @@ type Options struct {
 	ConnMaxLifetime time.Duration `config:"connmaxlifetime"`
 	MaxIdleConns    int           `config:"maxidleconns"`
 	MaxOpenConns    int           `config:"maxopenconns"`
-	Health          OptionsHealth
 }
 
 type optionsBuilder builder.Builder
@@ -31,10 +30,6 @@ func (b optionsBuilder) MaxIdleConns(value int) optionsBuilder {
 
 func (b optionsBuilder) MaxOpenConns(value int) optionsBuilder {
 	return builder.Set(b, "MaxOpenConns", value).(optionsBuilder)
-}
-
-func (b optionsBuilder) Health(health OptionsHealth) optionsBuilder {
-	return builder.Set(b, "Health", health).(optionsBuilder)
 }
 
 func (b optionsBuilder) Build() Options {

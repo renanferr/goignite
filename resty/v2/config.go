@@ -10,6 +10,8 @@ import (
 
 const (
 	Debug                          = "gi.resty.debug"
+	ConnectionTimeout              = "gi.resty.connectionTimeout"
+	KeepAlive                      = "gi.resty.keepAlive"
 	RequestTimeout                 = "gi.resty.requestTimeout"
 	RetryCount                     = "gi.resty.retry.count"
 	RetryWaitTime                  = "gi.resty.retry.waitTime"
@@ -30,10 +32,12 @@ func init() {
 	log.Println("getting configurations for resty")
 
 	giconfig.Add(Debug, false, "defines global debug request")
-	giconfig.Add(RequestTimeout, 2*time.Second, "defines global http request timeout (ms)")
+	giconfig.Add(ConnectionTimeout, 3*time.Minute, "defines global http connection timeout")
+	giconfig.Add(KeepAlive, 30*time.Second, "defines global http keepalive")
+	giconfig.Add(RequestTimeout, 30*time.Second, "defines global http request timeout")
 	giconfig.Add(RetryCount, 0, "defines global max http retries")
-	giconfig.Add(RetryWaitTime, 200*time.Millisecond, "defines global retry wait time (ms)")
-	giconfig.Add(RetryMaxWaitTime, 2*time.Second, "defines global max retry wait time (ms)")
+	giconfig.Add(RetryWaitTime, 200*time.Millisecond, "defines global retry wait time")
+	giconfig.Add(RetryMaxWaitTime, 2*time.Second, "defines global max retry wait time")
 
 	giconfig.Add(TransportDisableCompression, false, "enabled/disable transport compression")
 	giconfig.Add(TransportDisableKeepAlives, false, "enabled/disable transport keep alives")

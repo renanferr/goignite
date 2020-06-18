@@ -26,9 +26,17 @@ func NewClient(ctx context.Context, options *Options) *resty.Client {
 	client := resty.New()
 
 	dialer := &net.Dialer{
-		Timeout:   30 * time.Second,
-		KeepAlive: 30 * time.Second,
+		Timeout:   giconfig.Duration(ConnectionTimeout),
+		KeepAlive: giconfig.Duration(KeepAlive),
 		DualStack: true,
+	}
+
+	if options.ConnectionTimeout > -1 {
+		dialer.Timeout = options.ConnectionTimeout
+	}
+
+	if options.KeepAlive > -1 {
+		dialer.KeepAlive = options.KeepAlive
 	}
 
 	transport := &http.Transport{
@@ -46,13 +54,49 @@ func NewClient(ctx context.Context, options *Options) *resty.Client {
 		ExpectContinueTimeout: giconfig.Duration(TransportExpectContinueTimeout),
 	}
 
+	if options.Transport != nil {
+
+		transport.DisableCompression = options.Transport.DisableCompression
+		transport.DisableKeepAlives = options.Transport.DisableKeepAlives
+		transport.ForceAttemptHTTP2 = options.Transport.ForceAttemptHTTP2
+
+		if options.Transport.MaxIdleConnsPerHost > 0 {
+			transport.MaxIdleConnsPerHost = options.Transport.MaxIdleConnsPerHost
+		}
+
+		if options.Transport.ResponseHeaderTimeout > 0 {
+			transport.ResponseHeaderTimeout = options.Transport.ResponseHeaderTimeout
+		}
+
+		if options.Transport.MaxIdleConns > 0 {
+			transport.MaxIdleConns = options.Transport.MaxIdleConns
+		}
+
+		if options.Transport.MaxConnsPerHost > 0 {
+			transport.MaxConnsPerHost = options.Transport.MaxConnsPerHost
+		}
+
+		if options.Transport.IdleConnTimeout > 0 {
+			transport.IdleConnTimeout = options.Transport.IdleConnTimeout
+		}
+
+		if options.Transport.TLSHandshakeTimeout > 0 {
+			transport.TLSHandshakeTimeout = options.Transport.TLSHandshakeTimeout
+		}
+
+		if options.Transport.ExpectContinueTimeout > 0 {
+			transport.ExpectContinueTimeout = options.Transport.ExpectContinueTimeout
+		}
+
+	}
+
 	client.
 		SetTransport(transport).
 		SetTimeout(giconfig.Duration(RequestTimeout)).
 		SetRetryCount(giconfig.Int(RetryCount)).
 		SetRetryWaitTime(giconfig.Duration(RetryWaitTime)).
 		SetRetryMaxWaitTime(giconfig.Duration(RetryMaxWaitTime)).
-		SetDebug(false).
+		SetDebug(giconfig.Bool(Debug)).
 		SetHostURL(options.Host).
 		AddRetryCondition(statusCodeRetryCondition)
 
@@ -68,16 +112,19 @@ func NewClient(ctx context.Context, options *Options) *resty.Client {
 		client.SetTimeout(options.RequestTimeout)
 	}
 
-	if options.Retry.Count > -1 {
-		client.SetRetryCount(options.Retry.Count)
-	}
+	if options.Retry != nil {
 
-	if options.Retry.WaitTime > -1 {
-		client.SetRetryWaitTime(options.Retry.WaitTime)
-	}
+		if options.Retry.Count > -1 {
+			client.SetRetryCount(options.Retry.Count)
+		}
 
-	if options.Retry.MaxWaitTime > -1 {
-		client.SetRetryMaxWaitTime(options.Retry.WaitTime)
+		if options.Retry.WaitTime > -1 {
+			client.SetRetryWaitTime(options.Retry.WaitTime)
+		}
+
+		if options.Retry.MaxWaitTime > -1 {
+			client.SetRetryMaxWaitTime(options.Retry.WaitTime)
+		}
 	}
 
 	gieventbus.Publish(TopicClient, client)

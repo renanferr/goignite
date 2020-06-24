@@ -14,6 +14,7 @@ func NewClient(ctx context.Context, o *Options) *fasthttp.Client {
 		NoDefaultUserAgentHeader:      o.NoDefaultUserAgentHeader, // Don't send: User-Agent: fasthttp
 		DialDualStack:                 o.DialDualStack,
 		MaxConnsPerHost:               o.MaxConnsPerHost,
+		MaxConnWaitTimeout:            o.MaxConnWaitTimeout,
 		MaxIdleConnDuration:           o.MaxIdleConnDuration,
 		MaxIdemponentCallAttempts:     o.MaxIdemponentCallAttempts,
 		ReadBufferSize:                o.ReadBufferSize,  // Make sure to set this big enough that your whole request can be read at once.

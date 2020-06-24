@@ -9,18 +9,21 @@ import (
 )
 
 const (
-	Name                          = "gi.fasthttp.client.name"
-	NoDefaultUserAgentHeader      = "gi.fasthttp.client.noDefaultUserAgentHeader"
-	MaxConnsPerHost               = "gi.fasthttp.client.maxConnsPerHost"
-	ReadBufferSize                = "gi.fasthttp.client.readBufferSize"
-	WriteBufferSize               = "gi.fasthttp.client.writeBufferSize"
-	ReadTimeout                   = "gi.fasthttp.client.readTimeout"
-	WriteTimeout                  = "gi.fasthttp.client.writeTimeout"
-	MaxIdleConnDuration           = "gi.fasthttp.client.maxIdleConnDuration"
-	DisableHeaderNamesNormalizing = "gi.fasthttp.client.disableHeaderNamesNormalizing"
-	DialDualStack                 = "gi.fasthttp.client.dialDualStack"
-	MaxResponseBodySize           = "gi.fasthttp.client.maxResponseBodySize"
-	MaxIdemponentCallAttempts     = "gi.fasthttp.client.maxIdemponentCallAttempts"
+	fasthttpClient = "gi.fasthttp.client"
+
+	Name                          = fasthttpClient + ".name"
+	NoDefaultUserAgentHeader      = fasthttpClient + ".noDefaultUserAgentHeader"
+	MaxConnsPerHost               = fasthttpClient + ".maxConnsPerHost"
+	MaxConnWaitTimeout            = fasthttpClient + ".maxConnWaitTimeout"
+	ReadBufferSize                = fasthttpClient + ".readBufferSize"
+	WriteBufferSize               = fasthttpClient + ".writeBufferSize"
+	ReadTimeout                   = fasthttpClient + ".readTimeout"
+	WriteTimeout                  = fasthttpClient + ".writeTimeout"
+	MaxIdleConnDuration           = fasthttpClient + ".maxIdleConnDuration"
+	DisableHeaderNamesNormalizing = fasthttpClient + ".disableHeaderNamesNormalizing"
+	DialDualStack                 = fasthttpClient + ".dialDualStack"
+	MaxResponseBodySize           = fasthttpClient + ".maxResponseBodySize"
+	MaxIdemponentCallAttempts     = fasthttpClient + ".maxIdemponentCallAttempts"
 )
 
 func init() {
@@ -32,7 +35,8 @@ func init() {
 	giconfig.Add(MaxConnsPerHost, 512, "the maximum number of concurrent connections")
 	giconfig.Add(ReadBufferSize, 0, "per-connection buffer size for responses' reading")
 	giconfig.Add(WriteBufferSize, 0, "per-connection buffer size for requests' writing")
-	giconfig.Add(ReadTimeout, 1000*time.Hour, "maximum duration for full response reading (including body).")
+	giconfig.Add(MaxConnWaitTimeout, 0*time.Second, "maximum amount of time to wait for a connection to be free")
+	giconfig.Add(ReadTimeout, 1000*time.Hour, "maximum duration for full response reading (including body)")
 	giconfig.Add(WriteTimeout, 1000*time.Hour, "maximum duration for full request writing (including body)")
 	giconfig.Add(MaxIdleConnDuration, 10*time.Second, "the default duration before idle keep-alive")
 	giconfig.Add(DisableHeaderNamesNormalizing, false, "header names are passed as-is without normalization")

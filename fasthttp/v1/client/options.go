@@ -13,6 +13,7 @@ type Options struct {
 	MaxConnsPerHost               int
 	ReadBufferSize                int
 	WriteBufferSize               int
+	MaxConnWaitTimeout            time.Duration
 	ReadTimeout                   time.Duration
 	WriteTimeout                  time.Duration
 	MaxIdleConnDuration           time.Duration
@@ -48,6 +49,10 @@ func (b optionsBuilder) WriteBufferSize(value int) optionsBuilder {
 	return builder.Set(b, "WriteBufferSize", value).(optionsBuilder)
 }
 
+func (b optionsBuilder) MaxConnWaitTimeout(value time.Duration) optionsBuilder {
+	return builder.Set(b, "MaxConnWaitTimeout", value).(optionsBuilder)
+}
+
 func (b optionsBuilder) ReadTimeout(value time.Duration) optionsBuilder {
 	return builder.Set(b, "ReadTimeout", value).(optionsBuilder)
 }
@@ -78,7 +83,7 @@ func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
 
-	err := giconfig.UnmarshalWithPath("gi.fasthttp.client", o)
+	err := giconfig.UnmarshalWithPath(fasthttpClient, o)
 	if err != nil {
 		return nil, err
 	}

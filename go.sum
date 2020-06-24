@@ -255,6 +255,9 @@ github.com/gocql/gocql v0.0.0-20200324094621-6d895e38b0a5 h1:LbX3qY8XXiD8kUJLvEs
 github.com/gocql/gocql v0.0.0-20200324094621-6d895e38b0a5/go.mod h1:DL0ekTmBSTdlNF25Orwt/JMzqIq3EJ4MVa/J/uK64OY=
 github.com/gocql/gocql v0.0.0-20200410100145-b454769479c6 h1:esX8kOWgz5dyrcn/QQQgMmPqPWzX/hNO65/nmfcEOYw=
 github.com/gocql/gocql v0.0.0-20200410100145-b454769479c6/go.mod h1:DL0ekTmBSTdlNF25Orwt/JMzqIq3EJ4MVa/J/uK64OY=
+github.com/godror/godror v0.13.0/go.mod h1:9MVLtu25FBJBMHkPs0m3Ngf/VmwGcLpM2HS8PlNGw9U=
+github.com/godror/godror v0.14.0 h1:y6FfbJGiXFK7DWQhOLHsIjZRGsRy6xQMtD4XzYvR9/Y=
+github.com/godror/godror v0.14.0/go.mod h1:2ouUT4kdhUBk7TAkHWD4SN0CdI0pgEQbo8FVHhbSKWg=
 github.com/godror/godror v0.15.0 h1:IoOUxySRfShUWQQwVf5FvFuD/sdc2Bfjd3VGk7PPin8=
 github.com/godror/godror v0.15.0/go.mod h1:2ouUT4kdhUBk7TAkHWD4SN0CdI0pgEQbo8FVHhbSKWg=
 github.com/gogo/googleapis v1.1.0/go.mod h1:gf4bu3Q80BeJ6H1S1vYPm8/ELATdvryBaNFGgqEef3s=

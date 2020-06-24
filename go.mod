@@ -15,7 +15,7 @@ require (
 	github.com/go-redis/redis/v7 v7.2.0
 	github.com/go-resty/resty/v2 v2.3.0
 	github.com/gocql/gocql v0.0.0-20200410100145-b454769479c6
-	github.com/godror/godror v0.15.0
+	github.com/godror/godror v0.14.0
 	github.com/golang/protobuf v1.4.0
 	github.com/hashicorp/go-memdb v1.2.0
 	github.com/jlaffaye/ftp v0.0.0-20200331144919-d4caf6ffcab8

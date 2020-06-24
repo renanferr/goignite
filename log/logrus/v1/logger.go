@@ -367,14 +367,16 @@ func toContext(ctx context.Context, fields gilog.Fields) context.Context {
 }
 
 func fieldsFromContext(ctx context.Context) gilog.Fields {
-	var fields gilog.Fields
+	fields := make(gilog.Fields)
 
 	if ctx == nil {
-		return gilog.Fields{}
+		return fields
 	}
 
 	if f, ok := ctx.Value(key).(gilog.Fields); ok && f != nil {
-		fields = f
+		for k, v := range f {
+			fields[k] = v
+		}
 	}
 
 	return fields

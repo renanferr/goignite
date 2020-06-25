@@ -20,7 +20,7 @@ func (i *Integrator) Integrate(client *redis.Client) error {
 
 	logger := gilog.WithTypeOf(*i)
 
-	logger.Trace("integrating mongodb with newrelic")
+	logger.Trace("integrating redis with newrelic")
 
 	if IsEnabled() {
 		client.AddHook(nrredis.NewHook(client.Options()))

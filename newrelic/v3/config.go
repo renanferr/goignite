@@ -8,16 +8,16 @@ import (
 
 const (
 	ConfigRoot                      = "gi.newrelic"
-	AppName                         = ConfigRoot + ".appname"
+	AppName                         = ConfigRoot + ".appName"
 	License                         = ConfigRoot + ".license"
 	Enabled                         = ConfigRoot + ".enabled"
-	TracerEnabled                   = ConfigRoot + ".tracerenabled"
+	TracerEnabled                   = ConfigRoot + ".tracerEnabled"
 	Labels                          = ConfigRoot + ".labels"
 	ServerlessModeEnabled           = ConfigRoot + ".serverless.enabled"
 	ServerlessModeAccountID         = ConfigRoot + ".serverless.accountid"
-	ServerlessModeTrustedAccountKey = ConfigRoot + ".serverless.trustedaccountkey"
-	ServerlessModePrimaryAppID      = ConfigRoot + ".serverless.primaryappid "
-	ServerlessModeApdexThreshold    = ConfigRoot + ".serverless.apdexthreshold"
+	ServerlessModeTrustedAccountKey = ConfigRoot + ".serverless.trustedAccountKey"
+	ServerlessModePrimaryAppID      = ConfigRoot + ".serverless.primaryAppId"
+	ServerlessModeApdexThreshold    = ConfigRoot + ".serverless.apdexThreshold"
 )
 
 func init() {

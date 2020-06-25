@@ -9,18 +9,18 @@ import (
 
 type Options struct {
 	Password           string
-	MaxRetries         int           `config:"maxretries"`
-	MinRetryBackoff    time.Duration `config:"minretrybackoff"`
-	MaxRetryBackoff    time.Duration `config:"maxretrybackoff"`
-	DialTimeout        time.Duration `config:"dialtimeout"`
-	ReadTimeout        time.Duration `config:"readtimeout"`
-	WriteTimeout       time.Duration `config:"writetimeout"`
-	PoolSize           int           `config:"poolsize"`
-	MinIdleConns       int           `config:"minidleconns"`
-	MaxConnAge         time.Duration `config:"maxconnage"`
-	PoolTimeout        time.Duration `config:"pooltimeout"`
-	IdleTimeout        time.Duration `config:"idletimeout"`
-	IdleCheckFrequency time.Duration `config:"idlecheckfrequency"`
+	MaxRetries         int
+	MinRetryBackoff    time.Duration
+	MaxRetryBackoff    time.Duration
+	DialTimeout        time.Duration
+	ReadTimeout        time.Duration
+	WriteTimeout       time.Duration
+	PoolSize           int
+	MinIdleConns       int
+	MaxConnAge         time.Duration
+	PoolTimeout        time.Duration
+	IdleTimeout        time.Duration
+	IdleCheckFrequency time.Duration
 	Client             ClientOptions
 	Cluster            ClusterOptions
 }

@@ -18,6 +18,7 @@ require (
 	github.com/godror/godror v0.16.1
 	github.com/golang/protobuf v1.4.0
 	github.com/hashicorp/go-memdb v1.2.0
+	github.com/hiko1129/echo-pprof v1.0.1
 	github.com/jlaffaye/ftp v0.0.0-20200331144919-d4caf6ffcab8
 	github.com/jpfaria/logrus-redis-hook v1.0.2
 	github.com/knadh/koanf v0.9.1

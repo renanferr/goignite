@@ -8,6 +8,7 @@ import (
 	gilog "github.com/b2wdigital/goignite/log"
 	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
 	prometheus "github.com/globocom/echo-prometheus"
+	echopprof "github.com/hiko1129/echo-pprof"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/newrelic/go-agent/v3/integrations/nrecho-v4"
@@ -92,6 +93,10 @@ func setDefaultRouters(ctx context.Context, instance *echo.Echo) {
 		prometheusRoute := GetPrometheusRoute()
 		logger.Infof("configuring prometheus metrics router on %s", prometheusRoute)
 		instance.GET(prometheusRoute, echo.WrapHandler(promhttp.Handler()))
+	}
+
+	if GetPProfEnabled() {
+		echopprof.Wrap(instance)
 	}
 }
 

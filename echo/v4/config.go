@@ -13,6 +13,7 @@ const (
 	Port                           = "gi.echo.port"
 	StatusRoute                    = "gi.echo.route.status"
 	HealthRoute                    = "gi.echo.route.health"
+	PProfEnabled                   = "gi.echo.pprof.enabled"
 	MiddlewareLogEnabled           = "gi.echo.middleware.log.enabled"
 	MiddlewareRecoverEnabled       = "gi.echo.middleware.recover.enabled"
 	MiddlewareNewRelicEnabled      = "gi.echo.middleware.newrelic.enabled"
@@ -40,6 +41,7 @@ func init() {
 	giconfig.Add(HealthRoute, "/health", "define health url")
 	giconfig.Add(MiddlewareLogEnabled, false, "enable/disable logging request middleware")
 	giconfig.Add(MiddlewareRecoverEnabled, true, "enable/disable recover middleware")
+	giconfig.Add(PProfEnabled, false, "enable/disable pprof")
 	giconfig.Add(MiddlewareNewRelicEnabled, false, "enable/disable newrelic middleware")
 	giconfig.Add(MiddlewarePrometheusEnabled, false, "enable/disable prometheus middleware")
 	giconfig.Add(PrometheusRoute, "/metrics", "define prometheus metrics url")
@@ -49,7 +51,7 @@ func init() {
 	giconfig.Add(MiddlewareCORSEnabled, false, "enable/disable cors middleware")
 	giconfig.Add(MiddlewareCORSAllowOrigins, []string{"*"}, "cors allow origins")
 	giconfig.Add(MiddlewareCORSAllowHeaders, []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
-	"cors allow headers")
+		"cors allow headers")
 	giconfig.Add(MiddlewareCORSAllowMethods,
 		[]string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
 		"cors allow methods")
@@ -132,4 +134,8 @@ func GetMiddlewareCORSExposeHeaders() []string {
 
 func GetMiddlewareCORSMaxAge() int {
 	return giconfig.Int(MiddlewareCORSMaxAge)
+}
+
+func GetPProfEnabled() bool {
+	return giconfig.Bool(PProfEnabled)
 }

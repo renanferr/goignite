@@ -13,6 +13,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/newrelic/go-agent/v3/integrations/nrecho-v4"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 var (
@@ -93,6 +94,12 @@ func setDefaultRouters(ctx context.Context, instance *echo.Echo) {
 		prometheusRoute := GetPrometheusRoute()
 		logger.Infof("configuring prometheus metrics router on %s", prometheusRoute)
 		instance.GET(prometheusRoute, echo.WrapHandler(promhttp.Handler()))
+	}
+
+	if GetMiddlewareSwaggerEnabled() {
+		swaggerRoute := GetSwaggerRoute() + "/*"
+		logger.Infof("configuring swagger router on %s", swaggerRoute)
+		instance.GET(swaggerRoute, echoSwagger.WrapHandler)
 	}
 
 	if GetPProfEnabled() {

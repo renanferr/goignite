@@ -15,10 +15,12 @@ const (
 	HealthRoute                    = "gi.echo.route.health"
 	PProfEnabled                   = "gi.echo.pprof.enabled"
 	MiddlewareLogEnabled           = "gi.echo.middleware.log.enabled"
+	MiddlewareSwaggerEnabled       = "gi.echo.middleware.swagger.enabled"
 	MiddlewareRecoverEnabled       = "gi.echo.middleware.recover.enabled"
 	MiddlewareNewRelicEnabled      = "gi.echo.middleware.newrelic.enabled"
 	MiddlewarePrometheusEnabled    = "gi.echo.middleware.prometheus.enabled"
 	PrometheusRoute                = "gi.echo.route.prometheus"
+	SwaggerRoute                   = "gi.echo.route.swagger"
 	MiddlewareBodyDumpEnabled      = "gi.echo.middleware.bodydump.enabled"
 	MiddlewareBodyLimitEnabled     = "gi.echo.middleware.bodylimit.enabled"
 	MiddlewareBodyLimitSize        = "gi.echo.middleware.bodylimit.size"
@@ -39,6 +41,8 @@ func init() {
 	giconfig.Add(Port, 8080, "server http port")
 	giconfig.Add(StatusRoute, "/resource-status", "define status url")
 	giconfig.Add(HealthRoute, "/health", "define health url")
+	giconfig.Add(MiddlewareSwaggerEnabled, false, "enable/disable swagger middleware")
+	giconfig.Add(SwaggerRoute, "/swagger", "define prometheus metrics url")
 	giconfig.Add(MiddlewareLogEnabled, false, "enable/disable logging request middleware")
 	giconfig.Add(MiddlewareRecoverEnabled, true, "enable/disable recover middleware")
 	giconfig.Add(PProfEnabled, false, "enable/disable pprof")
@@ -76,6 +80,10 @@ func GetHealthRoute() string {
 	return giconfig.String(HealthRoute)
 }
 
+func GetMiddlewareSwaggerEnabled() bool {
+	return giconfig.Bool(MiddlewareSwaggerEnabled)
+}
+
 func GetMiddlewareLogEnabled() bool {
 	return giconfig.Bool(MiddlewareLogEnabled)
 }
@@ -94,6 +102,10 @@ func GetMiddlewarePrometheusEnabled() bool {
 
 func GetPrometheusRoute() string {
 	return giconfig.String(PrometheusRoute)
+}
+
+func GetSwaggerRoute() string {
+	return giconfig.String(SwaggerRoute)
 }
 
 func GetMiddlewareBodyDumpEnabled() bool {

@@ -26,6 +26,9 @@ const (
 	Addr               = ConfigRoot + ".client.addr"
 	Network            = ConfigRoot + ".client.network"
 	DB                 = ConfigRoot + ".client.db"
+	SentinelMaster     = ConfigRoot + ".sentinel.masterName"
+	SentinelAddr       = ConfigRoot + ".sentinel.addrs"
+	SentinelPassword   = ConfigRoot + ".sentinel.password"
 	Addrs              = ConfigRoot + ".cluster.addrs"
 	MaxRedirects       = ConfigRoot + ".cluster.maxRedirects"
 	ReadOnly           = ConfigRoot + ".cluster.readOnly"
@@ -58,4 +61,7 @@ func init() {
 	giconfig.Add(Addr, "127.0.0.1:6379", "host:port address")
 	giconfig.Add(Network, "tcp", "the network type, either tcp or unix")
 	giconfig.Add(DB, 0, "database to be selected after connecting to the server")
+	giconfig.Add(SentinelMaster, "", "redis sentinel master name")
+	giconfig.Add(SentinelAddr, nil, "redis sentinel addr list host:port")
+	giconfig.Add(SentinelPassword, "", "redis sentinel password")
 }

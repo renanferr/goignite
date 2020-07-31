@@ -8,6 +8,7 @@ import (
 )
 
 type Options struct {
+	Sentinel           SentinelOptions
 	Password           string
 	MaxRetries         int
 	MinRetryBackoff    time.Duration
@@ -81,6 +82,10 @@ func (b optionsBuilder) IdleCheckFrequency(value time.Duration) optionsBuilder {
 
 func (b optionsBuilder) Client(value ClientOptions) optionsBuilder {
 	return builder.Set(b, "Client", value).(optionsBuilder)
+}
+
+func (b optionsBuilder) Sentinel(value SentinelOptions) optionsBuilder {
+	return builder.Set(b, "Sentinel", value).(optionsBuilder)
 }
 
 func (b optionsBuilder) Cluster(value ClusterOptions) optionsBuilder {

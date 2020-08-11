@@ -3,6 +3,7 @@ package giresty
 import (
 	"context"
 	"encoding/json"
+	"github.com/b2wdigital/goignite/resty/v2/policies"
 	"net"
 	"net/http"
 	"time"
@@ -125,6 +126,10 @@ func NewClient(ctx context.Context, options *Options) *resty.Client {
 		if options.Retry.MaxWaitTime > -1 {
 			client.SetRetryMaxWaitTime(options.Retry.WaitTime)
 		}
+	}
+
+	if options.ForbidRedirect {
+		client.SetRedirectPolicy(&policies.NoRedirectPolicy{})
 	}
 
 	gieventbus.Publish(TopicClient, client)

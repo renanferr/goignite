@@ -47,7 +47,7 @@ func (b optionsBuilder) Transport(transport *OptionsTransport) optionsBuilder {
 	return builder.Set(b, "Transport", transport).(optionsBuilder)
 }
 
-func (b optionsBuilder) AcceptRedirect(forbidRedirect bool) optionsBuilder {
+func (b optionsBuilder) ForbidRedirect(forbidRedirect bool) optionsBuilder {
 	return builder.Set(b, "ForbidRedirect", forbidRedirect).(optionsBuilder)
 }
 

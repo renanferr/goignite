@@ -77,5 +77,33 @@ func newClient(ctx context.Context, co *options.ClientOptions) (client *mongo.Cl
 }
 
 func clientOptions(o *Options) *options.ClientOptions {
-	return options.Client().ApplyURI(o.Uri)
+
+	clientOptions := options.Client().ApplyURI(o.Uri)
+
+	if o.Auth != nil {
+		setAuthOptions(o, clientOptions)
+	}
+
+	return clientOptions
+}
+
+func setAuthOptions(o *Options, clientOptions *options.ClientOptions) {
+
+	if clientOptions.Auth == nil {
+		clientOptions.Auth = &options.Credential{}
+	}
+
+	if o.Auth.Password != "" {
+		clientOptions.Auth.Password = o.Auth.Password
+		clientOptions.Auth.PasswordSet = true
+	}
+
+	if o.Auth.Username != "" {
+		clientOptions.Auth.Username = o.Auth.Username
+	}
+
+	if clientOptions.Auth.AuthSource == "" {
+		connFields, _ := connstring.Parse(clientOptions.GetURI())
+		clientOptions.Auth.AuthSource = connFields.Database
+	}
 }

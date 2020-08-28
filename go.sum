@@ -438,6 +438,8 @@ github.com/inconshreveable/mousetrap v1.0.0/go.mod h1:PxqpIevigyE2G7u3NXJIT2ANyt
 github.com/influxdata/influxdb1-client v0.0.0-20191209144304-8bf82d3c094d/go.mod h1:qj24IKcXYK6Iy9ceXlo3Tc+vtHo9lIhSX5JddghvEPo=
 github.com/jcmturner/gofork v1.0.0 h1:J7uCkflzTEhUZ64xqKnkDxq3kzc96ajM1Gli5ktUem8=
 github.com/jcmturner/gofork v1.0.0/go.mod h1:MK8+TM0La+2rjBD4jE12Kj1pCCxK7d2LK/UM3ncEo0o=
+github.com/jinzhu/copier v0.0.0-20190924061706-b57f9002281a h1:zPPuIq2jAWWPTrGt70eK/BSch+gFAGrNzecsoENgu2o=
+github.com/jinzhu/copier v0.0.0-20190924061706-b57f9002281a/go.mod h1:yL958EeXv8Ylng6IfnvG4oflryUi3vgA3xPs9hmII1s=
 github.com/jlaffaye/ftp v0.0.0-20200309171336-6841a2daa0d5 h1:ioGBLDaBnn1T6acEvObEVTxRuYzdR/qD0nDnT5mQ4IA=
 github.com/jlaffaye/ftp v0.0.0-20200309171336-6841a2daa0d5/go.mod h1:PwUeyujmhaGohgOf0kJKxPfk3HcRv8QD/wAUN44go4k=
 github.com/jlaffaye/ftp v0.0.0-20200313150337-041eae9a3d70 h1:vmVnEXcpJ7d23+5LXLk8ZLevMRni1yvQz3STFXy5qfM=

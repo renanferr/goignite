@@ -3,10 +3,12 @@ package gimongo
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
 	"github.com/lann/builder"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type Options struct {
-	Uri      string
+	Uri  string
+	Auth *options.Credential
 }
 
 type optionsBuilder builder.Builder
@@ -31,5 +33,4 @@ func DefaultOptions() (*Options, error) {
 	}
 
 	return o, nil
-
 }

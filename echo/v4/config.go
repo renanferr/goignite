@@ -14,6 +14,7 @@ const (
 	StatusRoute                    = "gi.echo.route.status"
 	HealthRoute                    = "gi.echo.route.health"
 	PProfEnabled                   = "gi.echo.pprof.enabled"
+	JSONPrettyEnabled              = "gi.echo.json.pretty.enabled"
 	MiddlewareLogEnabled           = "gi.echo.middleware.log.enabled"
 	MiddlewareSwaggerEnabled       = "gi.echo.middleware.swagger.enabled"
 	MiddlewareRecoverEnabled       = "gi.echo.middleware.recover.enabled"
@@ -46,6 +47,7 @@ func init() {
 	giconfig.Add(MiddlewareLogEnabled, false, "enable/disable logging request middleware")
 	giconfig.Add(MiddlewareRecoverEnabled, true, "enable/disable recover middleware")
 	giconfig.Add(PProfEnabled, false, "enable/disable pprof")
+	giconfig.Add(JSONPrettyEnabled, false, "enable/disable json pretty response")
 	giconfig.Add(MiddlewareNewRelicEnabled, false, "enable/disable newrelic middleware")
 	giconfig.Add(MiddlewarePrometheusEnabled, false, "enable/disable prometheus middleware")
 	giconfig.Add(PrometheusRoute, "/metrics", "define prometheus metrics url")
@@ -150,4 +152,8 @@ func GetMiddlewareCORSMaxAge() int {
 
 func GetPProfEnabled() bool {
 	return giconfig.Bool(PProfEnabled)
+}
+
+func GetJSONPrettyEnabled() bool {
+	return giconfig.Bool(JSONPrettyEnabled)
 }

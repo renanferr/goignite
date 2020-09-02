@@ -21,35 +21,40 @@ func JSON(c echo.Context, code int, i interface{}, err error) error {
 		return c.NoContent(code)
 	}
 
-	return c.JSONPretty(code, i, "  ")
+	return json(c, code, i)
 }
 
 func JSONError(c echo.Context, err error) error {
 
 	if errors.IsNotFound(err) {
-		return c.JSONPretty(
+		return json(c,
 			http.StatusNotFound,
-			response.Error{HttpStatusCode: http.StatusNotFound, Message: err.Error()},
-			"  ")
+			response.Error{HttpStatusCode: http.StatusNotFound, Message: err.Error()})
 	} else if errors.IsNotValid(err) || errors.IsBadRequest(err) {
-		return c.JSONPretty(
+		return json(c,
 			http.StatusBadRequest,
-			response.Error{HttpStatusCode: http.StatusBadRequest, Message: err.Error()},
-			"  ")
+			response.Error{HttpStatusCode: http.StatusBadRequest, Message: err.Error()})
 	} else {
 
 		switch t := err.(type) {
 		default:
-			return c.JSONPretty(
+			return json(c,
 				http.StatusInternalServerError,
-				response.Error{HttpStatusCode: http.StatusInternalServerError, Message: t.Error()},
-				"  ")
+				response.Error{HttpStatusCode: http.StatusInternalServerError, Message: t.Error()})
 		case validator.ValidationErrors:
-			return c.JSONPretty(
+			return json(c,
 				http.StatusUnprocessableEntity,
-				response.NewUnprocessableEntity(t),
-				"  ")
+				response.NewUnprocessableEntity(t))
 		}
 	}
 
+}
+
+func json(c echo.Context, code int, response interface{}) error {
+
+	if GetJSONPrettyEnabled() {
+		return c.JSONPretty(code, response, "  ")
+	}
+
+	return c.JSON(code, response)
 }

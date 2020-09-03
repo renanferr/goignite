@@ -89,6 +89,10 @@ func clientOptions(o *Options) *options.ClientOptions {
 
 func setAuthOptions(o *Options, clientOptions *options.ClientOptions) {
 
+	if o.Auth.Password == "" && o.Auth.Username == "" {
+		return
+	}
+
 	if clientOptions.Auth == nil {
 		clientOptions.Auth = &options.Credential{}
 	}

@@ -2,6 +2,7 @@ package ginewrelic
 
 import (
 	"log"
+	"net/http"
 
 	giconfig "github.com/b2wdigital/goignite/config"
 )
@@ -18,6 +19,7 @@ const (
 	ServerlessModeTrustedAccountKey = ConfigRoot + ".serverless.trustedAccountKey"
 	ServerlessModePrimaryAppID      = ConfigRoot + ".serverless.primaryAppId"
 	ServerlessModeApdexThreshold    = ConfigRoot + ".serverless.apdexThreshold"
+	ErrorCollectorIgnoreStatusCodes = ConfigRoot + ".serverless.errorCollector.ignoreStatusCodes"
 )
 
 func init() {
@@ -34,4 +36,37 @@ func init() {
 	giconfig.Add(ServerlessModeTrustedAccountKey, "", "newrelic serverless mode trusted account key")
 	giconfig.Add(ServerlessModePrimaryAppID, "", "newrelic serverless mode primary app id")
 	giconfig.Add(ServerlessModeApdexThreshold, "", "newrelic serverless mode apdex threshold")
+	giconfig.Add(ErrorCollectorIgnoreStatusCodes,
+		[]int{
+			http.StatusBadRequest,
+			http.StatusUnauthorized,
+			http.StatusPaymentRequired,
+			http.StatusForbidden,
+			http.StatusNotFound,
+			http.StatusMethodNotAllowed,
+			http.StatusNotAcceptable,
+			http.StatusProxyAuthRequired,
+			http.StatusRequestTimeout,
+			http.StatusConflict,
+			http.StatusGone,
+			http.StatusLengthRequired,
+			http.StatusPreconditionFailed,
+			http.StatusRequestEntityTooLarge,
+			http.StatusRequestURITooLong,
+			http.StatusUnsupportedMediaType,
+			http.StatusRequestedRangeNotSatisfiable,
+			http.StatusExpectationFailed,
+			http.StatusTeapot,
+			http.StatusMisdirectedRequest,
+			http.StatusUnprocessableEntity,
+			http.StatusLocked,
+			http.StatusFailedDependency,
+			http.StatusTooEarly,
+			http.StatusUpgradeRequired,
+			http.StatusPreconditionRequired,
+			http.StatusTooManyRequests,
+			http.StatusRequestHeaderFieldsTooLarge,
+			http.StatusUnavailableForLegalReasons,
+		},
+	"newrelic serverless mode apdex threshold")
 }

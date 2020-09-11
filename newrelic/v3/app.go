@@ -28,6 +28,7 @@ func NewApplication(ctx context.Context) (*newrelic.Application, error) {
  		newrelic.ConfigLogger(NewLogger()),
  		// newrelic.ConfigDebugLogger(log.GetLogger().Output()),
  		func(cfg *newrelic.Config) {
+ 			cfg.ErrorCollector.IgnoreStatusCodes = giconfig.Ints(ErrorCollectorIgnoreStatusCodes)
  			cfg.Labels = giconfig.StringMap(Labels)
  			cfg.ServerlessMode.Enabled = giconfig.Bool(ServerlessModeEnabled)
 			cfg.ServerlessMode.AccountID = giconfig.String(ServerlessModeAccountID)

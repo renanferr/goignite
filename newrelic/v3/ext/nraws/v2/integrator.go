@@ -20,13 +20,13 @@ func (i *Integrator) Integrate(cfg *aws.Config) error {
 
 	logger := gilog.WithTypeOf(*i)
 
-	logger.Trace("integrating mongodb with newrelic")
+	logger.Trace("integrating aws with newrelic")
 
 	if IsEnabled() {
 		nrawssdk.InstrumentHandlers(&cfg.Handlers)
 	}
 
-	logger.Debug("mongodb integrated with newrelic with success")
+	logger.Debug("aws integrated with newrelic with success")
 
 	return nil
 }

@@ -609,6 +609,8 @@ github.com/newrelic/go-agent/v3 v3.0.0 h1:YK9ddXLcMoWr/Bqj30T+cQo1wniFVR5SS/mVuV
 github.com/newrelic/go-agent/v3 v3.0.0/go.mod h1:H28zDNUC0U/b7kLoY4EFOhuth10Xu/9dchozUiOseQQ=
 github.com/newrelic/go-agent/v3 v3.4.0 h1:PZTDUw+8h0yRkpkkXKrHSlRsDk0uYJ4I3Dv2lrws/EU=
 github.com/newrelic/go-agent/v3 v3.4.0/go.mod h1:H28zDNUC0U/b7kLoY4EFOhuth10Xu/9dchozUiOseQQ=
+github.com/newrelic/go-agent/v3 v3.9.0 h1:5bcTbdk/Up5cIYIkQjCG92Y+uNoett9wmhuz4kPiFlM=
+github.com/newrelic/go-agent/v3 v3.9.0/go.mod h1:1A1dssWBwzB7UemzRU6ZVaGDsI+cEn5/bNxI0wiYlIc=
 github.com/newrelic/go-agent/v3/integrations/nrawssdk-v2 v1.0.0 h1:uWyNOUyCnfcoxPBNOjRf/jPGglUFTeaW5QtVVXr0Paw=
 github.com/newrelic/go-agent/v3/integrations/nrawssdk-v2 v1.0.0/go.mod h1:tQRbEvH2cpx9ZqwqLj9RV1ojNBWhSYUHWXZBlns5d38=
 github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0 h1:t5Onzlsdl4qMxRx62ag2n/wZlyzHoVDw75b/eCViOwM=

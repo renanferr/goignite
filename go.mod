@@ -28,8 +28,7 @@ require (
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
 	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2 // indirect
 	github.com/nats-io/nats.go v1.9.2
-	github.com/newrelic/go-agent v3.4.0+incompatible // indirect
-	github.com/newrelic/go-agent/v3 v3.4.0
+	github.com/newrelic/go-agent/v3 v3.9.0
 	github.com/newrelic/go-agent/v3/integrations/nrawssdk-v2 v1.0.0
 	github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0
 	github.com/newrelic/go-agent/v3/integrations/nrmongo v1.0.0

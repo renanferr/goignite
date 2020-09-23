@@ -9,9 +9,9 @@ import (
 
 type Options struct {
 	Url           string
-	MaxReconnects int           `config:"maxreconnects"`
-	ReconnectWait time.Duration `config:"reconnectwait"`
-	NewRelic      NewRelicOptions
+	MaxReconnects int
+	ReconnectWait time.Duration
+	NewRelic      NewRelicOptions `config:"newrelic"`
 }
 
 type optionsBuilder builder.Builder

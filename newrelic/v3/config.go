@@ -19,7 +19,7 @@ const (
 	ServerlessModeTrustedAccountKey = ConfigRoot + ".serverless.trustedAccountKey"
 	ServerlessModePrimaryAppID      = ConfigRoot + ".serverless.primaryAppId"
 	ServerlessModeApdexThreshold    = ConfigRoot + ".serverless.apdexThreshold"
-	ErrorCollectorIgnoreStatusCodes = ConfigRoot + ".serverless.errorCollector.ignoreStatusCodes"
+	ErrorCollectorIgnoreStatusCodes = ConfigRoot + ".errorCollector.ignoreStatusCodes"
 )
 
 func init() {

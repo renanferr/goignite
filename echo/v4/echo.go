@@ -35,6 +35,10 @@ func Start(ctx context.Context) *echo.Echo {
 
 func setDefaultMiddlewares(instance *echo.Echo) {
 
+	if GetMiddlewareRequestIDEnabled() {
+		instance.Use(middleware.RequestID())
+	}
+
 	if GetMiddlewareLogEnabled() {
 		instance.Use(mware.Logger())
 	}
@@ -45,6 +49,7 @@ func setDefaultMiddlewares(instance *echo.Echo) {
 
 	if GetMiddlewareNewRelicEnabled() {
 		instance.Use(nrecho.Middleware(ginewrelic.Application()))
+		instance.Use(mware.NewRelicAddonMiddleware())
 	}
 
 	if GetMiddlewarePrometheusEnabled() {

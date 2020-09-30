@@ -16,22 +16,33 @@ func Logger() echo.MiddlewareFunc {
 			res := c.Response()
 			start := time.Now()
 
-			var err error
-			if err = next(c); err != nil {
-				c.Error(err)
-			}
-			stop := time.Now()
+			ctx := req.Context()
 
 			id := req.Header.Get(echo.HeaderXRequestID)
 			if id == "" {
 				id = res.Header().Get(echo.HeaderXRequestID)
 			}
+
+			logger := gilog.FromContext(ctx).
+				WithField("requestId", id).
+				WithField("requestUri", req.RequestURI)
+
+			ctx = logger.ToContext(ctx)
+			c.SetRequest(req.WithContext(ctx))
+
+			var err error
+			if err = next(c); err != nil {
+				c.Error(err)
+			}
+
+			stop := time.Now()
+
 			reqSize := req.Header.Get(echo.HeaderContentLength)
 			if reqSize == "" {
 				reqSize = "0"
 			}
 
-			gilog.Infof("%s %s %s %-7s %s %3d %s %s %13v %s %s",
+			logger.Infof("%s %s %s %-7s %s %3d %s %s %13v %s %s",
 				id,
 				c.RealIP(),
 				req.Host,
@@ -44,6 +55,7 @@ func Logger() echo.MiddlewareFunc {
 				req.Referer(),
 				req.UserAgent(),
 			)
+
 			return err
 		}
 	}

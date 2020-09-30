@@ -15,6 +15,7 @@ const (
 	HealthRoute                    = "gi.echo.route.health"
 	PProfEnabled                   = "gi.echo.pprof.enabled"
 	JSONPrettyEnabled              = "gi.echo.json.pretty.enabled"
+	MiddlewareRequestIDEnabled     = "gi.echo.middleware.requestid.enabled"
 	MiddlewareLogEnabled           = "gi.echo.middleware.log.enabled"
 	MiddlewareSwaggerEnabled       = "gi.echo.middleware.swagger.enabled"
 	MiddlewareRecoverEnabled       = "gi.echo.middleware.recover.enabled"
@@ -44,6 +45,7 @@ func init() {
 	giconfig.Add(HealthRoute, "/health", "define health url")
 	giconfig.Add(MiddlewareSwaggerEnabled, false, "enable/disable swagger middleware")
 	giconfig.Add(SwaggerRoute, "/swagger", "define prometheus metrics url")
+	giconfig.Add(MiddlewareRequestIDEnabled, false, "enable/disable request id middleware")
 	giconfig.Add(MiddlewareLogEnabled, false, "enable/disable logging request middleware")
 	giconfig.Add(MiddlewareRecoverEnabled, true, "enable/disable recover middleware")
 	giconfig.Add(PProfEnabled, false, "enable/disable pprof")
@@ -84,6 +86,10 @@ func GetHealthRoute() string {
 
 func GetMiddlewareSwaggerEnabled() bool {
 	return giconfig.Bool(MiddlewareSwaggerEnabled)
+}
+
+func GetMiddlewareRequestIDEnabled() bool {
+	return giconfig.Bool(MiddlewareRequestIDEnabled)
 }
 
 func GetMiddlewareLogEnabled() bool {

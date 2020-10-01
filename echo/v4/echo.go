@@ -5,20 +5,21 @@ import (
 	"strconv"
 
 	mware "github.com/b2wdigital/goignite/echo/v4/middleware"
+	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
-	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
-	prometheus "github.com/globocom/echo-prometheus"
 	echopprof "github.com/hiko1129/echo-pprof"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/newrelic/go-agent/v3/integrations/nrecho-v4"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
-	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 var (
 	instance *echo.Echo
 )
+
+const (
+	TopicInstance        = "topic:giecho:instance"
+)
+
 
 func Start(ctx context.Context) *echo.Echo {
 
@@ -26,6 +27,8 @@ func Start(ctx context.Context) *echo.Echo {
 
 	instance.HideBanner = GetHideBanner()
 	instance.Logger = Wrap(gilog.GetLogger())
+
+	gieventbus.Publish(TopicInstance, instance)
 
 	setDefaultMiddlewares(instance)
 	setDefaultRouters(ctx, instance)
@@ -45,15 +48,6 @@ func setDefaultMiddlewares(instance *echo.Echo) {
 
 	if GetMiddlewareRecoverEnabled() {
 		instance.Use(middleware.Recover())
-	}
-
-	if GetMiddlewareNewRelicEnabled() {
-		instance.Use(nrecho.Middleware(ginewrelic.Application()))
-		instance.Use(mware.NewRelicAddonMiddleware())
-	}
-
-	if GetMiddlewarePrometheusEnabled() {
-		instance.Use(prometheus.MetricsMiddleware())
 	}
 
 	if GetMiddlewareBodyDumpEnabled() {
@@ -94,18 +88,6 @@ func setDefaultRouters(ctx context.Context, instance *echo.Echo) {
 
 	healthHandler := NewHealthHandler()
 	instance.GET(healthRoute, healthHandler.Get)
-
-	if GetMiddlewarePrometheusEnabled() {
-		prometheusRoute := GetPrometheusRoute()
-		logger.Infof("configuring prometheus metrics router on %s", prometheusRoute)
-		instance.GET(prometheusRoute, echo.WrapHandler(promhttp.Handler()))
-	}
-
-	if GetMiddlewareSwaggerEnabled() {
-		swaggerRoute := GetSwaggerRoute() + "/*"
-		logger.Infof("configuring swagger router on %s", swaggerRoute)
-		instance.GET(swaggerRoute, echoSwagger.WrapHandler)
-	}
 
 	if GetPProfEnabled() {
 		echopprof.Wrap(instance)

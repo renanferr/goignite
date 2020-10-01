@@ -13,6 +13,11 @@ type Integrator struct {
 }
 
 func Integrate() error {
+
+	if !IsEnabled() {
+		return nil
+	}
+
 	integrator := &Integrator{}
 	return gieventbus.SubscribeOnce(giecho.TopicInstance, integrator.Integrate)
 }
@@ -23,15 +28,12 @@ func (i *Integrator) Integrate(instance *echo.Echo) error {
 
 	logger.Trace("integrating echo with prometheus")
 
-	if IsEnabled() {
+	instance.Use(prometheus.MetricsMiddleware())
 
-		instance.Use(prometheus.MetricsMiddleware())
+	prometheusRoute := GetRoute()
 
-		prometheusRoute := GetRoute()
-
-		logger.Infof("configuring prometheus metrics router on %s", prometheusRoute)
-		instance.GET(prometheusRoute, echo.WrapHandler(promhttp.Handler()))
-	}
+	logger.Infof("configuring prometheus metrics router on %s", prometheusRoute)
+	instance.GET(prometheusRoute, echo.WrapHandler(promhttp.Handler()))
 
 	logger.Debug("prometheus integrated with echo with success")
 

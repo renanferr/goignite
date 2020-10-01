@@ -1,12 +1,11 @@
-package ginrecho
+package gipprofecho
 
 import (
 	giecho "github.com/b2wdigital/goignite/echo/v4"
 	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
-	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
+	echopprof "github.com/hiko1129/echo-pprof"
 	"github.com/labstack/echo/v4"
-	"github.com/newrelic/go-agent/v3/integrations/nrecho-v4"
 )
 
 type Integrator struct {
@@ -25,16 +24,11 @@ func (i *Integrator) Integrate(instance *echo.Echo) error {
 
 	logger := gilog.WithTypeOf(*i)
 
-	logger.Trace("integrating echo with newrelic")
+	logger.Trace("integrating echo with pprof")
 
-	instance.Use(nrecho.Middleware(ginewrelic.Application()))
+	echopprof.Wrap(instance)
 
-	if GetMiddlewareRequestIDEnabled() {
-		logger.Debug("enabling newrelic requestID middleware")
-		instance.Use(RequestIDMiddleware())
-	}
-
-	logger.Debug("echo integrated with newrelic with success")
+	logger.Debug("pprof integrated with echo with success")
 
 	return nil
 }

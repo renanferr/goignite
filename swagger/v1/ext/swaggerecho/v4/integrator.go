@@ -12,6 +12,10 @@ type Integrator struct {
 }
 
 func Integrate() error {
+	if !IsEnabled() {
+		return nil
+	}
+
 	integrator := &Integrator{}
 	return gieventbus.SubscribeOnce(giecho.TopicInstance, integrator.Integrate)
 }
@@ -22,12 +26,9 @@ func (i *Integrator) Integrate(instance *echo.Echo) error {
 
 	logger.Trace("integrating echo with swagger")
 
-	if IsEnabled() {
-
-		swaggerRoute := GetRoute() + "/*"
-		logger.Infof("configuring swagger router on %s", swaggerRoute)
-		instance.GET(swaggerRoute, echoSwagger.WrapHandler)
-	}
+	swaggerRoute := GetRoute() + "/*"
+	logger.Infof("configuring swagger router on %s", swaggerRoute)
+	instance.GET(swaggerRoute, echoSwagger.WrapHandler)
 
 	logger.Debug("swagger integrated with echo with success")
 

@@ -9,10 +9,10 @@ import (
 )
 
 const (
-	DataSourceName    = "gi.godror.dataSourceName"
-	ConnMaxLifetime   = "gi.godror.connMaxLifetime"
-	MaxIdleConns      = "gi.godror.maxIdleConns"
-	MaxOpenConns      = "gi.godror.maxOpenConns"
+	DataSourceName  = "gi.godror.dataSourceName"
+	ConnMaxLifetime = "gi.godror.connMaxLifetime"
+	MaxIdleConns    = "gi.godror.maxIdleConns"
+	MaxOpenConns    = "gi.godror.maxOpenConns"
 )
 
 func init() {

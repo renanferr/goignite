@@ -13,7 +13,6 @@ const (
 	TopicClusterClient = "topic:redis:cluster:client"
 )
 
-
 func NewClusterClient(ctx context.Context, o *Options) (client *redis.ClusterClient, err error) {
 
 	l := gilog.FromContext(ctx)

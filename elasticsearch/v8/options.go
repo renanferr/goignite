@@ -11,9 +11,9 @@ type Options struct {
 	Addresses             []string
 	Username              string
 	Password              string
-	CloudID               string        `config:"cloudID"`
-	APIKey                string        `config:"APIKey"`
-	CACert                string        `config:"CACert"`
+	CloudID               string `config:"cloudID"`
+	APIKey                string `config:"APIKey"`
+	CACert                string `config:"CACert"`
 	RetryOnStatus         []int
 	DisableRetry          bool
 	EnableRetryOnTimeout  bool

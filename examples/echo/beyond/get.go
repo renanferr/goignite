@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	giconfig "github.com/b2wdigital/goignite/config"
-	gilog "github.com/b2wdigital/goignite/log"
 	giecho "github.com/b2wdigital/goignite/echo/v4"
+	gilog "github.com/b2wdigital/goignite/log"
 	e "github.com/labstack/echo/v4"
 )
 

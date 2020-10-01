@@ -9,7 +9,7 @@ import (
 
 const (
 	ConfigRoot = ginewrelic.ConfigRoot + ".ext.redis"
-	enabled = ConfigRoot + ".enabled"
+	enabled    = ConfigRoot + ".enabled"
 )
 
 func init() {

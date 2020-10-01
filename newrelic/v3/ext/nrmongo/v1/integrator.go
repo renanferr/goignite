@@ -12,6 +12,10 @@ type Integrator struct {
 }
 
 func Integrate() error {
+	if !IsEnabled() {
+		return nil
+	}
+
 	integrator := &Integrator{}
 	return gieventbus.SubscribeOnce(gimongo.TopicClientOptions, integrator.Integrate)
 }
@@ -24,12 +28,8 @@ func (i *Integrator) Integrate(clientOptions *options.ClientOptions) error {
 
 	nrMon := nrmongo.NewCommandMonitor(nil)
 
-	if IsEnabled() {
-		clientOptions.SetMonitor(nrMon)
-		logger.Debug("mongodb integrated with newrelic with success")
-	} else {
-		logger.Debug("mongodb integration is disabled")
-	}
+	clientOptions.SetMonitor(nrMon)
+	logger.Debug("mongodb integrated with newrelic with success")
 
 	return nil
 }

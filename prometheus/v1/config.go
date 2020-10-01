@@ -1,5 +1,5 @@
-package giswagger
+package giprometheus
 
 const (
-	ConfigRoot                      = "gi.prometheus"
+	ConfigRoot = "gi.prometheus"
 )

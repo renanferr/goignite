@@ -7,7 +7,6 @@ import (
 	mware "github.com/b2wdigital/goignite/echo/v4/middleware"
 	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
-	echopprof "github.com/hiko1129/echo-pprof"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -17,9 +16,8 @@ var (
 )
 
 const (
-	TopicInstance        = "topic:giecho:instance"
+	TopicInstance = "topic:giecho:instance"
 )
-
 
 func Start(ctx context.Context) *echo.Echo {
 
@@ -89,9 +87,6 @@ func setDefaultRouters(ctx context.Context, instance *echo.Echo) {
 	healthHandler := NewHealthHandler()
 	instance.GET(healthRoute, healthHandler.Get)
 
-	if GetPProfEnabled() {
-		echopprof.Wrap(instance)
-	}
 }
 
 func Serve(ctx context.Context) {

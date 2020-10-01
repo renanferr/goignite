@@ -68,5 +68,5 @@ func init() {
 			http.StatusRequestHeaderFieldsTooLarge,
 			http.StatusUnavailableForLegalReasons,
 		},
-	"newrelic serverless mode apdex threshold")
+		"newrelic serverless mode apdex threshold")
 }

@@ -4,9 +4,9 @@ import (
 	"context"
 
 	giconfig "github.com/b2wdigital/goignite/config"
+	gigrpc "github.com/b2wdigital/goignite/grpc/v1/client"
 	gilog "github.com/b2wdigital/goignite/log"
 	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
-	gigrpc "github.com/b2wdigital/goignite/grpc/v1/client"
 	"github.com/prometheus/common/log"
 )
 

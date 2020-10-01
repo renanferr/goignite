@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 
 	giconfig "github.com/b2wdigital/goignite/config"
+	gigocql "github.com/b2wdigital/goignite/gocql/v0"
 	gihealth "github.com/b2wdigital/goignite/health"
 	gilog "github.com/b2wdigital/goignite/log"
 	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
-	gigocql "github.com/b2wdigital/goignite/gocql/v0"
 )
 
 func main() {

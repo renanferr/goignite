@@ -20,10 +20,18 @@ func SubscribeOnce(topic string, fn interface{}) error {
 	return bus.SubscribeOnce(topic, fn)
 }
 
+func SubscribeOnceAsync(topic string, fn interface{}) error {
+	return bus.SubscribeOnceAsync(topic, fn)
+}
+
 func Publish(topic string, args ...interface{}) {
 	bus.Publish(topic, args...)
 }
 
 func Unsubscribe(topic string, fn interface{}) error {
 	return bus.Unsubscribe(topic, fn)
+}
+
+func WaitAsync() {
+	bus.WaitAsync()
 }

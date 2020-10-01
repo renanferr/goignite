@@ -6,6 +6,7 @@ import (
 
 	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
+	"go.mongodb.org/mongo-driver/event"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/connstring"
@@ -19,7 +20,7 @@ const (
 
 func NewClient(ctx context.Context, o *Options) (client *mongo.Client, database *mongo.Database, err error) {
 
-	co := clientOptions(o)
+	co := clientOptions(ctx, o)
 
 	gieventbus.Publish(TopicClientOptions, co)
 
@@ -48,7 +49,7 @@ func NewDefaultClient(ctx context.Context) (*mongo.Client, *mongo.Database, erro
 
 func newClient(ctx context.Context, co *options.ClientOptions) (client *mongo.Client, database *mongo.Database, err error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	client, err = mongo.Connect(ctx, co)
 
@@ -71,14 +72,32 @@ func newClient(ctx context.Context, co *options.ClientOptions) (client *mongo.Cl
 
 	database = client.Database(connFields.Database)
 
-	l.Infof("Connected to MongoDB server: %v", strings.Join(connFields.Hosts, ","))
+	logger.Infof("Connected to MongoDB server: %v", strings.Join(connFields.Hosts, ","))
 
 	return client, database, err
 }
 
-func clientOptions(o *Options) *options.ClientOptions {
+func clientOptions(ctx context.Context, o *Options) *options.ClientOptions {
+
+	logger := gilog.FromContext(ctx)
 
 	clientOptions := options.Client().ApplyURI(o.Uri)
+	clientOptions.SetMonitor(&event.CommandMonitor{
+		Started: func(ctx context.Context, startedEvent *event.CommandStartedEvent) {
+			logger.Debugf("mongodb cmd - %v %s %s %v", startedEvent.ConnectionID, startedEvent.CommandName, startedEvent.DatabaseName, startedEvent.RequestID)
+		},
+		Succeeded: func(ctx context.Context, succeededEvent *event.CommandSucceededEvent) {
+			logger.Debugf("mongodb cmd - %v %s %vus %v", succeededEvent.ConnectionID, succeededEvent.CommandName, succeededEvent.DurationNanos, succeededEvent.RequestID)
+		},
+		Failed: func(ctx context.Context, failedEvent *event.CommandFailedEvent) {
+			logger.Errorf("mongodb cmd - %v %s %s %v", failedEvent.ConnectionID, failedEvent.CommandName, failedEvent.Failure, failedEvent.RequestID)
+		},
+	})
+	clientOptions.SetPoolMonitor(&event.PoolMonitor{
+		Event: func(poolEvent *event.PoolEvent) {
+			logger.Debugf("mongodb conn pool - %v %s %s %s", poolEvent.ConnectionID, poolEvent.Type, poolEvent.Reason, poolEvent.Address)
+		},
+	})
 
 	if o.Auth != nil {
 		setAuthOptions(o, clientOptions)

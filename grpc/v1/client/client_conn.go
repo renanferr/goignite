@@ -18,7 +18,6 @@ const (
 	TopicClientConn = "topic:grpc:clientconn"
 )
 
-
 func NewClientConn(ctx context.Context, options *Options) *grpc.ClientConn {
 
 	var err error

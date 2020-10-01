@@ -18,6 +18,6 @@ func NewHealthChecker(name string, description string, checker Checker, required
 		Description: description,
 		Checker:     checker,
 		Required:    required,
-		Enabled:    enabled,
+		Enabled:     enabled,
 	}
 }

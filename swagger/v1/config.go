@@ -1,5 +1,5 @@
 package giswagger
 
 const (
-	ConfigRoot                      = "gi.swagger"
+	ConfigRoot = "gi.swagger"
 )

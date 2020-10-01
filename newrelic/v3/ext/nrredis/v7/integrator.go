@@ -12,6 +12,10 @@ type Integrator struct {
 }
 
 func Integrate() error {
+	if !IsEnabled() {
+		return nil
+	}
+
 	integrator := &Integrator{}
 	return gieventbus.SubscribeOnce(giredis.TopicClient, integrator.Integrate)
 }
@@ -22,12 +26,8 @@ func (i *Integrator) Integrate(client *redis.Client) error {
 
 	logger.Trace("integrating redis with newrelic")
 
-	if IsEnabled() {
-		client.AddHook(nrredis.NewHook(client.Options()))
-		logger.Debug("redis integrated with newrelic with success")
-	} else {
-		logger.Debug("redis integration is disabled")
-	}
+	client.AddHook(nrredis.NewHook(client.Options()))
+	logger.Debug("redis integrated with newrelic with success")
 
 	return nil
 }

@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	TopicConfig        = "topic:giaws:config"
+	TopicConfig = "topic:giaws:config"
 )
 
 func NewConfig(ctx context.Context, options *Options) aws.Config {

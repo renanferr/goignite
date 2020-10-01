@@ -12,7 +12,6 @@ const (
 	TopicConn = "topic:nats:conn"
 )
 
-
 func NewConnection(ctx context.Context, options *Options) (*nats.Conn, error) {
 
 	l := gilog.FromContext(ctx)

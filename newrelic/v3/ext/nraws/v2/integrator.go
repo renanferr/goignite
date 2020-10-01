@@ -12,6 +12,10 @@ type Integrator struct {
 }
 
 func Integrate() error {
+	if !IsEnabled() {
+		return nil
+	}
+
 	integrator := &Integrator{}
 	return gieventbus.SubscribeOnce(giaws.TopicConfig, integrator.Integrate)
 }
@@ -22,9 +26,7 @@ func (i *Integrator) Integrate(cfg *aws.Config) error {
 
 	logger.Trace("integrating aws with newrelic")
 
-	if IsEnabled() {
-		nrawssdk.InstrumentHandlers(&cfg.Handlers)
-	}
+	nrawssdk.InstrumentHandlers(&cfg.Handlers)
 
 	logger.Debug("aws integrated with newrelic with success")
 

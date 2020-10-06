@@ -16,11 +16,13 @@ require (
 	github.com/go-resty/resty/v2 v2.3.0
 	github.com/gocql/gocql v0.0.0-20200410100145-b454769479c6
 	github.com/godror/godror v0.16.1
+	github.com/gofiber/fiber/v2 v2.0.4
 	github.com/golang/protobuf v1.4.2
 	github.com/hashicorp/go-memdb v1.2.0
 	github.com/hiko1129/echo-pprof v1.0.1
 	github.com/jlaffaye/ftp v0.0.0-20200331144919-d4caf6ffcab8
 	github.com/jpfaria/logrus-redis-hook v1.0.2
+	github.com/klauspost/cpuid v1.2.1 // indirect
 	github.com/knadh/koanf v0.9.1
 	github.com/labstack/echo/v4 v4.1.16
 	github.com/labstack/gommon v0.3.0
@@ -44,13 +46,13 @@ require (
 	github.com/stretchr/testify v1.5.1
 	github.com/swaggo/echo-swagger v1.0.0
 	github.com/tidwall/buntdb v1.1.2
-	github.com/valyala/fasthttp v1.10.0
+	github.com/valyala/fasthttp v1.16.0
 	github.com/wesovilabs/beyond v1.0.1
 	go.mongodb.org/mongo-driver v1.4.0
 	go.uber.org/zap v1.14.1
 	gocloud.dev v0.19.0
 	gocloud.dev/pubsub/kafkapubsub v0.19.0
-	golang.org/x/net v0.0.0-20200513185701-a91f0712d120
+	golang.org/x/net v0.0.0-20200602114024-627f9648deb9
 	google.golang.org/grpc v1.28.1
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0

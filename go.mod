@@ -17,8 +17,10 @@ require (
 	github.com/gocql/gocql v0.0.0-20200410100145-b454769479c6
 	github.com/godror/godror v0.16.1
 	github.com/golang/protobuf v1.4.2
+	github.com/googleapis/gnostic v0.5.1 // indirect
 	github.com/hashicorp/go-memdb v1.2.0
 	github.com/hiko1129/echo-pprof v1.0.1
+	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/jlaffaye/ftp v0.0.0-20200331144919-d4caf6ffcab8
 	github.com/jpfaria/logrus-redis-hook v1.0.2
 	github.com/knadh/koanf v0.9.1
@@ -50,8 +52,9 @@ require (
 	go.uber.org/zap v1.14.1
 	gocloud.dev v0.19.0
 	gocloud.dev/pubsub/kafkapubsub v0.19.0
-	golang.org/x/net v0.0.0-20200513185701-a91f0712d120
+	golang.org/x/net v0.0.0-20200707034311-ab3426394381
 	google.golang.org/grpc v1.28.1
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
+	k8s.io/client-go v0.16.13
 )

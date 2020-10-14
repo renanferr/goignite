@@ -4,7 +4,12 @@ go 1.13
 
 require (
 	github.com/asaskevich/EventBus v0.0.0-20200428142821-4fc0642a29f3
-	github.com/aws/aws-sdk-go-v2 v0.20.0
+	github.com/aws/aws-sdk-go-v2 v0.26.0
+	github.com/aws/aws-sdk-go-v2/config v0.1.1
+	github.com/aws/aws-sdk-go-v2/credentials v0.1.1
+	github.com/aws/aws-sdk-go-v2/service/dynamodb v0.26.0 // indirect
+	github.com/aws/aws-sdk-go-v2/service/lambda v0.26.0 // indirect
+	github.com/aws/aws-sdk-go-v2/service/s3 v0.26.0
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cloudevents/sdk-go v1.1.2
 	github.com/cloudevents/sdk-go/v2 v2.0.0-preview8
@@ -18,8 +23,10 @@ require (
 	github.com/godror/godror v0.16.1
 	github.com/gofiber/fiber/v2 v2.0.4
 	github.com/golang/protobuf v1.4.2
+	github.com/googleapis/gnostic v0.5.1 // indirect
 	github.com/hashicorp/go-memdb v1.2.0
 	github.com/hiko1129/echo-pprof v1.0.1
+	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/jlaffaye/ftp v0.0.0-20200331144919-d4caf6ffcab8
 	github.com/jpfaria/logrus-redis-hook v1.0.2
 	github.com/klauspost/cpuid v1.2.1 // indirect
@@ -52,8 +59,9 @@ require (
 	go.uber.org/zap v1.14.1
 	gocloud.dev v0.19.0
 	gocloud.dev/pubsub/kafkapubsub v0.19.0
-	golang.org/x/net v0.0.0-20200602114024-627f9648deb9
+	golang.org/x/net v0.0.0-20200707034311-ab3426394381
 	google.golang.org/grpc v1.28.1
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
+	k8s.io/client-go v0.16.13
 )

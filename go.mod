@@ -4,7 +4,12 @@ go 1.13
 
 require (
 	github.com/asaskevich/EventBus v0.0.0-20200428142821-4fc0642a29f3
-	github.com/aws/aws-sdk-go-v2 v0.20.0
+	github.com/aws/aws-sdk-go-v2 v0.26.0
+	github.com/aws/aws-sdk-go-v2/config v0.1.1
+	github.com/aws/aws-sdk-go-v2/credentials v0.1.1
+	github.com/aws/aws-sdk-go-v2/service/dynamodb v0.26.0 // indirect
+	github.com/aws/aws-sdk-go-v2/service/lambda v0.26.0 // indirect
+	github.com/aws/aws-sdk-go-v2/service/s3 v0.26.0
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cloudevents/sdk-go v1.1.2
 	github.com/cloudevents/sdk-go/v2 v2.0.0-preview8

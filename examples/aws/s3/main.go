@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/aws/awserr"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	giaws "github.com/b2wdigital/goignite/aws/v2"
 	giconfig "github.com/b2wdigital/goignite/config"
@@ -37,7 +36,8 @@ func main() {
 	awsConfig := giaws.NewDefaultConfig(ctx)
 
 	// create s3 client
-	s3Client := s3.New(awsConfig)
+
+	s3Client := s3.NewFromConfig(awsConfig)
 
 	// set vars
 	filename := "examplefile"
@@ -50,15 +50,12 @@ func main() {
 	}
 
 	// make a call
-	req := s3Client.HeadObjectRequest(input)
-
-	head, err := req.Send(ctx)
+	head, err := s3Client.HeadObject(ctx, input)
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
 
 	if err != nil {
-
-		if aerr, ok := err.(awserr.Error); ok && aerr.Code() == "NotFound" {
-			log.Fatalf(err.Error())
-		}
 
 		l.Fatalf("unable check file %s in s3 bucket %s", filename, bucket)
 	}

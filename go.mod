@@ -4,9 +4,11 @@ go 1.13
 
 require (
 	github.com/asaskevich/EventBus v0.0.0-20200428142821-4fc0642a29f3
+	github.com/aws/aws-sdk-go v1.31.13 // indirect
 	github.com/aws/aws-sdk-go-v2 v0.28.0
 	github.com/aws/aws-sdk-go-v2/config v0.2.1
 	github.com/aws/aws-sdk-go-v2/credentials v0.1.3
+	github.com/aws/aws-sdk-go-v2/service/cloudwatch v0.28.0
 	github.com/aws/aws-sdk-go-v2/service/s3 v0.28.0
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cloudevents/sdk-go v1.1.2
@@ -50,10 +52,12 @@ require (
 	github.com/valyala/fasthttp v1.10.0
 	github.com/wesovilabs/beyond v1.0.1
 	go.mongodb.org/mongo-driver v1.4.0
+	go.uber.org/fx v1.13.1
 	go.uber.org/zap v1.14.1
 	gocloud.dev v0.20.0
 	gocloud.dev/pubsub/kafkapubsub v0.20.0
 	golang.org/x/net v0.0.0-20200822124328-c89045814202
+	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
 	google.golang.org/grpc v1.29.1
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0

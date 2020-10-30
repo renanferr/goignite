@@ -52,6 +52,10 @@ func setDefaultMiddlewares(instance *echo.Echo) {
 		instance.Use(middleware.BodyDump(bodyDump))
 	}
 
+	if GetMiddlewareSemaphoreEnabled() {
+		instance.Use(mware.Semaphore(int64(GetMiddlewareSemaphoreLimit())))
+	}
+
 	if GetMiddlewareBodyLimitEnabled() {
 		instance.Use(middleware.BodyLimit(GetMiddlewareBodyLimitSize()))
 	}

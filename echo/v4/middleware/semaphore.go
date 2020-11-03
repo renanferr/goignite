@@ -20,8 +20,7 @@ func Semaphore(limit int64) echo.MiddlewareFunc {
 			logger := gilog.FromContext(c.Request().Context())
 
 			if !sem.TryAcquire(1) {
-				msg := "the http server has reached the limit of %v simultaneous connections"
-				logger.Warnf(msg, limit)
+				logger.Errorf("the http server has reached the limit of %v simultaneous connections", limit)
 				return echo.ErrServiceUnavailable
 			}
 			defer sem.Release(1)

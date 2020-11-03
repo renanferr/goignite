@@ -2,11 +2,14 @@ package giecho
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 
+	"github.com/b2wdigital/goignite/echo/v4/event"
 	mware "github.com/b2wdigital/goignite/echo/v4/middleware"
 	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
+	"github.com/b2wdigital/goignite/rest/response"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -17,6 +20,7 @@ var (
 
 const (
 	TopicInstance = "topic:giecho:instance"
+	TopicError    = "topic:giecho:error"
 )
 
 func Start(ctx context.Context) *echo.Echo {
@@ -26,6 +30,8 @@ func Start(ctx context.Context) *echo.Echo {
 	instance.HideBanner = GetHideBanner()
 	instance.Logger = Wrap(gilog.GetLogger())
 
+	instance.HTTPErrorHandler = customHTTPErrorHandler
+
 	setDefaultMiddlewares(instance)
 
 	gieventbus.Publish(TopicInstance, instance)
@@ -33,6 +39,25 @@ func Start(ctx context.Context) *echo.Echo {
 	setDefaultRouters(ctx, instance)
 
 	return instance
+}
+
+func customHTTPErrorHandler(err error, c echo.Context) {
+	code := http.StatusInternalServerError
+	if he, ok := err.(*echo.HTTPError); ok {
+		code = he.Code
+	}
+
+	resp := response.Error{HttpStatusCode: http.StatusInternalServerError, Message: err.Error()}
+	if err := json(c, code, resp); err != nil {
+		c.Logger().Error(err)
+	}
+
+	requestErr := event.RequestError{
+		Context: c,
+		Error:   err,
+	}
+
+	gieventbus.Publish(TopicError, requestErr)
 }
 
 func setDefaultMiddlewares(instance *echo.Echo) {

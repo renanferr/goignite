@@ -26,9 +26,10 @@ func Start(ctx context.Context) *echo.Echo {
 	instance.HideBanner = GetHideBanner()
 	instance.Logger = Wrap(gilog.GetLogger())
 
+	setDefaultMiddlewares(instance)
+
 	gieventbus.Publish(TopicInstance, instance)
 
-	setDefaultMiddlewares(instance)
 	setDefaultRouters(ctx, instance)
 
 	return instance
@@ -36,28 +37,12 @@ func Start(ctx context.Context) *echo.Echo {
 
 func setDefaultMiddlewares(instance *echo.Echo) {
 
-	if GetMiddlewareRequestIDEnabled() {
-		instance.Use(middleware.RequestID())
-	}
-
-	if GetMiddlewareLogEnabled() {
-		instance.Use(mware.Logger())
-	}
-
 	if GetMiddlewareRecoverEnabled() {
 		instance.Use(middleware.Recover())
 	}
 
-	if GetMiddlewareBodyDumpEnabled() {
-		instance.Use(middleware.BodyDump(bodyDump))
-	}
-
-	if GetMiddlewareSemaphoreEnabled() {
-		instance.Use(mware.Semaphore(int64(GetMiddlewareSemaphoreLimit())))
-	}
-
-	if GetMiddlewareBodyLimitEnabled() {
-		instance.Use(middleware.BodyLimit(GetMiddlewareBodyLimitSize()))
+	if GetMiddlewareLogEnabled() {
+		instance.Use(mware.Logger())
 	}
 
 	if GetMiddlewareCORSEnabled() {
@@ -69,6 +54,22 @@ func setDefaultMiddlewares(instance *echo.Echo) {
 			ExposeHeaders:    GetMiddlewareCORSExposeHeaders(),
 			MaxAge:           GetMiddlewareCORSMaxAge(),
 		}))
+	}
+
+	if GetMiddlewareSemaphoreEnabled() {
+		instance.Use(mware.Semaphore(int64(GetMiddlewareSemaphoreLimit())))
+	}
+
+	if GetMiddlewareRequestIDEnabled() {
+		instance.Use(middleware.RequestID())
+	}
+
+	if GetMiddlewareBodyDumpEnabled() {
+		instance.Use(middleware.BodyDump(bodyDump))
+	}
+
+	if GetMiddlewareBodyLimitEnabled() {
+		instance.Use(middleware.BodyLimit(GetMiddlewareBodyLimitSize()))
 	}
 
 }

@@ -2,6 +2,7 @@ package giecho
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -43,11 +44,15 @@ func Start(ctx context.Context) *echo.Echo {
 
 func customHTTPErrorHandler(err error, c echo.Context) {
 	code := http.StatusInternalServerError
+	var msg interface{}
 	if he, ok := err.(*echo.HTTPError); ok {
 		code = he.Code
+		msg = he.Message
+	} else {
+		msg = err.Error()
 	}
 
-	resp := response.Error{HttpStatusCode: http.StatusInternalServerError, Message: err.Error()}
+	resp := response.Error{HttpStatusCode: code, Message: fmt.Sprintf("%v", msg)}
 	if err := json(c, code, resp); err != nil {
 		c.Logger().Error(err)
 	}

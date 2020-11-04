@@ -4,12 +4,15 @@ go 1.13
 
 require (
 	github.com/asaskevich/EventBus v0.0.0-20200428142821-4fc0642a29f3
-	github.com/aws/aws-sdk-go v1.31.13 // indirect
-	github.com/aws/aws-sdk-go-v2 v0.28.0
-	github.com/aws/aws-sdk-go-v2/config v0.2.1
-	github.com/aws/aws-sdk-go-v2/credentials v0.1.3
-	github.com/aws/aws-sdk-go-v2/service/cloudwatch v0.28.0
-	github.com/aws/aws-sdk-go-v2/service/s3 v0.28.0
+	github.com/aws/aws-sdk-go-v2 v0.29.0
+	github.com/aws/aws-sdk-go-v2/config v0.2.2
+	github.com/aws/aws-sdk-go-v2/credentials v0.1.4
+	github.com/aws/aws-sdk-go-v2/service/cloudwatch v0.29.0
+	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancingv2 v0.29.0
+	github.com/aws/aws-sdk-go-v2/service/kinesis v0.29.0
+	github.com/aws/aws-sdk-go-v2/service/s3 v0.29.0
+	github.com/aws/aws-sdk-go-v2/service/sns v0.29.0
+	github.com/aws/aws-sdk-go-v2/service/sqs v0.29.0
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cloudevents/sdk-go v1.1.2
 	github.com/cloudevents/sdk-go/v2 v2.0.0-preview8

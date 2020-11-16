@@ -34,17 +34,21 @@ func JSONError(c echo.Context, err error) error {
 		return json(c,
 			http.StatusBadRequest,
 			response.Error{HttpStatusCode: http.StatusBadRequest, Message: err.Error()})
+	} else if errors.IsServiceUnavailable(err) {
+		return json(c,
+			http.StatusServiceUnavailable,
+			response.Error{HttpStatusCode: http.StatusServiceUnavailable, Message: err.Error()})
 	} else {
 
 		switch t := err.(type) {
-		default:
-			return json(c,
-				http.StatusInternalServerError,
-				response.Error{HttpStatusCode: http.StatusInternalServerError, Message: t.Error()})
 		case validator.ValidationErrors:
 			return json(c,
 				http.StatusUnprocessableEntity,
 				response.NewUnprocessableEntity(t))
+		default:
+			return json(c,
+				http.StatusInternalServerError,
+				response.Error{HttpStatusCode: http.StatusInternalServerError, Message: t.Error()})
 		}
 	}
 

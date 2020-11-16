@@ -9,125 +9,133 @@ import (
 )
 
 const (
-	HideBanner                     = "gi.echo.hidebanner"
-	Port                           = "gi.echo.port"
-	StatusRoute                    = "gi.echo.route.status"
-	HealthRoute                    = "gi.echo.route.health"
-	PProfEnabled                   = "gi.echo.pprof.enabled"
-	JSONPrettyEnabled              = "gi.echo.json.pretty.enabled"
-	MiddlewareRequestIDEnabled     = "gi.echo.middleware.requestid.enabled"
-	MiddlewareLogEnabled           = "gi.echo.middleware.log.enabled"
-	MiddlewareRecoverEnabled       = "gi.echo.middleware.recover.enabled"
-	MiddlewareBodyDumpEnabled      = "gi.echo.middleware.bodydump.enabled"
-	MiddlewareBodyLimitEnabled     = "gi.echo.middleware.bodylimit.enabled"
-	MiddlewareBodyLimitSize        = "gi.echo.middleware.bodylimit.size"
-	MiddlewareCORSEnabled          = "gi.echo.middleware.cors.enabled"
-	MiddlewareCORSAllowOrigins     = "gi.echo.middleware.cors.allow.origins"
-	MiddlewareCORSAllowHeaders     = "gi.echo.middleware.cors.allow.headers"
-	MiddlewareCORSAllowMethods     = "gi.echo.middleware.cors.allow.methods"
-	MiddlewareCORSAllowCredentials = "gi.echo.middleware.cors.allow.credentials"
-	MiddlewareCORSExposeHeaders    = "gi.echo.middleware.cors.expose.headers"
-	MiddlewareCORSMaxAge           = "gi.echo.middleware.cors.maxage"
+	echoRoot                       = "gi.echo"
+	hideBanner                     = echoRoot + ".hidebanner"
+	port                           = echoRoot + ".port"
+	statusRoute                    = echoRoot + ".route.status"
+	healthRoute                    = echoRoot + ".route.health"
+	jsonPrettyEnabled              = echoRoot + ".json.pretty.enabled"
+	middlewareRoot                 = echoRoot + ".middleware"
+	middlewareRequestIDEnabled     = middlewareRoot + ".requestid.enabled"
+	middlewareLogEnabled           = middlewareRoot + ".log.enabled"
+	middlewareSemaphoreEnabled     = middlewareRoot + ".semaphore.enabled"
+	middlewareSemaphoreLimit       = middlewareRoot + ".semaphore.limit"
+	middlewareRecoverEnabled       = middlewareRoot + ".recover.enabled"
+	middlewareBodyDumpEnabled      = middlewareRoot + ".bodydump.enabled"
+	middlewareBodyLimitEnabled     = middlewareRoot + ".bodylimit.enabled"
+	middlewareBodyLimitSize        = middlewareRoot + ".bodylimit.size"
+	middlewareCORSEnabled          = middlewareRoot + ".cors.enabled"
+	middlewareCORSAllowOrigins     = middlewareRoot + ".cors.allow.origins"
+	middlewareCORSAllowHeaders     = middlewareRoot + ".cors.allow.headers"
+	middlewareCORSAllowMethods     = middlewareRoot + ".cors.allow.methods"
+	middlewareCORSAllowCredentials = middlewareRoot + ".cors.allow.credentials"
+	middlewareCORSExposeHeaders    = middlewareRoot + ".cors.expose.headers"
+	middlewareCORSMaxAge           = middlewareRoot + ".cors.maxage"
 )
 
 func init() {
 
 	log.Println("getting configurations for echo")
 
-	giconfig.Add(HideBanner, true, "echo hide/show banner")
-	giconfig.Add(Port, 8080, "server http port")
-	giconfig.Add(StatusRoute, "/resource-status", "define status url")
-	giconfig.Add(HealthRoute, "/health", "define health url")
-	giconfig.Add(MiddlewareLogEnabled, false, "enable/disable logging request middleware")
-	giconfig.Add(MiddlewareRecoverEnabled, true, "enable/disable recover middleware")
-	giconfig.Add(PProfEnabled, false, "enable/disable pprof")
-	giconfig.Add(JSONPrettyEnabled, false, "enable/disable json pretty response")
-	giconfig.Add(MiddlewareBodyDumpEnabled, false, "enable/disable body dump middleware")
-	giconfig.Add(MiddlewareBodyLimitEnabled, false, "enable/disable body limit middleware")
-	giconfig.Add(MiddlewareBodyLimitSize, "8M", "body limit size")
-	giconfig.Add(MiddlewareCORSEnabled, false, "enable/disable cors middleware")
-	giconfig.Add(MiddlewareCORSAllowOrigins, []string{"*"}, "cors allow origins")
-	giconfig.Add(MiddlewareCORSAllowHeaders, []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	giconfig.Add(hideBanner, true, "echo hide/show banner")
+	giconfig.Add(port, 8080, "server http port")
+	giconfig.Add(statusRoute, "/resource-status", "define status url")
+	giconfig.Add(healthRoute, "/health", "define health url")
+	giconfig.Add(middlewareLogEnabled, false, "enable/disable logging request middleware")
+	giconfig.Add(middlewareSemaphoreEnabled, false, "enable/disable semaphore middleware")
+	giconfig.Add(middlewareSemaphoreLimit, 10000, "defines numbers for concurrent connections")
+	giconfig.Add(middlewareRecoverEnabled, true, "enable/disable recover middleware")
+	giconfig.Add(jsonPrettyEnabled, false, "enable/disable json pretty response")
+	giconfig.Add(middlewareBodyDumpEnabled, false, "enable/disable body dump middleware")
+	giconfig.Add(middlewareBodyLimitEnabled, false, "enable/disable body limit middleware")
+	giconfig.Add(middlewareBodyLimitSize, "8M", "body limit size")
+	giconfig.Add(middlewareCORSEnabled, false, "enable/disable cors middleware")
+	giconfig.Add(middlewareCORSAllowOrigins, []string{"*"}, "cors allow origins")
+	giconfig.Add(middlewareCORSAllowHeaders, []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 		"cors allow headers")
-	giconfig.Add(MiddlewareCORSAllowMethods,
+	giconfig.Add(middlewareCORSAllowMethods,
 		[]string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
 		"cors allow methods")
-	giconfig.Add(MiddlewareCORSAllowCredentials, true, "cors allow credentials")
-	giconfig.Add(MiddlewareCORSExposeHeaders, []string{}, "cors expose headers")
-	giconfig.Add(MiddlewareCORSMaxAge, 5200, "cors max age (seconds)")
+	giconfig.Add(middlewareCORSAllowCredentials, true, "cors allow credentials")
+	giconfig.Add(middlewareCORSExposeHeaders, []string{}, "cors expose headers")
+	giconfig.Add(middlewareCORSMaxAge, 5200, "cors max age (seconds)")
 }
 
 func GetHideBanner() bool {
-	return giconfig.Bool(HideBanner)
+	return giconfig.Bool(hideBanner)
 }
 
 func GetPort() int {
-	return giconfig.Int(Port)
+	return giconfig.Int(port)
 }
 
 func GetStatusRoute() string {
-	return giconfig.String(StatusRoute)
+	return giconfig.String(statusRoute)
 }
 
 func GetHealthRoute() string {
-	return giconfig.String(HealthRoute)
+	return giconfig.String(healthRoute)
 }
 
 func GetMiddlewareRequestIDEnabled() bool {
-	return giconfig.Bool(MiddlewareRequestIDEnabled)
+	return giconfig.Bool(middlewareRequestIDEnabled)
 }
 func GetMiddlewareLogEnabled() bool {
-	return giconfig.Bool(MiddlewareLogEnabled)
+	return giconfig.Bool(middlewareLogEnabled)
 }
 
 func GetMiddlewareRecoverEnabled() bool {
-	return giconfig.Bool(MiddlewareRecoverEnabled)
+	return giconfig.Bool(middlewareRecoverEnabled)
 }
 
 func GetMiddlewareBodyDumpEnabled() bool {
-	return giconfig.Bool(MiddlewareBodyDumpEnabled)
+	return giconfig.Bool(middlewareBodyDumpEnabled)
 }
 
 func GetMiddlewareBodyLimitEnabled() bool {
-	return giconfig.Bool(MiddlewareBodyLimitEnabled)
+	return giconfig.Bool(middlewareBodyLimitEnabled)
 }
 
 func GetMiddlewareBodyLimitSize() string {
-	return giconfig.String(MiddlewareBodyLimitSize)
+	return giconfig.String(middlewareBodyLimitSize)
 }
 
 func GetMiddlewareCORSEnabled() bool {
-	return giconfig.Bool(MiddlewareCORSEnabled)
+	return giconfig.Bool(middlewareCORSEnabled)
 }
 
 func GetMiddlewareCORSAllowOrigins() []string {
-	return giconfig.Strings(MiddlewareCORSAllowOrigins)
+	return giconfig.Strings(middlewareCORSAllowOrigins)
 }
 
 func GetMiddlewareCORSAllowMethods() []string {
-	return giconfig.Strings(MiddlewareCORSAllowMethods)
+	return giconfig.Strings(middlewareCORSAllowMethods)
 }
 
 func GetMiddlewareCORSAllowHeaders() []string {
-	return giconfig.Strings(MiddlewareCORSAllowHeaders)
+	return giconfig.Strings(middlewareCORSAllowHeaders)
 }
 
 func GetMiddlewareCORSAllowCredentials() bool {
-	return giconfig.Bool(MiddlewareCORSAllowCredentials)
+	return giconfig.Bool(middlewareCORSAllowCredentials)
 }
 
 func GetMiddlewareCORSExposeHeaders() []string {
-	return giconfig.Strings(MiddlewareCORSExposeHeaders)
+	return giconfig.Strings(middlewareCORSExposeHeaders)
 }
 
 func GetMiddlewareCORSMaxAge() int {
-	return giconfig.Int(MiddlewareCORSMaxAge)
+	return giconfig.Int(middlewareCORSMaxAge)
 }
 
-func GetPProfEnabled() bool {
-	return giconfig.Bool(PProfEnabled)
+func GetMiddlewareSemaphoreEnabled() bool {
+	return giconfig.Bool(middlewareSemaphoreEnabled)
+}
+
+func GetMiddlewareSemaphoreLimit() int {
+	return giconfig.Int(middlewareSemaphoreLimit)
 }
 
 func GetJSONPrettyEnabled() bool {
-	return giconfig.Bool(JSONPrettyEnabled)
+	return giconfig.Bool(jsonPrettyEnabled)
 }

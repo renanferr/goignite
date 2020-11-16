@@ -5,7 +5,7 @@ import (
 	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
 	"github.com/labstack/echo/v4"
-	echoSwagger "github.com/swaggo/echo-swagger"
+	// echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 type Integrator struct {
@@ -28,7 +28,7 @@ func (i *Integrator) Integrate(instance *echo.Echo) error {
 
 	swaggerRoute := GetRoute() + "/*"
 	logger.Infof("configuring swagger router on %s", swaggerRoute)
-	instance.GET(swaggerRoute, echoSwagger.WrapHandler)
+	// instance.GET(swaggerRoute, echoSwagger.WrapHandler)
 
 	logger.Debug("swagger integrated with echo with success")
 

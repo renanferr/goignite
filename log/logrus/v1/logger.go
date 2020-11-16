@@ -21,7 +21,7 @@ type ctxKey string
 
 const key ctxKey = "ctxfields"
 
-func NewLogger() gilog.Logger {
+func NewLoggerWithFormatter(formatter logrus.Formatter) gilog.Logger {
 
 	lLogger := new(logrus.Logger)
 
@@ -72,9 +72,8 @@ func NewLogger() gilog.Logger {
 	}
 
 	level := getLogLevel(giconfig.String(gilog.ConsoleLevel))
-	formatter := getFormatter(giconfig.String(Formatter))
-
 	lLogger.SetLevel(level)
+
 	lLogger.SetFormatter(formatter)
 
 	logger := &logger{
@@ -83,6 +82,12 @@ func NewLogger() gilog.Logger {
 
 	gilog.NewLogger(logger)
 	return logger
+
+}
+
+func NewLogger() gilog.Logger {
+	formatter := getFormatter(giconfig.String(Formatter))
+	return NewLoggerWithFormatter(formatter)
 }
 
 func getLogLevel(level string) logrus.Level {

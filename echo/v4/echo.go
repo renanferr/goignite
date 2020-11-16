@@ -2,11 +2,15 @@ package giecho
 
 import (
 	"context"
+	"fmt"
+	"net/http"
 	"strconv"
 
+	"github.com/b2wdigital/goignite/echo/v4/event"
 	mware "github.com/b2wdigital/goignite/echo/v4/middleware"
 	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
+	"github.com/b2wdigital/goignite/rest/response"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -17,6 +21,7 @@ var (
 
 const (
 	TopicInstance = "topic:giecho:instance"
+	TopicError    = "topic:giecho:error"
 )
 
 func Start(ctx context.Context) *echo.Echo {
@@ -26,34 +31,48 @@ func Start(ctx context.Context) *echo.Echo {
 	instance.HideBanner = GetHideBanner()
 	instance.Logger = Wrap(gilog.GetLogger())
 
-	gieventbus.Publish(TopicInstance, instance)
+	instance.HTTPErrorHandler = customHTTPErrorHandler
 
 	setDefaultMiddlewares(instance)
+
+	gieventbus.Publish(TopicInstance, instance)
+
 	setDefaultRouters(ctx, instance)
 
 	return instance
 }
 
+func customHTTPErrorHandler(err error, c echo.Context) {
+	code := http.StatusInternalServerError
+	var msg interface{}
+	if he, ok := err.(*echo.HTTPError); ok {
+		code = he.Code
+		msg = he.Message
+	} else {
+		msg = err.Error()
+	}
+
+	resp := response.Error{HttpStatusCode: code, Message: fmt.Sprintf("%v", msg)}
+	if err := json(c, code, resp); err != nil {
+		c.Logger().Error(err)
+	}
+
+	requestErr := event.RequestError{
+		Context: c,
+		Error:   err,
+	}
+
+	gieventbus.Publish(TopicError, requestErr)
+}
+
 func setDefaultMiddlewares(instance *echo.Echo) {
-
-	if GetMiddlewareRequestIDEnabled() {
-		instance.Use(middleware.RequestID())
-	}
-
-	if GetMiddlewareLogEnabled() {
-		instance.Use(mware.Logger())
-	}
 
 	if GetMiddlewareRecoverEnabled() {
 		instance.Use(middleware.Recover())
 	}
 
-	if GetMiddlewareBodyDumpEnabled() {
-		instance.Use(middleware.BodyDump(bodyDump))
-	}
-
-	if GetMiddlewareBodyLimitEnabled() {
-		instance.Use(middleware.BodyLimit(GetMiddlewareBodyLimitSize()))
+	if GetMiddlewareLogEnabled() {
+		instance.Use(mware.Logger())
 	}
 
 	if GetMiddlewareCORSEnabled() {
@@ -65,6 +84,22 @@ func setDefaultMiddlewares(instance *echo.Echo) {
 			ExposeHeaders:    GetMiddlewareCORSExposeHeaders(),
 			MaxAge:           GetMiddlewareCORSMaxAge(),
 		}))
+	}
+
+	if GetMiddlewareSemaphoreEnabled() {
+		instance.Use(mware.Semaphore(int64(GetMiddlewareSemaphoreLimit())))
+	}
+
+	if GetMiddlewareRequestIDEnabled() {
+		instance.Use(middleware.RequestID())
+	}
+
+	if GetMiddlewareBodyDumpEnabled() {
+		instance.Use(middleware.BodyDump(bodyDump))
+	}
+
+	if GetMiddlewareBodyLimitEnabled() {
+		instance.Use(middleware.BodyLimit(GetMiddlewareBodyLimitSize()))
 	}
 
 }

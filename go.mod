@@ -4,12 +4,12 @@ go 1.13
 
 require (
 	github.com/asaskevich/EventBus v0.0.0-20200428142821-4fc0642a29f3
-	github.com/aws/aws-sdk-go-v2 v0.26.0
-	github.com/aws/aws-sdk-go-v2/config v0.1.1
-	github.com/aws/aws-sdk-go-v2/credentials v0.1.1
-	github.com/aws/aws-sdk-go-v2/service/dynamodb v0.26.0 // indirect
-	github.com/aws/aws-sdk-go-v2/service/lambda v0.26.0 // indirect
-	github.com/aws/aws-sdk-go-v2/service/s3 v0.26.0
+	github.com/aws/aws-sdk-go v1.31.13 // indirect
+	github.com/aws/aws-sdk-go-v2 v0.28.0
+	github.com/aws/aws-sdk-go-v2/config v0.2.1
+	github.com/aws/aws-sdk-go-v2/credentials v0.1.3
+	github.com/aws/aws-sdk-go-v2/service/cloudwatch v0.28.0
+	github.com/aws/aws-sdk-go-v2/service/s3 v0.28.0
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cloudevents/sdk-go v1.1.2
 	github.com/cloudevents/sdk-go/v2 v2.0.0-preview8
@@ -38,7 +38,6 @@ require (
 	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2 // indirect
 	github.com/nats-io/nats.go v1.9.2
 	github.com/newrelic/go-agent/v3 v3.9.0
-	github.com/newrelic/go-agent/v3/integrations/nrawssdk-v2 v1.0.0
 	github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0
 	github.com/newrelic/go-agent/v3/integrations/nrmongo v1.0.0
 	github.com/newrelic/go-agent/v3/integrations/nrnats v1.1.0
@@ -51,16 +50,17 @@ require (
 	github.com/sirupsen/logrus v1.5.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.5.1
-	github.com/swaggo/echo-swagger v1.0.0
 	github.com/tidwall/buntdb v1.1.2
 	github.com/valyala/fasthttp v1.16.0
 	github.com/wesovilabs/beyond v1.0.1
 	go.mongodb.org/mongo-driver v1.4.0
+	go.uber.org/fx v1.13.1
 	go.uber.org/zap v1.14.1
-	gocloud.dev v0.19.0
-	gocloud.dev/pubsub/kafkapubsub v0.19.0
-	golang.org/x/net v0.0.0-20200707034311-ab3426394381
-	google.golang.org/grpc v1.28.1
+	gocloud.dev v0.20.0
+	gocloud.dev/pubsub/kafkapubsub v0.20.0
+	golang.org/x/net v0.0.0-20200822124328-c89045814202
+	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
+	google.golang.org/grpc v1.29.1
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	k8s.io/client-go v0.16.13

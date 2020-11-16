@@ -21,6 +21,7 @@ require (
 	github.com/go-resty/resty/v2 v2.3.0
 	github.com/gocql/gocql v0.0.0-20200410100145-b454769479c6
 	github.com/godror/godror v0.16.1
+	github.com/gofiber/fiber/v2 v2.0.4
 	github.com/golang/protobuf v1.4.2
 	github.com/googleapis/gnostic v0.5.1 // indirect
 	github.com/hashicorp/go-memdb v1.2.0
@@ -28,6 +29,7 @@ require (
 	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/jlaffaye/ftp v0.0.0-20200331144919-d4caf6ffcab8
 	github.com/jpfaria/logrus-redis-hook v1.0.2
+	github.com/klauspost/cpuid v1.2.1 // indirect
 	github.com/knadh/koanf v0.9.1
 	github.com/labstack/echo/v4 v4.1.16
 	github.com/labstack/gommon v0.3.0
@@ -49,7 +51,7 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.5.1
 	github.com/tidwall/buntdb v1.1.2
-	github.com/valyala/fasthttp v1.10.0
+	github.com/valyala/fasthttp v1.16.0
 	github.com/wesovilabs/beyond v1.0.1
 	go.mongodb.org/mongo-driver v1.4.0
 	go.uber.org/fx v1.13.1

@@ -31,7 +31,7 @@ func (i *Integrator) Integrate(instance *fiber.App) error {
 
 	logger.Infof("configuring prometheus metrics router on %s", prometheusRoute)
 
-	prometheus := fiberprometheus.New("graphql-go-server")
+	prometheus := fiberprometheus.New("")
 	prometheus.RegisterAt(instance, prometheusRoute)
 
 	instance.Use(prometheus.Middleware)

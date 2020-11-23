@@ -18,12 +18,13 @@ require (
 	github.com/go-playground/validator/v10 v10.2.0
 	github.com/go-redis/redis/v7 v7.2.0
 	github.com/go-resty/resty/v2 v2.3.0
+	github.com/gobeam/stringy v0.0.0-20200717095810-8a3637503f62
 	github.com/gocql/gocql v0.0.0-20200410100145-b454769479c6
 	github.com/godror/godror v0.16.1
 	github.com/gofiber/fiber/v2 v2.0.4
 	github.com/golang/protobuf v1.4.2
 	github.com/googleapis/gnostic v0.5.1 // indirect
-	github.com/graphql-go/graphql v0.7.9 // indirect
+	github.com/graphql-go/graphql v0.7.9
 	github.com/graphql-go/handler v0.2.3
 	github.com/hashicorp/go-memdb v1.2.0
 	github.com/hiko1129/echo-pprof v1.0.1

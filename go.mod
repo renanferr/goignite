@@ -3,12 +3,11 @@ module github.com/b2wdigital/goignite
 go 1.13
 
 require (
+	github.com/ansrivas/fiberprometheus/v2 v2.0.0
 	github.com/asaskevich/EventBus v0.0.0-20200428142821-4fc0642a29f3
-	github.com/aws/aws-sdk-go v1.31.13 // indirect
 	github.com/aws/aws-sdk-go-v2 v0.28.0
 	github.com/aws/aws-sdk-go-v2/config v0.2.1
 	github.com/aws/aws-sdk-go-v2/credentials v0.1.3
-	github.com/aws/aws-sdk-go-v2/service/cloudwatch v0.28.0
 	github.com/aws/aws-sdk-go-v2/service/s3 v0.28.0
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cloudevents/sdk-go v1.1.2
@@ -29,7 +28,6 @@ require (
 	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/jlaffaye/ftp v0.0.0-20200331144919-d4caf6ffcab8
 	github.com/jpfaria/logrus-redis-hook v1.0.2
-	github.com/klauspost/cpuid v1.2.1 // indirect
 	github.com/knadh/koanf v0.9.1
 	github.com/labstack/echo/v4 v4.1.16
 	github.com/labstack/gommon v0.3.0
@@ -54,7 +52,6 @@ require (
 	github.com/valyala/fasthttp v1.16.0
 	github.com/wesovilabs/beyond v1.0.1
 	go.mongodb.org/mongo-driver v1.4.0
-	go.uber.org/fx v1.13.1
 	go.uber.org/zap v1.14.1
 	gocloud.dev v0.20.0
 	gocloud.dev/pubsub/kafkapubsub v0.20.0

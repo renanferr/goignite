@@ -23,6 +23,8 @@ require (
 	github.com/gofiber/fiber/v2 v2.0.4
 	github.com/golang/protobuf v1.4.2
 	github.com/googleapis/gnostic v0.5.1 // indirect
+	github.com/graphql-go/graphql v0.7.9 // indirect
+	github.com/graphql-go/handler v0.2.3
 	github.com/hashicorp/go-memdb v1.2.0
 	github.com/hiko1129/echo-pprof v1.0.1
 	github.com/imdario/mergo v0.3.11 // indirect

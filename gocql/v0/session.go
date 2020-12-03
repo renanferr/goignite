@@ -90,6 +90,9 @@ func NewSession(ctx context.Context, o *Options) (session *gocql.Session, err er
 		cluster.Consistency = gocql.ParseConsistency(o.Consistency)
 	}
 
+	// cluster.PoolConfig.HostSelectionPolicy = gocql.DCAwareRoundRobinPolicy("meudc")
+	// cluster.HostFilter = gocql.DataCentreHostFilter("meudc")
+
 	session, err = cluster.CreateSession()
 
 	if err != nil {

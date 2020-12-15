@@ -4,7 +4,7 @@ import (
 	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
 	ginrredis "github.com/b2wdigital/goignite/newrelic/v3/ext/nrredis"
-	giredis "github.com/b2wdigital/goignite/redis/v7"
+	giredis "github.com/b2wdigital/goignite/redis/v8"
 	"github.com/go-redis/redis/v7"
 	"github.com/newrelic/go-agent/v3/integrations/nrredis-v7"
 )

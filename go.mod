@@ -17,6 +17,7 @@ require (
 	github.com/go-chi/chi v4.1.0+incompatible
 	github.com/go-playground/validator/v10 v10.2.0
 	github.com/go-redis/redis/v7 v7.2.0
+	github.com/go-redis/redis/v8 v8.4.2
 	github.com/go-resty/resty/v2 v2.3.0
 	github.com/gobeam/stringy v0.0.0-20200717095810-8a3637503f62
 	github.com/gocql/gocql v0.0.0-20200410100145-b454769479c6
@@ -50,7 +51,7 @@ require (
 	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.5.0
 	github.com/spf13/pflag v1.0.5
-	github.com/stretchr/testify v1.5.1
+	github.com/stretchr/testify v1.6.1
 	github.com/tidwall/buntdb v1.1.2
 	github.com/valyala/fasthttp v1.16.0
 	github.com/wesovilabs/beyond v1.0.1
@@ -58,7 +59,7 @@ require (
 	go.uber.org/zap v1.14.1
 	gocloud.dev v0.20.0
 	gocloud.dev/pubsub/kafkapubsub v0.20.0
-	golang.org/x/net v0.0.0-20200822124328-c89045814202
+	golang.org/x/net v0.0.0-20201006153459-a7d1128ccaa0
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
 	google.golang.org/grpc v1.29.1
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e

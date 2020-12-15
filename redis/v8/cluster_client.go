@@ -6,11 +6,11 @@ import (
 
 	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
-	"github.com/go-redis/redis/v7"
+	"github.com/go-redis/redis/v8"
 )
 
 const (
-	TopicClusterClient = "topic:redis:v7:cluster:client"
+	TopicClusterClient = "topic:redis:v8:cluster:client"
 )
 
 func NewClusterClient(ctx context.Context, o *Options) (client *redis.ClusterClient, err error) {
@@ -38,7 +38,7 @@ func NewClusterClient(ctx context.Context, o *Options) (client *redis.ClusterCli
 		IdleCheckFrequency: o.IdleCheckFrequency,
 	})
 
-	ping := client.Ping()
+	ping := client.Ping(ctx)
 	if ping.Err() != nil {
 		return nil, ping.Err()
 	}

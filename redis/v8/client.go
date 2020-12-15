@@ -5,11 +5,11 @@ import (
 
 	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
-	"github.com/go-redis/redis/v7"
+	"github.com/go-redis/redis/v8"
 )
 
 const (
-	TopicClient = "topic:redis:v7:client"
+	TopicClient = "topic:redis:v8:client"
 )
 
 func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error) {
@@ -22,7 +22,7 @@ func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error
 		client = standaloneClient(o)
 	}
 
-	ping := client.Conn().Ping()
+	ping := client.Conn(ctx).Ping(ctx)
 	if ping.Err() != nil {
 		return nil, ping.Err()
 	}

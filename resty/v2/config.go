@@ -10,6 +10,7 @@ import (
 
 const (
 	Debug                          = "gi.resty.debug"
+	CloseConnection                = "gi.resty.closeConnection"
 	ConnectionTimeout              = "gi.resty.connectionTimeout"
 	KeepAlive                      = "gi.resty.keepAlive"
 	RequestTimeout                 = "gi.resty.requestTimeout"
@@ -32,6 +33,7 @@ func init() {
 	log.Println("getting configurations for resty")
 
 	giconfig.Add(Debug, false, "defines global debug request")
+	giconfig.Add(CloseConnection, false, "defines global http close connection")
 	giconfig.Add(ConnectionTimeout, 3*time.Minute, "defines global http connection timeout")
 	giconfig.Add(KeepAlive, 30*time.Second, "defines global http keepalive")
 	giconfig.Add(RequestTimeout, 30*time.Second, "defines global http request timeout")

@@ -98,6 +98,7 @@ func NewClient(ctx context.Context, options *Options) *resty.Client {
 		SetRetryMaxWaitTime(giconfig.Duration(RetryMaxWaitTime)).
 		SetDebug(giconfig.Bool(Debug)).
 		SetHostURL(options.Host).
+		SetCloseConnection(giconfig.Bool(CloseConnection)).
 		AddRetryCondition(statusCodeRetryCondition)
 
 	addTimeoutRetryCondition(client, options)

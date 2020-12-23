@@ -10,7 +10,7 @@ import (
 
 const (
 	Debug                          = "gi.resty.debug"
-	CloseConnection                = "gi.resty.closeConnection"
+	CloseConnection                = "gi.resty.closeconnection"
 	ConnectionTimeout              = "gi.resty.connectionTimeout"
 	KeepAlive                      = "gi.resty.keepAlive"
 	RequestTimeout                 = "gi.resty.requestTimeout"

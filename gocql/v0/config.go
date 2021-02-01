@@ -4,8 +4,6 @@ import (
 	"time"
 
 	giconfig "github.com/b2wdigital/goignite/config"
-
-	"log"
 )
 
 const (
@@ -32,8 +30,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for gocql (Cassandra)")
 
 	giconfig.Add(Hosts, []string{"127.0.0.1"}, "addresses for the initial connections")
 	giconfig.Add(Port, 9042, "define port")

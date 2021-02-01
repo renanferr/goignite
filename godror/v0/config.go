@@ -4,20 +4,16 @@ import (
 	"time"
 
 	giconfig "github.com/b2wdigital/goignite/config"
-
-	"log"
 )
 
 const (
-	DataSourceName    = "gi.godror.dataSourceName"
-	ConnMaxLifetime   = "gi.godror.connMaxLifetime"
-	MaxIdleConns      = "gi.godror.maxIdleConns"
-	MaxOpenConns      = "gi.godror.maxOpenConns"
+	DataSourceName  = "gi.godror.dataSourceName"
+	ConnMaxLifetime = "gi.godror.connMaxLifetime"
+	MaxIdleConns    = "gi.godror.maxIdleConns"
+	MaxOpenConns    = "gi.godror.maxOpenConns"
 )
 
 func init() {
-
-	log.Println("getting configurations for oracle (godror)")
 
 	giconfig.Add(DataSourceName, "", "database name and connection information")
 	giconfig.Add(ConnMaxLifetime, 0*time.Second, "sets the maximum amount of time a connection may be reused. If d <= 0, connections are reused forever")

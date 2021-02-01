@@ -1,8 +1,6 @@
 package giaws
 
 import (
-	"log"
-
 	giconfig "github.com/b2wdigital/goignite/config"
 )
 
@@ -19,8 +17,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for aws")
 
 	giconfig.Add(Key, "", "defines the aws key")
 	giconfig.Add(Secret, "", "defines the aws secret")

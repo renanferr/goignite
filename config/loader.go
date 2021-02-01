@@ -158,7 +158,6 @@ func parseFlags() {
 		case net.IPMask:
 			f.IPMask(v.Key, t, v.Description)
 		default:
-			fmt.Println("type unknown")
 		}
 
 	}

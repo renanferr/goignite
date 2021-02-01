@@ -1,8 +1,6 @@
 package gichi
 
 import (
-	"log"
-
 	giconfig "github.com/b2wdigital/goignite/config"
 )
 
@@ -18,8 +16,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for chi")
 
 	giconfig.Add(StatusRoute, "/resource-status", "define status url")
 	giconfig.Add(HealthRoute, "/health", "define health url")

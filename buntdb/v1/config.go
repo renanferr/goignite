@@ -2,8 +2,6 @@ package gibuntdb
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
-
-	"log"
 )
 
 const (
@@ -15,8 +13,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for buntdb")
 
 	giconfig.Add(Path, ":memory:", "open opens a database at the provided path")
 	giconfig.Add(SyncPolicy, 1, "adjusts how often the data is synced to disk (Never: 0, EverySecond: 1, Always: 2)")

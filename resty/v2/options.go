@@ -19,15 +19,15 @@ type Options struct {
 type optionsBuilder builder.Builder
 
 func (b optionsBuilder) ConnectionTimeout(connTimeout time.Duration) optionsBuilder {
-	return builder.Set(b, "connectionTimeout", connTimeout).(optionsBuilder)
+	return builder.Set(b, "ConnectionTimeout", connTimeout).(optionsBuilder)
 }
 
 func (b optionsBuilder) KeepAlive(keepalive time.Duration) optionsBuilder {
-	return builder.Set(b, "keepAlive", keepalive).(optionsBuilder)
+	return builder.Set(b, "KeepAlive", keepalive).(optionsBuilder)
 }
 
 func (b optionsBuilder) RequestTimeout(timeout time.Duration) optionsBuilder {
-	return builder.Set(b, "requestTimeout", timeout).(optionsBuilder)
+	return builder.Set(b, "RequestTimeout", timeout).(optionsBuilder)
 }
 
 func (b optionsBuilder) Retry(retry *OptionsRetry) optionsBuilder {
@@ -39,7 +39,7 @@ func (b optionsBuilder) Host(host string) optionsBuilder {
 }
 
 func (b optionsBuilder) Debug(debug bool) optionsBuilder {
-	return builder.Set(b, "debug", debug).(optionsBuilder)
+	return builder.Set(b, "Debug", debug).(optionsBuilder)
 }
 
 func (b optionsBuilder) Transport(transport *OptionsTransport) optionsBuilder {

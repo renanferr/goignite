@@ -23,7 +23,7 @@ require (
 	github.com/gobeam/stringy v0.0.0-20200717095810-8a3637503f62
 	github.com/gocql/gocql v0.0.0-20200410100145-b454769479c6
 	github.com/godror/godror v0.16.1
-	github.com/gofiber/fiber/v2 v2.0.4
+	github.com/gofiber/fiber/v2 v2.5.0
 	github.com/golang/protobuf v1.4.2
 	github.com/googleapis/gnostic v0.5.1 // indirect
 	github.com/graphql-go/graphql v0.7.9
@@ -55,7 +55,7 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.6.1
 	github.com/tidwall/buntdb v1.1.2
-	github.com/valyala/fasthttp v1.16.0
+	github.com/valyala/fasthttp v1.18.0
 	github.com/wesovilabs/beyond v1.0.1
 	go.mongodb.org/mongo-driver v1.4.0
 	go.uber.org/zap v1.14.1

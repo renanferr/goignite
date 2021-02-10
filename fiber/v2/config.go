@@ -31,6 +31,8 @@ const (
 	compressedFileSuffix           = configRoot + ".compressedFileSuffix"
 	proxyHeader                    = configRoot + ".proxyHeader"
 	GETOnly                        = configRoot + ".GETOnly"
+	reduceMemoryUsage              = configRoot + ".reduceMemoryUsage"
+	network                        = configRoot + ".network"
 	disableKeepalive               = configRoot + ".disableKeepalive"
 	disableDefaultDate             = configRoot + ".disableDefaultDate"
 	disableDefaultContentType      = configRoot + ".disableDefaultContentType"
@@ -47,6 +49,9 @@ const (
 	middlewareCORSAllowCredentials = middlewareRoot + ".cors.allow.credentials"
 	middlewareCORSExposeHeaders    = middlewareRoot + ".cors.expose.headers"
 	middlewareCORSMaxAge           = middlewareRoot + ".cors.maxage"
+	middlewarePprofEnabled         = middlewareRoot + ".pprof.enabled"
+	middlewareMonitorEnabled       = middlewareRoot + ".monitor.enabled"
+	middlewareETagEnabled          = middlewareRoot + ".etag.enabled"
 )
 
 func init() {
@@ -73,6 +78,8 @@ func init() {
 	giconfig.Add(compressedFileSuffix, ".fiber.gz", "Adds a suffix to the original file name and tries saving the resulting compressed file under the new file name.")
 	giconfig.Add(proxyHeader, "", "This will enable c.IP() to return the value of the given header key. By default c.IP()will return the Remote IP from the TCP connection, this property can be useful if you are behind a load balancer e.g. X-Forwarded-*.")
 	giconfig.Add(GETOnly, false, "Rejects all non-GET requests if set to true. This option is useful as anti-DoS protection for servers accepting only GET requests. The request size is limited by ReadBufferSize if GETOnly is set.")
+	giconfig.Add(reduceMemoryUsage, false, "Aggressively reduces memory usage at the cost of higher CPU usage if set to true")
+	giconfig.Add(network, fiber.NetworkTCP4, "Known networks are \"tcp\", \"tcp4\" (IPv4-only), \"tcp6\" (IPv6-only)")
 	giconfig.Add(disableKeepalive, false, "Disable keep-alive connections, the server will close incoming connections after sending the first response to the client")
 	giconfig.Add(disableDefaultDate, false, "When set to true causes the default date header to be excluded from the response.")
 	giconfig.Add(disableDefaultContentType, false, "When set to true, causes the default Content-Type header to be excluded from the Response.")
@@ -90,6 +97,9 @@ func init() {
 	giconfig.Add(middlewareCORSAllowCredentials, true, "cors allow credentials")
 	giconfig.Add(middlewareCORSExposeHeaders, []string{}, "cors expose headers")
 	giconfig.Add(middlewareCORSMaxAge, 5200, "cors max age (seconds)")
+	giconfig.Add(middlewarePprofEnabled, false, "enable/disable pprof middleware")
+	giconfig.Add(middlewareMonitorEnabled, false, "enable/disable monitor middleware")
+	giconfig.Add(middlewareETagEnabled, false, "enable/disable etag middleware")
 
 }
 
@@ -142,6 +152,18 @@ func GetMiddlewareCORSExposeHeaders() []string {
 
 func GetMiddlewareCORSMaxAge() int {
 	return giconfig.Int(middlewareCORSMaxAge)
+}
+
+func GetMiddlewarePprofEnabled() bool {
+	return giconfig.Bool(middlewarePprofEnabled)
+}
+
+func GetMiddlewareMonitorEnabled() bool {
+	return giconfig.Bool(middlewareMonitorEnabled)
+}
+
+func GetMiddlewareETagEnabled() bool {
+	return giconfig.Bool(middlewareETagEnabled)
 }
 
 func AppConfig() (*fiber.Config, error) {

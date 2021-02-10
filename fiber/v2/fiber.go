@@ -9,7 +9,10 @@ import (
 	gilog "github.com/b2wdigital/goignite/log"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/etag"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/monitor"
+	"github.com/gofiber/fiber/v2/middleware/pprof"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 )
@@ -58,7 +61,19 @@ func setDefaultMiddlewares(app *fiber.App) {
 	}
 
 	if GetMiddlewareRequestIDEnabled() {
-		app.Use(requestid.New)
+		app.Use(requestid.New())
+	}
+
+	if GetMiddlewarePprofEnabled() {
+		app.Use(pprof.New())
+	}
+
+	if GetMiddlewareETagEnabled() {
+		app.Use(etag.New())
+	}
+
+	if GetMiddlewareMonitorEnabled() {
+		app.Use(monitor.New())
 	}
 
 }

@@ -7,7 +7,7 @@ import (
 
 type Options struct {
 	KubeConfigPath string
-	Context string
+	Context        string
 }
 
 type optionsBuilder builder.Builder
@@ -25,7 +25,6 @@ func (b optionsBuilder) Build() Options {
 }
 
 var OptionsBuilder = builder.Register(optionsBuilder{}, Options{}).(optionsBuilder)
-
 
 func DefaultOptions() (*Options, error) {
 

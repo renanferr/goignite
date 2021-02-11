@@ -19,7 +19,7 @@ func NewConfig(ctx context.Context, options *Options) aws.Config {
 
 	l := gilog.FromContext(ctx)
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		l.Panicf("unable to load AWS SDK config, %s", err.Error())
 		return aws.Config{}

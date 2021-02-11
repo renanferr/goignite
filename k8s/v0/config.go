@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	configRoot                     = "gi.k8s"
-	kubeConfigPath                 = configRoot + ".kubeConfigPath"
+	configRoot     = "gi.k8s"
+	kubeConfigPath = configRoot + ".kubeConfigPath"
 )
 
 func init() {

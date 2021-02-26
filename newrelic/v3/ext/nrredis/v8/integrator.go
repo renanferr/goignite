@@ -1,29 +1,21 @@
 package ginrredis
 
 import (
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
+	"context"
+
 	gilog "github.com/b2wdigital/goignite/log"
 	ginrredis "github.com/b2wdigital/goignite/newrelic/v3/ext/nrredis"
-	giredis "github.com/b2wdigital/goignite/redis/v8"
 	"github.com/go-redis/redis/v7"
 	"github.com/newrelic/go-agent/v3/integrations/nrredis-v7"
 )
 
-type Integrator struct {
-}
+func Integrate(ctx context.Context, client *redis.Client) error {
 
-func Integrate() error {
 	if !ginrredis.IsEnabled() {
 		return nil
 	}
 
-	integrator := &Integrator{}
-	return gieventbus.SubscribeOnce(giredis.TopicClient, integrator.Integrate)
-}
-
-func (i *Integrator) Integrate(client *redis.Client) error {
-
-	logger := gilog.WithTypeOf(*i)
+	logger := gilog.FromContext(ctx)
 
 	logger.Trace("integrating redis with newrelic")
 

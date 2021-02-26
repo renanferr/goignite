@@ -4,8 +4,9 @@ import (
 	"context"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/aws/external"
 	"github.com/aws/aws-sdk-go-v2/aws/retry"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/credentials"
 	giconfig "github.com/b2wdigital/goignite/config"
 	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
@@ -38,16 +39,20 @@ func NewConfig(ctx context.Context, options *Options) aws.Config {
 	return cfg
 }
 
-func retryerConfig(options *Options) *retry.Standard {
-	return retry.NewStandard(func(o *retry.StandardOptions) {
+func retryerConfig(options *Options) func() aws.Retryer {
 
-		o.MaxAttempts = options.MaxAttempts
+	return func() aws.Retryer {
 
-		if !options.HasRateLimit {
-			o.RateLimiter = noRateLimit{}
-		}
+		return retry.NewStandard(func(o *retry.StandardOptions) {
 
-	})
+			o.MaxAttempts = options.MaxAttempts
+
+			if !options.HasRateLimit {
+				o.RateLimiter = noRateLimit{}
+			}
+
+		})
+	}
 }
 
 type noRateLimit struct{}
@@ -91,7 +96,7 @@ func loadDefaultOptions(ctx context.Context) *Options {
 		logger.Fatalf(err.Error())
 	}
 
-	err = giconfig.UnmarshalWithPath(Retryer, o)
+	err = giconfig.UnmarshalWithPath(retryer, o)
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}

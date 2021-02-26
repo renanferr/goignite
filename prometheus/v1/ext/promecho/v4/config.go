@@ -16,10 +16,10 @@ func init() {
 	giconfig.Add(route, "/metrics", "define prometheus metrics url")
 }
 
-func IsEnabled() bool {
+func isEnabled() bool {
 	return giconfig.Bool(enabled)
 }
 
-func GetRoute() string {
+func getRoute() string {
 	return giconfig.String(route)
 }

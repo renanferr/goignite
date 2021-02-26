@@ -1,36 +1,27 @@
 package gipromecho
 
 import (
-	giecho "github.com/b2wdigital/goignite/echo/v4"
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
+	"context"
+
 	gilog "github.com/b2wdigital/goignite/log"
 	prometheus "github.com/globocom/echo-prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-type Integrator struct {
-}
+func Integrate(ctx context.Context, instance *echo.Echo) error {
 
-func Integrate() error {
-
-	if !IsEnabled() {
+	if !isEnabled() {
 		return nil
 	}
 
-	integrator := &Integrator{}
-	return gieventbus.SubscribeOnce(giecho.TopicInstance, integrator.Integrate)
-}
-
-func (i *Integrator) Integrate(instance *echo.Echo) error {
-
-	logger := gilog.WithTypeOf(*i)
+	logger := gilog.FromContext(ctx)
 
 	logger.Trace("integrating echo with prometheus")
 
 	instance.Use(prometheus.MetricsMiddleware())
 
-	prometheusRoute := GetRoute()
+	prometheusRoute := getRoute()
 
 	logger.Infof("configuring prometheus metrics router on %s", prometheusRoute)
 	instance.GET(prometheusRoute, echo.WrapHandler(promhttp.Handler()))

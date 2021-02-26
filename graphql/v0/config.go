@@ -3,8 +3,6 @@ package gigraphql
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
 	"github.com/graphql-go/handler"
-
-	"log"
 )
 
 const (
@@ -18,9 +16,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for graphql")
-
 	giconfig.Add(pretty, false, "enable/disable pretty print")
 	giconfig.Add(enableGraphiQL, false, "enable/disable GraphiQL")
 	giconfig.Add(enablePlayground, true, "enable/disable Playground")

@@ -2,8 +2,6 @@ package gihealthredis
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
-
-	"log"
 )
 
 const (
@@ -15,9 +13,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for redis health integration")
-
 	giconfig.Add(name, "redis", "health name")
 	giconfig.Add(description, "default connection", "define health description")
 	giconfig.Add(required, true, "define health description")

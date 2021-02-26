@@ -1,7 +1,6 @@
 package gifiber
 
 import (
-	"log"
 	"net/http"
 
 	giconfig "github.com/b2wdigital/goignite/config"
@@ -55,9 +54,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for fiber")
-
 	giconfig.Add(port, 8080, "server http port")
 	giconfig.Add(statusRoute, "/resource-status", "define status url")
 	giconfig.Add(healthRoute, "/health", "define health url")

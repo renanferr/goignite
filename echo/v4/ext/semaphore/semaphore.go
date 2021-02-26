@@ -1,6 +1,8 @@
-package middleware
+package semaphore
 
 import (
+	"context"
+
 	gilog "github.com/b2wdigital/goignite/log"
 	"github.com/labstack/echo/v4"
 	"golang.org/x/sync/semaphore"
@@ -9,6 +11,13 @@ import (
 var (
 	sem *semaphore.Weighted
 )
+
+func Middleware(ctx context.Context, instance *echo.Echo) error {
+	if isEnabled() {
+		instance.Use(Semaphore(int64(getLimit())))
+	}
+	return nil
+}
 
 func Semaphore(limit int64) echo.MiddlewareFunc {
 

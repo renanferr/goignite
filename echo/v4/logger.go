@@ -126,6 +126,6 @@ func (wl wrappedLogger) Fatalf(s string, i ...interface{}) {
 	wl.logger.Fatalf(fmt.Sprintf(s, i...))
 }
 
-func Wrap(l gilog.Logger) wrappedLogger {
+func WrapLogger(l gilog.Logger) wrappedLogger {
 	return wrappedLogger{logger: l}
 }

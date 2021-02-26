@@ -1,12 +1,21 @@
-package middleware
+package logger
 
 import (
+	"context"
 	"strconv"
 	"time"
 
 	gilog "github.com/b2wdigital/goignite/log"
 	"github.com/labstack/echo/v4"
 )
+
+func Middleware(ctx context.Context, instance *echo.Echo) error {
+	if isEnabled() {
+		instance.Use(Logger())
+	}
+
+	return nil
+}
 
 // Logger returns a middleware that logs HTTP requests.
 func Logger() echo.MiddlewareFunc {

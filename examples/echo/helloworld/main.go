@@ -6,11 +6,16 @@ import (
 
 	giconfig "github.com/b2wdigital/goignite/config"
 	giecho "github.com/b2wdigital/goignite/echo/v4"
+	"github.com/b2wdigital/goignite/echo/v4/ext/cors"
+	"github.com/b2wdigital/goignite/echo/v4/ext/gzip"
+	"github.com/b2wdigital/goignite/echo/v4/ext/health"
+	"github.com/b2wdigital/goignite/echo/v4/ext/logger"
+	"github.com/b2wdigital/goignite/echo/v4/ext/requestid"
+	"github.com/b2wdigital/goignite/echo/v4/ext/status"
 	"github.com/b2wdigital/goignite/info"
 	gilog "github.com/b2wdigital/goignite/log"
 	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
 const HelloWorldEndpoint = "app.endpoint.helloworld"
@@ -64,11 +69,13 @@ func main() {
 
 	info.AppName = "helloworld"
 
-	instance := giecho.Start(ctx)
-
-	instance.Use(middleware.Gzip())
-	instance.Use(middleware.CORS())
-	instance.Use(middleware.RequestID())
+	instance := giecho.Start(ctx,
+		cors.Middleware,
+		requestid.Middleware,
+		gzip.Middleware,
+		logger.Middleware,
+		status.Route,
+		health.Route)
 
 	instance.GET(c.App.Endpoint.Helloworld, Get)
 

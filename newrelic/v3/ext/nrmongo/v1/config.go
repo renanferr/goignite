@@ -15,6 +15,6 @@ func init() {
 	giconfig.Add(enabled, true, "enable/disable mongo integration")
 }
 
-func IsEnabled() bool {
+func isEnabled() bool {
 	return giconfig.Bool(enabled)
 }

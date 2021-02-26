@@ -11,6 +11,8 @@ func main() {
 	giconfig.Load()
 	gilogrus.NewLogger()
 
+	gieventbus.Start()
+
 	gieventbus.Subscribe("exampleint", ExampleInt)
 	defer gieventbus.Unsubscribe("exampleint", ExampleInt)
 	gieventbus.Subscribe("examplestring", ExampleString)

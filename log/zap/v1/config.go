@@ -1,8 +1,6 @@
 package gizap
 
 import (
-	"log"
-
 	giconfig "github.com/b2wdigital/goignite/config"
 )
 
@@ -12,8 +10,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for zap")
 
 	giconfig.Add(ConsoleFormatter, "TEXT", "formatter TEXT/JSON")
 	giconfig.Add(FileFormatter, "TEXT", "formatter TEXT/JSON")

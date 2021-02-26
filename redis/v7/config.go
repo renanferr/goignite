@@ -4,8 +4,6 @@ import (
 	"time"
 
 	giconfig "github.com/b2wdigital/goignite/config"
-
-	"log"
 )
 
 const (
@@ -37,8 +35,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for redis")
 
 	giconfig.Add(Addrs, []string{"127.0.0.1:6379"}, "a seed list of host:port addresses of cluster nodes")
 	giconfig.Add(MaxRedirects, 8, "the maximum number of retries before giving up")

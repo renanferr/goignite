@@ -4,8 +4,6 @@ import (
 	"time"
 
 	giconfig "github.com/b2wdigital/goignite/config"
-
-	"log"
 )
 
 const (
@@ -27,8 +25,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for fasthttp client")
 
 	giconfig.Add(Name, "", "used in User-Agent request header")
 	giconfig.Add(NoDefaultUserAgentHeader, false, "User-Agent header to be excluded from the Request")

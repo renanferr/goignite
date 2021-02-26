@@ -1,7 +1,6 @@
 package ginats
 
 import (
-	"log"
 	"time"
 
 	giconfig "github.com/b2wdigital/goignite/config"
@@ -16,8 +15,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for nats")
 
 	giconfig.Add(MaxReconnects, 1000, "define max reconnects to nats server")
 	giconfig.Add(ReconnectWait, 1*time.Second, "define reconnects waiting before reconnect to nats server")

@@ -1,7 +1,6 @@
 package gihttp
 
 import (
-	"log"
 	"time"
 
 	giconfig "github.com/b2wdigital/goignite/config"
@@ -23,8 +22,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for http client")
 
 	giconfig.Add(MaxIdleConnPerHost, 1, "http max idle connections per host")
 	giconfig.Add(MaxIdleConn, 100, "http max idle connections")

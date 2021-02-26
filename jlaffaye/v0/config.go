@@ -1,8 +1,6 @@
 package gijlaffaye
 
 import (
-	"log"
-
 	giconfig "github.com/b2wdigital/goignite/config"
 )
 
@@ -15,8 +13,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for ftp")
 
 	giconfig.Add(Addr, "", "ftp address")
 	giconfig.Add(Username, "", "ftp username")

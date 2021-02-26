@@ -2,8 +2,6 @@ package gihealthresty
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
-
-	"log"
 )
 
 const (
@@ -17,8 +15,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for resty health integration")
 
 	giconfig.Add(name, "rest api", "health name")
 	giconfig.Add(host, "", "health host")

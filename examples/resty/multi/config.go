@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"time"
 
 	giconfig "github.com/b2wdigital/goignite/config"
@@ -38,8 +37,6 @@ const (
 
 func init() {
 
-	log.Println("getting configurations for example google client")
-
 	giconfig.Add(GoogleHost, "http://www.google.com", "defines host")
 	giconfig.Add(GoogleDebug, false, "defines client debug request")
 	giconfig.Add(GoogleRequestTimeout, 2*time.Second, "defines client http request timeout (ms)")
@@ -50,8 +47,6 @@ func init() {
 	giconfig.Add(GoogleHealthDescription, "google endpoint", "defines health description")
 	giconfig.Add(GoogleHealthEndpoint, "http://www.google.com", "defines health endpoint")
 	giconfig.Add(GoogleHealthRequired, true, "enable/disable health required dependency")
-
-	log.Println("getting configurations for example acom client")
 
 	giconfig.Add(ACOMHost, "http://www.americanas.com", "defines host")
 	giconfig.Add(ACOMDebug, false, "defines client debug request")

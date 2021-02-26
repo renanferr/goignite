@@ -2,8 +2,6 @@ package gihealthnats
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
-
-	"log"
 )
 
 const (
@@ -15,8 +13,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for nats health integration")
 
 	giconfig.Add(name, "nats", "health name")
 	giconfig.Add(description, "default connection", "define health description")

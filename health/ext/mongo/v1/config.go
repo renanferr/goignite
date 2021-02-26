@@ -2,8 +2,6 @@ package gihealthmongo
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
-
-	"log"
 )
 
 const (
@@ -15,8 +13,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for mongodb health integration")
 
 	giconfig.Add(name, "mongo", "health name")
 	giconfig.Add(description, "default connection", "define health description")

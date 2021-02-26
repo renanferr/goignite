@@ -1,7 +1,6 @@
 package ginewrelic
 
 import (
-	"log"
 	"net/http"
 
 	giconfig "github.com/b2wdigital/goignite/config"
@@ -23,8 +22,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for newrelic")
 
 	giconfig.Add(AppName, "", "application name for newrelic")
 	giconfig.Add(License, "", "newrelic license key")

@@ -1,10 +1,8 @@
 package http
 
 import (
-	"log"
-
 	giconfig "github.com/b2wdigital/goignite/config"
-	"github.com/cloudevents/sdk-go"
+	cloudevents "github.com/cloudevents/sdk-go"
 )
 
 const (
@@ -14,8 +12,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for http server")
 
 	giconfig.Add(Port, 8080, "define http port")
 	giconfig.Add(Path, "/", "define path")

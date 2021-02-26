@@ -1,7 +1,6 @@
 package giecho
 
 import (
-	"log"
 	"net/http"
 
 	giconfig "github.com/b2wdigital/goignite/config"

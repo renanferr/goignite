@@ -4,8 +4,6 @@ import (
 	"time"
 
 	giconfig "github.com/b2wdigital/goignite/config"
-
-	"log"
 )
 
 const (
@@ -31,7 +29,6 @@ const (
 )
 
 func init() {
-	log.Println("getting configurations for resty")
 
 	giconfig.Add(debug, false, "defines global debug request")
 	giconfig.Add(closeConnection, false, "defines global http close connection")

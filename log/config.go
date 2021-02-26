@@ -1,8 +1,6 @@
 package gilog
 
 import (
-	"log"
-
 	giconfig "github.com/b2wdigital/goignite/config"
 )
 
@@ -19,8 +17,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for logging")
 
 	giconfig.Add(ConsoleEnabled, true, "enable/disable console logging")
 	giconfig.Add(ConsoleLevel, "INFO", "console log level")

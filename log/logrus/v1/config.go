@@ -1,8 +1,6 @@
 package gilogrus
 
 import (
-	"log"
-
 	giconfig "github.com/b2wdigital/goignite/config"
 )
 
@@ -18,8 +16,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for logrus")
 
 	giconfig.Add(RedisEnabled, false, "enable/disable redis logging")
 	giconfig.Add(RedisHost, "localhost", "redis host")

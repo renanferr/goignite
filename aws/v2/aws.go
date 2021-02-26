@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/credentials"
+	"github.com/aws/aws-sdk-go-v2/aws/external"
+	"github.com/aws/aws-sdk-go-v2/aws/retry"
 	giconfig "github.com/b2wdigital/goignite/config"
 	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
@@ -31,10 +31,30 @@ func NewConfig(ctx context.Context, options *Options) aws.Config {
 		cfg.Credentials = credentials.NewStaticCredentialsProvider(options.AccessKeyId, options.SecretAccessKey, options.SessionToken)
 	}
 
+	cfg.Retryer = retryerConfig(options)
+
 	gieventbus.Publish(TopicConfig, &cfg)
 
 	return cfg
 }
+
+func retryerConfig(options *Options) *retry.Standard {
+	return retry.NewStandard(func(o *retry.StandardOptions) {
+
+		o.MaxAttempts = options.MaxAttempts
+
+		if !options.HasRateLimit {
+			o.RateLimiter = noRateLimit{}
+		}
+
+	})
+}
+
+type noRateLimit struct{}
+
+func (noRateLimit) AddTokens(uint) error { return nil }
+
+func (noRateLimit) GetToken(context.Context, uint) (func() error, error) { return nil, nil }
 
 func NewDefaultConfig(ctx context.Context) aws.Config {
 
@@ -67,6 +87,11 @@ func loadDefaultOptions(ctx context.Context) *Options {
 	}
 
 	err = giconfig.UnmarshalWithPath("aws.session", o)
+	if err != nil {
+		logger.Fatalf(err.Error())
+	}
+
+	err = giconfig.UnmarshalWithPath(Retryer, o)
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}

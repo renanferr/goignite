@@ -13,6 +13,7 @@ const (
 	ConfigRoot        = extRoot + ".config"
 	RouteRoot         = extRoot + ".route"
 	MiddlewareRoot    = extRoot + ".middleware"
+	IntegrateRoot     = extRoot + ".integrate"
 )
 
 func init() {

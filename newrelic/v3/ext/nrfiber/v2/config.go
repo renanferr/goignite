@@ -14,6 +14,6 @@ func init() {
 	giconfig.Add(enabled, true, "enable/disable fiber integration")
 }
 
-func IsEnabled() bool {
+func isEnabled() bool {
 	return giconfig.Bool(enabled)
 }

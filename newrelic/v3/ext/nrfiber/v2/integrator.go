@@ -1,28 +1,20 @@
 package ginrfiber
 
 import (
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
-	gifiber "github.com/b2wdigital/goignite/fiber/v2"
+	"context"
+
 	gilog "github.com/b2wdigital/goignite/log"
 	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
 	"github.com/gofiber/fiber/v2"
 )
 
-type Integrator struct {
-}
+func Integrate(ctx context.Context, instance *fiber.App) error {
 
-func Integrate() error {
-	if !IsEnabled() {
+	if !isEnabled() {
 		return nil
 	}
 
-	integrator := &Integrator{}
-	return gieventbus.SubscribeOnce(gifiber.TopicApp, integrator.Integrate)
-}
-
-func (i *Integrator) Integrate(instance *fiber.App) error {
-
-	logger := gilog.WithTypeOf(*i)
+	logger := gilog.FromContext(ctx)
 
 	logger.Trace("integrating fiber with newrelic")
 

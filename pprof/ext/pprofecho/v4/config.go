@@ -1,8 +1,6 @@
 package gipprofecho
 
 import (
-	"log"
-
 	giconfig "github.com/b2wdigital/goignite/config"
 	gipprof "github.com/b2wdigital/goignite/pprof"
 )
@@ -13,9 +11,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for pprof echo integration")
-
 	giconfig.Add(enabled, true, "enable/disable echo integration")
 }
 

@@ -5,28 +5,18 @@ import (
 
 	"net/http"
 
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
-	giresty "github.com/b2wdigital/goignite/resty/v2"
 	"github.com/go-resty/resty/v2"
 	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
-type Integrator struct {
-}
+func Integrate(ctx context.Context, client *resty.Client) error {
 
-func Integrate() error {
-	if !IsEnabled() {
+	if !isEnabled() {
 		return nil
 	}
 
-	integrator := &Integrator{}
-	return gieventbus.Subscribe(giresty.TopicClient, integrator.Integrate)
-}
-
-func (i *Integrator) Integrate(client *resty.Client) error {
-
-	logger := gilog.WithTypeOf(*i)
+	logger := gilog.FromContext(ctx)
 
 	logger.Trace("integrating resty with newrelic")
 

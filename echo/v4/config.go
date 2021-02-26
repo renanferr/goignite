@@ -33,9 +33,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for echo")
-
 	giconfig.Add(hideBanner, true, "echo hide/show banner")
 	giconfig.Add(port, 8080, "server http port")
 	giconfig.Add(statusRoute, "/resource-status", "define status url")

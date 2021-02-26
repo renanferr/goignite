@@ -1,8 +1,6 @@
 package gimongo
 
 import (
-	"log"
-
 	giconfig "github.com/b2wdigital/goignite/config"
 )
 
@@ -15,8 +13,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for mongodb")
 
 	giconfig.Add(Uri, "mongodb://localhost:27017/temp", "define mongodb uri")
 

@@ -4,13 +4,12 @@ import (
 	"time"
 
 	giconfig "github.com/b2wdigital/goignite/config"
-
-	"log"
 )
 
 const (
 	Hosts                    = "gi.gocql.hosts"
 	Port                     = "gi.gocql.port"
+	DC                       = "gi.gocql.dc"
 	Username                 = "gi.gocql.username"
 	Password                 = "gi.gocql.password"
 	CQLVersion               = "gi.gocql.CQLVersion"
@@ -33,10 +32,9 @@ const (
 
 func init() {
 
-	log.Println("getting configurations for gocql (Cassandra)")
-
 	giconfig.Add(Hosts, []string{"127.0.0.1"}, "addresses for the initial connections")
 	giconfig.Add(Port, 9042, "define port")
+	giconfig.Add(DC, "", "define DC")
 	giconfig.Add(Username, "", "define username")
 	giconfig.Add(Password, "", "define password")
 	giconfig.Add(CQLVersion, "3.0.0", "define cql version")

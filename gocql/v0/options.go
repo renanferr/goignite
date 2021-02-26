@@ -10,6 +10,7 @@ import (
 type Options struct {
 	Hosts                    []string
 	Port                     int
+	DC                       string `config:"dc"`
 	Username                 string
 	Password                 string
 	CQLVersion               string `config:"CQLVersion"`
@@ -38,6 +39,10 @@ func (b optionsBuilder) Hosts(value []string) optionsBuilder {
 
 func (b optionsBuilder) Port(value int) optionsBuilder {
 	return builder.Set(b, "Port", value).(optionsBuilder)
+}
+
+func (b optionsBuilder) DC(value string) optionsBuilder {
+	return builder.Set(b, "DC", value).(optionsBuilder)
 }
 
 func (b optionsBuilder) Username(value int) optionsBuilder {

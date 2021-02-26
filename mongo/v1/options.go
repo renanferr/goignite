@@ -13,7 +13,7 @@ type Options struct {
 
 type optionsBuilder builder.Builder
 
-func (b optionsBuilder) RequestTimeout(uri string) optionsBuilder {
+func (b optionsBuilder) Uri(uri string) optionsBuilder {
 	return builder.Set(b, "Uri", uri).(optionsBuilder)
 }
 

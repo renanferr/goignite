@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	TopicClient = "topic:redis:client"
+	TopicClient = "topic:redis:v7:client"
 )
 
 func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error) {

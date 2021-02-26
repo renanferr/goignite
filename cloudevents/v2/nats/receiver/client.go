@@ -2,7 +2,7 @@ package receiver
 
 import (
 	gilog "github.com/b2wdigital/goignite/log"
-	natsce "github.com/cloudevents/sdk-go/v2/protocol/nats"
+	natsce "github.com/cloudevents/sdk-go/protocol/nats/v2"
 	"github.com/nats-io/nats.go"
 )
 

@@ -4,8 +4,6 @@ import (
 	"time"
 
 	giconfig "github.com/b2wdigital/goignite/config"
-
-	"log"
 )
 
 const (
@@ -27,8 +25,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for elastic search")
 
 	giconfig.Add(Addresses, []string{"http://127.0.0.1:9200"}, "a list of Elasticsearch nodes to use")
 	giconfig.Add(Username, "", "username for HTTP Basic Authentication")

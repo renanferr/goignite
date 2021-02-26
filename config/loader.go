@@ -10,6 +10,7 @@ import (
 
 	"log"
 
+	"github.com/gobeam/stringy"
 	flag "github.com/spf13/pflag"
 
 	"github.com/knadh/koanf"
@@ -82,8 +83,7 @@ func Load() {
 
 	// Env vars
 	err := instance.Load(env.Provider("", ".", func(s string) string {
-		return strings.Replace(strings.ToLower(
-			strings.TrimPrefix(s, "")), "_", ".", -1)
+		return parseEnv(s)
 	}), nil)
 	if err != nil {
 		panic(err)
@@ -158,7 +158,6 @@ func parseFlags() {
 		case net.IPMask:
 			f.IPMask(v.Key, t, v.Description)
 		default:
-			fmt.Println("type unknown")
 		}
 
 	}
@@ -173,4 +172,31 @@ func parseFlags() {
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+func parseEnv(s string) string {
+
+	strs := make([]string, 0)
+
+	for _, v := range strings.Split(s, "_") {
+
+		var add string
+
+		if strings.Contains(v, ".") {
+
+			sgyl := stringy.New(strings.ToLower(v))
+			sgylc := stringy.New(sgyl.CamelCase())
+			add = sgylc.LcFirst()
+
+		} else {
+
+			add = strings.ToLower(v)
+
+		}
+
+		strs = append(strs, add)
+
+	}
+
+	return strings.Join(strs, ".")
 }

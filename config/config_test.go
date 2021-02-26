@@ -11,7 +11,7 @@ type DBConfig struct {
 	Username string `config:"username"`
 }
 
-type Config struct {
+type MyConfig struct {
 	Addr  string
 	Debug string
 	DB    DBConfig `config:"db"`
@@ -64,7 +64,7 @@ func TestUnmarshal(t *testing.T) {
 
 	Load()
 
-	c := Config{}
+	c := MyConfig{}
 	err = Unmarshal(&c)
 	assert.Nil(t, err, "they should be nil")
 	assert.Equal(t, ":8083", c.Addr, "they should be equal")

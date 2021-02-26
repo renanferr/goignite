@@ -1,7 +1,6 @@
 package giecho
 
 import (
-	"log"
 	"net/http"
 
 	giconfig "github.com/b2wdigital/goignite/config"
@@ -34,9 +33,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for echo")
-
 	giconfig.Add(hideBanner, true, "echo hide/show banner")
 	giconfig.Add(port, 8080, "server http port")
 	giconfig.Add(statusRoute, "/resource-status", "define status url")

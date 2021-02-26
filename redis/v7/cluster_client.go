@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	TopicClusterClient = "topic:redis:cluster:client"
+	TopicClusterClient = "topic:redis:v7:cluster:client"
 )
 
 func NewClusterClient(ctx context.Context, o *Options) (client *redis.ClusterClient, err error) {

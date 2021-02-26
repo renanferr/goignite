@@ -1,8 +1,6 @@
 package ginrredis
 
 import (
-	"log"
-
 	giconfig "github.com/b2wdigital/goignite/config"
 	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
 )
@@ -13,8 +11,6 @@ const (
 )
 
 func init() {
-
-	log.Println("getting configurations for newrelic redis integration")
 
 	giconfig.Add(enabled, true, "enable/disable redis integration")
 }

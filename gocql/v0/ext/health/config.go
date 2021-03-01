@@ -1,15 +1,16 @@
-package gihealtgocql
+package health
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
+	gigocql "github.com/b2wdigital/goignite/gocql/v0"
 )
 
 const (
-	ConfigRoot  = "gi.health.ext.gocql"
-	name        = ConfigRoot + ".name"
-	description = ConfigRoot + ".description"
-	required    = ConfigRoot + ".required"
-	enabled     = ConfigRoot + ".enabled"
+	root        = gigocql.ExtRoot + ".health"
+	name        = root + ".name"
+	description = root + ".description"
+	required    = root + ".required"
+	enabled     = root + ".enabled"
 )
 
 func init() {

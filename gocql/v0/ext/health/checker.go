@@ -1,4 +1,4 @@
-package gihealtgocql
+package health
 
 import (
 	"context"

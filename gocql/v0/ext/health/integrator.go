@@ -1,8 +1,8 @@
-package gihealtgocql
+package health
 
 import (
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
-	gigocql "github.com/b2wdigital/goignite/gocql/v0"
+	"context"
+
 	gihealth "github.com/b2wdigital/goignite/health"
 	gilog "github.com/b2wdigital/goignite/log"
 	"github.com/gocql/gocql"
@@ -12,14 +12,13 @@ type Integrator struct {
 	options *Options
 }
 
-func Integrate(options *Options) error {
-	integrator := &Integrator{options: options}
-	return gieventbus.Subscribe(gigocql.TopicSession, integrator.Integrate)
+func NewIntegrator(options *Options) *Integrator {
+	return &Integrator{options: options}
 }
 
-func (i *Integrator) Integrate(session *gocql.Session) error {
+func (i *Integrator) Integrate(ctx context.Context, session *gocql.Session) error {
 
-	logger := gilog.WithTypeOf(*i)
+	logger := gilog.FromContext(ctx).WithTypeOf(*i)
 
 	logger.Trace("integrating gocql with health")
 

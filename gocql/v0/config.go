@@ -29,6 +29,7 @@ const (
 	maxWaitSchemaAgreement   = root + ".maxWaitSchemaAgreement"
 	disableInitialHostLookup = root + ".disableInitialHostLookup"
 	writeCoalesceWaitTime    = root + ".writeCoalesceWaitTime"
+	ExtRoot                  = root + ".ext"
 )
 
 func init() {

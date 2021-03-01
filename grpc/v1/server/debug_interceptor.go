@@ -10,12 +10,12 @@ import (
 
 func DebugStreamServerInterceptor() grpc.StreamServerInterceptor {
 	return func(srv interface{}, stream grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
-		l := gilog.FromContext(context.Background())
+		logger := gilog.FromContext(context.Background())
 
 		start := time.Now()
 		wrapper := &recvWrapper{stream}
 		err := handler(srv, wrapper)
-		l.Debugf("invoke server method=%s duration=%s error=%v", info.FullMethod,
+		logger.Debugf("invoke server method=%s duration=%s error=%v", info.FullMethod,
 			time.Since(start), err)
 		return err
 	}
@@ -24,11 +24,11 @@ func DebugStreamServerInterceptor() grpc.StreamServerInterceptor {
 func DebugUnaryServerInterceptor() grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 
-		l := gilog.FromContext(ctx)
+		logger := gilog.FromContext(ctx)
 
 		start := time.Now()
 		r, err := handler(ctx, req)
-		l.Debugf("invoke server method=%s duration=%s error=%v response=%v", info.FullMethod,
+		logger.Debugf("invoke server method=%s duration=%s error=%v response=%v", info.FullMethod,
 			time.Since(start), err, r)
 		return r, err
 	}

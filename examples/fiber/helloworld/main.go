@@ -34,7 +34,7 @@ type Response struct {
 
 func Get(c *fiber.Ctx) (err error) {
 
-	l := gilog.FromContext(context.Background())
+	logger := gilog.FromContext(context.Background())
 
 	resp := Response{
 		Message: "Hello World!!",
@@ -42,7 +42,7 @@ func Get(c *fiber.Ctx) (err error) {
 
 	err = giconfig.Unmarshal(&resp)
 	if err != nil {
-		l.Errorf(err.Error())
+		logger.Errorf(err.Error())
 	}
 
 	return c.Status(http.StatusOK).JSON(resp)

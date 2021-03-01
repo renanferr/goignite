@@ -28,10 +28,10 @@ func Start(ctx context.Context, exts ...func(context.Context, *fiber.App) error)
 
 func Serve(ctx context.Context) {
 
-	l := gilog.FromContext(ctx)
-	l.Infof("starting fiber server. https://gofiber.io/")
+	logger := gilog.FromContext(ctx)
+	logger.Infof("starting fiber server. https://gofiber.io/")
 
-	l.Fatal(app.Listen(serverPort()))
+	logger.Fatal(app.Listen(serverPort()))
 }
 
 func serverPort() string {

@@ -9,14 +9,14 @@ import (
 
 func NewDatabase(ctx context.Context, schema *memdb.DBSchema) (db *memdb.MemDB, err error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	db, err = memdb.NewMemDB(schema)
 	if err != nil {
 		return nil, err
 	}
 
-	l.Info("Connected to go-memdb")
+	logger.Info("Connected to go-memdb")
 
 	return db, err
 

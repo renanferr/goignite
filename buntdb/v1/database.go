@@ -9,7 +9,7 @@ import (
 
 func NewDatabase(ctx context.Context, o *Options) (db *buntdb.DB, err error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	var syncPolicy buntdb.SyncPolicy
 
@@ -39,7 +39,7 @@ func NewDatabase(ctx context.Context, o *Options) (db *buntdb.DB, err error) {
 		return nil, err
 	}
 
-	l.Infof("Connected to buntdb: %s", o.Path)
+	logger.Infof("Connected to buntdb: %s", o.Path)
 
 	return db, err
 
@@ -47,11 +47,11 @@ func NewDatabase(ctx context.Context, o *Options) (db *buntdb.DB, err error) {
 
 func NewDefaultDatabase(ctx context.Context) (*buntdb.DB, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	return NewDatabase(ctx, o)

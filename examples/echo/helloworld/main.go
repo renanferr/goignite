@@ -38,7 +38,7 @@ type Response struct {
 
 func Get(c echo.Context) (err error) {
 
-	l := gilog.FromContext(context.Background())
+	logger := gilog.FromContext(context.Background())
 
 	resp := Response{
 		Message: "Hello World!!",
@@ -46,7 +46,7 @@ func Get(c echo.Context) (err error) {
 
 	err = giconfig.Unmarshal(&resp)
 	if err != nil {
-		l.Errorf(err.Error())
+		logger.Errorf(err.Error())
 	}
 
 	return giecho.JSON(c, http.StatusOK, resp, err)

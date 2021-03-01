@@ -44,16 +44,16 @@ func NewClient(ctx context.Context, o *Options, exts ...func(context.Context, *C
 	return conn, err
 }
 
-func NewDefaultClient(ctx context.Context) (*Conn, error) {
+func NewDefaultClient(ctx context.Context, exts ...func(context.Context, *Conn) error) (*Conn, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
-	return NewClient(ctx, o)
+	return NewClient(ctx, o, exts...)
 }
 
 func newClient(ctx context.Context, co *options.ClientOptions) (client *mongo.Client, database *mongo.Database, err error) {

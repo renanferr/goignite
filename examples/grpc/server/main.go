@@ -30,9 +30,9 @@ type Service struct {
 
 func (h *Service) Test(ctx context.Context, request *TestRequest) (*TestResponse, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
-	l.Infof(request.Message)
+	logger.Infof(request.Message)
 
 	return &TestResponse{Message: "hello world"}, nil
 }

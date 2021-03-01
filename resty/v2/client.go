@@ -19,9 +19,9 @@ const (
 
 func NewClient(ctx context.Context, options *Options) *resty.Client {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
-	l.Infof("creating resty client")
+	logger.Infof("creating resty client")
 
 	client := resty.New()
 
@@ -172,13 +172,13 @@ func statusCodeRetryCondition(r *resty.Response, err error) bool {
 
 func logBeforeResponse(client *resty.Client, request *resty.Request) error {
 
-	l := gilog.FromContext(request.Context())
+	logger := gilog.FromContext(request.Context())
 
 	requestHeaders, _ := json.Marshal(request.Header)
 
 	requestBody, _ := json.Marshal(request.Body)
 
-	l = l.
+	logger = logger.
 		WithFields(
 			gilog.Fields{
 				"rest_request_body":    string(requestBody),
@@ -187,20 +187,20 @@ func logBeforeResponse(client *resty.Client, request *resty.Request) error {
 				"rest_request_method":  request.Method,
 			})
 
-	l.Debugf("rest request processing")
+	logger.Debugf("rest request processing")
 
 	return nil
 }
 
 func logAfterResponse(client *resty.Client, response *resty.Response) error {
 
-	l := gilog.FromContext(response.Request.Context())
+	logger := gilog.FromContext(response.Request.Context())
 
 	responseHeaders, _ := json.Marshal(response.Header())
 
 	statusCode := response.StatusCode()
 
-	l = l.WithFields(
+	logger = logger.WithFields(
 		gilog.Fields{
 			"rest_response_body":        string(response.Body()),
 			"rest_response_headers":     string(responseHeaders),
@@ -209,11 +209,11 @@ func logAfterResponse(client *resty.Client, response *resty.Response) error {
 		})
 
 	if statusCode > 500 {
-		l.Errorf("rest request processed with error")
+		logger.Errorf("rest request processed with error")
 	} else if statusCode > 400 {
-		l.Warnf("rest request processed with warning")
+		logger.Warnf("rest request processed with warning")
 	} else {
-		l.Debugf("successful rest request processed")
+		logger.Debugf("successful rest request processed")
 	}
 
 	return nil

@@ -15,7 +15,7 @@ const (
 
 func NewClusterClient(ctx context.Context, o *Options) (client *redis.ClusterClient, err error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	client = redis.NewClusterClient(&redis.ClusterOptions{
 		Addrs:              o.Cluster.Addrs,
@@ -45,18 +45,18 @@ func NewClusterClient(ctx context.Context, o *Options) (client *redis.ClusterCli
 
 	gieventbus.Publish(TopicClusterClient, client)
 
-	l.Infof("Connected to Redis Cluster server: %s status: %s", strings.Join(client.Options().Addrs, ","), ping.String())
+	logger.Infof("Connected to Redis Cluster server: %s status: %s", strings.Join(client.Options().Addrs, ","), ping.String())
 
 	return client, err
 }
 
 func NewDefaultClusterClient(ctx context.Context) (*redis.ClusterClient, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	return NewClusterClient(ctx, o)

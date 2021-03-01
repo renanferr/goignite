@@ -32,11 +32,11 @@ func NewServerConn(options *Options) (*ftp.ServerConn, error) {
 
 func NewDefaultServerConn(ctx context.Context) (*ftp.ServerConn, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	return NewServerConn(o)

@@ -24,7 +24,7 @@ const (
 // NewTopic start a new topic for send message
 func NewTopic(ctx context.Context, o *Options) (*pubsub.Topic, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	addResource(o)
 
@@ -37,7 +37,7 @@ func NewTopic(ctx context.Context, o *Options) (*pubsub.Topic, error) {
 		return nil, err
 	}
 
-	l.Infof("open topic for send message")
+	logger.Infof("open topic for send message")
 	return topic, nil
 
 }
@@ -45,11 +45,11 @@ func NewTopic(ctx context.Context, o *Options) (*pubsub.Topic, error) {
 // NewDefaultTopic ..
 func NewDefaultTopic(ctx context.Context) (*pubsub.Topic, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	return NewTopic(ctx, o)
@@ -58,7 +58,7 @@ func NewDefaultTopic(ctx context.Context) (*pubsub.Topic, error) {
 // NewSubscription ..
 func NewSubscription(ctx context.Context, o *Options) (*pubsub.Subscription, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	addResource(o)
 
@@ -71,7 +71,7 @@ func NewSubscription(ctx context.Context, o *Options) (*pubsub.Subscription, err
 		return nil, err
 	}
 
-	l.Infof("open subscription for listen")
+	logger.Infof("open subscription for listen")
 	return subscription, nil
 
 }
@@ -79,11 +79,11 @@ func NewSubscription(ctx context.Context, o *Options) (*pubsub.Subscription, err
 // NewDefaultSubscription ..
 func NewDefaultSubscription(ctx context.Context) (*pubsub.Subscription, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	return NewSubscription(ctx, o)

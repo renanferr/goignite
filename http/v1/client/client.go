@@ -32,11 +32,11 @@ func NewClient(options *Options) *http.Client {
 
 func NewDefaultClient(ctx context.Context) *http.Client {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	return NewClient(o)

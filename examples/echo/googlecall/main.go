@@ -48,13 +48,13 @@ func NewHandler(client *resty.Client) *Handler {
 
 func (h *Handler) Get(c echo.Context) (err error) {
 
-	l := gilog.FromContext(c.Request().Context())
+	logger := gilog.FromContext(c.Request().Context())
 
 	request := h.client.R().EnableTrace()
 
 	_, err = request.Get("http://google.com")
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	resp := Response{
@@ -63,7 +63,7 @@ func (h *Handler) Get(c echo.Context) (err error) {
 
 	err = giconfig.Unmarshal(&resp)
 	if err != nil {
-		l.Errorf(err.Error())
+		logger.Errorf(err.Error())
 	}
 
 	return giecho.JSON(c, http.StatusOK, resp, err)

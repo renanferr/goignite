@@ -11,7 +11,7 @@ import (
 
 func StartConsumer(ctx context.Context, conn *nats.Conn, fn interface{}, options *Options) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	for _, subject := range options.Subjects {
 
@@ -21,18 +21,18 @@ func StartConsumer(ctx context.Context, conn *nats.Conn, fn interface{}, options
 
 			c, err := natsce.NewConsumerFromConn(conn, subject)
 			if err != nil {
-				l.Fatalf("failed to create client: %s", err.Error())
+				logger.Fatalf("failed to create client: %s", err.Error())
 			}
 
-			l.Infof("connected in subject %s", subject)
+			logger.Infof("connected in subject %s", subject)
 
 			cli, err := client.New(c)
 			if err != nil {
-				l.Fatalf("failed to create client, %s", err.Error())
+				logger.Fatalf("failed to create client, %s", err.Error())
 			}
 
 			if err := cli.StartReceiver(ctx, fn); err != nil {
-				l.Fatalf("failed to start receiver: %s", err.Error())
+				logger.Fatalf("failed to start receiver: %s", err.Error())
 			}
 
 			cancel()
@@ -45,11 +45,11 @@ func StartConsumer(ctx context.Context, conn *nats.Conn, fn interface{}, options
 }
 
 func StartDefaultConsumer(ctx context.Context, conn *nats.Conn, fn interface{}) {
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	StartConsumer(ctx, conn, fn, o)

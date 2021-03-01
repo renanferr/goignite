@@ -30,11 +30,11 @@ func NewClient(ctx context.Context, o *Options) *fasthttp.Client {
 
 func NewDefaultClient(ctx context.Context) *fasthttp.Client {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	return NewClient(ctx, o)

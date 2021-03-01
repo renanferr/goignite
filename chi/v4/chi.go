@@ -50,18 +50,18 @@ func setDefaultMiddlewares(ctx context.Context, instance *chi.Mux) {
 
 func setDefaultRouters(ctx context.Context, instance *chi.Mux) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	statusRoute := GetStatusRoute()
 
-	l.Infof("configuring status router on %s", statusRoute)
+	logger.Infof("configuring status router on %s", statusRoute)
 
 	statusHandler := NewResourceStatusHandler()
 	instance.Get(GetStatusRoute(), statusHandler.Get())
 
 	healthRoute := GetHealthRoute()
 
-	l.Infof("configuring health router on %s", healthRoute)
+	logger.Infof("configuring health router on %s", healthRoute)
 
 	healthHandler := NewHealthHandler()
 
@@ -71,7 +71,7 @@ func setDefaultRouters(ctx context.Context, instance *chi.Mux) {
 
 		metricRoute := GetMetricRoute()
 
-		l.Infof("configuring metric router on %s", metricRoute)
+		logger.Infof("configuring metric router on %s", metricRoute)
 
 		instance.Handle(metricRoute, promhttp.Handler())
 	}

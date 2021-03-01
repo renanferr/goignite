@@ -19,15 +19,15 @@ func main() {
 
 	gilogrus.NewLogger()
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	client := giresty.NewClient(ctx, &giresty.Options{})
 	request := client.R().EnableTrace()
 
 	response, err := request.Get("http://google.com")
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
-	l.Infof(response.String())
+	logger.Infof(response.String())
 }

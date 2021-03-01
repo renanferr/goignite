@@ -11,7 +11,7 @@ import (
 
 func Get(c e.Context) (err error) {
 
-	l := gilog.FromContext(c.Request().Context())
+	logger := gilog.FromContext(c.Request().Context())
 
 	resp := Response{
 		Message: "Hello Google!!",
@@ -19,7 +19,7 @@ func Get(c e.Context) (err error) {
 
 	err = giconfig.Unmarshal(&resp)
 	if err != nil {
-		l.Errorf(err.Error())
+		logger.Errorf(err.Error())
 	}
 
 	return giecho.JSON(c, http.StatusOK, resp, err)

@@ -14,7 +14,7 @@ const (
 
 func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	if redisSentinel(o) {
 		client = failOverClient(o)
@@ -29,7 +29,7 @@ func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error
 
 	gieventbus.Publish(TopicClient, client)
 
-	l.Infof("Connected to Redis server: %s %s", client.Options().Addr, ping.String())
+	logger.Infof("Connected to Redis server: %s %s", client.Options().Addr, ping.String())
 
 	return client, err
 }
@@ -83,11 +83,11 @@ func redisSentinel(o *Options) bool {
 
 func NewDefaultClient(ctx context.Context) (*redis.Client, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	return NewClient(ctx, o)

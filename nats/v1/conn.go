@@ -14,7 +14,7 @@ const (
 
 func NewConnection(ctx context.Context, options *Options) (*nats.Conn, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	conn, err := nats.Connect(
 		options.Url,
@@ -29,7 +29,7 @@ func NewConnection(ctx context.Context, options *Options) (*nats.Conn, error) {
 		return nil, err
 	}
 
-	gieventbus.Publish(TopicConn, conn)
+	logger.Infof("Connected to NATS server: %s", options.Url)
 
 	l.Infof("Connected to NATS server: %s", options.Url)
 
@@ -38,11 +38,11 @@ func NewConnection(ctx context.Context, options *Options) (*nats.Conn, error) {
 
 func NewDefaultConnection(ctx context.Context) (*nats.Conn, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	return NewConnection(ctx, o)

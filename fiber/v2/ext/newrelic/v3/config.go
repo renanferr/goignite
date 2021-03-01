@@ -1,13 +1,12 @@
-package ginrfiber
+package newrelic
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
-	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
+	gifiber "github.com/b2wdigital/goignite/fiber/v2"
 )
 
 const (
-	configRoot = ginewrelic.ConfigRoot + ".ext.fiber"
-	enabled    = configRoot + ".enabled"
+	enabled = gifiber.ExtRoot + "newrelic.enabled"
 )
 
 func init() {

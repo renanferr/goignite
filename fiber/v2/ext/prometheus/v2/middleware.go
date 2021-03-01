@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func Integrate(ctx context.Context, instance *fiber.App) error {
+func Middleware(ctx context.Context, instance *fiber.App) error {
 
 	if !isEnabled() {
 		return nil

@@ -2,17 +2,17 @@ package giprometheusfiber
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
-	giprometheus "github.com/b2wdigital/goignite/prometheus/v1"
+	gifiber "github.com/b2wdigital/goignite/fiber/v2"
 )
 
 const (
-	ConfigRoot = giprometheus.ConfigRoot + ".ext.fiber"
+	ConfigRoot = gifiber.ExtRoot + ".prometheus"
 	enabled    = ConfigRoot + ".enabled"
 	route      = ConfigRoot + ".route"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable fiber integration")
+	giconfig.Add(enabled, true, "enable/disable prometheus integration")
 	giconfig.Add(route, "/metrics", "define prometheus metrics url")
 }
 

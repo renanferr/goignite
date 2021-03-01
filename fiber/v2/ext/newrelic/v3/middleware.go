@@ -1,16 +1,36 @@
-package ginrfiber
+package newrelic
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
 
+	gilog "github.com/b2wdigital/goignite/log"
+	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
 	"github.com/gofiber/fiber/v2"
 	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
-func middleware(app *newrelic.Application) fiber.Handler {
+func Middleware(ctx context.Context, instance *fiber.App) error {
+
+	if !isEnabled() {
+		return nil
+	}
+
+	logger := gilog.FromContext(ctx)
+
+	logger.Trace("integrating fiber with newrelic")
+
+	instance.Use(handler(ginewrelic.Application()))
+
+	logger.Debug("fiber integrated with newrelic with success")
+
+	return nil
+}
+
+func handler(app *newrelic.Application) fiber.Handler {
 
 	if app == nil {
 		return func(c *fiber.Ctx) error {

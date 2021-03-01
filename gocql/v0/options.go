@@ -127,7 +127,7 @@ func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
 
-	err := giconfig.UnmarshalWithPath("gi.gocql", o)
+	err := giconfig.UnmarshalWithPath(root, o)
 	if err != nil {
 		return nil, err
 	}

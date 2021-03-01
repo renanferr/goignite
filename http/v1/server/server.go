@@ -9,12 +9,12 @@ import (
 // NewServer returns a pointer with new Server
 func NewServer(handler http.Handler) *http.Server {
 	return &http.Server{
-		Addr:              giconfig.String(ServerAddress),
+		Addr:              giconfig.String(serverAddress),
 		Handler:           handler,
-		MaxHeaderBytes:    giconfig.Int(MaxHeaderBytes),
-		ReadTimeout:       giconfig.Duration(ReadTimeout),
-		ReadHeaderTimeout: giconfig.Duration(ReadHeaderTimeout),
-		WriteTimeout:      giconfig.Duration(WriteTimeout),
-		IdleTimeout:       giconfig.Duration(IdleTimeout),
+		MaxHeaderBytes:    giconfig.Int(maxHeaderBytes),
+		ReadTimeout:       giconfig.Duration(readTimeout),
+		ReadHeaderTimeout: giconfig.Duration(readHeaderTimeout),
+		WriteTimeout:      giconfig.Duration(writeTimeout),
+		IdleTimeout:       giconfig.Duration(idleTimeout),
 	}
 }

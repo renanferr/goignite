@@ -7,16 +7,17 @@ import (
 )
 
 const (
-	DataSourceName  = "gi.godror.dataSourceName"
-	ConnMaxLifetime = "gi.godror.connMaxLifetime"
-	MaxIdleConns    = "gi.godror.maxIdleConns"
-	MaxOpenConns    = "gi.godror.maxOpenConns"
+	root            = "gi.godror"
+	dataSourceName  = root + ".dataSourceName"
+	connMaxLifetime = root + "gi.godror.connMaxLifetime"
+	maxIdleConns    = root + "gi.godror.maxIdleConns"
+	maxOpenConns    = root + "gi.godror.maxOpenConns"
 )
 
 func init() {
 
-	giconfig.Add(DataSourceName, "", "database name and connection information")
-	giconfig.Add(ConnMaxLifetime, 0*time.Second, "sets the maximum amount of time a connection may be reused. If d <= 0, connections are reused forever")
-	giconfig.Add(MaxIdleConns, 2, "sets the maximum number of connections in the idle connection pool.")
-	giconfig.Add(MaxOpenConns, 5, "sets the maximum number of open connections to the database.")
+	giconfig.Add(dataSourceName, "", "database name and connection information")
+	giconfig.Add(connMaxLifetime, 0*time.Second, "sets the maximum amount of time a connection may be reused. If d <= 0, connections are reused forever")
+	giconfig.Add(maxIdleConns, 2, "sets the maximum number of connections in the idle connection pool.")
+	giconfig.Add(maxOpenConns, 5, "sets the maximum number of open connections to the database.")
 }

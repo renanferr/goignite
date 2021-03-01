@@ -25,15 +25,15 @@ func NewLoggerWithFormatter(formatter logrus.Formatter) gilog.Logger {
 
 	lLogger := new(logrus.Logger)
 
-	if giconfig.Bool(RedisEnabled) {
+	if giconfig.Bool(redisEnabled) {
 
 		hookConfig := logredis.HookConfig{
-			Host:   giconfig.String(RedisHost),
-			Key:    giconfig.String(RedisKey),
-			Format: giconfig.String(RedisFormat),
-			App:    giconfig.String(RedisApp),
-			Port:   giconfig.Int(RedisPort),
-			DB:     giconfig.Int(RedisDb),
+			Host:   giconfig.String(redisHost),
+			Key:    giconfig.String(redisKey),
+			Format: giconfig.String(redisFormat),
+			App:    giconfig.String(redisApp),
+			Port:   giconfig.Int(redisPort),
+			DB:     giconfig.Int(redisDb),
 		}
 
 		hook, err := logredis.NewHook(hookConfig)
@@ -86,7 +86,7 @@ func NewLoggerWithFormatter(formatter logrus.Formatter) gilog.Logger {
 }
 
 func NewLogger() gilog.Logger {
-	formatter := getFormatter(giconfig.String(Formatter))
+	formatter := getFormatter(giconfig.String(formatter))
 	return NewLoggerWithFormatter(formatter)
 }
 

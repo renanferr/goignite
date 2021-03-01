@@ -6,10 +6,8 @@ import (
 )
 
 const (
-	rootConfig = "gi.graphql"
-
-	handlerConfig = rootConfig + ".handler"
-
+	root             = "gi.graphql"
+	handlerConfig    = root + ".handler"
 	pretty           = handlerConfig + ".pretty"
 	enableGraphiQL   = handlerConfig + ".graphiQL"
 	enablePlayground = handlerConfig + ".playground"

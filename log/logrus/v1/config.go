@@ -5,24 +5,26 @@ import (
 )
 
 const (
-	RedisEnabled = "gi.log.logrus.redis.enabled"
-	RedisHost    = "gi.log.logrus.redis.host"
-	RedisKey     = "gi.log.logrus.redis.key"
-	RedisFormat  = "gi.log.logrus.redis.format"
-	RedisApp     = "gi.log.logrus.redis.app"
-	RedisPort    = "gi.log.logrus.redis.port"
-	RedisDb      = "gi.log.logrus.redis.db"
-	Formatter    = "gi.log.logrus.formatter"
+	root         = "gi.log.logrus"
+	redisRoot    = root + ".redis"
+	redisEnabled = redisRoot + ".enabled"
+	redisHost    = redisRoot + ".host"
+	redisKey     = redisRoot + ".key"
+	redisFormat  = redisRoot + ".format"
+	redisApp     = redisRoot + ".app"
+	redisPort    = redisRoot + ".port"
+	redisDb      = redisRoot + ".db"
+	formatter    = root + ".formatter"
 )
 
 func init() {
 
-	giconfig.Add(RedisEnabled, false, "enable/disable redis logging")
-	giconfig.Add(RedisHost, "localhost", "redis host")
-	giconfig.Add(RedisKey, "", "redis key")
-	giconfig.Add(RedisFormat, "v1", "redis format")
-	giconfig.Add(RedisApp, "logger", "redis app")
-	giconfig.Add(RedisPort, 6379, "redis port")
-	giconfig.Add(RedisDb, 0, "redis db")
-	giconfig.Add(Formatter, "TEXT", "formatter TEXT/JSON/AWS_CLOUD_WATCH")
+	giconfig.Add(redisEnabled, false, "enable/disable redis logging")
+	giconfig.Add(redisHost, "localhost", "redis host")
+	giconfig.Add(redisKey, "", "redis key")
+	giconfig.Add(redisFormat, "v1", "redis format")
+	giconfig.Add(redisApp, "logger", "redis app")
+	giconfig.Add(redisPort, 6379, "redis port")
+	giconfig.Add(redisDb, 0, "redis db")
+	giconfig.Add(formatter, "TEXT", "formatter TEXT/JSON/AWS_CLOUD_WATCH")
 }

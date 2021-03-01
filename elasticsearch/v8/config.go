@@ -7,39 +7,38 @@ import (
 )
 
 const (
-	Addresses             = "gi.elasticsearch.addresses"
-	Username              = "gi.elasticsearch.username"
-	Password              = "gi.elasticsearch.password"
-	CloudID               = "gi.elasticsearch.cloudID"
-	APIKey                = "gi.elasticsearch.APIKey"
-	CACert                = "gi.elasticsearch.CACert"
-	RetryOnStatus         = "gi.elasticsearch.retryOnStatus"
-	DisableRetry          = "gi.elasticsearch.disableRetry"
-	EnableRetryOnTimeout  = "gi.elasticsearch.enableRetryOnTimeout"
-	MaxRetries            = "gi.elasticsearch.maxRetries"
-	DiscoverNodesOnStart  = "gi.elasticsearch.discoverNodesOnStart"
-	DiscoverNodesInterval = "gi.elasticsearch.discoverNodesInterval"
-	EnableMetrics         = "gi.elasticsearch.enableMetrics"
-	EnableDebugLogger     = "gi.elasticsearch.enableDebugLogger"
-	RetryBackoff          = "gi.elasticsearch.retryBackoff"
+	root                  = "gi.elasticsearch"
+	addresses             = root + ".addresses"
+	username              = root + ".username"
+	password              = root + ".password"
+	cloudID               = root + ".cloudID"
+	apiKey                = root + ".APIKey"
+	caCert                = root + ".CACert"
+	retryOnStatus         = root + ".retryOnStatus"
+	disableRetry          = root + ".disableRetry"
+	enableRetryOnTimeout  = root + ".enableRetryOnTimeout"
+	maxRetries            = root + ".maxRetries"
+	discoverNodesOnStart  = root + ".discoverNodesOnStart"
+	discoverNodesInterval = root + ".discoverNodesInterval"
+	enableMetrics         = root + ".enableMetrics"
+	enableDebugLogger     = root + ".enableDebugLogger"
+	retryBackoff          = root + ".retryBackoff"
 )
 
 func init() {
-
-	giconfig.Add(Addresses, []string{"http://127.0.0.1:9200"}, "a list of Elasticsearch nodes to use")
-	giconfig.Add(Username, "", "username for HTTP Basic Authentication")
-	giconfig.Add(Password, "", "password for HTTP Basic Authentication")
-	giconfig.Add(CloudID, "", "endpoint for the Elastic Service (https://elastic.co/cloud)")
-	giconfig.Add(APIKey, "", "base64-encoded token for authorization; if set, overrides username and password")
-	giconfig.Add(CACert, "", "PEM-encoded certificate authorities")
-	giconfig.Add(RetryOnStatus, []int{502, 503, 504}, "List of status codes for retry")
-	giconfig.Add(DisableRetry, false, "")
-	giconfig.Add(EnableRetryOnTimeout, false, "")
-	giconfig.Add(MaxRetries, 3, "")
-	giconfig.Add(DiscoverNodesOnStart, false, "discover nodes when initializing the client")
-	giconfig.Add(DiscoverNodesInterval, 0*time.Millisecond, "discover nodes periodically. Default: 0 (disabled)")
-	giconfig.Add(EnableMetrics, false, "enable the metrics collection")
-	giconfig.Add(EnableDebugLogger, false, "enable the debug logging")
-	giconfig.Add(RetryBackoff, 5*time.Millisecond, "optional backoff duration")
-
+	giconfig.Add(addresses, []string{"http://127.0.0.1:9200"}, "a list of Elasticsearch nodes to use")
+	giconfig.Add(username, "", "username for HTTP Basic Authentication")
+	giconfig.Add(password, "", "password for HTTP Basic Authentication")
+	giconfig.Add(cloudID, "", "endpoint for the Elastic Service (https://elastic.co/cloud)")
+	giconfig.Add(apiKey, "", "base64-encoded token for authorization; if set, overrides username and password")
+	giconfig.Add(caCert, "", "PEM-encoded certificate authorities")
+	giconfig.Add(retryOnStatus, []int{502, 503, 504}, "List of status codes for retry")
+	giconfig.Add(disableRetry, false, "")
+	giconfig.Add(enableRetryOnTimeout, false, "")
+	giconfig.Add(maxRetries, 3, "")
+	giconfig.Add(discoverNodesOnStart, false, "discover nodes when initializing the client")
+	giconfig.Add(discoverNodesInterval, 0*time.Millisecond, "discover nodes periodically. Default: 0 (disabled)")
+	giconfig.Add(enableMetrics, false, "enable the metrics collection")
+	giconfig.Add(enableDebugLogger, false, "enable the debug logging")
+	giconfig.Add(retryBackoff, 5*time.Millisecond, "optional backoff duration")
 }

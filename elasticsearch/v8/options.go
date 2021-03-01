@@ -97,7 +97,7 @@ func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
 
-	err := giconfig.UnmarshalWithPath("gi.elasticsearch", o)
+	err := giconfig.UnmarshalWithPath(root, o)
 	if err != nil {
 		return nil, err
 	}

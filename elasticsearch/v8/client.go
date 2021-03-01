@@ -62,7 +62,7 @@ func NewClient(ctx context.Context, o *Options) (client *elasticsearch.Client, e
 }
 
 func backOff(attempt int) time.Duration {
-	b := giconfig.Duration(RetryBackoff)
+	b := giconfig.Duration(retryBackoff)
 	return time.Duration(attempt) * b
 }
 

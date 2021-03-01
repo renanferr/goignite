@@ -8,11 +8,11 @@ import (
 )
 
 const (
-	fiberRoot                      = "gi.fiber"
-	statusRoute                    = fiberRoot + ".route.status"
-	healthRoute                    = fiberRoot + ".route.health"
-	port                           = fiberRoot + ".port"
-	configRoot                     = fiberRoot + ".config"
+	root                           = "gi.fiber"
+	statusRoute                    = root + ".route.status"
+	healthRoute                    = root + ".route.health"
+	port                           = root + ".port"
+	configRoot                     = root + ".config"
 	prefork                        = configRoot + ".prefork"
 	serverHeader                   = configRoot + ".serverHeader"
 	strictRouting                  = configRoot + ".strictRouting"
@@ -37,7 +37,7 @@ const (
 	disableDefaultContentType      = configRoot + ".disableDefaultContentType"
 	disableHeaderNormalizing       = configRoot + ".disableHeaderNormalizing"
 	disableStartupMessage          = configRoot + ".disableStartupMessage"
-	middlewareRoot                 = fiberRoot + ".middleware"
+	middlewareRoot                 = root + ".middleware"
 	middlewareRequestIDEnabled     = middlewareRoot + ".requestid.enabled"
 	middlewareLogEnabled           = middlewareRoot + ".log.enabled"
 	middlewareRecoverEnabled       = middlewareRoot + ".recover.enabled"

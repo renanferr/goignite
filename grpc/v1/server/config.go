@@ -5,12 +5,13 @@ import (
 )
 
 const (
-	Port                 = "gi.grpc.port"
-	MaxConcurrentStreams = "gi.grpc.maxConcurrentStreams"
-	TlsEnabled           = "gi.grpc.tls.enabled"
-	CertFile             = "gi.grpc.tls.certFile"
-	KeyFile              = "gi.grpc.tls.keyFile"
-	CAFile               = "gi.grpc.tls.CAFile"
+	root                 = "gi.grpc"
+	Port                 = root + ".port"
+	MaxConcurrentStreams = root + ".maxConcurrentStreams"
+	TlsEnabled           = root + ".tls.enabled"
+	CertFile             = root + ".tls.certFile"
+	KeyFile              = root + ".tls.keyFile"
+	CAFile               = root + ".tls.CAFile"
 )
 
 func init() {

@@ -23,7 +23,7 @@ func (b optionsBuilder) Type(tp string) optionsBuilder {
 }
 
 func (b optionsBuilder) Region(region string) optionsBuilder {
-	return builder.Set(b, "region", region).(optionsBuilder)
+	return builder.Set(b, "Region", region).(optionsBuilder)
 }
 
 func (b optionsBuilder) Build() Options {
@@ -37,7 +37,7 @@ func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
 
-	err := giconfig.UnmarshalWithPath("gi.gocloud", o)
+	err := giconfig.UnmarshalWithPath(root, o)
 	if err != nil {
 		return nil, err
 	}

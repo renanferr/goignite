@@ -5,18 +5,18 @@ import (
 )
 
 const (
-	Addr     = "gi.jlaffaye.addr"
-	Username = "gi.jlaffaye.username"
-	Password = "gi.jlaffaye.password"
-	Timeout  = "gi.jlaffaye.timeout"
-	Retry    = "gi.jlaffaye.retry"
+	root     = "gi.jlaffaye"
+	addr     = root + ".addr"
+	username = root + ".username"
+	password = root + ".password"
+	timeout  = root + ".timeout"
+	retry    = root + ".retry"
 )
 
 func init() {
-
-	giconfig.Add(Addr, "", "ftp address")
-	giconfig.Add(Username, "", "ftp username")
-	giconfig.Add(Password, "", "ftp password")
-	giconfig.Add(Timeout, 10, "ftp timeout")
-	giconfig.Add(Retry, 3, "ftp retry")
+	giconfig.Add(addr, "", "ftp address")
+	giconfig.Add(username, "", "ftp username")
+	giconfig.Add(password, "", "ftp password")
+	giconfig.Add(timeout, 10, "ftp timeout")
+	giconfig.Add(retry, 3, "ftp retry")
 }

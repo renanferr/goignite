@@ -4,7 +4,6 @@ import (
 	"context"
 	"strings"
 
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
 	"go.mongodb.org/mongo-driver/event"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -12,30 +11,40 @@ import (
 	"go.mongodb.org/mongo-driver/x/mongo/driver/connstring"
 )
 
-const (
-	TopicClientOptions = "topic:gimongo:clientoptions"
-	TopicClient        = "topic:gimongo:client"
-	TopicDatabase      = "topic:gimongo:database"
-)
+type Conn struct {
+	ClientOptions *options.ClientOptions
+	Client        *mongo.Client
+	Database      *mongo.Database
+}
 
-func NewClient(ctx context.Context, o *Options) (client *mongo.Client, database *mongo.Database, err error) {
+func NewClient(ctx context.Context, o *Options, exts ...func(context.Context, *Conn) error) (conn *Conn, err error) {
 
 	co := clientOptions(ctx, o)
 
-	gieventbus.Publish(TopicClientOptions, co)
+	var client *mongo.Client
+	var database *mongo.Database
 
 	client, database, err = newClient(ctx, co)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
-	gieventbus.Publish(TopicClient, client)
-	gieventbus.Publish(TopicDatabase, database)
+	conn = &Conn{
+		ClientOptions: co,
+		Client:        client,
+		Database:      database,
+	}
 
-	return client, database, err
+	for _, ext := range exts {
+		if err := ext(ctx, conn); err != nil {
+			panic(err)
+		}
+	}
+
+	return conn, err
 }
 
-func NewDefaultClient(ctx context.Context) (*mongo.Client, *mongo.Database, error) {
+func NewDefaultClient(ctx context.Context) (*Conn, error) {
 
 	l := gilog.FromContext(ctx)
 
@@ -64,7 +73,9 @@ func newClient(ctx context.Context, co *options.ClientOptions) (client *mongo.Cl
 		return nil, nil, err
 	}
 
-	connFields, err := connstring.Parse(co.GetURI())
+	var connFields connstring.ConnString
+
+	connFields, err = connstring.Parse(co.GetURI())
 
 	if err != nil {
 		return nil, nil, err

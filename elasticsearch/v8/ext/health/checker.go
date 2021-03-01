@@ -1,4 +1,4 @@
-package gihealthelasticsearch
+package health
 
 import (
 	"context"

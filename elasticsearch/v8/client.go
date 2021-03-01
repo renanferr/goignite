@@ -6,19 +6,14 @@ import (
 	"time"
 
 	giconfig "github.com/b2wdigital/goignite/config"
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
 
-const (
-	TopicClient = "topic:gielasticsearch:client"
-)
+func NewClient(ctx context.Context, o *Options, exts ...func(context.Context, *elasticsearch.Client) error) (client *elasticsearch.Client, err error) {
 
-func NewClient(ctx context.Context, o *Options) (client *elasticsearch.Client, err error) {
-
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	cfg := elasticsearch.Config{
 		Addresses:             o.Addresses,
@@ -54,9 +49,13 @@ func NewClient(ctx context.Context, o *Options) (client *elasticsearch.Client, e
 		return nil, err
 	}
 
-	gieventbus.Publish(TopicClient, client)
+	for _, ext := range exts {
+		if err := ext(ctx, client); err != nil {
+			panic(err)
+		}
+	}
 
-	l.Infof("Connected to Elastic Search server: %v status: %s", strings.Join(o.Addresses, ","), res.Status())
+	logger.Infof("Connected to Elastic Search server: %v status: %s", strings.Join(o.Addresses, ","), res.Status())
 
 	return client, err
 }
@@ -66,14 +65,14 @@ func backOff(attempt int) time.Duration {
 	return time.Duration(attempt) * b
 }
 
-func NewDefaultClient(ctx context.Context) (*elasticsearch.Client, error) {
+func NewDefaultClient(ctx context.Context, exts ...func(context.Context, *elasticsearch.Client) error) (*elasticsearch.Client, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
-	return NewClient(ctx, o)
+	return NewClient(ctx, o, exts...)
 }

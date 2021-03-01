@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 
 	giconfig "github.com/b2wdigital/goignite/config"
+	gielasticsearch "github.com/b2wdigital/goignite/elasticsearch/v8"
+	gielasticsearchhealth "github.com/b2wdigital/goignite/elasticsearch/v8/ext/health"
 	gihealth "github.com/b2wdigital/goignite/health"
-	gihealthelasticsearch "github.com/b2wdigital/goignite/health/ext/elasticsearch/v8"
 	gilog "github.com/b2wdigital/goignite/log"
 	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
-	"github.com/elastic/go-elasticsearch/v8"
 )
 
 func main() {
@@ -18,10 +18,10 @@ func main() {
 
 	gilogrus.NewLogger()
 
-	o, _ := gihealthelasticsearch.DefaultOptions()
-	gihealthelasticsearch.Integrate(o)
+	o, _ := gielasticsearchhealth.DefaultOptions()
+	integrator := gielasticsearchhealth.NewIntegrator(o)
 
-	_, err := elasticsearch.NewDefaultClient()
+	_, err := gielasticsearch.NewDefaultClient(context.Background(), integrator.Integrate)
 	if err != nil {
 		gilog.Error(err)
 	}

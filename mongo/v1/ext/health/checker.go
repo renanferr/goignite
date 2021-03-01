@@ -1,4 +1,4 @@
-package gihealthmongo
+package health
 
 import (
 	"context"

@@ -1,14 +1,14 @@
-package ginrmongo
+package newrelic
 
 import (
 	"context"
 
 	gilog "github.com/b2wdigital/goignite/log"
+	gimongo "github.com/b2wdigital/goignite/mongo/v1"
 	"github.com/newrelic/go-agent/v3/integrations/nrmongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func Integrate(ctx context.Context, clientOptions *options.ClientOptions) error {
+func Integrate(ctx context.Context, conn *gimongo.Conn) error {
 
 	if !isEnabled() {
 		return nil
@@ -20,7 +20,7 @@ func Integrate(ctx context.Context, clientOptions *options.ClientOptions) error 
 
 	nrMon := nrmongo.NewCommandMonitor(nil)
 
-	clientOptions.SetMonitor(nrMon)
+	conn.ClientOptions.SetMonitor(nrMon)
 	logger.Debug("mongodb integrated with newrelic with success")
 
 	return nil

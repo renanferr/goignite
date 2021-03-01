@@ -1,17 +1,16 @@
-package ginrmongo
+package newrelic
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
-	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
+	gimongo "github.com/b2wdigital/goignite/mongo/v1"
 )
 
 const (
-	ConfigRoot = ginewrelic.ConfigRoot + ".ext.mongo"
-	enabled    = ConfigRoot + ".enabled"
+	root    = gimongo.ExtRoot + ".newrelic"
+	enabled = root + ".enabled"
 )
 
 func init() {
-
 	giconfig.Add(enabled, true, "enable/disable mongo integration")
 }
 

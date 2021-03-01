@@ -5,15 +5,11 @@ import (
 )
 
 const (
-	echoRoot          = "gi.echo"
-	hideBanner        = echoRoot + ".hidebanner"
-	port              = echoRoot + ".port"
-	jsonPrettyEnabled = echoRoot + ".json.pretty.enabled"
-	extRoot           = echoRoot + ".ext"
-	ConfigRoot        = extRoot + ".config"
-	RouteRoot         = extRoot + ".route"
-	MiddlewareRoot    = extRoot + ".middleware"
-	IntegrateRoot     = extRoot + ".integrate"
+	root              = "gi.echo"
+	hideBanner        = root + ".hidebanner"
+	port              = root + ".port"
+	jsonPrettyEnabled = root + ".json.pretty.enabled"
+	ExtRoot           = root + ".ext"
 )
 
 func init() {

@@ -1,4 +1,4 @@
-package gipromecho
+package prometheus
 
 import (
 	"context"

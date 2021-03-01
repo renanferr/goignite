@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	enabled = giecho.MiddlewareRoot + ".requestid.enabled"
+	enabled = giecho.ExtRoot + ".requestid.enabled"
 )
 
 func init() {

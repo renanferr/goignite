@@ -1,18 +1,18 @@
-package gipromecho
+package prometheus
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
-	giprometheus "github.com/b2wdigital/goignite/prometheus/v1"
+	giecho "github.com/b2wdigital/goignite/echo/v4"
 )
 
 const (
-	ConfigRoot = giprometheus.ConfigRoot + ".ext.echo"
+	ConfigRoot = giecho.ExtRoot + ".prometheus"
 	enabled    = ConfigRoot + ".enabled"
 	route      = ConfigRoot + ".route"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable echo integration")
+	giconfig.Add(enabled, true, "enable/disable prometheus integration")
 	giconfig.Add(route, "/metrics", "define prometheus metrics url")
 }
 

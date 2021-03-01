@@ -6,8 +6,8 @@ import (
 )
 
 const (
-	enabled = giecho.MiddlewareRoot + ".bodylimit.enabled"
-	size    = giecho.MiddlewareRoot + ".bodylimit.size"
+	enabled = giecho.ExtRoot + ".bodylimit.enabled"
+	size    = giecho.ExtRoot + ".bodylimit.size"
 )
 
 func init() {

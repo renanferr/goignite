@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	root             = giecho.MiddlewareRoot + ".cors"
+	root             = giecho.ExtRoot + ".cors"
 	enabled          = root + ".enabled"
 	allowOrigins     = root + ".allow.origins"
 	allowHeaders     = root + ".allow.headers"

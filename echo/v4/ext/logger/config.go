@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	enabled = giecho.MiddlewareRoot + ".logger.enabled"
+	enabled = giecho.ExtRoot + ".logger.enabled"
 )
 
 func init() {

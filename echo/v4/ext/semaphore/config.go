@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	semaphoreRoot = giecho.MiddlewareRoot + ".semaphore"
+	semaphoreRoot = giecho.ExtRoot + ".semaphore"
 	enabled       = semaphoreRoot + ".enabled"
 	limit         = semaphoreRoot + ".limit"
 )

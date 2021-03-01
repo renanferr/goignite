@@ -1,4 +1,4 @@
-package status
+package giswaggerecho
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
@@ -6,14 +6,14 @@ import (
 )
 
 const (
-	root    = giecho.ExtRoot + ".status"
+	root    = giecho.ExtRoot + ".swagger"
 	enabled = root + ".enabled"
 	route   = root + ".route"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable status route")
-	giconfig.Add(route, "/resource-status", "define status url")
+	giconfig.Add(enabled, true, "enable/disable swagger integration")
+	giconfig.Add(route, "/swagger", "define swagger metrics url")
 }
 
 func isEnabled() bool {

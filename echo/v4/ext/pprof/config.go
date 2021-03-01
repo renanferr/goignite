@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	enabled = giecho.IntegrateRoot + ".pprof.enabled"
+	enabled = giecho.ExtRoot + ".pprof.enabled"
 )
 
 func init() {

@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	enabled = giecho.MiddlewareRoot + ".gzip.enabled"
+	enabled = giecho.ExtRoot + ".gzip.enabled"
 )
 
 func init() {

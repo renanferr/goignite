@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	enabled = giecho.MiddlewareRoot + ".recover.enabled"
+	enabled = giecho.ExtRoot + ".recover.enabled"
 )
 
 func init() {

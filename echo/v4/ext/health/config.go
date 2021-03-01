@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	root    = giecho.RouteRoot + ".health"
+	root    = giecho.ExtRoot + ".health"
 	enabled = root + ".enabled"
 	route   = root + ".route"
 )

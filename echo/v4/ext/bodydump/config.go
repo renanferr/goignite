@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	enabled = giecho.MiddlewareRoot + ".bodydump.enabled"
+	enabled = giecho.ExtRoot + ".bodydump.enabled"
 )
 
 func init() {

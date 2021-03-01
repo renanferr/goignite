@@ -8,21 +8,16 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	giconfig "github.com/b2wdigital/goignite/config"
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
 )
 
-const (
-	TopicConfig = "topic:giaws:config"
-)
+func NewConfig(ctx context.Context, options *Options, exts ...func(context.Context, *aws.Config) error) aws.Config {
 
-func NewConfig(ctx context.Context, options *Options) aws.Config {
-
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
-		l.Panicf("unable to load AWS SDK config, %s", err.Error())
+		logger.Panicf("unable to load AWS SDK config, %s", err.Error())
 		return aws.Config{}
 	}
 
@@ -34,7 +29,11 @@ func NewConfig(ctx context.Context, options *Options) aws.Config {
 
 	cfg.Retryer = retryerConfig(options)
 
-	gieventbus.Publish(TopicConfig, &cfg)
+	for _, ext := range exts {
+		if err := ext(ctx, &cfg); err != nil {
+			panic(err)
+		}
+	}
 
 	return cfg
 }

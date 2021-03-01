@@ -5,15 +5,15 @@ import (
 )
 
 const (
-	key            = "aws.access.key.id"
-	secret         = "aws.secret.access.key"
-	region         = "aws.default.region"
-	session        = "aws.session.token"
-	customEndpoint = "aws.custom.endpoint"
-
+	key                 = "aws.access.key.id"
+	secret              = "aws.secret.access.key"
+	region              = "aws.default.region"
+	session             = "aws.session.token"
+	customEndpoint      = "aws.custom.endpoint"
 	retryer             = "aws.custom.retryer"
 	retryerMaxAttempts  = retryer + ".maxattempts"
 	retryerHasRateLimit = retryer + ".hasratelimit"
+	ExtRoot             = "aws.ext"
 )
 
 func init() {

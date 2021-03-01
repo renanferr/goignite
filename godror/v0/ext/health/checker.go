@@ -1,4 +1,4 @@
-package gihealthgodror
+package health
 
 import (
 	"context"

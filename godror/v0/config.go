@@ -9,9 +9,10 @@ import (
 const (
 	root            = "gi.godror"
 	dataSourceName  = root + ".dataSourceName"
-	connMaxLifetime = root + "gi.godror.connMaxLifetime"
-	maxIdleConns    = root + "gi.godror.maxIdleConns"
-	maxOpenConns    = root + "gi.godror.maxOpenConns"
+	connMaxLifetime = root + ".connMaxLifetime"
+	maxIdleConns    = root + ".maxIdleConns"
+	maxOpenConns    = root + ".maxOpenConns"
+	ExtRoot         = root + ".ext"
 )
 
 func init() {

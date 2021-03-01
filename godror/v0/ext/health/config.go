@@ -1,15 +1,16 @@
-package gihealthgodror
+package health
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
+	gigodror "github.com/b2wdigital/goignite/godror/v0"
 )
 
 const (
-	ConfigRoot  = "gi.health.ext.godror"
-	name        = ConfigRoot + ".name"
-	description = ConfigRoot + ".description"
-	required    = ConfigRoot + ".required"
-	enabled     = ConfigRoot + ".enabled"
+	root        = gigodror.ExtRoot + ".health"
+	name        = root + ".name"
+	description = root + ".description"
+	required    = root + ".required"
+	enabled     = root + ".enabled"
 )
 
 func init() {

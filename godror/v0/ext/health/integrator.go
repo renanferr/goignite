@@ -1,10 +1,9 @@
-package gihealthgodror
+package health
 
 import (
+	"context"
 	"database/sql"
 
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
-	gigodror "github.com/b2wdigital/goignite/godror/v0"
 	gihealth "github.com/b2wdigital/goignite/health"
 	gilog "github.com/b2wdigital/goignite/log"
 )
@@ -13,14 +12,13 @@ type Integrator struct {
 	options *Options
 }
 
-func Integrate(options *Options) error {
-	integrator := &Integrator{options: options}
-	return gieventbus.Subscribe(gigodror.TopicDB, integrator.Integrate)
+func Integrate(options *Options) *Integrator {
+	return &Integrator{options: options}
 }
 
-func (i *Integrator) Integrate(db *sql.DB) error {
+func (i *Integrator) Integrate(ctx context.Context, db *sql.DB) error {
 
-	logger := gilog.WithTypeOf(*i)
+	logger := gilog.FromContext(ctx).WithTypeOf(*i)
 
 	logger.Trace("integrating godror with health")
 

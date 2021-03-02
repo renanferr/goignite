@@ -9,14 +9,11 @@ import (
 const (
 	root                           = "gi.resty"
 	debug                          = root + ".debug"
-	closeConnection                = root + ".closeconnection"
+	closeConnection                = root + ".closeConnection"
 	connectionTimeout              = root + ".connectionTimeout"
 	keepAlive                      = root + ".keepAlive"
 	fallbackDelay                  = root + ".fallbackDelay"
 	requestTimeout                 = root + ".requestTimeout"
-	retryCount                     = root + ".retry.count"
-	retryWaitTime                  = root + ".retry.waitTime"
-	retryMaxWaitTime               = root + ".retry.maxWaitTime"
 	transportDisableCompression    = root + ".transport.disableCompression"
 	transportDisableKeepAlives     = root + ".transport.disableKeepAlives"
 	transportMaxIdleConnsPerHost   = root + ".transport.maxIdleConnsPerHost"
@@ -38,10 +35,6 @@ func init() {
 	giconfig.Add(keepAlive, 30*time.Second, "defines global http keepalive")
 	giconfig.Add(fallbackDelay, 300*time.Millisecond, "defines global fallbackDelay")
 	giconfig.Add(requestTimeout, 30*time.Second, "defines global http request timeout")
-	giconfig.Add(retryCount, 0, "defines global max http retries")
-	giconfig.Add(retryWaitTime, 200*time.Millisecond, "defines global retry wait time")
-	giconfig.Add(retryMaxWaitTime, 2*time.Second, "defines global max retry wait time")
-
 	giconfig.Add(transportDisableCompression, false, "enabled/disable transport compression")
 	giconfig.Add(transportDisableKeepAlives, false, "enabled/disable transport keep alives")
 	giconfig.Add(transportMaxIdleConnsPerHost, 2, "define transport max idle conns per host")

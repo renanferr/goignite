@@ -12,8 +12,17 @@ type Integrator struct {
 	options *Options
 }
 
-func Integrate(options *Options) *Integrator {
+func NewIntegrator(options *Options) *Integrator {
 	return &Integrator{options: options}
+}
+
+func NewDefaultIntegrator() *Integrator {
+	o, err := DefaultOptions()
+	if err != nil {
+		gilog.Fatalf(err.Error())
+	}
+
+	return NewIntegrator(o)
 }
 
 func (i *Integrator) Integrate(ctx context.Context, db *sql.DB) error {

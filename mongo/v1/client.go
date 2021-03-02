@@ -17,7 +17,9 @@ type Conn struct {
 	Database      *mongo.Database
 }
 
-func NewClient(ctx context.Context, o *Options, exts ...func(context.Context, *Conn) error) (conn *Conn, err error) {
+type ext func(context.Context, *Conn) error
+
+func NewClient(ctx context.Context, o *Options, exts ...ext) (conn *Conn, err error) {
 
 	co := clientOptions(ctx, o)
 
@@ -44,7 +46,7 @@ func NewClient(ctx context.Context, o *Options, exts ...func(context.Context, *C
 	return conn, err
 }
 
-func NewDefaultClient(ctx context.Context, exts ...func(context.Context, *Conn) error) (*Conn, error) {
+func NewDefaultClient(ctx context.Context, exts ...ext) (*Conn, error) {
 
 	logger := gilog.FromContext(ctx)
 

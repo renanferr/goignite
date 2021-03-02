@@ -16,6 +16,15 @@ func NewIntegrator(options *Options) *Integrator {
 	return &Integrator{options: options}
 }
 
+func NewDefaultIntegrator() *Integrator {
+	o, err := DefaultOptions()
+	if err != nil {
+		gilog.Fatalf(err.Error())
+	}
+
+	return NewIntegrator(o)
+}
+
 func (i *Integrator) Integrate(ctx context.Context, conn *gimongo.Conn) error {
 
 	logger := gilog.WithTypeOf(*i)

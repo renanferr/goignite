@@ -11,7 +11,9 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
 
-func NewClient(ctx context.Context, o *Options, exts ...func(context.Context, *elasticsearch.Client) error) (client *elasticsearch.Client, err error) {
+type ext func(context.Context, *elasticsearch.Client) error
+
+func NewClient(ctx context.Context, o *Options, exts ...ext) (client *elasticsearch.Client, err error) {
 
 	logger := gilog.FromContext(ctx)
 
@@ -65,7 +67,7 @@ func backOff(attempt int) time.Duration {
 	return time.Duration(attempt) * b
 }
 
-func NewDefaultClient(ctx context.Context, exts ...func(context.Context, *elasticsearch.Client) error) (*elasticsearch.Client, error) {
+func NewDefaultClient(ctx context.Context, exts ...ext) (*elasticsearch.Client, error) {
 
 	logger := gilog.FromContext(ctx)
 

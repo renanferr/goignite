@@ -11,7 +11,9 @@ import (
 	gilog "github.com/b2wdigital/goignite/log"
 )
 
-func NewConfig(ctx context.Context, options *Options, exts ...func(context.Context, *aws.Config) error) aws.Config {
+type ext func(context.Context, *aws.Config) error
+
+func NewConfig(ctx context.Context, options *Options, exts ...ext) aws.Config {
 
 	logger := gilog.FromContext(ctx)
 
@@ -60,11 +62,11 @@ func (noRateLimit) AddTokens(uint) error { return nil }
 
 func (noRateLimit) GetToken(context.Context, uint) (func() error, error) { return nil, nil }
 
-func NewDefaultConfig(ctx context.Context) aws.Config {
+func NewDefaultConfig(ctx context.Context, exts ...ext) aws.Config {
 
 	o := loadDefaultOptions(ctx)
 
-	return NewConfig(ctx, o)
+	return NewConfig(ctx, o, exts...)
 }
 
 func loadDefaultOptions(ctx context.Context) *Options {

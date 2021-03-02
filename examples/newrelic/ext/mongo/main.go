@@ -14,5 +14,5 @@ func main() {
 	giconfig.Load()
 	gilogrus.NewLogger()
 
-	gimongo.NewDefaultClient(context.Background(), newrelic.Integrate)
+	gimongo.NewDefaultClient(context.Background(), newrelic.Register)
 }

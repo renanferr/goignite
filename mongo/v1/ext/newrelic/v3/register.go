@@ -8,7 +8,7 @@ import (
 	"github.com/newrelic/go-agent/v3/integrations/nrmongo"
 )
 
-func Integrate(ctx context.Context, conn *gimongo.Conn) error {
+func Register(ctx context.Context, conn *gimongo.Conn) error {
 
 	if !isEnabled() {
 		return nil

@@ -32,12 +32,6 @@ func Middleware(ctx context.Context, instance *fiber.App) error {
 
 func handler(app *newrelic.Application) fiber.Handler {
 
-	if app == nil {
-		return func(c *fiber.Ctx) error {
-			return c.Next()
-		}
-	}
-
 	return func(c *fiber.Ctx) error {
 		transactionPattern := fmt.Sprintf("%s - %s ", c.Method(), string(c.Request().URI().Path()))
 		txn := app.StartTransaction(transactionPattern)

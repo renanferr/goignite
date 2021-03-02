@@ -11,14 +11,14 @@ import (
 
 func Middleware(ctx context.Context, instance *echo.Echo) error {
 	if isEnabled() {
-		instance.Use(Logger())
+		instance.Use(logger())
 	}
 
 	return nil
 }
 
-// Logger returns a middleware that logs HTTP requests.
-func Logger() echo.MiddlewareFunc {
+// logger returns a middleware that logs HTTP requests.
+func logger() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			req := c.Request()

@@ -12,6 +12,12 @@ import (
 var app *newrelic.Application
 
 func Application() *newrelic.Application {
+	if app == nil {
+		var err error
+		if app, err = NewApplication(context.Background()); err != nil {
+			panic(err)
+		}
+	}
 	return app
 }
 

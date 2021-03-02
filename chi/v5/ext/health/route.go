@@ -2,15 +2,16 @@ package health
 
 import (
 	"context"
+	"encoding/json"
+	"net/http"
 
-	giecho "github.com/b2wdigital/goignite/echo/v4"
 	gilog "github.com/b2wdigital/goignite/log"
 	"github.com/b2wdigital/goignite/rest/response"
-	"github.com/labstack/echo/v4"
+	"github.com/go-chi/chi/v5"
 )
 
-func Route(ctx context.Context, instance *echo.Echo) error {
-	if isEnabled() {
+func Route(ctx context.Context, instance *chi.Mux) error {
+	if !isEnabled() {
 		return nil
 	}
 
@@ -21,7 +22,7 @@ func Route(ctx context.Context, instance *echo.Echo) error {
 	logger.Infof("configuring health router on %s", healthRoute)
 
 	healthHandler := NewHealthHandler()
-	instance.GET(healthRoute, healthHandler.Get)
+	instance.Get(healthRoute, healthHandler.Get(ctx))
 
 	return nil
 }
@@ -33,12 +34,11 @@ func NewHealthHandler() *HealthHandler {
 type HealthHandler struct {
 }
 
-func (u *HealthHandler) Get(c echo.Context) error {
-
-	ctx, cancel := context.WithCancel(c.Request().Context())
-	defer cancel()
-
+func (u *HealthHandler) Get(ctx context.Context) http.HandlerFunc {
 	resp, httpCode := response.NewHealth(ctx)
-
-	return giecho.JSON(c, httpCode, resp, nil)
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(httpCode)
+		json.NewEncoder(w).Encode(resp)
+	}
 }

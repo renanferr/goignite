@@ -12,16 +12,17 @@ import (
 
 func Route(ctx context.Context, instance *echo.Echo) error {
 	if isEnabled() {
-
-		logger := gilog.FromContext(ctx)
-
-		statusRoute := getRoute()
-
-		logger.Infof("configuring status router on %s", statusRoute)
-
-		statusHandler := NewResourceStatusHandler()
-		instance.GET(statusRoute, statusHandler.Get)
+		return nil
 	}
+
+	logger := gilog.FromContext(ctx)
+
+	statusRoute := getRoute()
+
+	logger.Infof("configuring status router on %s", statusRoute)
+
+	statusHandler := NewResourceStatusHandler()
+	instance.GET(statusRoute, statusHandler.Get)
 
 	return nil
 }

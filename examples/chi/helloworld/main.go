@@ -11,6 +11,7 @@ import (
 	"github.com/b2wdigital/goignite/chi/v5/ext/realip"
 	"github.com/b2wdigital/goignite/chi/v5/ext/recoverer"
 	"github.com/b2wdigital/goignite/chi/v5/ext/status"
+	"github.com/b2wdigital/goignite/chi/v5/ext/tid"
 	giconfig "github.com/b2wdigital/goignite/config"
 	gihttp "github.com/b2wdigital/goignite/http/v1/server"
 	"github.com/b2wdigital/goignite/info"
@@ -67,7 +68,7 @@ func main() {
 	info.AppName = "helloworld"
 
 	instance := gichi.NewMux(ctx,
-		tid.Middleware,
+		tid.Register,
 		recoverer.Register,
 		realip.Register,
 		logger.Register,

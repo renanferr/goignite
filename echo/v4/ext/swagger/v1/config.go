@@ -1,4 +1,4 @@
-package giswaggerecho
+package swagger
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
@@ -13,7 +13,7 @@ const (
 
 func init() {
 	giconfig.Add(enabled, true, "enable/disable swagger integration")
-	giconfig.Add(route, "/swagger", "define swagger metrics url")
+	giconfig.Add(route, "/swagger/*", "define swagger metrics url")
 }
 
 func isEnabled() bool {

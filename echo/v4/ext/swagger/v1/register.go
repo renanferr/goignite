@@ -1,4 +1,4 @@
-package giswaggerecho
+package swagger
 
 import (
 	"context"
@@ -18,7 +18,7 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 
 	logger.Trace("integrating echo with swagger")
 
-	swaggerRoute := getRoute() + "/*"
+	swaggerRoute := getRoute()
 	logger.Infof("configuring swagger router on %s", swaggerRoute)
 
 	instance.GET(swaggerRoute, echoSwagger.WrapHandler)

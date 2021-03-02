@@ -66,8 +66,8 @@ func main() {
 	info.AppName = "helloworld"
 
 	instance := gifiber.Start(ctx,
-		cors.Middleware,
-		etag.Middleware)
+		cors.Register,
+		etag.Register)
 
 	instance.Get(c.App.Endpoint.Helloworld, Get)
 

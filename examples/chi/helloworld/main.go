@@ -68,11 +68,11 @@ func main() {
 
 	instance := gichi.NewMux(ctx,
 		tid.Middleware,
-		recoverer.Middleware,
-		realip.Middleware,
-		logger.Middleware,
-		status.Route,
-		health.Route)
+		recoverer.Register,
+		realip.Register,
+		logger.Register,
+		status.Register,
+		health.Register)
 
 	instance.Get(c.App.Endpoint.Helloworld, Get(ctx))
 

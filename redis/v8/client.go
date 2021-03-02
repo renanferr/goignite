@@ -7,9 +7,9 @@ import (
 	"github.com/go-redis/redis/v8"
 )
 
-type ext func(context.Context, *redis.Client) error
+type Ext func(context.Context, *redis.Client) error
 
-func NewClient(ctx context.Context, o *Options, exts ...ext) (client *redis.Client, err error) {
+func NewClient(ctx context.Context, o *Options, exts ...Ext) (client *redis.Client, err error) {
 
 	logger := gilog.FromContext(ctx)
 
@@ -82,7 +82,7 @@ func redisSentinel(o *Options) bool {
 	return o.Sentinel.MasterName != "" || o.Sentinel.Addrs != nil
 }
 
-func NewDefaultClient(ctx context.Context, exts ...ext) (*redis.Client, error) {
+func NewDefaultClient(ctx context.Context, exts ...Ext) (*redis.Client, error) {
 
 	logger := gilog.FromContext(ctx)
 

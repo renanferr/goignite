@@ -33,7 +33,7 @@ func main() {
 
 	healthIntegrator := health.NewIntegrator(&options)
 
-	client := giresty.NewClient(ctx, &giresty.Options{}, healthIntegrator.Integrate)
+	client := giresty.NewClient(ctx, &giresty.Options{}, healthIntegrator.Register)
 	request := client.R().EnableTrace()
 
 	response, err := request.Get("http://google.com")

@@ -25,7 +25,7 @@ func NewDefaultClusterIntegrator() *ClusterIntegrator {
 	return NewClusterIntegrate(o)
 }
 
-func (i *ClusterIntegrator) Integrate(ctx context.Context, client *redis.ClusterClient) error {
+func (i *ClusterIntegrator) Register(ctx context.Context, client *redis.ClusterClient) error {
 
 	logger := gilog.FromContext(ctx).WithTypeOf(*i)
 

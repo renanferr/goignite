@@ -10,9 +10,9 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-type ext func(context.Context, *resty.Client) error
+type Ext func(context.Context, *resty.Client) error
 
-func NewClient(ctx context.Context, options *Options, exts ...ext) *resty.Client {
+func NewClient(ctx context.Context, options *Options, exts ...Ext) *resty.Client {
 
 	logger := gilog.FromContext(ctx)
 

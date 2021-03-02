@@ -19,7 +19,7 @@ func main() {
 	options, _ := health.DefaultOptions()
 	integrator := health.NewIntegrator(options)
 
-	gimongo.NewDefaultClient(context.Background(), integrator.Integrate)
+	gimongo.NewDefaultClient(context.Background(), integrator.Register)
 
 	all := gihealth.CheckAll(context.Background())
 

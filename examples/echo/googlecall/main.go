@@ -87,12 +87,12 @@ func main() {
 	info.AppName = "google"
 
 	instance := giecho.Start(ctx,
-		cors.Middleware,
-		requestid.Middleware,
-		gzip.Middleware,
-		logger.Middleware,
-		status.Route,
-		health.Route)
+		cors.Register,
+		requestid.Register,
+		gzip.Register,
+		logger.Register,
+		status.Register,
+		health.Register)
 
 	// instance.AddErrorAdvice(customErrors.InvalidPayload, 400)
 

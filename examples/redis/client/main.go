@@ -22,7 +22,7 @@ func main() {
 
 	healthIntegrator := health.NewDefaultClientIntegrator()
 
-	_, err = giredis.NewDefaultClient(context.Background(), healthIntegrator.Integrate)
+	_, err = giredis.NewDefaultClient(context.Background(), healthIntegrator.Register)
 	if err != nil {
 		gilog.Error(err)
 	}

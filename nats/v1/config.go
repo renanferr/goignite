@@ -13,7 +13,7 @@ const (
 	reconnectWait   = root + ".reconnectWait"
 	url             = root + ".url"
 	NewRelicEnabled = root + ".newrelic.enabled"
-	ExtRoot         = root + ".ext"
+	ExtRoot         = root + ".Ext"
 )
 
 func init() {

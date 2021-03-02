@@ -8,9 +8,9 @@ import (
 	_ "github.com/godror/godror"
 )
 
-type ext func(context.Context, *sql.DB) error
+type Ext func(context.Context, *sql.DB) error
 
-func NewDB(ctx context.Context, o *Options, exts ...ext) (db *sql.DB, err error) {
+func NewDB(ctx context.Context, o *Options, exts ...Ext) (db *sql.DB, err error) {
 
 	logger := gilog.FromContext(ctx)
 
@@ -39,7 +39,7 @@ func NewDB(ctx context.Context, o *Options, exts ...ext) (db *sql.DB, err error)
 	return db, err
 }
 
-func NewDefaultDB(ctx context.Context, exts ...ext) (*sql.DB, error) {
+func NewDefaultDB(ctx context.Context, exts ...Ext) (*sql.DB, error) {
 
 	logger := gilog.FromContext(ctx)
 

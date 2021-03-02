@@ -35,7 +35,7 @@ const (
 	disableDefaultContentType = configRoot + ".disableDefaultContentType"
 	disableHeaderNormalizing  = configRoot + ".disableHeaderNormalizing"
 	disableStartupMessage     = configRoot + ".disableStartupMessage"
-	ExtRoot                   = root + ".ext"
+	ExtRoot                   = root + ".Ext"
 )
 
 func init() {
@@ -70,14 +70,6 @@ func init() {
 
 func Port() int {
 	return giconfig.Int(port)
-}
-
-func GetStatusRoute() string {
-	return giconfig.String(statusRoute)
-}
-
-func GetHealthRoute() string {
-	return giconfig.String(healthRoute)
 }
 
 func AppConfig() (*fiber.Config, error) {

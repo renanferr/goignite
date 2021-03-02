@@ -7,9 +7,9 @@ import (
 	"github.com/nats-io/nats.go"
 )
 
-type ext func(context.Context, *nats.Conn) error
+type Ext func(context.Context, *nats.Conn) error
 
-func NewConnection(ctx context.Context, options *Options, exts ...ext) (*nats.Conn, error) {
+func NewConnection(ctx context.Context, options *Options, exts ...Ext) (*nats.Conn, error) {
 
 	logger := gilog.FromContext(ctx)
 
@@ -37,7 +37,7 @@ func NewConnection(ctx context.Context, options *Options, exts ...ext) (*nats.Co
 	return conn, nil
 }
 
-func NewDefaultConnection(ctx context.Context, exts ...ext) (*nats.Conn, error) {
+func NewDefaultConnection(ctx context.Context, exts ...Ext) (*nats.Conn, error) {
 
 	logger := gilog.FromContext(ctx)
 

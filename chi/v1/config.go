@@ -2,5 +2,5 @@ package gichi
 
 const (
 	root    = "gi.chi"
-	ExtRoot = root + ".ext"
+	ExtRoot = root + ".Ext"
 )

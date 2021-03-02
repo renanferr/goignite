@@ -33,7 +33,7 @@ func main() {
 
 	healthIntegrator := health.NewDefaultIntegrator()
 
-	cligoogle := giresty.NewClient(ctx, googleopt, healthIntegrator.Integrate)
+	cligoogle := giresty.NewClient(ctx, googleopt, healthIntegrator.Register)
 	reqgoogle := cligoogle.R()
 
 	respgoogle, err := reqgoogle.Get("/")

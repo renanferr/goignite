@@ -21,7 +21,7 @@ func main() {
 	o, _ := gielasticsearchhealth.DefaultOptions()
 	integrator := gielasticsearchhealth.NewIntegrator(o)
 
-	_, err := gielasticsearch.NewDefaultClient(context.Background(), integrator.Integrate)
+	_, err := gielasticsearch.NewDefaultClient(context.Background(), integrator.Register)
 	if err != nil {
 		gilog.Error(err)
 	}

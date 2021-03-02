@@ -10,9 +10,9 @@ var (
 	instance *chi.Mux
 )
 
-type ext func(context.Context, *chi.Mux) error
+type Ext func(context.Context, *chi.Mux) error
 
-func NewMux(ctx context.Context, exts ...ext) *chi.Mux {
+func NewMux(ctx context.Context, exts ...Ext) *chi.Mux {
 
 	instance = chi.NewRouter()
 

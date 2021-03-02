@@ -13,7 +13,7 @@ const (
 	retryer             = "aws.custom.retryer"
 	retryerMaxAttempts  = retryer + ".maxattempts"
 	retryerHasRateLimit = retryer + ".hasratelimit"
-	ExtRoot             = "aws.ext"
+	ExtRoot             = "aws.Ext"
 )
 
 func init() {

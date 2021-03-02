@@ -22,7 +22,7 @@ func main() {
 
 	healthIntegrator := health.NewDefaultClusterIntegrator()
 
-	_, err = giredis.NewDefaultClusterClient(context.Background(), healthIntegrator.Integrate)
+	_, err = giredis.NewDefaultClusterClient(context.Background(), healthIntegrator.Register)
 	if err != nil {
 		gilog.Error(err)
 	}

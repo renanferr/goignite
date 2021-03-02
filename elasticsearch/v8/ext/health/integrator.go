@@ -16,7 +16,7 @@ func NewIntegrator(options *Options) *Integrator {
 	return &Integrator{options: options}
 }
 
-func (i *Integrator) Integrate(ctx context.Context, client *elasticsearch.Client) error {
+func (i *Integrator) Register(ctx context.Context, client *elasticsearch.Client) error {
 
 	logger := gilog.FromContext(ctx).WithTypeOf(*i)
 

@@ -1,4 +1,4 @@
-package giprometheusfiber
+package prometheus
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"

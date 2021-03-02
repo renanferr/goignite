@@ -25,7 +25,7 @@ func NewDefaultClientIntegrator() *ClientIntegrator {
 	return NewClientIntegrator(o)
 }
 
-func (i *ClientIntegrator) Integrate(ctx context.Context, client *redis.Client) error {
+func (i *ClientIntegrator) Register(ctx context.Context, client *redis.Client) error {
 
 	logger := gilog.FromContext(ctx).WithTypeOf(*i)
 

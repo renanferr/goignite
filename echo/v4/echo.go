@@ -12,9 +12,9 @@ var (
 	instance *echo.Echo
 )
 
-type ext func(context.Context, *echo.Echo) error
+type Ext func(context.Context, *echo.Echo) error
 
-func Start(ctx context.Context, exts ...ext) *echo.Echo {
+func Start(ctx context.Context, exts ...Ext) *echo.Echo {
 
 	instance = echo.New()
 

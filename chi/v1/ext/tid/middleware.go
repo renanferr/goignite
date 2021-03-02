@@ -1,11 +1,11 @@
-package xtid
+package tid
 
 import (
 	"context"
 	"net/http"
 
 	"github.com/b2wdigital/goignite/info"
-	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi"
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -27,6 +27,9 @@ func tidMiddleware() func(http.Handler) http.Handler {
 				tid = info.AppName + "-" + uuid.NewV4().String()
 			}
 			w.Header().Set("X-TID", tid)
+
+			ctx := context.WithValue(r.Context(), "x-tid", tid)
+			r.WithContext(ctx)
 			h.ServeHTTP(w, r)
 		}
 		return http.HandlerFunc(fn)

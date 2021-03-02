@@ -1,4 +1,4 @@
-package gihealthredis
+package health
 
 import (
 	"context"

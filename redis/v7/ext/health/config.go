@@ -1,15 +1,16 @@
-package gihealthredis
+package health
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
+	giredis "github.com/b2wdigital/goignite/redis/v7"
 )
 
 const (
-	ConfigRoot  = "gi.health.ext.redis"
-	name        = ConfigRoot + ".name"
-	description = ConfigRoot + ".description"
-	required    = ConfigRoot + ".required"
-	enabled     = ConfigRoot + ".enabled"
+	root        = giredis.ExtRoot + ".health"
+	name        = root + ".name"
+	description = root + ".description"
+	required    = root + ".required"
+	enabled     = root + ".enabled"
 )
 
 func init() {

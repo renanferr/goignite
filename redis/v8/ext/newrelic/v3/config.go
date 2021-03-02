@@ -1,20 +1,19 @@
-package ginrredis
+package newrelic
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
-	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
+	giredis "github.com/b2wdigital/goignite/redis/v8"
 )
 
 const (
-	ConfigRoot = ginewrelic.ConfigRoot + ".ext.redis"
-	enabled    = ConfigRoot + ".enabled"
+	root    = giredis.ExtRoot + ".newrelic"
+	enabled = root + ".enabled"
 )
 
 func init() {
-
 	giconfig.Add(enabled, true, "enable/disable redis integration")
 }
 
-func IsEnabled() bool {
+func isEnabled() bool {
 	return giconfig.Bool(enabled)
 }

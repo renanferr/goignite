@@ -1,10 +1,10 @@
-package gihealthredis
+package health
 
 import (
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
+	"context"
+
 	gihealth "github.com/b2wdigital/goignite/health"
 	gilog "github.com/b2wdigital/goignite/log"
-	giredis "github.com/b2wdigital/goignite/redis/v8"
 	"github.com/go-redis/redis/v8"
 )
 
@@ -12,14 +12,22 @@ type ClientIntegrator struct {
 	options *Options
 }
 
-func ClientIntegrate(options *Options) error {
-	integrator := &ClientIntegrator{options: options}
-	return gieventbus.Subscribe(giredis.TopicClient, integrator.Integrate)
+func NewClientIntegrator(options *Options) *ClientIntegrator {
+	return &ClientIntegrator{options: options}
 }
 
-func (i *ClientIntegrator) Integrate(client *redis.Client) error {
+func NewDefaultClientIntegrator() *ClientIntegrator {
+	o, err := DefaultOptions()
+	if err != nil {
+		gilog.Fatalf(err.Error())
+	}
 
-	logger := gilog.WithTypeOf(*i)
+	return NewClientIntegrator(o)
+}
+
+func (i *ClientIntegrator) Integrate(ctx context.Context, client *redis.Client) error {
+
+	logger := gilog.FromContext(ctx).WithTypeOf(*i)
 
 	logger.Trace("integrating redis with health")
 

@@ -15,19 +15,19 @@ type ClusterOptions struct {
 type clusterOptionsBuilder builder.Builder
 
 func (b clusterOptionsBuilder) Addrs(value []string) clusterOptionsBuilder {
-	return builder.Set(b, "Addrs", value).(clusterOptionsBuilder)
+	return builder.Set(b, "addrs", value).(clusterOptionsBuilder)
 }
 
 func (b clusterOptionsBuilder) MaxRedirects(value int) clusterOptionsBuilder {
-	return builder.Set(b, "MaxRedirects", value).(clusterOptionsBuilder)
+	return builder.Set(b, "maxRedirects", value).(clusterOptionsBuilder)
 }
 
 func (b clusterOptionsBuilder) ReadOnly(value bool) clusterOptionsBuilder {
-	return builder.Set(b, "ReadOnly", value).(clusterOptionsBuilder)
+	return builder.Set(b, "readOnly", value).(clusterOptionsBuilder)
 }
 
 func (b clusterOptionsBuilder) RouteByLatency(value bool) clusterOptionsBuilder {
-	return builder.Set(b, "RouteByLatency", value).(clusterOptionsBuilder)
+	return builder.Set(b, "routeByLatency", value).(clusterOptionsBuilder)
 }
 
 func (b clusterOptionsBuilder) Build() ClusterOptions {

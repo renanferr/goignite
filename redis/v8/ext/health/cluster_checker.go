@@ -1,9 +1,9 @@
-package gihealthredis
+package health
 
 import (
 	"context"
 
-	"github.com/go-redis/redis/v7"
+	"github.com/go-redis/redis/v8"
 )
 
 type ClusterClientChecker struct {
@@ -11,7 +11,7 @@ type ClusterClientChecker struct {
 }
 
 func (c *ClusterClientChecker) Check(ctx context.Context) error {
-	return c.client.Ping().Err()
+	return c.client.Ping(ctx).Err()
 }
 
 func NewClusterClientChecker(client *redis.ClusterClient) *ClusterClientChecker {

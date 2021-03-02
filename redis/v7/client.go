@@ -3,16 +3,13 @@ package giredis
 import (
 	"context"
 
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
 	"github.com/go-redis/redis/v7"
 )
 
-const (
-	TopicClient = "topic:redis:v7:client"
-)
+type ext func(context.Context, *redis.Client) error
 
-func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error) {
+func NewClient(ctx context.Context, o *Options, exts ...ext) (client *redis.Client, err error) {
 
 	logger := gilog.FromContext(ctx)
 
@@ -27,7 +24,11 @@ func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error
 		return nil, ping.Err()
 	}
 
-	gieventbus.Publish(TopicClient, client)
+	for _, ext := range exts {
+		if err := ext(ctx, client); err != nil {
+			panic(err)
+		}
+	}
 
 	logger.Infof("Connected to Redis server: %s %s", client.Options().Addr, ping.String())
 
@@ -81,7 +82,7 @@ func redisSentinel(o *Options) bool {
 	return o.Sentinel.MasterName != "" || o.Sentinel.Addrs != nil
 }
 
-func NewDefaultClient(ctx context.Context) (*redis.Client, error) {
+func NewDefaultClient(ctx context.Context, exts ...ext) (*redis.Client, error) {
 
 	logger := gilog.FromContext(ctx)
 
@@ -90,5 +91,5 @@ func NewDefaultClient(ctx context.Context) (*redis.Client, error) {
 		logger.Fatalf(err.Error())
 	}
 
-	return NewClient(ctx, o)
+	return NewClient(ctx, o, exts...)
 }

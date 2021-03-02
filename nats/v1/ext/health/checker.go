@@ -1,4 +1,4 @@
-package gihealthnats
+package health
 
 import (
 	"context"

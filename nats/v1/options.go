@@ -11,7 +11,6 @@ type Options struct {
 	Url           string
 	MaxReconnects int
 	ReconnectWait time.Duration
-	NewRelic      NewRelicOptions `config:"newrelic"`
 }
 
 type optionsBuilder builder.Builder
@@ -28,10 +27,6 @@ func (b optionsBuilder) ReconnectWait(value time.Duration) optionsBuilder {
 	return builder.Set(b, "ReconnectWait", value).(optionsBuilder)
 }
 
-func (b optionsBuilder) NewRelic(value NewRelicOptions) optionsBuilder {
-	return builder.Set(b, "NewRelic", value).(optionsBuilder)
-}
-
 func (b optionsBuilder) Build() Options {
 	return builder.GetStruct(b).(Options)
 }
@@ -42,7 +37,7 @@ func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
 
-	err := giconfig.UnmarshalWithPath("gi.nats", o)
+	err := giconfig.UnmarshalWithPath(root, o)
 	if err != nil {
 		return nil, err
 	}

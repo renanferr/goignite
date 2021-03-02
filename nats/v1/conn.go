@@ -3,16 +3,13 @@ package ginats
 import (
 	"context"
 
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
 	"github.com/nats-io/nats.go"
 )
 
-const (
-	TopicConn = "topic:nats:conn"
-)
+type ext func(context.Context, *nats.Conn) error
 
-func NewConnection(ctx context.Context, options *Options) (*nats.Conn, error) {
+func NewConnection(ctx context.Context, options *Options, exts ...ext) (*nats.Conn, error) {
 
 	logger := gilog.FromContext(ctx)
 
@@ -29,14 +26,18 @@ func NewConnection(ctx context.Context, options *Options) (*nats.Conn, error) {
 		return nil, err
 	}
 
-	logger.Infof("Connected to NATS server: %s", options.Url)
+	for _, ext := range exts {
+		if err := ext(ctx, conn); err != nil {
+			panic(err)
+		}
+	}
 
-	l.Infof("Connected to NATS server: %s", options.Url)
+	logger.Infof("Connected to NATS server: %s", options.Url)
 
 	return conn, nil
 }
 
-func NewDefaultConnection(ctx context.Context) (*nats.Conn, error) {
+func NewDefaultConnection(ctx context.Context, exts ...ext) (*nats.Conn, error) {
 
 	logger := gilog.FromContext(ctx)
 
@@ -45,7 +46,7 @@ func NewDefaultConnection(ctx context.Context) (*nats.Conn, error) {
 		logger.Fatalf(err.Error())
 	}
 
-	return NewConnection(ctx, o)
+	return NewConnection(ctx, o, exts...)
 }
 
 func disconnectedErrHandler(nc *nats.Conn, err error) {

@@ -1,19 +1,19 @@
-package gihealthnats
+package health
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
+	ginats "github.com/b2wdigital/goignite/nats/v1"
 )
 
 const (
-	ConfigRoot  = "gi.health.ext.nats"
-	name        = ConfigRoot + ".name"
-	description = ConfigRoot + ".description"
-	required    = ConfigRoot + ".required"
-	enabled     = ConfigRoot + ".enabled"
+	root        = ginats.ExtRoot + ".health"
+	name        = root + ".name"
+	description = root + ".description"
+	required    = root + ".required"
+	enabled     = root + ".enabled"
 )
 
 func init() {
-
 	giconfig.Add(name, "nats", "health name")
 	giconfig.Add(description, "default connection", "define health description")
 	giconfig.Add(required, true, "define health description")

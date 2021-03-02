@@ -1,4 +1,4 @@
-package gihealthnats
+package health
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
@@ -40,7 +40,7 @@ func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
 
-	err := giconfig.UnmarshalWithPath(ConfigRoot, o)
+	err := giconfig.UnmarshalWithPath(root, o)
 	if err != nil {
 		return nil, err
 	}

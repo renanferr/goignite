@@ -15,7 +15,7 @@ require (
 	github.com/cloudevents/sdk-go/v2 v2.3.1
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20201229214741-2366c2514674
 	github.com/globocom/echo-prometheus v0.1.2
-	github.com/go-chi/chi v1.5.2
+	github.com/go-chi/chi v1.5.4
 	github.com/go-playground/validator/v10 v10.4.1
 	github.com/go-redis/redis/v7 v7.4.0
 	github.com/go-redis/redis/v8 v8.5.0

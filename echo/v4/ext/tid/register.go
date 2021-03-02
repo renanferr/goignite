@@ -23,15 +23,15 @@ func tid() echo.MiddlewareFunc {
 
 			ctx := c.Request().Context()
 
-			tid := ctx.Value("x-tid").(string)
-			if tid == "" {
+			tid, ok := ctx.Value("x-tid").(string)
+			if !ok {
 				tid = info.AppName + "-" + uuid.NewV4().String()
 			}
 
 			c.Response().Header().Add("X-TID", tid)
 			c.Request().WithContext(context.WithValue(ctx, "x-tid", tid))
 
-			return nil
+			return next(c)
 		}
 	}
 }

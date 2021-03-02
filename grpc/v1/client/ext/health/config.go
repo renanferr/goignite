@@ -1,15 +1,16 @@
-package gihealthgrpc
+package health
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
+	gigrpc "github.com/b2wdigital/goignite/grpc/v1/client"
 )
 
 const (
-	ConfigRoot  = "gi.health.ext.grpc"
-	name        = ConfigRoot + ".name"
-	description = ConfigRoot + ".description"
-	required    = ConfigRoot + ".required"
-	enabled     = ConfigRoot + ".enabled"
+	root        = gigrpc.ExtRoot + ".health"
+	name        = root + ".name"
+	description = root + ".description"
+	required    = root + ".required"
+	enabled     = root + ".enabled"
 )
 
 func init() {

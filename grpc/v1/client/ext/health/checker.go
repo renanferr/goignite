@@ -1,4 +1,4 @@
-package gihealthgrpc
+package health
 
 import (
 	"context"

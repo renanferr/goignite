@@ -14,12 +14,12 @@ func Register(ctx context.Context, app *fiber.App) error {
 		return nil
 	}
 
-	app.Use(middleware)
+	app.Use(middleware())
 
 	return nil
 }
 
-func middleware(config ...fiber.Config) fiber.Handler {
+func middleware() fiber.Handler {
 
 	// Return new handler
 	return func(c *fiber.Ctx) error {

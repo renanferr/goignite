@@ -19,7 +19,7 @@ type Conn struct {
 
 type Ext func(context.Context, *Conn) error
 
-func NewClient(ctx context.Context, o *Options, exts ...Ext) (conn *Conn, err error) {
+func NewConn(ctx context.Context, o *Options, exts ...Ext) (conn *Conn, err error) {
 
 	co := clientOptions(ctx, o)
 
@@ -46,7 +46,7 @@ func NewClient(ctx context.Context, o *Options, exts ...Ext) (conn *Conn, err er
 	return conn, err
 }
 
-func NewDefaultClient(ctx context.Context, exts ...Ext) (*Conn, error) {
+func NewDefaultConn(ctx context.Context, exts ...Ext) (*Conn, error) {
 
 	logger := gilog.FromContext(ctx)
 
@@ -55,7 +55,7 @@ func NewDefaultClient(ctx context.Context, exts ...Ext) (*Conn, error) {
 		logger.Fatalf(err.Error())
 	}
 
-	return NewClient(ctx, o, exts...)
+	return NewConn(ctx, o, exts...)
 }
 
 func newClient(ctx context.Context, co *options.ClientOptions) (client *mongo.Client, database *mongo.Database, err error) {

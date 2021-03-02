@@ -12,6 +12,7 @@ const (
 	closeConnection                = root + ".closeconnection"
 	connectionTimeout              = root + ".connectionTimeout"
 	keepAlive                      = root + ".keepAlive"
+	fallbackDelay                  = root + ".fallbackDelay"
 	requestTimeout                 = root + ".requestTimeout"
 	retryCount                     = root + ".retry.count"
 	retryWaitTime                  = root + ".retry.waitTime"
@@ -26,6 +27,7 @@ const (
 	transportIdleConnTimeout       = root + ".transport.idleConnTimeout"
 	transportTLSHandshakeTimeout   = root + ".transport.TLSHandshakeTimeout"
 	transportExpectContinueTimeout = root + ".transport.expectContinueTimeout"
+	ExtRoot                        = root + ".ext"
 )
 
 func init() {
@@ -34,6 +36,7 @@ func init() {
 	giconfig.Add(closeConnection, false, "defines global http close connection")
 	giconfig.Add(connectionTimeout, 3*time.Minute, "defines global http connection timeout")
 	giconfig.Add(keepAlive, 30*time.Second, "defines global http keepalive")
+	giconfig.Add(fallbackDelay, 300*time.Millisecond, "defines global fallbackDelay")
 	giconfig.Add(requestTimeout, 30*time.Second, "defines global http request timeout")
 	giconfig.Add(retryCount, 0, "defines global max http retries")
 	giconfig.Add(retryWaitTime, 200*time.Millisecond, "defines global retry wait time")

@@ -2,16 +2,15 @@ package giresty
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
-	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
+	girest "github.com/b2wdigital/goignite/resty/v2"
 )
 
 const (
-	ConfigRoot = ginewrelic.ConfigRoot + ".ext.resty"
+	ConfigRoot = girest.ExtRoot + ".newrelic"
 	enabled    = ConfigRoot + ".enabled"
 )
 
 func init() {
-
 	giconfig.Add(enabled, true, "enable/disable resty integration")
 }
 

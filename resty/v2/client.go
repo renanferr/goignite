@@ -8,16 +8,13 @@ import (
 	"time"
 
 	giconfig "github.com/b2wdigital/goignite/config"
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
 	gilog "github.com/b2wdigital/goignite/log"
 	"github.com/go-resty/resty/v2"
 )
 
-const (
-	TopicClient = "topic:resty:client"
-)
+type ext func(context.Context, *resty.Client) error
 
-func NewClient(ctx context.Context, options *Options) *resty.Client {
+func NewClient(ctx context.Context, options *Options, exts ...ext) *resty.Client {
 
 	logger := gilog.FromContext(ctx)
 
@@ -26,9 +23,9 @@ func NewClient(ctx context.Context, options *Options) *resty.Client {
 	client := resty.New()
 
 	dialer := &net.Dialer{
-		Timeout:   giconfig.Duration(connectionTimeout),
-		KeepAlive: giconfig.Duration(keepAlive),
-		DualStack: true,
+		Timeout:       giconfig.Duration(connectionTimeout),
+		FallbackDelay: giconfig.Duration(fallbackDelay),
+		KeepAlive:     giconfig.Duration(keepAlive),
 	}
 
 	if options.ConnectionTimeout > 0 {
@@ -128,7 +125,11 @@ func NewClient(ctx context.Context, options *Options) *resty.Client {
 		}
 	}
 
-	gieventbus.Publish(TopicClient, client)
+	for _, ext := range exts {
+		if err := ext(ctx, client); err != nil {
+			panic(err)
+		}
+	}
 
 	return client
 }

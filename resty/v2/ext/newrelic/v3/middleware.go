@@ -10,7 +10,7 @@ import (
 	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
-func Integrate(ctx context.Context, client *resty.Client) error {
+func Middleware(ctx context.Context, client *resty.Client) error {
 
 	if !isEnabled() {
 		return nil

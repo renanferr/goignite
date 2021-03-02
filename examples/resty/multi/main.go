@@ -7,6 +7,7 @@ import (
 	gilog "github.com/b2wdigital/goignite/log"
 	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
 	giresty "github.com/b2wdigital/goignite/resty/v2"
+	"github.com/b2wdigital/goignite/resty/v2/ext/health"
 )
 
 func main() {
@@ -30,7 +31,9 @@ func main() {
 		logger.Errorf(err.Error())
 	}
 
-	cligoogle := giresty.NewClient(ctx, googleopt)
+	healthIntegrator := health.NewDefaultIntegrator()
+
+	cligoogle := giresty.NewClient(ctx, googleopt, healthIntegrator.Integrate)
 	reqgoogle := cligoogle.R()
 
 	respgoogle, err := reqgoogle.Get("/")

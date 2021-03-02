@@ -1,17 +1,18 @@
-package gihealthresty
+package health
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"
+	giresty "github.com/b2wdigital/goignite/resty/v2"
 )
 
 const (
-	ConfigRoot  = "gi.health.ext.resty"
-	name        = ConfigRoot + ".name"
-	host        = ConfigRoot + ".host"
-	endpoint    = ConfigRoot + ".endpoint"
-	description = ConfigRoot + ".description"
-	required    = ConfigRoot + ".required"
-	enabled     = ConfigRoot + ".enabled"
+	root        = giresty.ExtRoot + ".health"
+	name        = root + ".name"
+	host        = root + ".host"
+	endpoint    = root + ".endpoint"
+	description = root + ".description"
+	required    = root + ".required"
+	enabled     = root + ".enabled"
 )
 
 func init() {

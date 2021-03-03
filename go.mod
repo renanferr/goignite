@@ -30,6 +30,7 @@ require (
 	github.com/googleapis/gnostic v0.5.4 // indirect
 	github.com/graphql-go/graphql v0.7.9
 	github.com/graphql-go/handler v0.2.3
+	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/hashicorp/go-memdb v1.3.1
 	github.com/hiko1129/echo-pprof v1.0.1
 	github.com/imdario/mergo v0.3.11 // indirect
@@ -44,6 +45,7 @@ require (
 	github.com/nats-io/nats.go v1.10.0
 	github.com/newrelic/go-agent/v3 v3.10.0
 	github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0
+	github.com/newrelic/go-agent/v3/integrations/nrgrpc v1.1.0
 	github.com/newrelic/go-agent/v3/integrations/nrmongo v1.0.0
 	github.com/newrelic/go-agent/v3/integrations/nrnats v1.1.0
 	github.com/newrelic/go-agent/v3/integrations/nrredis-v7 v1.0.0

@@ -21,7 +21,9 @@ var (
 	instance *grpc.Server
 )
 
-func Start(ctx context.Context) *grpc.Server {
+type Ext func() []grpc.ServerOption
+
+func Start(ctx context.Context, exts ...Ext) *grpc.Server {
 
 	logger := gilog.FromContext(ctx)
 
@@ -29,17 +31,19 @@ func Start(ctx context.Context) *grpc.Server {
 
 	var s *grpc.Server
 
-	if giconfig.Bool(TlsEnabled) {
+	var serverOptions []grpc.ServerOption
+
+	if giconfig.Bool(tlsEnabled) {
 
 		// Load the certificates from disk
-		certificate, err := tls.LoadX509KeyPair(giconfig.String(CertFile), giconfig.String(KeyFile))
+		certificate, err := tls.LoadX509KeyPair(giconfig.String(certFile), giconfig.String(keyFile))
 		if err != nil {
 			logger.Fatalf("could not load server key pair: %s", err)
 		}
 
 		// Create a certificate pool from the certificate authority
 		certPool := x509.NewCertPool()
-		ca, err := ioutil.ReadFile(giconfig.String(CAFile))
+		ca, err := ioutil.ReadFile(giconfig.String(caFile))
 		if err != nil {
 			logger.Fatalf("could not read ca certificate: %s", err)
 		}
@@ -56,26 +60,19 @@ func Start(ctx context.Context) *grpc.Server {
 			ClientCAs:    certPool,
 		})
 
-		s = grpc.NewServer(
-			grpc.Creds(creds),
-			grpc.MaxConcurrentStreams(uint32(giconfig.Int64(MaxConcurrentStreams))),
-			// grpc.InitialConnWindowSize(100),
-			// grpc.InitialWindowSize(100),
-			grpc.StreamInterceptor(DebugStreamServerInterceptor()),
-			grpc.UnaryInterceptor(DebugUnaryServerInterceptor()),
-		)
-
-	} else {
-
-		s = grpc.NewServer(
-			grpc.MaxConcurrentStreams(uint32(giconfig.Int64(MaxConcurrentStreams))),
-			// grpc.InitialConnWindowSize(100),
-			// grpc.InitialWindowSize(100),
-			grpc.StreamInterceptor(DebugStreamServerInterceptor()),
-			grpc.UnaryInterceptor(DebugUnaryServerInterceptor()),
-		)
-
+		serverOptions = append(serverOptions, grpc.Creds(creds))
 	}
+
+	for _, ext := range exts {
+		serverOptions = append(serverOptions, ext()...)
+	}
+
+	serverOptions = append(serverOptions, grpc.MaxConcurrentStreams(uint32(giconfig.Int64(maxConcurrentStreams))))
+
+	s = grpc.NewServer(serverOptions...)
+
+	// grpc.InitialConnWindowSize(100),
+	// grpc.InitialWindowSize(100),
 
 	instance = s
 
@@ -91,7 +88,7 @@ func Serve(ctx context.Context) {
 	// Register reflection service on gRPC server.
 	reflection.Register(instance)
 
-	port := giconfig.Int(Port)
+	port := giconfig.Int(port)
 
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {

@@ -11,7 +11,7 @@ const (
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable resty integration")
+	giconfig.Add(enabled, true, "enable/disable newrelic integration")
 }
 
 func isEnabled() bool {

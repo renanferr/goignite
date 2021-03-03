@@ -16,7 +16,7 @@ const (
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable health")
+	giconfig.Add(enabled, true, "enable/disable retry")
 	giconfig.Add(count, 0, "defines global max http retries")
 	giconfig.Add(waitTime, 200*time.Millisecond, "defines global retry wait time")
 	giconfig.Add(maxWaitTime, 2*time.Second, "defines global max retry wait time")

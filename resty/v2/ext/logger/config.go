@@ -11,7 +11,7 @@ const (
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable health")
+	giconfig.Add(enabled, true, "enable/disable logger")
 }
 
 func isEnabled() bool {

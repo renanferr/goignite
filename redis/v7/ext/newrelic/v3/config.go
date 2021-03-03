@@ -14,6 +14,6 @@ func init() {
 	giconfig.Add(enabled, true, "enable/disable redis integration")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }

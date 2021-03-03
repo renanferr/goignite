@@ -11,7 +11,7 @@ import (
 )
 
 func Register(ctx context.Context, instance *echo.Echo) error {
-	if isEnabled() {
+	if IsEnabled() {
 		instance.HTTPErrorHandler = customHTTPErrorHandler
 	}
 

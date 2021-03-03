@@ -8,7 +8,7 @@ import (
 )
 
 func Middleware(ctx context.Context, app *fiber.App) error {
-	if isEnabled() {
+	if IsEnabled() {
 		app.Use(logger.New())
 	}
 

@@ -8,17 +8,17 @@ import (
 )
 
 func Register(ctx context.Context, instance *chi.Mux) error {
-	if !isEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 
 	instance.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   getAllowedOrigins(),
-		AllowedMethods:   getAllowedMethods(),
-		AllowedHeaders:   getAllowedHeaders(),
-		AllowCredentials: getAllowedCredentials(),
-		ExposedHeaders:   getExposedHeaders(),
-		MaxAge:           getMaxAge(),
+		AllowedOrigins:   GetAllowedOrigins(),
+		AllowedMethods:   GetAllowedMethods(),
+		AllowedHeaders:   GetAllowedHeaders(),
+		AllowCredentials: GetAllowedCredentials(),
+		ExposedHeaders:   GetExposedHeaders(),
+		MaxAge:           GetMaxAge(),
 	}))
 
 	return nil

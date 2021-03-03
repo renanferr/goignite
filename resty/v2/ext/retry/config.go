@@ -22,6 +22,6 @@ func init() {
 	giconfig.Add(maxWaitTime, 2*time.Second, "defines global max retry wait time")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }

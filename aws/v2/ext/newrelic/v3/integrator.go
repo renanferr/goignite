@@ -9,7 +9,7 @@ import (
 
 func Integrate(ctx context.Context, cfg *aws.Config) error {
 
-	if !isEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 

@@ -32,7 +32,7 @@ func init() {
 	giconfig.Add(maxAge, 5200, "cors max age (seconds)")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }
 

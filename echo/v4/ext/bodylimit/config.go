@@ -15,10 +15,10 @@ func init() {
 	giconfig.Add(size, "8M", "body limit size")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }
 
-func getSize() string {
+func GetSize() string {
 	return giconfig.String(size)
 }

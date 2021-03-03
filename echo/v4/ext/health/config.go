@@ -16,10 +16,10 @@ func init() {
 	giconfig.Add(route, "/health", "define status url")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }
 
-func getRoute() string {
+func GetRoute() string {
 	return giconfig.String(route)
 }

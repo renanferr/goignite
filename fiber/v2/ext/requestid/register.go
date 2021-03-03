@@ -8,7 +8,7 @@ import (
 )
 
 func Register(ctx context.Context, app *fiber.App) error {
-	if isEnabled() {
+	if IsEnabled() {
 		app.Use(requestid.New())
 	}
 

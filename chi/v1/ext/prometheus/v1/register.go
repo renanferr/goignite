@@ -10,7 +10,7 @@ import (
 
 func Register(ctx context.Context, instance *chi.Mux) error {
 
-	if !isEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 
@@ -18,7 +18,7 @@ func Register(ctx context.Context, instance *chi.Mux) error {
 
 	logger.Trace("integrating chi with prometheus")
 
-	prometheusRoute := getRoute()
+	prometheusRoute := GetRoute()
 
 	logger.Infof("configuring prometheus metrics router on %s", prometheusRoute)
 	instance.Handle(prometheusRoute, promhttp.Handler())

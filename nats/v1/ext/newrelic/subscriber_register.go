@@ -7,7 +7,7 @@ import (
 )
 
 func SubscriberRegister(msgHandler nats.MsgHandler) nats.MsgHandler {
-	if !isEnabled() {
+	if !IsEnabled() {
 		return msgHandler
 	}
 

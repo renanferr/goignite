@@ -32,30 +32,30 @@ func init() {
 	giconfig.Add(maxAge, 5200, "cors max age (seconds)")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }
 
-func getAllowOrigins() []string {
+func GetAllowOrigins() []string {
 	return giconfig.Strings(allowOrigins)
 }
 
-func getAllowMethods() []string {
+func GetAllowMethods() []string {
 	return giconfig.Strings(allowMethods)
 }
 
-func getAllowHeaders() []string {
+func GetAllowHeaders() []string {
 	return giconfig.Strings(allowHeaders)
 }
 
-func getAllowCredentials() bool {
+func GetAllowCredentials() bool {
 	return giconfig.Bool(allowCredentials)
 }
 
-func getExposeHeaders() []string {
+func GetExposeHeaders() []string {
 	return giconfig.Strings(exposeHeaders)
 }
 
-func getMaxAge() int {
+func GetMaxAge() int {
 	return giconfig.Int(maxAge)
 }

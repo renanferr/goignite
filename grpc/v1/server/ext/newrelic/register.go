@@ -8,15 +8,15 @@ import (
 
 func Register() []grpc.ServerOption {
 
-	if !isEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 
 	app := ginewrelic.Application()
 
 	return []grpc.ServerOption{
-		grpc.UnaryInterceptor(nrgrpc.UnaryServerInterceptor(app)),
-		grpc.StreamInterceptor(nrgrpc.StreamServerInterceptor(app)),
+		grpc.ChainUnaryInterceptor(nrgrpc.UnaryServerInterceptor(app)),
+		grpc.ChainStreamInterceptor(nrgrpc.StreamServerInterceptor(app)),
 	}
 
 }

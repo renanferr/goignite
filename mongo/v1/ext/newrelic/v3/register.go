@@ -10,7 +10,7 @@ import (
 
 func Register(ctx context.Context, conn *gimongo.Conn) error {
 
-	if !isEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 

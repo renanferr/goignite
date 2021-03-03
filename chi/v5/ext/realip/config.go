@@ -13,6 +13,6 @@ func init() {
 	giconfig.Add(enabled, true, "enable/disable realip middleware")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }

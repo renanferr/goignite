@@ -12,7 +12,7 @@ import (
 
 func Register(ctx context.Context, instance *echo.Echo) error {
 
-	if !isEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 
@@ -22,7 +22,7 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 
 	instance.Use(nrecho.Middleware(ginewrelic.Application()))
 
-	if isEnabledRequestID() {
+	if IsEnabledRequestID() {
 		logger.Debug("enabling newrelic requestID middleware")
 		instance.Use(requestIDMiddleware())
 	}

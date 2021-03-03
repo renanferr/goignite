@@ -8,8 +8,8 @@ import (
 )
 
 func Register(ctx context.Context, instance *echo.Echo) error {
-	if isEnabled() {
-		instance.Use(middleware.BodyLimit(getSize()))
+	if IsEnabled() {
+		instance.Use(middleware.BodyLimit(GetSize()))
 	}
 
 	return nil

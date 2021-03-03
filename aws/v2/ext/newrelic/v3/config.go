@@ -15,6 +15,6 @@ func init() {
 	giconfig.Add(enabled, true, "enable/disable aws integration")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }

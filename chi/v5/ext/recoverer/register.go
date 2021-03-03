@@ -8,7 +8,7 @@ import (
 )
 
 func Register(ctx context.Context, instance *chi.Mux) error {
-	if isEnabled() {
+	if IsEnabled() {
 		instance.Use(middleware.Recoverer)
 	}
 

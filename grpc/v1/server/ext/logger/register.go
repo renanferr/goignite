@@ -6,12 +6,12 @@ import (
 
 func Register() []grpc.ServerOption {
 
-	if !isEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 
 	return []grpc.ServerOption{
-		grpc.StreamInterceptor(streamInterceptor()),
-		grpc.UnaryInterceptor(unaryInterceptor()),
+		grpc.ChainStreamInterceptor(streamInterceptor()),
+		grpc.ChainUnaryInterceptor(unaryInterceptor()),
 	}
 }

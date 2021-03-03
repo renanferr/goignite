@@ -10,7 +10,7 @@ import (
 
 func Register(ctx context.Context, instance *fiber.App) error {
 
-	if !isEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 

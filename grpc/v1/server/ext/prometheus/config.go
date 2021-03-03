@@ -14,6 +14,6 @@ func init() {
 	giconfig.Add(enabled, true, "enable/disable prometheus")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }

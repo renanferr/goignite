@@ -16,7 +16,7 @@ func init() {
 	giconfig.Add(webResponseEnabled, true, "enable/disable newrelic web response")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }
 

@@ -16,10 +16,10 @@ func init() {
 	giconfig.Add(route, "/swagger/*", "define swagger metrics url")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }
 
-func getRoute() string {
+func GetRoute() string {
 	return giconfig.String(route)
 }

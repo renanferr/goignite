@@ -17,10 +17,10 @@ func init() {
 	giconfig.Add(middlewareRequestIDEnabled, true, "enable/disable request id middleware")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }
 
-func isEnabledRequestID() bool {
+func IsEnabledRequestID() bool {
 	return giconfig.Bool(middlewareRequestIDEnabled)
 }

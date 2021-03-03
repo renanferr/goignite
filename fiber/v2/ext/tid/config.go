@@ -14,6 +14,6 @@ func init() {
 	giconfig.Add(enabled, true, "enable/disable tid middleware")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }

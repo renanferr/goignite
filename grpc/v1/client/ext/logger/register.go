@@ -6,12 +6,12 @@ import (
 
 func Register() []grpc.DialOption {
 
-	if !isEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 
 	return []grpc.DialOption{
-		grpc.WithStreamInterceptor(streamInterceptor()),
-		grpc.WithUnaryInterceptor(unaryInterceptor()),
+		grpc.WithChainStreamInterceptor(streamInterceptor()),
+		grpc.WithChainUnaryInterceptor(unaryInterceptor()),
 	}
 }

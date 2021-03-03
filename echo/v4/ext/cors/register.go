@@ -8,14 +8,14 @@ import (
 )
 
 func Register(ctx context.Context, instance *echo.Echo) error {
-	if isEnabled() {
+	if IsEnabled() {
 		instance.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-			AllowOrigins:     getAllowOrigins(),
-			AllowMethods:     getAllowMethods(),
-			AllowHeaders:     getAllowHeaders(),
-			AllowCredentials: getAllowCredentials(),
-			ExposeHeaders:    getExposeHeaders(),
-			MaxAge:           getMaxAge(),
+			AllowOrigins:     GetAllowOrigins(),
+			AllowMethods:     GetAllowMethods(),
+			AllowHeaders:     GetAllowHeaders(),
+			AllowCredentials: GetAllowCredentials(),
+			ExposeHeaders:    GetExposeHeaders(),
+			MaxAge:           GetMaxAge(),
 		}))
 	}
 

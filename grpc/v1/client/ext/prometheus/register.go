@@ -7,13 +7,13 @@ import (
 
 func Register() []grpc.DialOption {
 
-	if !isEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 
 	return []grpc.DialOption{
-		grpc.WithUnaryInterceptor(grpc_prometheus.UnaryClientInterceptor),
-		grpc.WithStreamInterceptor(grpc_prometheus.StreamClientInterceptor),
+		grpc.WithChainUnaryInterceptor(grpc_prometheus.UnaryClientInterceptor),
+		grpc.WithChainStreamInterceptor(grpc_prometheus.StreamClientInterceptor),
 	}
 
 }

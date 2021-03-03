@@ -16,7 +16,7 @@ func init() {
 	giconfig.Add(route, "/resource-status", "define status url")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }
 

@@ -10,7 +10,7 @@ import (
 
 func Register(ctx context.Context, client *redis.Client) error {
 
-	if !isEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 

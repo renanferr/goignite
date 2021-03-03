@@ -13,7 +13,7 @@ import (
 )
 
 func Register(ctx context.Context, instance *chi.Mux) error {
-	if isEnabled() {
+	if IsEnabled() {
 		instance.Use(nrMiddleware)
 	}
 
@@ -34,7 +34,7 @@ func nrMiddleware(next http.Handler) http.Handler {
 
 		txn.SetWebRequestHTTP(r)
 
-		if isWebResponseEnabled() {
+		if IsWebResponseEnabled() {
 			w = txn.SetWebResponse(w)
 		}
 

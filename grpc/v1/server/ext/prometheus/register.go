@@ -7,13 +7,13 @@ import (
 
 func Register() []grpc.ServerOption {
 
-	if !isEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 
 	return []grpc.ServerOption{
-		grpc.UnaryInterceptor(grpc_prometheus.UnaryServerInterceptor),
-		grpc.StreamInterceptor(grpc_prometheus.StreamServerInterceptor),
+		grpc.ChainUnaryInterceptor(grpc_prometheus.UnaryServerInterceptor),
+		grpc.ChainStreamInterceptor(grpc_prometheus.StreamServerInterceptor),
 	}
 
 }

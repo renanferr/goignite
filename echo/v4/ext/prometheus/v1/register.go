@@ -11,7 +11,7 @@ import (
 
 func Register(ctx context.Context, instance *echo.Echo) error {
 
-	if !isEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 
@@ -21,7 +21,7 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 
 	instance.Use(prometheus.MetricsMiddleware())
 
-	prometheusRoute := getRoute()
+	prometheusRoute := GetRoute()
 
 	logger.Infof("configuring prometheus metrics router on %s", prometheusRoute)
 	instance.GET(prometheusRoute, echo.WrapHandler(promhttp.Handler()))

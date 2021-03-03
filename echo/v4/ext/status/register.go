@@ -11,13 +11,13 @@ import (
 )
 
 func Register(ctx context.Context, instance *echo.Echo) error {
-	if isEnabled() {
+	if IsEnabled() {
 		return nil
 	}
 
 	logger := gilog.FromContext(ctx)
 
-	statusRoute := getRoute()
+	statusRoute := GetRoute()
 
 	logger.Infof("configuring status router on %s", statusRoute)
 

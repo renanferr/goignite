@@ -16,10 +16,10 @@ func init() {
 	giconfig.Add(limit, 10000, "defines numbers for concurrent connections")
 }
 
-func isEnabled() bool {
+func IsEnabled() bool {
 	return giconfig.Bool(enabled)
 }
 
-func getLimit() int {
+func GetLimit() int {
 	return giconfig.Int(limit)
 }

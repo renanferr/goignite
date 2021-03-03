@@ -13,8 +13,8 @@ var (
 )
 
 func Register(ctx context.Context, instance *echo.Echo) error {
-	if isEnabled() {
-		instance.Use(Semaphore(int64(getLimit())))
+	if IsEnabled() {
+		instance.Use(Semaphore(int64(GetLimit())))
 	}
 	return nil
 }

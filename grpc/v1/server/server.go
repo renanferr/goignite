@@ -21,7 +21,7 @@ var (
 	instance *grpc.Server
 )
 
-type Ext func() []grpc.ServerOption
+type Ext func(ctx context.Context) []grpc.ServerOption
 
 func Start(ctx context.Context, exts ...Ext) (*grpc.Server, grpc.ServiceRegistrar) {
 
@@ -64,7 +64,7 @@ func Start(ctx context.Context, exts ...Ext) (*grpc.Server, grpc.ServiceRegistra
 	}
 
 	for _, ext := range exts {
-		serverOptions = append(serverOptions, ext()...)
+		serverOptions = append(serverOptions, ext(ctx)...)
 	}
 
 	serverOptions = append(serverOptions, grpc.MaxConcurrentStreams(uint32(giconfig.Int64(maxConcurrentStreams))))

@@ -1,10 +1,12 @@
 package logger
 
 import (
+	"context"
+
 	"google.golang.org/grpc"
 )
 
-func Register() []grpc.DialOption {
+func Register(ctx context.Context) []grpc.DialOption {
 
 	if !IsEnabled() {
 		return nil

@@ -8,12 +8,18 @@ import (
 const (
 	root    = gigrpc.ExtRoot + ".prometheus"
 	enabled = root + ".enabled"
+	route   = root + ".route"
 )
 
 func init() {
 	giconfig.Add(enabled, true, "enable/disable prometheus")
+	giconfig.Add(route, "/metrics", "prometheus route")
 }
 
 func IsEnabled() bool {
 	return giconfig.Bool(enabled)
+}
+
+func GetRoute() string {
+	return giconfig.String(enabled)
 }

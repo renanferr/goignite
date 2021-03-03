@@ -1,11 +1,13 @@
 package newrelic
 
 import (
+	"context"
+
 	"github.com/newrelic/go-agent/v3/integrations/nrgrpc"
 	"google.golang.org/grpc"
 )
 
-func Register() []grpc.DialOption {
+func Register(ctx context.Context) []grpc.DialOption {
 
 	if !IsEnabled() {
 		return nil

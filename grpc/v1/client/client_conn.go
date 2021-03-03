@@ -13,7 +13,7 @@ import (
 	"google.golang.org/grpc/encoding/gzip"
 )
 
-type Ext func() []grpc.DialOption
+type Ext func(ctx context.Context) []grpc.DialOption
 
 func NewClientConn(ctx context.Context, options *Options, exts ...Ext) *grpc.ClientConn {
 
@@ -44,7 +44,7 @@ func NewClientConn(ctx context.Context, options *Options, exts ...Ext) *grpc.Cli
 	}
 
 	for _, ext := range exts {
-		opts = append(opts, ext()...)
+		opts = append(opts, ext(ctx)...)
 	}
 	conn, err = grpc.Dial(serverAddr, opts...)
 

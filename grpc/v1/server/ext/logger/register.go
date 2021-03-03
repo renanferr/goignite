@@ -1,10 +1,12 @@
 package logger
 
 import (
+	"context"
+
 	"google.golang.org/grpc"
 )
 
-func Register() []grpc.ServerOption {
+func Register(ctx context.Context) []grpc.ServerOption {
 
 	if !IsEnabled() {
 		return nil

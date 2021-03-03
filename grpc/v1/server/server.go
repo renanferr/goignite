@@ -23,7 +23,7 @@ var (
 
 type Ext func() []grpc.ServerOption
 
-func Start(ctx context.Context, exts ...Ext) *grpc.Server {
+func Start(ctx context.Context, exts ...Ext) (*grpc.Server, grpc.ServiceRegistrar) {
 
 	logger := gilog.FromContext(ctx)
 
@@ -76,7 +76,7 @@ func Start(ctx context.Context, exts ...Ext) *grpc.Server {
 
 	instance = s
 
-	return instance
+	return instance, instance
 }
 
 func Serve(ctx context.Context) {

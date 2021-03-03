@@ -4,10 +4,10 @@ import (
 	"context"
 	"net/http"
 
-	chttp "github.com/b2wdigital/goignite/cloudevents/v1/http"
-	giconfig "github.com/b2wdigital/goignite/config"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
+	chttp "github.com/b2wdigital/goignite/v2/cloudevents/v1/http"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 	cloudevents "github.com/cloudevents/sdk-go"
 	"github.com/go-playground/validator/v10"
 )

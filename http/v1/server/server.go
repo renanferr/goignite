@@ -3,7 +3,7 @@ package gihttp
 import (
 	"net/http"
 
-	giconfig "github.com/b2wdigital/goignite/config"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
 )
 
 // NewServer returns a pointer with new Server

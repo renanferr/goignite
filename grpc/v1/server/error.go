@@ -1,7 +1,7 @@
 package gigrpc
 
 import (
-	"github.com/b2wdigital/goignite/errors"
+	"github.com/b2wdigital/goignite/v2/errors"
 	"github.com/go-playground/validator/v10"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

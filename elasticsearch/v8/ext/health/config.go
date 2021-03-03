@@ -1,8 +1,8 @@
 package health
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
-	gielasticsearch "github.com/b2wdigital/goignite/elasticsearch/v8"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gielasticsearch "github.com/b2wdigital/goignite/v2/elasticsearch/v8"
 )
 
 const (

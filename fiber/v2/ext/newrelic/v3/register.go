@@ -7,8 +7,8 @@ import (
 	"net/url"
 	"strings"
 
-	gilog "github.com/b2wdigital/goignite/log"
-	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/gofiber/fiber/v2"
 	"github.com/newrelic/go-agent/v3/newrelic"
 )

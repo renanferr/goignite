@@ -1,7 +1,7 @@
 package http
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
 	cloudevents "github.com/cloudevents/sdk-go"
 )
 

@@ -4,13 +4,13 @@ import (
 	"context"
 	"net/http"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gifiber "github.com/b2wdigital/goignite/fiber/v2"
-	"github.com/b2wdigital/goignite/fiber/v2/ext/cors"
-	"github.com/b2wdigital/goignite/fiber/v2/ext/etag"
-	"github.com/b2wdigital/goignite/info"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gifiber "github.com/b2wdigital/goignite/v2/fiber/v2"
+	"github.com/b2wdigital/goignite/v2/fiber/v2/ext/cors"
+	"github.com/b2wdigital/goignite/v2/fiber/v2/ext/etag"
+	"github.com/b2wdigital/goignite/v2/info"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 	"github.com/gofiber/fiber/v2"
 )
 

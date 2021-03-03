@@ -3,7 +3,7 @@ package giredis
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-redis/redis/v8"
 )
 

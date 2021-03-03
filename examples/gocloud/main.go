@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gigocloud "github.com/b2wdigital/goignite/gocloud/v0"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gigocloud "github.com/b2wdigital/goignite/v2/gocloud/v0"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 	"gocloud.dev/pubsub"
 )
 

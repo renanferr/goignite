@@ -3,9 +3,9 @@ package health
 import (
 	"context"
 
-	gihealth "github.com/b2wdigital/goignite/health"
-	gilog "github.com/b2wdigital/goignite/log"
-	gimongo "github.com/b2wdigital/goignite/mongo/v1"
+	gihealth "github.com/b2wdigital/goignite/v2/health"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gimongo "github.com/b2wdigital/goignite/v2/mongo/v1"
 )
 
 type Integrator struct {

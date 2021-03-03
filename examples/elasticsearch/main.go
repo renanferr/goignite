@@ -4,12 +4,12 @@ import (
 	"context"
 	"encoding/json"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gielasticsearch "github.com/b2wdigital/goignite/elasticsearch/v8"
-	gielasticsearchhealth "github.com/b2wdigital/goignite/elasticsearch/v8/ext/health"
-	gihealth "github.com/b2wdigital/goignite/health"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gielasticsearch "github.com/b2wdigital/goignite/v2/elasticsearch/v8"
+	gielasticsearchhealth "github.com/b2wdigital/goignite/v2/elasticsearch/v8/ext/health"
+	gihealth "github.com/b2wdigital/goignite/v2/health"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 )
 
 func main() {

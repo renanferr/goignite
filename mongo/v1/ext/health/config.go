@@ -1,8 +1,8 @@
 package health
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
-	gimongo "github.com/b2wdigital/goignite/mongo/v1"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gimongo "github.com/b2wdigital/goignite/v2/mongo/v1"
 )
 
 const (

@@ -1,10 +1,10 @@
 package main
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gieventbus "github.com/b2wdigital/goignite/v2/eventbus"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 )
 
 func main() {

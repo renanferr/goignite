@@ -1,8 +1,8 @@
 package health
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
-	ginats "github.com/b2wdigital/goignite/nats/v1"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	ginats "github.com/b2wdigital/goignite/v2/nats/v1"
 )
 
 const (

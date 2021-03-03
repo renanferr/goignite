@@ -3,8 +3,8 @@ package status
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/log"
-	"github.com/b2wdigital/goignite/rest/response"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/rest/response"
 	"github.com/gofiber/fiber/v2"
 )
 

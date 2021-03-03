@@ -3,7 +3,7 @@ package tid
 import (
 	"context"
 
-	"github.com/b2wdigital/goignite/info"
+	"github.com/b2wdigital/goignite/v2/info"
 	"github.com/gofiber/fiber/v2"
 	uuid "github.com/satori/go.uuid"
 )

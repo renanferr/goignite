@@ -1,6 +1,6 @@
 package gihttp
 
-import giconfig "github.com/b2wdigital/goignite/config"
+import giconfig "github.com/b2wdigital/goignite/v2/config"
 
 const (
 	root              = "gi.http.server"

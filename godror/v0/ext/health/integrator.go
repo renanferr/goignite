@@ -4,8 +4,8 @@ import (
 	"context"
 	"database/sql"
 
-	gihealth "github.com/b2wdigital/goignite/health"
-	gilog "github.com/b2wdigital/goignite/log"
+	gihealth "github.com/b2wdigital/goignite/v2/health"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 )
 
 type Integrator struct {

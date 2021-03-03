@@ -3,7 +3,7 @@ package http
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	cloudevents "github.com/cloudevents/sdk-go"
 )
 

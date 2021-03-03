@@ -3,8 +3,8 @@ package newrelic
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/log"
-	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/labstack/echo/v4"
 	"github.com/newrelic/go-agent/v3/integrations/nrecho-v4"
 	"github.com/newrelic/go-agent/v3/newrelic"

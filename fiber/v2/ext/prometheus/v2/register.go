@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/ansrivas/fiberprometheus/v2"
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/gofiber/fiber/v2"
 )
 

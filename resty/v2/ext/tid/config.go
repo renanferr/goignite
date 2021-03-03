@@ -1,8 +1,8 @@
 package tid
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
-	giresty "github.com/b2wdigital/goignite/resty/v2"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	giresty "github.com/b2wdigital/goignite/v2/resty/v2"
 )
 
 const (

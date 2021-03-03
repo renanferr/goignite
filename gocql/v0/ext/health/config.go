@@ -1,8 +1,8 @@
 package health
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
-	gigocql "github.com/b2wdigital/goignite/gocql/v0"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gigocql "github.com/b2wdigital/goignite/v2/gocql/v0"
 )
 
 const (

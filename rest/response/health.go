@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	gihealth "github.com/b2wdigital/goignite/health"
+	gihealth "github.com/b2wdigital/goignite/v2/health"
 	"github.com/lann/builder"
 )
 

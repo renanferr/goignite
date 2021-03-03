@@ -1,8 +1,8 @@
 package health
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
-	giredis "github.com/b2wdigital/goignite/redis/v7"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	giredis "github.com/b2wdigital/goignite/v2/redis/v7"
 )
 
 const (

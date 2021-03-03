@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/wesovilabs/beyond/api"
 	c "github.com/wesovilabs/beyond/api/context"
 )

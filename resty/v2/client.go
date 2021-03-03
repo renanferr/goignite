@@ -5,8 +5,8 @@ import (
 	"net"
 	"net/http"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gilog "github.com/b2wdigital/goignite/log"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-resty/resty/v2"
 )
 

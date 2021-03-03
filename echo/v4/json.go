@@ -3,8 +3,8 @@ package giecho
 import (
 	"net/http"
 
-	"github.com/b2wdigital/goignite/errors"
-	"github.com/b2wdigital/goignite/rest/response"
+	"github.com/b2wdigital/goignite/v2/errors"
+	"github.com/b2wdigital/goignite/v2/rest/response"
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 )

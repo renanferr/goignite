@@ -1,8 +1,8 @@
 package recover
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
-	gifiber "github.com/b2wdigital/goignite/fiber/v2"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gifiber "github.com/b2wdigital/goignite/v2/fiber/v2"
 )
 
 const (

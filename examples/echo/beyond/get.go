@@ -3,9 +3,9 @@ package main
 import (
 	"net/http"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	giecho "github.com/b2wdigital/goignite/echo/v4"
-	gilog "github.com/b2wdigital/goignite/log"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	giecho "github.com/b2wdigital/goignite/v2/echo/v4"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	e "github.com/labstack/echo/v4"
 )
 

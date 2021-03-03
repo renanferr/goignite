@@ -5,7 +5,7 @@ import (
 	"net"
 	"net/http"
 
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 )
 
 func NewClient(options *Options) *http.Client {

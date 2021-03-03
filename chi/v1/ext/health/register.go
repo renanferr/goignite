@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	gilog "github.com/b2wdigital/goignite/log"
-	"github.com/b2wdigital/goignite/rest/response"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/rest/response"
 	"github.com/go-chi/chi"
 )
 

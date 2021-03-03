@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gigrpc "github.com/b2wdigital/goignite/grpc/v1/server"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gigrpc "github.com/b2wdigital/goignite/v2/grpc/v1/server"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 )
 
 func main() {

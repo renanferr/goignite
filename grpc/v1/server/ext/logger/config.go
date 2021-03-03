@@ -1,8 +1,8 @@
 package logger
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
-	gigrpc "github.com/b2wdigital/goignite/grpc/v1/server"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gigrpc "github.com/b2wdigital/goignite/v2/grpc/v1/server"
 )
 
 const (

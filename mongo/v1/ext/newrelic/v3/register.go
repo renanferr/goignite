@@ -3,8 +3,8 @@ package newrelic
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/log"
-	gimongo "github.com/b2wdigital/goignite/mongo/v1"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gimongo "github.com/b2wdigital/goignite/v2/mongo/v1"
 	"github.com/newrelic/go-agent/v3/integrations/nrmongo"
 )
 

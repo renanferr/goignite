@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	_ "github.com/godror/godror"
 )
 

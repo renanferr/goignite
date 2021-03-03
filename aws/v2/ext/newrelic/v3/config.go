@@ -1,8 +1,8 @@
 package ginraws
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
-	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
 )
 
 const (

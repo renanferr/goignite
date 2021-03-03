@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/jlaffaye/ftp"
 	"gopkg.in/matryer/try.v1"
 )

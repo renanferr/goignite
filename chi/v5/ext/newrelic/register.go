@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"
+	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	nr "github.com/newrelic/go-agent/v3/newrelic"

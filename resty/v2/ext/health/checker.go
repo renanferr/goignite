@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/b2wdigital/goignite/errors"
+	"github.com/b2wdigital/goignite/v2/errors"
 	"github.com/go-resty/resty/v2"
 )
 

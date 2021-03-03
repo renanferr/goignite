@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"time"
 
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-resty/resty/v2"
 )
 

@@ -3,7 +3,7 @@ package newrelic
 import (
 	"context"
 
-	ginats "github.com/b2wdigital/goignite/nats/v1"
+	ginats "github.com/b2wdigital/goignite/v2/nats/v1"
 	"github.com/nats-io/nats.go"
 	"github.com/newrelic/go-agent/v3/integrations/nrnats"
 	"github.com/newrelic/go-agent/v3/newrelic"

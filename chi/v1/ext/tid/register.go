@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/b2wdigital/goignite/info"
+	"github.com/b2wdigital/goignite/v2/info"
 	"github.com/go-chi/chi"
 	uuid "github.com/satori/go.uuid"
 )

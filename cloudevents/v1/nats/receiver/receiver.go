@@ -3,7 +3,7 @@ package receiver
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 )
 
 func StartReceiver(ctx context.Context, fn interface{}, options *Options) {

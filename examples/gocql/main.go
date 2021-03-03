@@ -4,11 +4,11 @@ import (
 	"context"
 	"encoding/json"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gigocql "github.com/b2wdigital/goignite/gocql/v0"
-	gihealth "github.com/b2wdigital/goignite/health"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gigocql "github.com/b2wdigital/goignite/v2/gocql/v0"
+	gihealth "github.com/b2wdigital/goignite/v2/health"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 )
 
 func main() {

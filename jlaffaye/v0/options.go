@@ -1,7 +1,7 @@
 package gijlaffaye
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
 	"github.com/lann/builder"
 )
 
@@ -45,7 +45,7 @@ func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
 
-	err := giconfig.UnmarshalWithPath("gi.jlaffaye", o)
+	err := giconfig.UnmarshalWithPath(root, o)
 	if err != nil {
 		return nil, err
 	}

@@ -3,13 +3,13 @@ package http
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/log"
-	"github.com/cloudevents/sdk-go"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	cloudevents "github.com/cloudevents/sdk-go"
 )
 
 func Start(ctx context.Context, fn interface{}, method string) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	port := GetPort()
 	path := GetPath()
@@ -21,7 +21,7 @@ func Start(ctx context.Context, fn interface{}, method string) {
 		cloudevents.WithMethod(method),
 	)
 	if err != nil {
-		l.Fatalf("failed to create transport: %s", err.Error())
+		logger.Fatalf("failed to create transport: %s", err.Error())
 	}
 	c, err := cloudevents.NewClient(t,
 		cloudevents.WithUUIDs(),
@@ -29,13 +29,13 @@ func Start(ctx context.Context, fn interface{}, method string) {
 		cloudevents.WithDataContentType(contentType),
 	)
 	if err != nil {
-		l.Fatalf("failed to create client: %s", err.Error())
+		logger.Fatalf("failed to create client: %s", err.Error())
 	}
 
-	l.Infof("listening on %d:%s", port, path)
+	logger.Infof("listening on %d:%s", port, path)
 
 	if err := c.StartReceiver(ctx, fn); err != nil {
-		l.Fatalf("failed to start receiver: %s", err.Error())
+		logger.Fatalf("failed to start receiver: %s", err.Error())
 	}
 
 	<-ctx.Done()

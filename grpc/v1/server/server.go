@@ -8,8 +8,8 @@ import (
 	"io/ioutil"
 	"net"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gilog "github.com/b2wdigital/goignite/log"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/channelz/service"
 	"google.golang.org/grpc/credentials"
@@ -21,32 +21,36 @@ var (
 	instance *grpc.Server
 )
 
-func Start(ctx context.Context) *grpc.Server {
+type Ext func(ctx context.Context) []grpc.ServerOption
 
-	l := gilog.FromContext(ctx)
+func Start(ctx context.Context, exts ...Ext) (*grpc.Server, grpc.ServiceRegistrar) {
+
+	logger := gilog.FromContext(ctx)
 
 	gzip.SetLevel(9)
 
 	var s *grpc.Server
 
-	if giconfig.Bool(TlsEnabled) {
+	var serverOptions []grpc.ServerOption
+
+	if giconfig.Bool(tlsEnabled) {
 
 		// Load the certificates from disk
-		certificate, err := tls.LoadX509KeyPair(giconfig.String(CertFile), giconfig.String(KeyFile))
+		certificate, err := tls.LoadX509KeyPair(giconfig.String(certFile), giconfig.String(keyFile))
 		if err != nil {
-			l.Fatalf("could not load server key pair: %s", err)
+			logger.Fatalf("could not load server key pair: %s", err)
 		}
 
 		// Create a certificate pool from the certificate authority
 		certPool := x509.NewCertPool()
-		ca, err := ioutil.ReadFile(giconfig.String(CAFile))
+		ca, err := ioutil.ReadFile(giconfig.String(caFile))
 		if err != nil {
-			l.Fatalf("could not read ca certificate: %s", err)
+			logger.Fatalf("could not read ca certificate: %s", err)
 		}
 
 		// Append the client certificates from the CA
 		if ok := certPool.AppendCertsFromPEM(ca); !ok {
-			l.Fatalf("failed to append client certs")
+			logger.Fatalf("failed to append client certs")
 		}
 
 		// Create the TLS credentials
@@ -56,53 +60,46 @@ func Start(ctx context.Context) *grpc.Server {
 			ClientCAs:    certPool,
 		})
 
-		s = grpc.NewServer(
-			grpc.Creds(creds),
-			grpc.MaxConcurrentStreams(uint32(giconfig.Int64(MaxConcurrentStreams))),
-			// grpc.InitialConnWindowSize(100),
-			// grpc.InitialWindowSize(100),
-			grpc.StreamInterceptor(DebugStreamServerInterceptor()),
-			grpc.UnaryInterceptor(DebugUnaryServerInterceptor()),
-		)
-
-	} else {
-
-		s = grpc.NewServer(
-			grpc.MaxConcurrentStreams(uint32(giconfig.Int64(MaxConcurrentStreams))),
-			// grpc.InitialConnWindowSize(100),
-			// grpc.InitialWindowSize(100),
-			grpc.StreamInterceptor(DebugStreamServerInterceptor()),
-			grpc.UnaryInterceptor(DebugUnaryServerInterceptor()),
-		)
-
+		serverOptions = append(serverOptions, grpc.Creds(creds))
 	}
+
+	for _, ext := range exts {
+		serverOptions = append(serverOptions, ext(ctx)...)
+	}
+
+	serverOptions = append(serverOptions, grpc.MaxConcurrentStreams(uint32(giconfig.Int64(maxConcurrentStreams))))
+
+	s = grpc.NewServer(serverOptions...)
+
+	// grpc.InitialConnWindowSize(100),
+	// grpc.InitialWindowSize(100),
 
 	instance = s
 
-	return instance
+	return instance, instance
 }
 
 func Serve(ctx context.Context) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	service.RegisterChannelzServiceToServer(instance)
 
 	// Register reflection service on gRPC server.
 	reflection.Register(instance)
 
-	port := giconfig.Int(Port)
+	port := giconfig.Int(port)
 
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
-		l.Fatalf("failed to listen: %v", err)
+		logger.Fatalf("failed to listen: %v", err)
 		return
 	}
 
-	l.Infof("grpc server started on port %v", port)
+	logger.Infof("grpc server started on port %v", port)
 
 	if err := instance.Serve(lis); err != nil {
-		l.Fatalf("failed to serve: %v", err)
+		logger.Fatalf("failed to serve: %v", err)
 		return
 	}
 

@@ -3,10 +3,11 @@ package main
 import (
 	"context"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
-	giresty "github.com/b2wdigital/goignite/resty/v2"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
+	giresty "github.com/b2wdigital/goignite/v2/resty/v2"
+	"github.com/b2wdigital/goignite/v2/resty/v2/ext/health"
 )
 
 func main() {
@@ -19,7 +20,7 @@ func main() {
 
 	gilogrus.NewLogger()
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	// call google
 
@@ -27,18 +28,20 @@ func main() {
 
 	err = giconfig.UnmarshalWithPath("app.client.resty.google", googleopt)
 	if err != nil {
-		l.Errorf(err.Error())
+		logger.Errorf(err.Error())
 	}
 
-	cligoogle := giresty.NewClient(ctx, googleopt)
+	healthIntegrator := health.NewDefaultIntegrator()
+
+	cligoogle := giresty.NewClient(ctx, googleopt, healthIntegrator.Register)
 	reqgoogle := cligoogle.R()
 
 	respgoogle, err := reqgoogle.Get("/")
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
-	l.Infof(respgoogle.String())
+	logger.Infof(respgoogle.String())
 
 	// call acom
 
@@ -46,7 +49,7 @@ func main() {
 
 	err = giconfig.UnmarshalWithPath("app.client.resty.acom", acomopt)
 	if err != nil {
-		l.Errorf(err.Error())
+		logger.Errorf(err.Error())
 	}
 
 	cliacom := giresty.NewClient(ctx, acomopt)
@@ -54,8 +57,8 @@ func main() {
 
 	respacom, err := reqacom.Get("/")
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
-	l.Infof(respacom.String())
+	logger.Infof(respacom.String())
 }

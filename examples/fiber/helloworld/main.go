@@ -4,11 +4,13 @@ import (
 	"context"
 	"net/http"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gifiber "github.com/b2wdigital/goignite/fiber/v2"
-	"github.com/b2wdigital/goignite/info"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gifiber "github.com/b2wdigital/goignite/v2/fiber/v2"
+	"github.com/b2wdigital/goignite/v2/fiber/v2/ext/cors"
+	"github.com/b2wdigital/goignite/v2/fiber/v2/ext/etag"
+	"github.com/b2wdigital/goignite/v2/info"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -32,7 +34,7 @@ type Response struct {
 
 func Get(c *fiber.Ctx) (err error) {
 
-	l := gilog.FromContext(context.Background())
+	logger := gilog.FromContext(context.Background())
 
 	resp := Response{
 		Message: "Hello World!!",
@@ -40,7 +42,7 @@ func Get(c *fiber.Ctx) (err error) {
 
 	err = giconfig.Unmarshal(&resp)
 	if err != nil {
-		l.Errorf(err.Error())
+		logger.Errorf(err.Error())
 	}
 
 	return c.Status(http.StatusOK).JSON(resp)
@@ -63,7 +65,9 @@ func main() {
 
 	info.AppName = "helloworld"
 
-	instance := gifiber.Start(ctx)
+	instance := gifiber.Start(ctx,
+		cors.Register,
+		etag.Register)
 
 	instance.Get(c.App.Endpoint.Helloworld, Get)
 

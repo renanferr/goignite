@@ -3,12 +3,12 @@ package main
 import (
 	"context"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gihealth "github.com/b2wdigital/goignite/health"
-	gihealthmongo "github.com/b2wdigital/goignite/health/ext/mongo/v1"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
-	gimongo "github.com/b2wdigital/goignite/mongo/v1"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gihealth "github.com/b2wdigital/goignite/v2/health"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
+	gimongo "github.com/b2wdigital/goignite/v2/mongo/v1"
+	"github.com/b2wdigital/goignite/v2/mongo/v1/ext/health"
 )
 
 func main() {
@@ -16,10 +16,10 @@ func main() {
 	giconfig.Load()
 	gilogrus.NewLogger()
 
-	options, _ := gihealthmongo.DefaultOptions()
-	gihealthmongo.Integrate(options)
+	options, _ := health.DefaultOptions()
+	integrator := health.NewIntegrator(options)
 
-	gimongo.NewDefaultClient(context.Background())
+	gimongo.NewDefaultClient(context.Background(), integrator.Register)
 
 	all := gihealth.CheckAll(context.Background())
 

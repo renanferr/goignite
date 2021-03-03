@@ -3,15 +3,10 @@ package gik8s
 import (
 	"context"
 
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
-)
-
-const (
-	TopicClient = "topic:k8s:client"
 )
 
 func NewClient(ctx context.Context, options *Options) *kubernetes.Clientset {
@@ -33,8 +28,6 @@ func NewClient(ctx context.Context, options *Options) *kubernetes.Clientset {
 		logger.Error(err.Error())
 		return nil
 	}
-
-	gieventbus.Publish(TopicClient, client)
 
 	return client
 }

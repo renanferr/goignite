@@ -3,9 +3,9 @@ package main
 import (
 	"os"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 )
 
 type AppConfig struct {

@@ -1,22 +1,23 @@
 package gimongo
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
-	ConfigRoot = "gi.mongo"
-	Uri        = ConfigRoot + ".uri"
-	AuthRoot   = ConfigRoot + ".auth"
-	Username   = AuthRoot + ".username"
-	Password   = AuthRoot + ".password"
+	root     = "gi.mongo"
+	uri      = root + ".uri"
+	authRoot = root + ".auth"
+	username = authRoot + ".username"
+	password = authRoot + ".password"
+	ExtRoot  = root + ".Ext"
 )
 
 func init() {
 
-	giconfig.Add(Uri, "mongodb://localhost:27017/temp", "define mongodb uri")
+	giconfig.Add(uri, "mongodb://localhost:27017/temp", "define mongodb uri")
 
-	giconfig.Add(Username, "", "define username")
+	giconfig.Add(username, "", "define mongodb username")
 
-	giconfig.Add(Password, "", "define password")
+	giconfig.Add(password, "", "define mongodb password")
 }

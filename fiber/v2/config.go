@@ -1,56 +1,41 @@
 package gifiber
 
 import (
-	"net/http"
-
-	giconfig "github.com/b2wdigital/goignite/config"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
 	"github.com/gofiber/fiber/v2"
 )
 
 const (
-	fiberRoot                      = "gi.fiber"
-	statusRoute                    = fiberRoot + ".route.status"
-	healthRoute                    = fiberRoot + ".route.health"
-	port                           = fiberRoot + ".port"
-	configRoot                     = fiberRoot + ".config"
-	prefork                        = configRoot + ".prefork"
-	serverHeader                   = configRoot + ".serverHeader"
-	strictRouting                  = configRoot + ".strictRouting"
-	caseSensitive                  = configRoot + ".caseSensitive"
-	immutable                      = configRoot + ".immutable"
-	unescapePath                   = configRoot + ".unescapePath"
-	ETag                           = configRoot + ".ETag"
-	bodyLimit                      = configRoot + ".bodyLimit"
-	concurrency                    = configRoot + ".concurrency"
-	readTimeout                    = configRoot + ".readTimeout"
-	writeTimeout                   = configRoot + ".writeTimeout"
-	idleTimeout                    = configRoot + ".idleTimeout"
-	readBufferSize                 = configRoot + ".readBufferSize"
-	writeBufferSize                = configRoot + ".writeBufferSize"
-	compressedFileSuffix           = configRoot + ".compressedFileSuffix"
-	proxyHeader                    = configRoot + ".proxyHeader"
-	GETOnly                        = configRoot + ".GETOnly"
-	reduceMemoryUsage              = configRoot + ".reduceMemoryUsage"
-	network                        = configRoot + ".network"
-	disableKeepalive               = configRoot + ".disableKeepalive"
-	disableDefaultDate             = configRoot + ".disableDefaultDate"
-	disableDefaultContentType      = configRoot + ".disableDefaultContentType"
-	disableHeaderNormalizing       = configRoot + ".disableHeaderNormalizing"
-	disableStartupMessage          = configRoot + ".disableStartupMessage"
-	middlewareRoot                 = fiberRoot + ".middleware"
-	middlewareRequestIDEnabled     = middlewareRoot + ".requestid.enabled"
-	middlewareLogEnabled           = middlewareRoot + ".log.enabled"
-	middlewareRecoverEnabled       = middlewareRoot + ".recover.enabled"
-	middlewareCORSEnabled          = middlewareRoot + ".cors.enabled"
-	middlewareCORSAllowOrigins     = middlewareRoot + ".cors.allow.origins"
-	middlewareCORSAllowHeaders     = middlewareRoot + ".cors.allow.headers"
-	middlewareCORSAllowMethods     = middlewareRoot + ".cors.allow.methods"
-	middlewareCORSAllowCredentials = middlewareRoot + ".cors.allow.credentials"
-	middlewareCORSExposeHeaders    = middlewareRoot + ".cors.expose.headers"
-	middlewareCORSMaxAge           = middlewareRoot + ".cors.maxage"
-	middlewarePprofEnabled         = middlewareRoot + ".pprof.enabled"
-	middlewareMonitorEnabled       = middlewareRoot + ".monitor.enabled"
-	middlewareETagEnabled          = middlewareRoot + ".etag.enabled"
+	root                      = "gi.fiber"
+	statusRoute               = root + ".route.status"
+	healthRoute               = root + ".route.health"
+	port                      = root + ".port"
+	configRoot                = root + ".config"
+	prefork                   = configRoot + ".prefork"
+	serverHeader              = configRoot + ".serverHeader"
+	strictRouting             = configRoot + ".strictRouting"
+	caseSensitive             = configRoot + ".caseSensitive"
+	immutable                 = configRoot + ".immutable"
+	unescapePath              = configRoot + ".unescapePath"
+	ETag                      = configRoot + ".ETag"
+	bodyLimit                 = configRoot + ".bodyLimit"
+	concurrency               = configRoot + ".concurrency"
+	readTimeout               = configRoot + ".readTimeout"
+	writeTimeout              = configRoot + ".writeTimeout"
+	idleTimeout               = configRoot + ".idleTimeout"
+	readBufferSize            = configRoot + ".readBufferSize"
+	writeBufferSize           = configRoot + ".writeBufferSize"
+	compressedFileSuffix      = configRoot + ".compressedFileSuffix"
+	proxyHeader               = configRoot + ".proxyHeader"
+	GETOnly                   = configRoot + ".GETOnly"
+	reduceMemoryUsage         = configRoot + ".reduceMemoryUsage"
+	network                   = configRoot + ".network"
+	disableKeepalive          = configRoot + ".disableKeepalive"
+	disableDefaultDate        = configRoot + ".disableDefaultDate"
+	disableDefaultContentType = configRoot + ".disableDefaultContentType"
+	disableHeaderNormalizing  = configRoot + ".disableHeaderNormalizing"
+	disableStartupMessage     = configRoot + ".disableStartupMessage"
+	ExtRoot                   = root + ".Ext"
 )
 
 func init() {
@@ -81,85 +66,10 @@ func init() {
 	giconfig.Add(disableDefaultContentType, false, "When set to true, causes the default Content-Type header to be excluded from the Response.")
 	giconfig.Add(disableHeaderNormalizing, false, "By default all header names are normalized: conteNT-tYPE -> Content-Type")
 	giconfig.Add(disableStartupMessage, false, "When set to true, it will not print out debug information")
-	giconfig.Add(middlewareLogEnabled, false, "enable/disable logging request middleware")
-	giconfig.Add(middlewareRecoverEnabled, true, "enable/disable recover middleware")
-	giconfig.Add(middlewareCORSEnabled, false, "enable/disable cors middleware")
-	giconfig.Add(middlewareCORSAllowOrigins, []string{"*"}, "cors allow origins")
-	giconfig.Add(middlewareCORSAllowHeaders, []string{fiber.HeaderOrigin, fiber.HeaderContentType, fiber.HeaderAccept},
-		"cors allow headers")
-	giconfig.Add(middlewareCORSAllowMethods,
-		[]string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
-		"cors allow methods")
-	giconfig.Add(middlewareCORSAllowCredentials, true, "cors allow credentials")
-	giconfig.Add(middlewareCORSExposeHeaders, []string{}, "cors expose headers")
-	giconfig.Add(middlewareCORSMaxAge, 5200, "cors max age (seconds)")
-	giconfig.Add(middlewarePprofEnabled, false, "enable/disable pprof middleware")
-	giconfig.Add(middlewareMonitorEnabled, false, "enable/disable monitor middleware")
-	giconfig.Add(middlewareETagEnabled, false, "enable/disable etag middleware")
-
 }
 
 func Port() int {
 	return giconfig.Int(port)
-}
-
-func GetStatusRoute() string {
-	return giconfig.String(statusRoute)
-}
-
-func GetHealthRoute() string {
-	return giconfig.String(healthRoute)
-}
-
-func GetMiddlewareRequestIDEnabled() bool {
-	return giconfig.Bool(middlewareRequestIDEnabled)
-}
-func GetMiddlewareLogEnabled() bool {
-	return giconfig.Bool(middlewareLogEnabled)
-}
-
-func GetMiddlewareRecoverEnabled() bool {
-	return giconfig.Bool(middlewareRecoverEnabled)
-}
-
-func GetMiddlewareCORSEnabled() bool {
-	return giconfig.Bool(middlewareCORSEnabled)
-}
-
-func GetMiddlewareCORSAllowOrigins() []string {
-	return giconfig.Strings(middlewareCORSAllowOrigins)
-}
-
-func GetMiddlewareCORSAllowMethods() []string {
-	return giconfig.Strings(middlewareCORSAllowMethods)
-}
-
-func GetMiddlewareCORSAllowHeaders() []string {
-	return giconfig.Strings(middlewareCORSAllowHeaders)
-}
-
-func GetMiddlewareCORSAllowCredentials() bool {
-	return giconfig.Bool(middlewareCORSAllowCredentials)
-}
-
-func GetMiddlewareCORSExposeHeaders() []string {
-	return giconfig.Strings(middlewareCORSExposeHeaders)
-}
-
-func GetMiddlewareCORSMaxAge() int {
-	return giconfig.Int(middlewareCORSMaxAge)
-}
-
-func GetMiddlewarePprofEnabled() bool {
-	return giconfig.Bool(middlewarePprofEnabled)
-}
-
-func GetMiddlewareMonitorEnabled() bool {
-	return giconfig.Bool(middlewareMonitorEnabled)
-}
-
-func GetMiddlewareETagEnabled() bool {
-	return giconfig.Bool(middlewareETagEnabled)
 }
 
 func AppConfig() (*fiber.Config, error) {

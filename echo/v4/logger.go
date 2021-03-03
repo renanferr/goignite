@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/labstack/gommon/log"
 )
 
@@ -126,6 +126,6 @@ func (wl wrappedLogger) Fatalf(s string, i ...interface{}) {
 	wl.logger.Fatalf(fmt.Sprintf(s, i...))
 }
 
-func Wrap(l gilog.Logger) wrappedLogger {
+func WrapLogger(l gilog.Logger) wrappedLogger {
 	return wrappedLogger{logger: l}
 }

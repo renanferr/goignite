@@ -4,18 +4,13 @@ import (
 	"context"
 	"strings"
 
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/gocql/gocql"
-)
-
-const (
-	TopicSession = "topic:gocql:session"
 )
 
 func NewSession(ctx context.Context, o *Options) (session *gocql.Session, err error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	cluster := gocql.NewCluster(o.Hosts...)
 
@@ -101,20 +96,18 @@ func NewSession(ctx context.Context, o *Options) (session *gocql.Session, err er
 		return nil, err
 	}
 
-	gieventbus.Publish(TopicSession, session)
-
-	l.Infof("Connected to Cassandra server: %v", strings.Join(o.Hosts, ","))
+	logger.Infof("Connected to Cassandra server: %v", strings.Join(o.Hosts, ","))
 
 	return session, err
 }
 
 func NewDefaultSession(ctx context.Context) (*gocql.Session, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	return NewSession(ctx, o)

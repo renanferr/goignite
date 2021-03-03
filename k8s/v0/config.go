@@ -1,12 +1,12 @@
 package gik8s
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
-	configRoot     = "gi.k8s"
-	kubeConfigPath = configRoot + ".kubeConfigPath"
+	root           = "gi.k8s"
+	kubeConfigPath = root + ".kubeConfigPath"
 )
 
 func init() {

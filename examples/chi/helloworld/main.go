@@ -5,11 +5,17 @@ import (
 	"encoding/json"
 	"net/http"
 
-	gichi "github.com/b2wdigital/goignite/chi/v4"
-	giconfig "github.com/b2wdigital/goignite/config"
-	gihttp "github.com/b2wdigital/goignite/http/v1/server"
-	"github.com/b2wdigital/goignite/info"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
+	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
+	"github.com/b2wdigital/goignite/v2/chi/v5/ext/health"
+	"github.com/b2wdigital/goignite/v2/chi/v5/ext/logger"
+	"github.com/b2wdigital/goignite/v2/chi/v5/ext/realip"
+	"github.com/b2wdigital/goignite/v2/chi/v5/ext/recoverer"
+	"github.com/b2wdigital/goignite/v2/chi/v5/ext/status"
+	"github.com/b2wdigital/goignite/v2/chi/v5/ext/tid"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gihttp "github.com/b2wdigital/goignite/v2/http/v1/server"
+	"github.com/b2wdigital/goignite/v2/info"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 	"github.com/prometheus/common/log"
 )
 
@@ -61,12 +67,17 @@ func main() {
 
 	info.AppName = "helloworld"
 
-	instance := gichi.NewMux(ctx)
+	instance := gichi.NewMux(ctx,
+		tid.Register,
+		recoverer.Register,
+		realip.Register,
+		logger.Register,
+		status.Register,
+		health.Register)
 
 	instance.Get(c.App.Endpoint.Helloworld, Get(ctx))
 
 	log.Infof("starting chi server.")
 	err = gihttp.NewServer(instance).ListenAndServe()
 	log.Fatalf("cannot start chi server", err)
-
 }

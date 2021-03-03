@@ -3,76 +3,76 @@ package gihttp
 import (
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/config"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
-	Pkg                   = "gi.http.client"
-	MaxIdleConnPerHost    = Pkg + ".maxIdleConnPerHost"
-	MaxIdleConn           = Pkg + ".maxIdleConn"
-	MaxConnsPerHost       = Pkg + ".maxConnsPerHost"
-	IdleConnTimeout       = Pkg + ".idleConnTimeout"
-	DisableKeepAlives     = Pkg + ".disableKeepAlives"
-	ForceHTTP2            = Pkg + ".forceHTTP2"
-	TLSHandshakeTimeout   = Pkg + ".TLSHandshakeTimeout"
-	Timeout               = Pkg + ".timeout"
-	KeepAlive             = Pkg + ".keepAlive"
-	ExpectContinueTimeout = Pkg + ".expectContinueTimeout"
-	DualStack             = Pkg + ".dualStack"
+	root                  = "gi.http.client"
+	maxIdleConnPerHost    = root + ".maxIdleConnPerHost"
+	maxIdleConn           = root + ".maxIdleConn"
+	maxConnsPerHost       = root + ".maxConnsPerHost"
+	idleConnTimeout       = root + ".idleConnTimeout"
+	disableKeepAlives     = root + ".disableKeepAlives"
+	forceHTTP2            = root + ".forceHTTP2"
+	tlsHandshakeTimeout   = root + ".TLSHandshakeTimeout"
+	timeout               = root + ".timeout"
+	keepAlive             = root + ".keepAlive"
+	expectContinueTimeout = root + ".expectContinueTimeout"
+	dualStack             = root + ".dualStack"
 )
 
 func init() {
 
-	giconfig.Add(MaxIdleConnPerHost, 1, "http max idle connections per host")
-	giconfig.Add(MaxIdleConn, 100, "http max idle connections")
-	giconfig.Add(MaxConnsPerHost, 20, "http max connections per host")
-	giconfig.Add(IdleConnTimeout, 90*time.Second, "http idle connections timeout")
-	giconfig.Add(DisableKeepAlives, true, "http disable keep alives")
-	giconfig.Add(ForceHTTP2, true, "http force http2")
-	giconfig.Add(TLSHandshakeTimeout, 10*time.Second, "TLS handshake timeout")
-	giconfig.Add(Timeout, 30*time.Second, "timeout")
-	giconfig.Add(KeepAlive, 15*time.Second, "keep alive")
-	giconfig.Add(ExpectContinueTimeout, 1*time.Second, "expect continue timeout")
-	giconfig.Add(DualStack, true, "dual stack")
+	giconfig.Add(maxIdleConnPerHost, 1, "http max idle connections per host")
+	giconfig.Add(maxIdleConn, 100, "http max idle connections")
+	giconfig.Add(maxConnsPerHost, 20, "http max connections per host")
+	giconfig.Add(idleConnTimeout, 90*time.Second, "http idle connections timeout")
+	giconfig.Add(disableKeepAlives, true, "http disable keep alives")
+	giconfig.Add(forceHTTP2, true, "http force http2")
+	giconfig.Add(tlsHandshakeTimeout, 10*time.Second, "TLS handshake timeout")
+	giconfig.Add(timeout, 30*time.Second, "timeout")
+	giconfig.Add(keepAlive, 15*time.Second, "keep alive")
+	giconfig.Add(expectContinueTimeout, 1*time.Second, "expect continue timeout")
+	giconfig.Add(dualStack, true, "dual stack")
 
 }
 
-func MaxIdleConnValue() int {
-	return giconfig.Int(MaxIdleConn)
+func maxIdleConnValue() int {
+	return giconfig.Int(maxIdleConn)
 }
 
-func MaxIdleConnPerHostValue() int {
-	return giconfig.Int(MaxIdleConnPerHost)
+func maxIdleConnPerHostValue() int {
+	return giconfig.Int(maxIdleConnPerHost)
 }
 
-func MaxConnsPerHostValue() int {
-	return giconfig.Int(MaxConnsPerHost)
+func maxConnsPerHostValue() int {
+	return giconfig.Int(maxConnsPerHost)
 }
 
-func IdleConnTimeoutValue() time.Duration {
-	return giconfig.Duration(IdleConnTimeout)
+func idleConnTimeoutValue() time.Duration {
+	return giconfig.Duration(idleConnTimeout)
 }
 
-func DisableKeepAlivesValue() bool {
-	return giconfig.Bool(DisableKeepAlives)
+func disableKeepAlivesValue() bool {
+	return giconfig.Bool(disableKeepAlives)
 }
 
-func ForceHTTP2Value() bool {
-	return giconfig.Bool(ForceHTTP2)
+func forceHTTP2Value() bool {
+	return giconfig.Bool(forceHTTP2)
 }
 
-func TLSHandshakeTimeoutValue() time.Duration {
-	return giconfig.Duration(TLSHandshakeTimeout)
+func tlsHandshakeTimeoutValue() time.Duration {
+	return giconfig.Duration(tlsHandshakeTimeout)
 }
 
-func TimeoutValue() time.Duration {
-	return giconfig.Duration(Timeout)
+func timeoutValue() time.Duration {
+	return giconfig.Duration(timeout)
 }
 
-func KeepAliveValue() time.Duration {
-	return giconfig.Duration(KeepAlive)
+func keepAliveValue() time.Duration {
+	return giconfig.Duration(keepAlive)
 }
 
-func ExpectContinueTimeoutValue() time.Duration {
-	return giconfig.Duration(ExpectContinueTimeout)
+func expectContinueTimeoutValue() time.Duration {
+	return giconfig.Duration(expectContinueTimeout)
 }

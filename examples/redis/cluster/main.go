@@ -4,12 +4,12 @@ import (
 	"context"
 	"encoding/json"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gihealth "github.com/b2wdigital/goignite/health"
-	gihealthredis "github.com/b2wdigital/goignite/health/ext/redis/v7"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
-	giredis "github.com/b2wdigital/goignite/redis/v7"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gihealth "github.com/b2wdigital/goignite/v2/health"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
+	giredis "github.com/b2wdigital/goignite/v2/redis/v7"
+	"github.com/b2wdigital/goignite/v2/redis/v7/ext/health"
 )
 
 func main() {
@@ -19,19 +19,10 @@ func main() {
 	gilogrus.NewLogger()
 
 	var err error
-	var o *gihealthredis.Options
 
-	o, err = gihealthredis.DefaultOptions()
-	if err != nil {
-		gilog.Error(err)
-	}
+	healthIntegrator := health.NewDefaultClusterIntegrator()
 
-	err = gihealthredis.ClusterIntegrate(o)
-	if err != nil {
-		gilog.Error(err)
-	}
-
-	_, err = giredis.NewDefaultClusterClient(context.Background())
+	_, err = giredis.NewDefaultClusterClient(context.Background(), healthIntegrator.Register)
 	if err != nil {
 		gilog.Error(err)
 	}

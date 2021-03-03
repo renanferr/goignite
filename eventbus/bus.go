@@ -8,7 +8,7 @@ var (
 	bus evbus.Bus
 )
 
-func init() {
+func Start() {
 	bus = evbus.New()
 }
 

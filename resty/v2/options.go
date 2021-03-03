@@ -11,7 +11,6 @@ type Options struct {
 	ConnectionTimeout time.Duration
 	KeepAlive         time.Duration
 	RequestTimeout    time.Duration
-	Retry             *OptionsRetry
 	Transport         *OptionsTransport
 	Host              string
 }
@@ -28,10 +27,6 @@ func (b optionsBuilder) KeepAlive(keepalive time.Duration) optionsBuilder {
 
 func (b optionsBuilder) RequestTimeout(timeout time.Duration) optionsBuilder {
 	return builder.Set(b, "RequestTimeout", timeout).(optionsBuilder)
-}
-
-func (b optionsBuilder) Retry(retry *OptionsRetry) optionsBuilder {
-	return builder.Set(b, "Retry", retry).(optionsBuilder)
 }
 
 func (b optionsBuilder) Host(host string) optionsBuilder {

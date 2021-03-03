@@ -5,10 +5,10 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
-	giaws "github.com/b2wdigital/goignite/aws/v2"
-	giconfig "github.com/b2wdigital/goignite/config"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
+	giaws "github.com/b2wdigital/goignite/v2/aws/v2"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 	"github.com/prometheus/common/log"
 )
 
@@ -30,7 +30,7 @@ func main() {
 	gilogrus.NewLogger()
 
 	// get logrus instance from context
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	// create default aws config
 	awsConfig := giaws.NewDefaultConfig(ctx)
@@ -57,14 +57,14 @@ func main() {
 
 	if err != nil {
 
-		l.Fatalf("unable check file %s in s3 bucket %s", filename, bucket)
+		logger.Fatalf("unable check file %s in s3 bucket %s", filename, bucket)
 	}
 
-	l = l.WithFields(
+	logger = logger.WithFields(
 		gilog.Fields{"lastModified": head.LastModified,
 			"versionId": head.VersionId,
 		})
 
-	l.Debugf("file %s exists on bucket %s", filename, bucket)
+	logger.Debugf("file %s exists on bucket %s", filename, bucket)
 
 }

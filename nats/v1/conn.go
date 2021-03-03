@@ -3,18 +3,15 @@ package ginats
 import (
 	"context"
 
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/nats-io/nats.go"
 )
 
-const (
-	TopicConn = "topic:nats:conn"
-)
+type Ext func(context.Context, *nats.Conn) error
 
-func NewConnection(ctx context.Context, options *Options) (*nats.Conn, error) {
+func NewConnection(ctx context.Context, options *Options, exts ...Ext) (*nats.Conn, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	conn, err := nats.Connect(
 		options.Url,
@@ -29,23 +26,27 @@ func NewConnection(ctx context.Context, options *Options) (*nats.Conn, error) {
 		return nil, err
 	}
 
-	gieventbus.Publish(TopicConn, conn)
+	for _, ext := range exts {
+		if err := ext(ctx, conn); err != nil {
+			panic(err)
+		}
+	}
 
-	l.Infof("Connected to NATS server: %s", options.Url)
+	logger.Infof("Connected to NATS server: %s", options.Url)
 
 	return conn, nil
 }
 
-func NewDefaultConnection(ctx context.Context) (*nats.Conn, error) {
+func NewDefaultConnection(ctx context.Context, exts ...Ext) (*nats.Conn, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
-	return NewConnection(ctx, o)
+	return NewConnection(ctx, o, exts...)
 }
 
 func disconnectedErrHandler(nc *nats.Conn, err error) {

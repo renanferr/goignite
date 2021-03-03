@@ -4,12 +4,12 @@ import (
 	"context"
 	"encoding/json"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gihealth "github.com/b2wdigital/goignite/health"
-	gihealthelasticsearch "github.com/b2wdigital/goignite/health/ext/elasticsearch/v8"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
-	"github.com/elastic/go-elasticsearch/v8"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gielasticsearch "github.com/b2wdigital/goignite/v2/elasticsearch/v8"
+	gielasticsearchhealth "github.com/b2wdigital/goignite/v2/elasticsearch/v8/ext/health"
+	gihealth "github.com/b2wdigital/goignite/v2/health"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 )
 
 func main() {
@@ -18,10 +18,10 @@ func main() {
 
 	gilogrus.NewLogger()
 
-	o, _ := gihealthelasticsearch.DefaultOptions()
-	gihealthelasticsearch.Integrate(o)
+	o, _ := gielasticsearchhealth.DefaultOptions()
+	integrator := gielasticsearchhealth.NewIntegrator(o)
 
-	_, err := elasticsearch.NewDefaultClient()
+	_, err := gielasticsearch.NewDefaultClient(context.Background(), integrator.Register)
 	if err != nil {
 		gilog.Error(err)
 	}

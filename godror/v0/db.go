@@ -4,18 +4,15 @@ import (
 	"context"
 	"database/sql"
 
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	_ "github.com/godror/godror"
 )
 
-const (
-	TopicDB = "topic:godror:db"
-)
+type Ext func(context.Context, *sql.DB) error
 
-func NewDB(ctx context.Context, o *Options) (db *sql.DB, err error) {
+func NewDB(ctx context.Context, o *Options, exts ...Ext) (db *sql.DB, err error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	db, err = sql.Open("godror", o.DataSourceName)
 	if err != nil {
@@ -31,21 +28,25 @@ func NewDB(ctx context.Context, o *Options) (db *sql.DB, err error) {
 		return nil, err
 	}
 
-	gieventbus.Publish(TopicDB, db)
+	for _, ext := range exts {
+		if err := ext(ctx, db); err != nil {
+			panic(err)
+		}
+	}
 
-	l.Info("Connected to Oracle (godror) server")
+	logger.Info("Connected to Oracle (godror) server")
 
 	return db, err
 }
 
-func NewDefaultDB(ctx context.Context) (*sql.DB, error) {
+func NewDefaultDB(ctx context.Context, exts ...Ext) (*sql.DB, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
-	return NewDB(ctx, o)
+	return NewDB(ctx, o, exts...)
 }

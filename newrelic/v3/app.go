@@ -4,19 +4,25 @@ import (
 	"context"
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	gilog "github.com/b2wdigital/goignite/log"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
 var app *newrelic.Application
 
 func Application() *newrelic.Application {
+	if app == nil {
+		var err error
+		if app, err = NewApplication(context.Background()); err != nil {
+			panic(err)
+		}
+	}
 	return app
 }
 
 func NewApplication(ctx context.Context) (*newrelic.Application, error) {
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	enabled := giconfig.Bool(Enabled)
 	appName := giconfig.String(AppName)
@@ -45,7 +51,7 @@ func NewApplication(ctx context.Context) (*newrelic.Application, error) {
 	}
 
 	if enabled {
-		l.Infof("started a new NewRelic application: %s", appName)
+		logger.Infof("started a new NewRelic application: %s", appName)
 	}
 
 	app = a

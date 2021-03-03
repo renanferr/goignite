@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 )
 
 // Logger implements the estransport.Logger interface.

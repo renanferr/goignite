@@ -1,15 +1,13 @@
 package gigraphql
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
 	"github.com/graphql-go/handler"
 )
 
 const (
-	rootConfig = "gi.graphql"
-
-	handlerConfig = rootConfig + ".handler"
-
+	root             = "gi.graphql"
+	handlerConfig    = root + ".handler"
 	pretty           = handlerConfig + ".pretty"
 	enableGraphiQL   = handlerConfig + ".graphiQL"
 	enablePlayground = handlerConfig + ".playground"

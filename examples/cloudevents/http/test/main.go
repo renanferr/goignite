@@ -4,11 +4,11 @@ import (
 	"context"
 	"net/http"
 
-	chttp "github.com/b2wdigital/goignite/cloudevents/v1/http"
-	giconfig "github.com/b2wdigital/goignite/config"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
-	"github.com/cloudevents/sdk-go"
+	chttp "github.com/b2wdigital/goignite/v2/cloudevents/v1/http"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
+	cloudevents "github.com/cloudevents/sdk-go"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -36,11 +36,11 @@ func main() {
 
 func Test2(ctx context.Context, e cloudevents.Event, resp *cloudevents.EventResponse) error {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	user := &User{}
 	if err := e.DataAs(user); err != nil {
-		l.Errorf("Got Data Error: %s\n", err.Error())
+		logger.Errorf("Got Data Error: %s\n", err.Error())
 	}
 
 	validate := validator.New()

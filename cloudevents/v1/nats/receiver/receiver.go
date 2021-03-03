@@ -3,12 +3,12 @@ package receiver
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 )
 
 func StartReceiver(ctx context.Context, fn interface{}, options *Options) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	for _, subject := range options.Subjects {
 
@@ -18,13 +18,13 @@ func StartReceiver(ctx context.Context, fn interface{}, options *Options) {
 
 			c, err := NewClient(options.Url, subject)
 			if err != nil {
-				l.Fatalf("failed to create client: %s", err.Error())
+				logger.Fatalf("failed to create client: %s", err.Error())
 			}
 
-			l.Infof("connected to the %s with the subject %s", options.Url, subject)
+			logger.Infof("connected to the %s with the subject %s", options.Url, subject)
 
 			if err := c.StartReceiver(ctx, fn); err != nil {
-				l.Fatalf("failed to start receiver: %s", err.Error())
+				logger.Fatalf("failed to start receiver: %s", err.Error())
 			}
 
 			cancel()
@@ -37,11 +37,11 @@ func StartReceiver(ctx context.Context, fn interface{}, options *Options) {
 }
 
 func StartDefaultReceiver(ctx context.Context, fn interface{}) {
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	StartReceiver(ctx, fn, o)

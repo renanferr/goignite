@@ -13,15 +13,15 @@ type ClientOptions struct {
 type clientOptionsBuilder builder.Builder
 
 func (b clientOptionsBuilder) Addr(value string) clientOptionsBuilder {
-	return builder.Set(b, "Addr", value).(clientOptionsBuilder)
+	return builder.Set(b, "addr", value).(clientOptionsBuilder)
 }
 
 func (b clientOptionsBuilder) Network(value string) clientOptionsBuilder {
-	return builder.Set(b, "Network", value).(clientOptionsBuilder)
+	return builder.Set(b, "network", value).(clientOptionsBuilder)
 }
 
 func (b clientOptionsBuilder) DB(value int) clientOptionsBuilder {
-	return builder.Set(b, "DB", value).(clientOptionsBuilder)
+	return builder.Set(b, "db", value).(clientOptionsBuilder)
 }
 
 func (b clientOptionsBuilder) Build() ClientOptions {

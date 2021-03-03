@@ -3,18 +3,15 @@ package giredis
 import (
 	"context"
 
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-redis/redis/v7"
 )
 
-const (
-	TopicClient = "topic:redis:v7:client"
-)
+type Ext func(context.Context, *redis.Client) error
 
-func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error) {
+func NewClient(ctx context.Context, o *Options, exts ...Ext) (client *redis.Client, err error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	if redisSentinel(o) {
 		client = failOverClient(o)
@@ -27,9 +24,13 @@ func NewClient(ctx context.Context, o *Options) (client *redis.Client, err error
 		return nil, ping.Err()
 	}
 
-	gieventbus.Publish(TopicClient, client)
+	for _, ext := range exts {
+		if err := ext(ctx, client); err != nil {
+			panic(err)
+		}
+	}
 
-	l.Infof("Connected to Redis server: %s %s", client.Options().Addr, ping.String())
+	logger.Infof("Connected to Redis server: %s %s", client.Options().Addr, ping.String())
 
 	return client, err
 }
@@ -81,14 +82,14 @@ func redisSentinel(o *Options) bool {
 	return o.Sentinel.MasterName != "" || o.Sentinel.Addrs != nil
 }
 
-func NewDefaultClient(ctx context.Context) (*redis.Client, error) {
+func NewDefaultClient(ctx context.Context, exts ...Ext) (*redis.Client, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
-	return NewClient(ctx, o)
+	return NewClient(ctx, o, exts...)
 }

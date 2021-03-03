@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 
-	giconfig "github.com/b2wdigital/goignite/config"
-	"github.com/b2wdigital/goignite/gocloud/v0"
-	gilog "github.com/b2wdigital/goignite/log"
-	gilogrus "github.com/b2wdigital/goignite/log/logrus/v1"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gigocloud "github.com/b2wdigital/goignite/v2/gocloud/v0"
+	gilog "github.com/b2wdigital/goignite/v2/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 	"gocloud.dev/pubsub"
 )
 
@@ -18,11 +18,11 @@ func main() {
 
 	gilogrus.NewLogger()
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	topic, err := gigocloud.NewDefaultTopic(ctx)
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	meta := map[string]string{}
@@ -35,27 +35,27 @@ func main() {
 	}
 
 	if err := topic.Send(ctx, message); err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	defer topic.Shutdown(ctx)
 
-	l.Infof("sucesss message send")
+	logger.Infof("sucesss message send")
 
 	// Don't works using memory
 	// subscription, err := gocloud.NewDefaultSubscription(ctx)
 	// if err != nil {
-	// 	l.Fatalf(err.Error())
+	// 	logger.Fatalf(err.Error())
 	// }
 
 	// Loop on received messages.
 	// for {
 	// 	m, err := subscription.Receive(ctx)
 	// 	if err != nil {
-	// 		l.Info("Receiving message: %v", err)
+	// 		logger.Info("Receiving message: %v", err)
 	// 		break
 	// 	}
-	// 	l.Info("Got message: ", string(m.Body))
+	// 	logger.Info("Got message: ", string(m.Body))
 	// 	m.Ack()
 	// }
 

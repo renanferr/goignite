@@ -1,19 +1,21 @@
 package gilog
 
 import (
-	giconfig "github.com/b2wdigital/goignite/config"
+	giconfig "github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
-	ConsoleEnabled = "gi.log.console.enabled"
-	ConsoleLevel   = "gi.log.console.level"
-	FileEnabled    = "gi.log.file.enabled"
-	FileLevel      = "gi.log.file.level"
-	FilePath       = "gi.log.file.path"
-	FileName       = "gi.log.file.name"
-	FileMaxSize    = "gi.log.file.maxsize"
-	FileCompress   = "gi.log.file.compress"
-	FileMaxAge     = "gi.log.file.maxage"
+	root           = "gi.log"
+	ConsoleEnabled = root + ".console.enabled"
+	ConsoleLevel   = root + ".console.level"
+	fileRoot       = root + ".file"
+	FileEnabled    = fileRoot + ".enabled"
+	FileLevel      = fileRoot + ".level"
+	FilePath       = fileRoot + ".path"
+	FileName       = fileRoot + ".name"
+	FileMaxSize    = fileRoot + ".maxsize"
+	FileCompress   = fileRoot + ".compress"
+	FileMaxAge     = fileRoot + ".maxage"
 )
 
 func init() {

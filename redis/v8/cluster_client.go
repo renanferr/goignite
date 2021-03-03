@@ -4,18 +4,15 @@ import (
 	"context"
 	"strings"
 
-	gieventbus "github.com/b2wdigital/goignite/eventbus"
-	gilog "github.com/b2wdigital/goignite/log"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-redis/redis/v8"
 )
 
-const (
-	TopicClusterClient = "topic:redis:v8:cluster:client"
-)
+type clusterExt func(context.Context, *redis.ClusterClient) error
 
-func NewClusterClient(ctx context.Context, o *Options) (client *redis.ClusterClient, err error) {
+func NewClusterClient(ctx context.Context, o *Options, exts ...clusterExt) (client *redis.ClusterClient, err error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	client = redis.NewClusterClient(&redis.ClusterOptions{
 		Addrs:              o.Cluster.Addrs,
@@ -43,21 +40,25 @@ func NewClusterClient(ctx context.Context, o *Options) (client *redis.ClusterCli
 		return nil, ping.Err()
 	}
 
-	gieventbus.Publish(TopicClusterClient, client)
+	for _, ext := range exts {
+		if err := ext(ctx, client); err != nil {
+			panic(err)
+		}
+	}
 
-	l.Infof("Connected to Redis Cluster server: %s status: %s", strings.Join(client.Options().Addrs, ","), ping.String())
+	logger.Infof("Connected to Redis Cluster server: %s status: %s", strings.Join(client.Options().Addrs, ","), ping.String())
 
 	return client, err
 }
 
-func NewDefaultClusterClient(ctx context.Context) (*redis.ClusterClient, error) {
+func NewDefaultClusterClient(ctx context.Context, exts ...clusterExt) (*redis.ClusterClient, error) {
 
-	l := gilog.FromContext(ctx)
+	logger := gilog.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
-		l.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
-	return NewClusterClient(ctx, o)
+	return NewClusterClient(ctx, o, exts...)
 }

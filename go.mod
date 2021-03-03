@@ -1,6 +1,6 @@
-module github.com/b2wdigital/goignite
+module github.com/b2wdigital/goignite/v2
 
-go 1.13
+go 1.16
 
 require (
 	github.com/ansrivas/fiberprometheus/v2 v2.1.1

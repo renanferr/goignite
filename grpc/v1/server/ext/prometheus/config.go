@@ -21,5 +21,5 @@ func IsEnabled() bool {
 }
 
 func GetRoute() string {
-	return giconfig.String(enabled)
+	return giconfig.String(route)
 }

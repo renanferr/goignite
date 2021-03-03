@@ -32,6 +32,7 @@ func logBeforeResponse(client *resty.Client, request *resty.Request) error {
 	logger = logger.
 		WithFields(
 			gilog.Fields{
+				"rest_client_host":     client.HostURL,
 				"rest_request_body":    string(requestBody),
 				"rest_request_url":     request.URL,
 				"rest_request_headers": string(requestHeaders),

@@ -1,4 +1,4 @@
-package giresty
+package newrelic
 
 import (
 	"context"

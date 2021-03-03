@@ -1,4 +1,4 @@
-package logger
+package newrelic
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"

@@ -1,4 +1,4 @@
-package logger
+package prometheus
 
 import (
 	giconfig "github.com/b2wdigital/goignite/config"

@@ -1,4 +1,4 @@
-package logger
+package prometheus
 
 import (
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"

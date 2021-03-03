@@ -1,4 +1,4 @@
-package logger
+package newrelic
 
 import (
 	ginewrelic "github.com/b2wdigital/goignite/newrelic/v3"

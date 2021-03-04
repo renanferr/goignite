@@ -6,12 +6,12 @@ import (
 	"net/http"
 
 	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	"github.com/b2wdigital/goignite/v2/chi/v5/ext/health"
-	"github.com/b2wdigital/goignite/v2/chi/v5/ext/logger"
-	"github.com/b2wdigital/goignite/v2/chi/v5/ext/realip"
-	"github.com/b2wdigital/goignite/v2/chi/v5/ext/recoverer"
-	"github.com/b2wdigital/goignite/v2/chi/v5/ext/status"
-	"github.com/b2wdigital/goignite/v2/chi/v5/ext/tid"
+	gichihealth "github.com/b2wdigital/goignite/v2/chi/v5/ext/health"
+	gichilogger "github.com/b2wdigital/goignite/v2/chi/v5/ext/logger"
+	gichirealip "github.com/b2wdigital/goignite/v2/chi/v5/ext/realip"
+	gichirecoverer "github.com/b2wdigital/goignite/v2/chi/v5/ext/recoverer"
+	gichistatus "github.com/b2wdigital/goignite/v2/chi/v5/ext/status"
+	gichitid "github.com/b2wdigital/goignite/v2/chi/v5/ext/tid"
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 	"github.com/b2wdigital/goignite/v2/info"
 	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
@@ -66,12 +66,12 @@ func main() {
 	info.AppName = "helloworld"
 
 	instance := gichi.New(ctx,
-		tid.Register,
-		recoverer.Register,
-		realip.Register,
-		logger.Register,
-		status.Register,
-		health.Register)
+		gichitid.Register,
+		gichirecoverer.Register,
+		gichirealip.Register,
+		gichilogger.Register,
+		gichistatus.Register,
+		gichihealth.Register)
 
 	instance.Get(c.App.Endpoint.Helloworld, Get(ctx))
 

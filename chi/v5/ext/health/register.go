@@ -1,30 +1,37 @@
-package health
+package gichihealth
 
 import (
 	"context"
 	"encoding/json"
 	"net/http"
 
+	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/b2wdigital/goignite/v2/rest/response"
-	"github.com/go-chi/chi/v5"
 )
 
-func Register(ctx context.Context, instance *chi.Mux) error {
+func Register(ctx context.Context) (*gichi.Config, error) {
 	if !IsEnabled() {
-		return nil
+		return nil, nil
 	}
 
 	logger := gilog.FromContext(ctx)
 
 	healthRoute := getRoute()
 
-	logger.Infof("configuring health router on %s", healthRoute)
+	logger.Tracef("configuring health router on %s", healthRoute)
 
 	healthHandler := NewHealthHandler()
-	instance.Get(healthRoute, healthHandler.Get(ctx))
 
-	return nil
+	return &gichi.Config{
+		Routes: []gichi.ConfigRouter{
+			{
+				Method:      http.MethodGet,
+				HandlerFunc: healthHandler.Get(ctx),
+				Pattern:     healthRoute,
+			},
+		},
+	}, nil
 }
 
 func NewHealthHandler() *HealthHandler {

@@ -1,31 +1,35 @@
-package prometheus
+package gichiprometheus
 
 import (
 	"context"
+	"net/http"
 
+	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
 	gilog "github.com/b2wdigital/goignite/v2/log"
-	"github.com/go-chi/chi/v5"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-func Register(ctx context.Context, instance *chi.Mux) error {
+func Register(ctx context.Context) (*gichi.Config, error) {
 
 	if !IsEnabled() {
-		return nil
+		return nil, nil
 	}
 
 	logger := gilog.FromContext(ctx)
-
-	logger.Trace("integrating chi with prometheus")
+	logger.Trace("configuring prometheus")
 
 	prometheusRoute := getRoute()
 
-	logger.Infof("configuring prometheus metrics router on %s", prometheusRoute)
-	instance.Handle(prometheusRoute, promhttp.Handler())
+	return &gichi.Config{
+		Middlewares: []func(http.Handler) http.Handler{
+			promMiddleware,
+		},
+		Handlers: []gichi.ConfigHandler{
+			{
+				Handler: promhttp.Handler(),
+				Pattern: prometheusRoute,
+			},
+		},
+	}, nil
 
-	instance.Use(promMiddleware)
-
-	logger.Debug("prometheus integrated with echo with success")
-
-	return nil
 }

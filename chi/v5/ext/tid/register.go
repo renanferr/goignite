@@ -1,20 +1,28 @@
-package tid
+package gichitid
 
 import (
 	"context"
 	"net/http"
 
+	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
 	"github.com/b2wdigital/goignite/v2/info"
-	"github.com/go-chi/chi/v5"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	uuid "github.com/satori/go.uuid"
 )
 
-func Register(ctx context.Context, instance *chi.Mux) error {
-	if IsEnabled() {
-		instance.Use(tidMiddleware())
+func Register(ctx context.Context) (*gichi.Config, error) {
+	if !IsEnabled() {
+		return nil, nil
 	}
 
-	return nil
+	logger := gilog.FromContext(ctx)
+	logger.Tracef("configuring tid")
+
+	return &gichi.Config{
+		Middlewares: []func(http.Handler) http.Handler{
+			tidMiddleware(),
+		},
+	}, nil
 }
 
 // tidMiddleware is a middleware that looks for a XTID value inside the http.Request

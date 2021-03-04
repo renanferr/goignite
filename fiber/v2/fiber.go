@@ -14,7 +14,7 @@ var (
 
 type Ext func(context.Context, *fiber.App) error
 
-func Start(ctx context.Context, exts ...Ext) *fiber.App {
+func New(ctx context.Context, exts ...Ext) *fiber.App {
 
 	config, _ := AppConfig()
 	app = fiber.New(*config)

@@ -6,8 +6,8 @@ import (
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 )
 
-// NewServer returns a pointer with new Server
-func NewServer(handler http.Handler) *http.Server {
+// New returns a pointer with new Server
+func New(handler http.Handler) *http.Server {
 	return &http.Server{
 		Addr:              giconfig.String(serverAddress),
 		Handler:           handler,

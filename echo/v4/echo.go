@@ -14,7 +14,7 @@ var (
 
 type Ext func(context.Context, *echo.Echo) error
 
-func Start(ctx context.Context, exts ...Ext) *echo.Echo {
+func New(ctx context.Context, exts ...Ext) *echo.Echo {
 
 	instance = echo.New()
 
@@ -33,8 +33,7 @@ func Start(ctx context.Context, exts ...Ext) *echo.Echo {
 func Serve(ctx context.Context) {
 	logger := gilog.FromContext(ctx)
 	logger.Infof("starting echo server. https://echo.labstack.com/")
-	err := instance.Start(serverPort())
-	if err != nil {
+	if err := instance.Start(serverPort()); err != nil {
 		instance.Logger.Fatalf(err.Error())
 	}
 }

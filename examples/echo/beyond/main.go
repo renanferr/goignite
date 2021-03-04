@@ -47,7 +47,7 @@ func main() {
 
 	info.AppName = "google"
 
-	instance := giecho.Start(ctx,
+	instance := giecho.New(ctx,
 		cors.Register,
 		requestid.Register,
 		gzip.Register,

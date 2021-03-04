@@ -1,4 +1,4 @@
-package requestid
+package gifiberrequestid
 
 import (
 	"context"

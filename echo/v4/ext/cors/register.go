@@ -1,4 +1,4 @@
-package cors
+package giechocors
 
 import (
 	"context"

@@ -1,4 +1,4 @@
-package newrelic
+package gigrpcnewrelic
 
 import (
 	"context"

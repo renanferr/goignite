@@ -1,4 +1,4 @@
-package errorhandler
+package giechoerrorhandler
 
 import (
 	giconfig "github.com/b2wdigital/goignite/v2/config"

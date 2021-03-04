@@ -1,4 +1,4 @@
-package bodydump
+package giechobodydump
 
 import (
 	"context"

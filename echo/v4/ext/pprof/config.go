@@ -1,4 +1,4 @@
-package pprof
+package giechopprof
 
 import (
 	giconfig "github.com/b2wdigital/goignite/v2/config"

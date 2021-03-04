@@ -1,4 +1,4 @@
-package gzip
+package giechogzip
 
 import (
 	"context"

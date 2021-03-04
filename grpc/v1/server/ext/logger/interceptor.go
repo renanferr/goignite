@@ -1,4 +1,4 @@
-package logger
+package gigrpclogger
 
 import (
 	"time"

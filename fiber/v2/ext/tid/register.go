@@ -1,4 +1,4 @@
-package tid
+package gifibertid
 
 import (
 	"context"

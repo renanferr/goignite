@@ -1,4 +1,4 @@
-package swagger
+package giechoswagger
 
 import (
 	giconfig "github.com/b2wdigital/goignite/v2/config"

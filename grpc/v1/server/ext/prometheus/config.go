@@ -1,4 +1,4 @@
-package prometheus
+package gigrpcprometheus
 
 import (
 	giconfig "github.com/b2wdigital/goignite/v2/config"
@@ -13,13 +13,8 @@ const (
 
 func init() {
 	giconfig.Add(enabled, true, "enable/disable prometheus")
-	giconfig.Add(route, "/metrics", "prometheus route")
 }
 
 func IsEnabled() bool {
 	return giconfig.Bool(enabled)
-}
-
-func GetRoute() string {
-	return giconfig.String(route)
 }

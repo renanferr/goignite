@@ -1,4 +1,4 @@
-package newrelic
+package giechonewrelic
 
 import (
 	"context"

@@ -1,4 +1,4 @@
-package newrelic
+package ginatsnewrelic
 
 import (
 	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"

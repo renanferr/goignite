@@ -1,4 +1,4 @@
-package errorhandler
+package giechoerrorhandler
 
 import (
 	"context"

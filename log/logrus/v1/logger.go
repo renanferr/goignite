@@ -157,6 +157,10 @@ type logger struct {
 	fields gilog.Fields
 }
 
+func (l *logger) Printf(format string, args ...interface{}) {
+	l.logger.Printf(format, args...)
+}
+
 func (l *logger) Tracef(format string, args ...interface{}) {
 	l.logger.Tracef(format, args...)
 }
@@ -260,6 +264,10 @@ func (l *logger) FromContext(ctx context.Context) gilog.Logger {
 type logEntry struct {
 	entry  *logrus.Entry
 	fields gilog.Fields
+}
+
+func (l *logEntry) Printf(format string, args ...interface{}) {
+	l.entry.Printf(format, args...)
 }
 
 func (l *logEntry) Tracef(format string, args ...interface{}) {

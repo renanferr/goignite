@@ -100,6 +100,10 @@ func getWriter(format string, fileEnabled bool, consoleEnabled bool) io.Writer {
 	return nil
 }
 
+func (l *logger) Printf(format string, args ...interface{}) {
+	l.logger.Printf(format, args...)
+}
+
 func (l *logger) Tracef(format string, args ...interface{}) {
 	l.logger.Trace().Msgf(format, args...)
 }

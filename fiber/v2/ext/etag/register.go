@@ -1,4 +1,4 @@
-package etag
+package gifiberetag
 
 import (
 	"context"

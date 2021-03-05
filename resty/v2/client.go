@@ -16,7 +16,7 @@ func NewClient(ctx context.Context, options *Options, exts ...Ext) *resty.Client
 
 	logger := gilog.FromContext(ctx)
 
-	logger.Infof("creating resty client")
+	logger.Tracef("creating resty client")
 
 	client := resty.New()
 

@@ -18,7 +18,7 @@ func main() {
 	// start logrus
 	gilogrus.NewLogger()
 
-	s := gigrpc.Start(ctx)
+	s := gigrpc.New(ctx)
 
 	RegisterExampleServer(s, &Service{})
 

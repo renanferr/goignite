@@ -1,4 +1,4 @@
-package newrelic
+package gifibernewrelic
 
 import (
 	"context"

@@ -1,4 +1,4 @@
-package newrelic
+package gichinewrelic
 
 import (
 	gichi "github.com/b2wdigital/goignite/v2/chi/v5"

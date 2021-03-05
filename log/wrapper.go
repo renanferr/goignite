@@ -8,6 +8,10 @@ func NewLogger(logger Logger) {
 	l = logger
 }
 
+func Printf(format string, args ...interface{}) {
+	l.Printf(format, args...)
+}
+
 func Debugf(format string, args ...interface{}) {
 	l.Debugf(format, args...)
 }

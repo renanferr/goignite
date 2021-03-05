@@ -1,4 +1,4 @@
-package etag
+package gifiberetag
 
 import (
 	giconfig "github.com/b2wdigital/goignite/v2/config"

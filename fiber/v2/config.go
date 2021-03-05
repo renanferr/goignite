@@ -39,7 +39,7 @@ const (
 )
 
 func init() {
-	giconfig.Add(port, 8080, "server http port")
+	giconfig.Add(port, 8082, "server http port")
 	giconfig.Add(statusRoute, "/resource-status", "define status url")
 	giconfig.Add(healthRoute, "/health", "define health url")
 	giconfig.Add(prefork, false, "Enables use of the SO_REUSEPORT socket option. This will spawn multiple Go processes listening on the same port. learn more about socket sharding.")

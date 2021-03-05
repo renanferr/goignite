@@ -1,4 +1,4 @@
-package cors
+package gichicors
 
 import (
 	"net/http"

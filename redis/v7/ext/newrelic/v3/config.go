@@ -1,4 +1,4 @@
-package newrelic
+package giredisnewrelic
 
 import (
 	giconfig "github.com/b2wdigital/goignite/v2/config"

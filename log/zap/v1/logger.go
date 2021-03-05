@@ -117,6 +117,10 @@ type zapLogger struct {
 	core          zapcore.Core
 }
 
+func (l *zapLogger) Printf(format string, args ...interface{}) {
+	l.sugaredLogger.Infof(format, args...)
+}
+
 func (l *zapLogger) Tracef(format string, args ...interface{}) {
 	l.sugaredLogger.Debug(args...)
 }

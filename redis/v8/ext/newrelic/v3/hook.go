@@ -5,7 +5,7 @@
 //
 // Use this package to instrument your go-redis/redis/v8 calls without having to
 // manually create DatastoreSegments.
-package newrelic
+package giredisnewrelic
 
 import (
 	"context"

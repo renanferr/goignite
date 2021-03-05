@@ -1,4 +1,4 @@
-package tid
+package giechotid
 
 import (
 	"context"

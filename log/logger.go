@@ -7,6 +7,8 @@ import (
 
 // Logger is our contract for the logger
 type Logger interface {
+	Printf(format string, args ...interface{})
+
 	Tracef(format string, args ...interface{})
 
 	Trace(args ...interface{})

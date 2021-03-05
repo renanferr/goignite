@@ -65,7 +65,7 @@ func main() {
 
 	info.AppName = "helloworld"
 
-	instance := gifiber.Start(ctx,
+	instance := gifiber.New(ctx,
 		cors.Register,
 		etag.Register)
 

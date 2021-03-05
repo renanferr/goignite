@@ -1,4 +1,4 @@
-package bodylimit
+package giechobodylimit
 
 import (
 	giconfig "github.com/b2wdigital/goignite/v2/config"

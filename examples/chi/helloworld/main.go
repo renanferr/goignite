@@ -6,17 +6,15 @@ import (
 	"net/http"
 
 	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	"github.com/b2wdigital/goignite/v2/chi/v5/ext/health"
-	"github.com/b2wdigital/goignite/v2/chi/v5/ext/logger"
-	"github.com/b2wdigital/goignite/v2/chi/v5/ext/realip"
-	"github.com/b2wdigital/goignite/v2/chi/v5/ext/recoverer"
-	"github.com/b2wdigital/goignite/v2/chi/v5/ext/status"
-	"github.com/b2wdigital/goignite/v2/chi/v5/ext/tid"
+	gichihealth "github.com/b2wdigital/goignite/v2/chi/v5/ext/health"
+	gichilogger "github.com/b2wdigital/goignite/v2/chi/v5/ext/logger"
+	gichirealip "github.com/b2wdigital/goignite/v2/chi/v5/ext/realip"
+	gichirecoverer "github.com/b2wdigital/goignite/v2/chi/v5/ext/recoverer"
+	gichistatus "github.com/b2wdigital/goignite/v2/chi/v5/ext/status"
+	gichitid "github.com/b2wdigital/goignite/v2/chi/v5/ext/tid"
 	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gihttp "github.com/b2wdigital/goignite/v2/http/v1/server"
 	"github.com/b2wdigital/goignite/v2/info"
 	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
-	"github.com/prometheus/common/log"
 )
 
 const HelloWorldEndpoint = "app.endpoint.helloworld"
@@ -67,17 +65,15 @@ func main() {
 
 	info.AppName = "helloworld"
 
-	instance := gichi.NewMux(ctx,
-		tid.Register,
-		recoverer.Register,
-		realip.Register,
-		logger.Register,
-		status.Register,
-		health.Register)
+	instance := gichi.New(ctx,
+		gichitid.Register,
+		gichirecoverer.Register,
+		gichirealip.Register,
+		gichilogger.Register,
+		gichistatus.Register,
+		gichihealth.Register)
 
 	instance.Get(c.App.Endpoint.Helloworld, Get(ctx))
 
-	log.Infof("starting chi server.")
-	err = gihttp.NewServer(instance).ListenAndServe()
-	log.Fatalf("cannot start chi server", err)
+	gichi.Serve(ctx)
 }

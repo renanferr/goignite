@@ -1,4 +1,4 @@
-package cors
+package gifibercors
 
 import (
 	"net/http"

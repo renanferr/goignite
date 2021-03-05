@@ -1,4 +1,4 @@
-package recover
+package giechorecover
 
 import (
 	"context"

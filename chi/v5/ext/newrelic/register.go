@@ -1,4 +1,4 @@
-package newrelic
+package gichinewrelic
 
 import (
 	"context"
@@ -6,18 +6,26 @@ import (
 	"net/http"
 	"strings"
 
+	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
-	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	nr "github.com/newrelic/go-agent/v3/newrelic"
 )
 
-func Register(ctx context.Context, instance *chi.Mux) error {
-	if IsEnabled() {
-		instance.Use(nrMiddleware)
+func Register(ctx context.Context) (*gichi.Config, error) {
+	if !IsEnabled() {
+		return nil, nil
 	}
 
-	return nil
+	logger := gilog.FromContext(ctx)
+	logger.Tracef("configuring newrelic")
+
+	return &gichi.Config{
+		Middlewares: []func(http.Handler) http.Handler{
+			nrMiddleware,
+		},
+	}, nil
 }
 
 func nrMiddleware(next http.Handler) http.Handler {

@@ -1,4 +1,4 @@
-package logger
+package gichilogger
 
 import (
 	"context"
@@ -7,17 +7,25 @@ import (
 	"runtime/debug"
 	"time"
 
+	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
 	gilog "github.com/b2wdigital/goignite/v2/log"
-	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
 
-func Register(ctx context.Context, instance *chi.Mux) error {
-	if IsEnabled() {
-		instance.Use(loggerMiddleware)
+func Register(ctx context.Context) (*gichi.Config, error) {
+	if !IsEnabled() {
+		return nil, nil
 	}
 
-	return nil
+	logger := gilog.FromContext(ctx)
+	logger.Tracef("configuring logger")
+
+	return &gichi.Config{
+		Middlewares: []func(http.Handler) http.Handler{
+			loggerMiddleware,
+		},
+	}, nil
+
 }
 
 // loggerMiddleware returns a middleware that logs HTTP requests.
@@ -77,7 +85,7 @@ func loggerMiddleware(next http.Handler) http.Handler {
 			postReqContent["cache"] = cache
 		}
 
-		logger = gilog.WithFields(postReqContent)
+		logger = gilog.FromContext(ctx).WithFields(postReqContent)
 		if status >= 100 && status < 400 {
 			logger.Info("request finished")
 		} else if status == 500 {

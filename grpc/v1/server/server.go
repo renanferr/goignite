@@ -23,11 +23,14 @@ var (
 
 type Ext func(ctx context.Context) []grpc.ServerOption
 
-func Start(ctx context.Context, exts ...Ext) (*grpc.Server, grpc.ServiceRegistrar) {
+func New(ctx context.Context, exts ...Ext) (*grpc.Server, grpc.ServiceRegistrar) {
 
 	logger := gilog.FromContext(ctx)
 
-	gzip.SetLevel(9)
+	err := gzip.SetLevel(9)
+	if err != nil {
+		logger.Fatalf("could not set level: %s", err.Error())
+	}
 
 	var s *grpc.Server
 
@@ -38,14 +41,14 @@ func Start(ctx context.Context, exts ...Ext) (*grpc.Server, grpc.ServiceRegistra
 		// Load the certificates from disk
 		certificate, err := tls.LoadX509KeyPair(giconfig.String(certFile), giconfig.String(keyFile))
 		if err != nil {
-			logger.Fatalf("could not load server key pair: %s", err)
+			logger.Fatalf("could not load server key pair: %s", err.Error())
 		}
 
 		// Create a certificate pool from the certificate authority
 		certPool := x509.NewCertPool()
 		ca, err := ioutil.ReadFile(giconfig.String(caFile))
 		if err != nil {
-			logger.Fatalf("could not read ca certificate: %s", err)
+			logger.Fatalf("could not read ca certificate: %s", err.Error())
 		}
 
 		// Append the client certificates from the CA
@@ -92,15 +95,13 @@ func Serve(ctx context.Context) {
 
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
-		logger.Fatalf("failed to listen: %v", err)
-		return
+		logger.Fatalf("failed to listen: %v", err.Error())
 	}
 
 	logger.Infof("grpc server started on port %v", port)
 
 	if err := instance.Serve(lis); err != nil {
-		logger.Fatalf("failed to serve: %v", err)
-		return
+		logger.Fatalf("failed to serve: %v", err.Error())
 	}
 
 }

@@ -15,7 +15,7 @@ func NewClient(ctx context.Context, options *Options) *kubernetes.Clientset {
 		WithField("context", options.Context).
 		WithField("kubeConfigPath", options.KubeConfigPath)
 
-	logger.Infof("creating k8s client")
+	logger.Tracef("creating k8s client")
 
 	config, err := fromKubeConfig(options.Context, options.KubeConfigPath)
 	if err != nil {

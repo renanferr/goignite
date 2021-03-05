@@ -85,7 +85,7 @@ func loggerMiddleware(next http.Handler) http.Handler {
 			postReqContent["cache"] = cache
 		}
 
-		logger = gilog.WithFields(postReqContent)
+		logger = gilog.FromContext(ctx).WithFields(postReqContent)
 		if status >= 100 && status < 400 {
 			logger.Info("request finished")
 		} else if status == 500 {

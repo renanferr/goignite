@@ -16,12 +16,7 @@ func (i *middleware) Before(ctx context.Context) context.Context {
 	return newrelic.NewContext(ctx, txn)
 }
 
-func (i *middleware) After(ctx context.Context) {
-	txn := ginewrelic.FromContext(ctx)
-	if txn != nil && txn.IsSampled() {
-		txn.End()
-	}
-}
+func (i *middleware) After(ctx context.Context) {}
 
 func NewMiddleware() giants.Middleware {
 	return &middleware{}

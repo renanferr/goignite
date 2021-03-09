@@ -26,7 +26,7 @@ func JSON(c *fiber.Ctx, code int, i interface{}, err error) error {
 func JSONError(c *fiber.Ctx, err error) error {
 
 	if errors.IsNotFound(err) {
-		return c.Status(http.StatusBadRequest).JSON(
+		return c.Status(http.StatusNotFound).JSON(
 			response.Error{HttpStatusCode: http.StatusNotFound, Message: err.Error()})
 	} else if errors.IsNotValid(err) || errors.IsBadRequest(err) {
 		return c.Status(http.StatusBadRequest).JSON(

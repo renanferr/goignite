@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	enabled = gifiber.ExtRoot + "newrelic.enabled"
+	enabled = gifiber.ExtRoot + ".newrelic.enabled"
 )
 
 func init() {

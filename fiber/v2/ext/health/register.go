@@ -3,6 +3,7 @@ package gifiberhealth
 import (
 	"context"
 
+	gifiber "github.com/b2wdigital/goignite/v2/fiber/v2"
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/b2wdigital/goignite/v2/rest/response"
 	"github.com/gofiber/fiber/v2"
@@ -26,7 +27,7 @@ func Register(ctx context.Context, app *fiber.App) error {
 
 		resp, httpCode := response.NewHealth(ctx)
 
-		return c.Status(httpCode).JSON(resp)
+		return gifiber.JSON(c, httpCode, resp, nil)
 	})
 
 	return nil

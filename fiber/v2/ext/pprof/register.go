@@ -8,9 +8,9 @@ import (
 )
 
 func Register(ctx context.Context, app *fiber.App) error {
-	if IsEnabled() {
-		app.Use(pprof.New())
+	if !IsEnabled() {
+		return nil
 	}
-
+	app.Use(pprof.New())
 	return nil
 }

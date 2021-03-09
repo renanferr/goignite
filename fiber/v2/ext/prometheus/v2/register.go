@@ -20,7 +20,7 @@ func Register(ctx context.Context, instance *fiber.App) error {
 
 	prometheusRoute := getRoute()
 
-	logger.Infof("configuring prometheus metrics router on %s", prometheusRoute)
+	logger.Debugf("configuring prometheus metrics router on %s", prometheusRoute)
 
 	prometheus := fiberprometheus.New("")
 	prometheus.RegisterAt(instance, prometheusRoute)

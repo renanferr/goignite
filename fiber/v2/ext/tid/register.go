@@ -9,24 +9,20 @@ import (
 )
 
 func Register(ctx context.Context, app *fiber.App) error {
-
 	if !IsEnabled() {
 		return nil
 	}
-
-	app.Use(middleware())
-
+	app.Use(tidMiddleware())
 	return nil
 }
 
-func middleware() fiber.Handler {
+func tidMiddleware() fiber.Handler {
 
 	// Return new handler
 	return func(c *fiber.Ctx) error {
 
 		tid := c.Get("X-TID", info.AppName+"-"+uuid.NewV4().String())
-
-		c.Context().SetUserValue("tid", tid)
+		c.Context().SetUserValue("x-tid", tid)
 		c.Append("X-TID", tid)
 
 		// Continue stack

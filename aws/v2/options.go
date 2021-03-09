@@ -1,14 +1,25 @@
 package giaws
 
-import "github.com/lann/builder"
+import (
+	"time"
+
+	"github.com/lann/builder"
+)
 
 type Options struct {
-	AccessKeyId     string `config:"id"`
-	SecretAccessKey string `config:"key"`
-	DefaultRegion   string `config:"region"`
-	SessionToken    string `config:"token"`
-	MaxAttempts     int    `config:"maxattempts"`
-	HasRateLimit    bool   `config:"hasratelimit"`
+	AccessKeyId                 string `config:"id"`
+	SecretAccessKey             string `config:"key"`
+	DefaultRegion               string `config:"region"`
+	SessionToken                string `config:"token"`
+	MaxAttempts                 int    `config:"maxattempts"`
+	HasRateLimit                bool   `config:"hasratelimit"`
+	MaxConnsPerHost             int
+	MaxIdleConns                int
+	MaxIdleConnsPerHost         int
+	TimeoutMillis               time.Duration
+	KeepAliveMillis             time.Duration
+	IdleConnTimeoutMillis       time.Duration
+	ResponseHeaderTimeoutMillis time.Duration
 }
 
 type optionsBuilder builder.Builder

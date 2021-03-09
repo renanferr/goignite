@@ -49,6 +49,7 @@ require (
 	github.com/newrelic/go-agent/v3/integrations/nrmongo v1.0.0
 	github.com/newrelic/go-agent/v3/integrations/nrnats v1.1.0
 	github.com/newrelic/go-agent/v3/integrations/nrredis-v7 v1.0.0
+	github.com/panjf2000/ants/v2 v2.4.3
 	github.com/prometheus/client_golang v1.9.0
 	github.com/prometheus/common v0.15.0
 	github.com/ravernkoh/cwlogsfmt v0.0.0-20180121032441-917bad983b4c

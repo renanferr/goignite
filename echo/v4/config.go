@@ -9,7 +9,7 @@ const (
 	hideBanner        = root + ".hidebanner"
 	port              = root + ".port"
 	jsonPrettyEnabled = root + ".json.pretty.enabled"
-	ExtRoot           = root + ".Ext"
+	ExtRoot           = root + ".ext"
 )
 
 func init() {

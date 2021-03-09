@@ -23,7 +23,7 @@ const (
 	enableMetrics         = root + ".enableMetrics"
 	enableDebugLogger     = root + ".enableDebugLogger"
 	retryBackoff          = root + ".retryBackoff"
-	ExtRoot               = root + ".Ext"
+	ExtRoot               = root + ".ext"
 )
 
 func init() {

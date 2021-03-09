@@ -13,6 +13,7 @@ require (
 	github.com/cloudevents/sdk-go v1.2.0
 	github.com/cloudevents/sdk-go/protocol/nats/v2 v2.3.1
 	github.com/cloudevents/sdk-go/v2 v2.3.1
+	github.com/coocood/freecache v1.1.1
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20201229214741-2366c2514674
 	github.com/globocom/echo-prometheus v0.1.2
 	github.com/go-chi/chi v1.5.4 // indirect

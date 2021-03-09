@@ -2,6 +2,8 @@ package giaws
 
 import (
 	"context"
+	"net"
+	"net/http"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/aws/retry"
@@ -30,6 +32,20 @@ func NewConfig(ctx context.Context, options *Options, exts ...Ext) aws.Config {
 	}
 
 	cfg.Retryer = retryerConfig(options)
+	cfg.HTTPClient = &http.Client{
+		Transport: &http.Transport{
+			MaxConnsPerHost: options.MaxConnsPerHost,
+			Proxy:           http.ProxyFromEnvironment,
+			DialContext: (&net.Dialer{
+				Timeout:   options.TimeoutMillis,
+				KeepAlive: options.KeepAliveMillis,
+			}).DialContext,
+			MaxIdleConns:          options.MaxIdleConns,
+			MaxIdleConnsPerHost:   options.MaxIdleConnsPerHost,
+			ResponseHeaderTimeout: options.ResponseHeaderTimeoutMillis,
+			IdleConnTimeout:       options.IdleConnTimeoutMillis,
+		},
+	}
 
 	for _, ext := range exts {
 		if err := ext(ctx, &cfg); err != nil {
@@ -97,7 +113,12 @@ func loadDefaultOptions(ctx context.Context) *Options {
 		logger.Fatalf(err.Error())
 	}
 
-	err = giconfig.UnmarshalWithPath(retryer, o)
+	err = giconfig.UnmarshalWithPath(retryerRoot, o)
+	if err != nil {
+		logger.Fatalf(err.Error())
+	}
+
+	err = giconfig.UnmarshalWithPath(httpClientRoot, o)
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}

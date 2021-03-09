@@ -4,6 +4,7 @@ import (
 	"context"
 
 	ginats "github.com/b2wdigital/goignite/v2/nats/v1"
+	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/nats-io/nats.go"
 	"github.com/newrelic/go-agent/v3/integrations/nrnats"
 	"github.com/newrelic/go-agent/v3/newrelic"
@@ -17,7 +18,7 @@ func (p *PublisherRegister) Before(ctx context.Context, conn *nats.Conn, msg *na
 		return ctx, nil
 	}
 
-	txn := newrelic.FromContext(ctx)
+	txn := ginewrelic.FromContext(ctx)
 	seg := nrnats.StartPublishSegment(txn, conn, msg.Subject)
 
 	return context.WithValue(ctx, "seg", seg), nil

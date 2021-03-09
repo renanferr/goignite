@@ -23,16 +23,17 @@ func Register(ctx context.Context, instance *fiber.App) error {
 
 	logger.Trace("integrating fiber with newrelic")
 
-	instance.Use(handler(ginewrelic.Application()))
+	instance.Use(middleware(ginewrelic.Application()))
 
 	logger.Debug("fiber integrated with newrelic with success")
 
 	return nil
 }
 
-func handler(app *newrelic.Application) fiber.Handler {
+func middleware(app *newrelic.Application) fiber.Handler {
 
 	return func(c *fiber.Ctx) error {
+
 		transactionPattern := fmt.Sprintf("%s - %s ", c.Method(), string(c.Request().URI().Path()))
 		txn := app.StartTransaction(transactionPattern)
 		defer txn.End()
@@ -45,7 +46,8 @@ func handler(app *newrelic.Application) fiber.Handler {
 		wr := setNewRelicWebRequest(c)
 		txn.SetWebRequest(wr)
 
-		c.Locals("txn", txn)
+		ctx := c.Context()
+		ctx.SetUserValue(ginewrelic.NewRelicTransaction, txn)
 
 		return c.Next()
 	}

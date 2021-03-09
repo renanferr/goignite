@@ -35,7 +35,7 @@ const (
 	disableDefaultContentType = configRoot + ".disableDefaultContentType"
 	disableHeaderNormalizing  = configRoot + ".disableHeaderNormalizing"
 	disableStartupMessage     = configRoot + ".disableStartupMessage"
-	ExtRoot                   = root + ".Ext"
+	ExtRoot                   = root + ".ext"
 )
 
 func init() {

@@ -13,6 +13,7 @@ import (
 	"strings"
 	"sync"
 
+	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/go-redis/redis/v8"
 	"github.com/newrelic/go-agent/v3/newrelic"
 )
@@ -69,7 +70,7 @@ func NewHook(opts *redis.Options) redis.Hook {
 }
 
 func (h hook) before(ctx context.Context, operation string) (context.Context, error) {
-	txn := newrelic.FromContext(ctx)
+	txn := ginewrelic.FromContext(ctx)
 	if txn == nil {
 		return ctx, nil
 	}

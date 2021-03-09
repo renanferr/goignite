@@ -182,7 +182,7 @@ func parseEnv(s string) string {
 
 		var add string
 
-		if strings.Contains(v, ".") {
+		if strings.Contains(v, "-") {
 
 			sgyl := stringy.New(strings.ToLower(v))
 			sgylc := stringy.New(sgyl.CamelCase())

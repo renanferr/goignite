@@ -15,7 +15,7 @@ require (
 	github.com/cloudevents/sdk-go/v2 v2.3.1
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20201229214741-2366c2514674
 	github.com/globocom/echo-prometheus v0.1.2
-	github.com/go-chi/chi v1.5.4
+	github.com/go-chi/chi v1.5.4 // indirect
 	github.com/go-chi/chi/v5 v5.0.0
 	github.com/go-chi/cors v1.1.1
 	github.com/go-playground/validator/v10 v10.4.1
@@ -49,6 +49,7 @@ require (
 	github.com/newrelic/go-agent/v3/integrations/nrmongo v1.0.0
 	github.com/newrelic/go-agent/v3/integrations/nrnats v1.1.0
 	github.com/newrelic/go-agent/v3/integrations/nrredis-v7 v1.0.0
+	github.com/panjf2000/ants/v2 v2.4.3
 	github.com/prometheus/client_golang v1.9.0
 	github.com/prometheus/common v0.15.0
 	github.com/ravernkoh/cwlogsfmt v0.0.0-20180121032441-917bad983b4c

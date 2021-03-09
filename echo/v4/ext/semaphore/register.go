@@ -14,12 +14,12 @@ var (
 
 func Register(ctx context.Context, instance *echo.Echo) error {
 	if IsEnabled() {
-		instance.Use(Semaphore(int64(GetLimit())))
+		instance.Use(semaphoreMiddleware(int64(GetLimit())))
 	}
 	return nil
 }
 
-func Semaphore(limit int64) echo.MiddlewareFunc {
+func semaphoreMiddleware(limit int64) echo.MiddlewareFunc {
 
 	sem = semaphore.NewWeighted(limit)
 

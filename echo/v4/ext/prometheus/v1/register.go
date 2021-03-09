@@ -26,7 +26,7 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 	logger.Infof("configuring prometheus metrics router on %s", prometheusRoute)
 	instance.GET(prometheusRoute, echo.WrapHandler(promhttp.Handler()))
 
-	logger.Debug("prometheus integrated with echo with success")
+	logger.Infof("prometheus integrated with echo with success")
 
 	return nil
 }

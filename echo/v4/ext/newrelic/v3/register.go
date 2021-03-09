@@ -7,7 +7,6 @@ import (
 	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/labstack/echo/v4"
 	"github.com/newrelic/go-agent/v3/integrations/nrecho-v4"
-	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
 func Register(ctx context.Context, instance *echo.Echo) error {
@@ -36,7 +35,7 @@ func requestIDMiddleware() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) (err error) {
 			ctx := c.Request().Context()
-			txn := newrelic.FromContext(ctx)
+			txn := ginewrelic.FromContext(ctx)
 			reqId := c.Request().Header.Get(echo.HeaderXRequestID)
 			if reqId == "" {
 				reqId = c.Response().Header().Get(echo.HeaderXRequestID)

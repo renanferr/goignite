@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	gilog "github.com/b2wdigital/goignite/v2/log"
+	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/go-resty/resty/v2"
 	"github.com/newrelic/go-agent/v3/newrelic"
 )
@@ -24,9 +25,12 @@ func Register(ctx context.Context, client *resty.Client) error {
 
 		rctx := request.Context()
 
-		logger := gilog.FromContext(rctx)
+		txn := ginewrelic.FromContext(rctx)
+		if txn == nil {
+			logger.Warnf("there is no transaction in context for newrelic")
+			return nil
+		}
 
-		txn := newrelic.FromContext(rctx)
 		txn.InsertDistributedTraceHeaders(request.Header)
 
 		req, _ := http.NewRequest(request.Method, client.HostURL, nil)
@@ -37,8 +41,6 @@ func Register(ctx context.Context, client *resty.Client) error {
 
 		request.SetContext(ctx)
 
-		logger.Debugf("rest request processing")
-
 		return nil
 	})
 
@@ -46,8 +48,10 @@ func Register(ctx context.Context, client *resty.Client) error {
 
 		ctx := resp.Request.Context()
 
-		s := ctx.Value("nrext").(*newrelic.ExternalSegment)
-		s.End()
+		s, ok := ctx.Value("nrext").(*newrelic.ExternalSegment)
+		if ok {
+			s.End()
+		}
 
 		return nil
 	})

@@ -24,7 +24,7 @@ const (
 	transportIdleConnTimeout       = root + ".transport.idleConnTimeout"
 	transportTLSHandshakeTimeout   = root + ".transport.TLSHandshakeTimeout"
 	transportExpectContinueTimeout = root + ".transport.expectContinueTimeout"
-	ExtRoot                        = root + ".Ext"
+	ExtRoot                        = root + ".ext"
 )
 
 func init() {

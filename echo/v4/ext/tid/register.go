@@ -10,14 +10,14 @@ import (
 
 func Register(ctx context.Context, instance *echo.Echo) error {
 	if IsEnabled() {
-		instance.Use(tid())
+		instance.Use(tidMiddleware())
 	}
 
 	return nil
 }
 
-// tid returns a middleware that tid HTTP requests.
-func tid() echo.MiddlewareFunc {
+// tidMiddleware returns a middleware that tid HTTP requests.
+func tidMiddleware() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 

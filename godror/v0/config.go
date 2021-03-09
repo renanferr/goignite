@@ -12,7 +12,7 @@ const (
 	connMaxLifetime = root + ".connMaxLifetime"
 	maxIdleConns    = root + ".maxIdleConns"
 	maxOpenConns    = root + ".maxOpenConns"
-	ExtRoot         = root + ".Ext"
+	ExtRoot         = root + ".ext"
 )
 
 func init() {

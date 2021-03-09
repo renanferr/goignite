@@ -10,7 +10,7 @@ const (
 	authRoot = root + ".auth"
 	username = authRoot + ".username"
 	password = authRoot + ".password"
-	ExtRoot  = root + ".Ext"
+	ExtRoot  = root + ".ext"
 )
 
 func init() {

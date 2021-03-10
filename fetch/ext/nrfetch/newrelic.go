@@ -12,13 +12,13 @@ func Integrate(f *fetch.Fetch) {
 	f.OnBeforeRequest(func(o fetch.Options, ctx context.Context) context.Context {
 		reqHTTP, _ := http.NewRequest(o.Method, o.Url, nil)
 		txn := newrelic.FromContext(ctx)
-		s := newrelic.StartExternalSegment(txn, reqHTTP)
-		ctx = context.WithValue(ctx, "s", s)
+		seg := newrelic.StartExternalSegment(txn, reqHTTP)
+		ctx = context.WithValue(ctx, "seg", seg)
 		return ctx
 	})
 
 	f.OnAfterRequest(func(o fetch.Options, r fetch.Response, ctx context.Context) {
-		s := ctx.Value("s").(*newrelic.ExternalSegment)
-		s.End()
+		seg := ctx.Value("seg").(*newrelic.ExternalSegment)
+		seg.End()
 	})
 }

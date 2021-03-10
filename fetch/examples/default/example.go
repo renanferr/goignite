@@ -10,13 +10,11 @@ import (
 
 func main() {
 	client := fetch.New()
-	ctx := context.Background()
-	ctx = context.WithValue(ctx, "myOldCtx", "myOldValue")
 
 	o := fetch.Options{
-		Url:     "http://product-v3-americanas-npf.internal.b2w.io/product/1264011424",
+		Url:     "https://pokeapi.co/api/v2/pokemon/ditto",
 		Method:  "GET",
-		Ctx:     ctx,
+		Ctx:     context.Background(),
 		Timeout: time.Duration(1) * time.Second,
 	}
 

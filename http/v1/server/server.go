@@ -2,19 +2,26 @@ package gihttp
 
 import (
 	"net/http"
-
-	giconfig "github.com/b2wdigital/goignite/v2/config"
 )
 
 // New returns a pointer with new Server
-func New(handler http.Handler) *http.Server {
+func NewDefault(handler http.Handler) *http.Server {
+	opt, err := DefaultOptions()
+	if err != nil {
+		panic(err)
+	}
+	return New(handler, opt)
+}
+
+// New returns a pointer with new Server
+func New(handler http.Handler, options *Options) *http.Server {
 	return &http.Server{
-		Addr:              giconfig.String(serverAddress),
+		Addr:              options.Addr,
 		Handler:           handler,
-		MaxHeaderBytes:    giconfig.Int(maxHeaderBytes),
-		ReadTimeout:       giconfig.Duration(readTimeout),
-		ReadHeaderTimeout: giconfig.Duration(readHeaderTimeout),
-		WriteTimeout:      giconfig.Duration(writeTimeout),
-		IdleTimeout:       giconfig.Duration(idleTimeout),
+		MaxHeaderBytes:    options.MaxHeaderBytes,
+		ReadTimeout:       options.ReadTimeout,
+		ReadHeaderTimeout: options.ReadHeaderTimeout,
+		WriteTimeout:      options.WriteTimeout,
+		IdleTimeout:       options.IdleTimeout,
 	}
 }

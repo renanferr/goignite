@@ -9,10 +9,6 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-var (
-	instance *chi.Mux
-)
-
 type Config struct {
 	Middlewares []func(http.Handler) http.Handler
 	Handlers    []ConfigHandler
@@ -32,9 +28,22 @@ type ConfigRouter struct {
 
 type Ext func(context.Context) (*Config, error)
 
-func New(ctx context.Context, exts ...Ext) *chi.Mux {
+type Server struct {
+	mux  *chi.Mux
+	opts *gihttp.Options
+}
 
-	instance = chi.NewRouter()
+func NewDefault(ctx context.Context, exts ...Ext) *Server {
+	opt, err := gihttp.DefaultOptions()
+	if err != nil {
+		panic(err)
+	}
+	return New(ctx, opt, exts...)
+}
+
+func New(ctx context.Context, opts *gihttp.Options, exts ...Ext) *Server {
+
+	mux := chi.NewRouter()
 
 	var middlewares []func(http.Handler) http.Handler
 	var handlers []ConfigHandler
@@ -67,28 +76,36 @@ func New(ctx context.Context, exts ...Ext) *chi.Mux {
 	}
 
 	if len(middlewares) > 0 {
-		instance.Use(middlewares...)
+		mux.Use(middlewares...)
 	}
 
 	if len(handlers) > 0 {
 		for _, h := range handlers {
-			instance.Handle(h.Pattern, h.Handler)
+			mux.Handle(h.Pattern, h.Handler)
 		}
 	}
 
 	if len(routes) > 0 {
 		for _, r := range routes {
-			instance.MethodFunc(r.Method, r.Pattern, r.HandlerFunc)
+			mux.MethodFunc(r.Method, r.Pattern, r.HandlerFunc)
 		}
 	}
 
-	return instance
+	return &Server{mux: mux, opts: opts}
 }
 
-func Serve(ctx context.Context) {
+func (s *Server) Mux() *chi.Mux {
+	return s.mux
+}
+
+func (s *Server) Serve(ctx context.Context) {
+
 	logger := gilog.FromContext(ctx)
-	logger.Infof("started chi server [%s]", gihttp.GetServerAddress())
-	if err := gihttp.New(instance).ListenAndServe(); err != nil {
-		logger.Fatalf("cannot start chi server", err)
+
+	httpServer := gihttp.New(s.mux, s.opts)
+
+	logger.Infof("started chi http Server [%s]", httpServer.Addr)
+	if err := httpServer.ListenAndServe(); err != nil {
+		logger.Fatalf("cannot start chi http server", err.Error())
 	}
 }

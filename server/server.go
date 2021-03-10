@@ -5,13 +5,17 @@ import (
 	"sync"
 )
 
-func Serve(ctx context.Context, srvs ...func(context.Context)) {
+type Server interface {
+	Serve(context.Context)
+}
+
+func Serve(ctx context.Context, srvs ...Server) {
 
 	switch len(srvs) {
 	case 0:
 		panic("no servers configured")
 	case 1:
-		srvs[0](ctx)
+		srvs[0].Serve(ctx)
 	default:
 		wg := new(sync.WaitGroup)
 		wg.Add(len(srvs))
@@ -19,7 +23,7 @@ func Serve(ctx context.Context, srvs ...func(context.Context)) {
 		for _, srv := range srvs {
 			srv := srv
 			go func() {
-				srv(ctx)
+				srv.Serve(ctx)
 				wg.Done()
 			}()
 		}

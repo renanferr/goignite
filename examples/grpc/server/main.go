@@ -18,11 +18,11 @@ func main() {
 	// start logrus
 	gilogrus.NewLogger()
 
-	s := gigrpc.New(ctx)
+	srv := gigrpc.NewDefault(ctx)
 
-	RegisterExampleServer(s, &Service{})
+	RegisterExampleServer(srv.Server(), &Service{})
 
-	gigrpc.Serve(ctx)
+	srv.Serve(ctx)
 }
 
 type Service struct {

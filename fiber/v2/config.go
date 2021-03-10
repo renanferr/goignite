@@ -7,8 +7,6 @@ import (
 
 const (
 	root                      = "gi.fiber"
-	statusRoute               = root + ".route.status"
-	healthRoute               = root + ".route.health"
 	port                      = root + ".port"
 	configRoot                = root + ".config"
 	prefork                   = configRoot + ".prefork"
@@ -39,9 +37,7 @@ const (
 )
 
 func init() {
-	giconfig.Add(port, 8082, "server http port")
-	giconfig.Add(statusRoute, "/resource-status", "define status url")
-	giconfig.Add(healthRoute, "/health", "define health url")
+	giconfig.Add(port, 8082, "Server http port")
 	giconfig.Add(prefork, false, "Enables use of the SO_REUSEPORT socket option. This will spawn multiple Go processes listening on the same port. learn more about socket sharding.")
 	giconfig.Add(serverHeader, "", "Enables the Server HTTP header with the given value.")
 	giconfig.Add(strictRouting, false, "When enabled, the router treats /foo and /foo/ as different. Otherwise, the router treats /foo and /foo/ as the same.")
@@ -61,25 +57,9 @@ func init() {
 	giconfig.Add(GETOnly, false, "Rejects all non-GET requests if set to true. This option is useful as anti-DoS protection for servers accepting only GET requests. The request size is limited by ReadBufferSize if GETOnly is set.")
 	giconfig.Add(reduceMemoryUsage, false, "Aggressively reduces memory usage at the cost of higher CPU usage if set to true")
 	giconfig.Add(network, fiber.NetworkTCP4, "Known networks are \"tcp\", \"tcp4\" (IPv4-only), \"tcp6\" (IPv6-only)")
-	giconfig.Add(disableKeepalive, false, "Disable keep-alive connections, the server will close incoming connections after sending the first response to the client")
+	giconfig.Add(disableKeepalive, false, "Disable keep-alive connections, the Server will close incoming connections after sending the first response to the client")
 	giconfig.Add(disableDefaultDate, false, "When set to true causes the default date header to be excluded from the response.")
 	giconfig.Add(disableDefaultContentType, false, "When set to true, causes the default Content-Type header to be excluded from the Response.")
 	giconfig.Add(disableHeaderNormalizing, false, "By default all header names are normalized: conteNT-tYPE -> Content-Type")
 	giconfig.Add(disableStartupMessage, false, "When set to true, it will not print out debug information")
-}
-
-func Port() int {
-	return giconfig.Int(port)
-}
-
-func AppConfig() (*fiber.Config, error) {
-
-	o := &fiber.Config{}
-
-	err := giconfig.UnmarshalWithPath(configRoot, o)
-	if err != nil {
-		return nil, err
-	}
-
-	return o, nil
 }

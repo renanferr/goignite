@@ -6,6 +6,7 @@ import (
 )
 
 func New(opts ...fx.Option) *fx.App {
-	opts = append(opts, fx.Logger(gilog.GetLogger()))
-	return New(opts...)
+	logger := gilog.GetLogger()
+	opts = append([]fx.Option{fx.Logger(logger)}, opts...)
+	return fx.New(opts...)
 }

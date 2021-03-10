@@ -7,7 +7,7 @@ import (
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 	giresty "github.com/b2wdigital/goignite/v2/resty/v2"
-	"github.com/b2wdigital/goignite/v2/resty/v2/ext/health"
+	health "github.com/b2wdigital/goignite/v2/resty/v2/ext/health"
 )
 
 func main() {

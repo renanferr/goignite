@@ -1,6 +1,7 @@
 package gifetch
 
 import (
+	"context"
 	neturl "net/url"
 	"time"
 
@@ -9,7 +10,8 @@ import (
 
 type Fetch struct {
 	client              *fasthttp.Client
-	middlewares         []Middleware
+	beforeRequest       []func(ctx context.Context, o Options) context.Context
+	afterRequest        []func(ctx context.Context, o Options, r Response)
 	InterceptorResponse InterceptorResponse
 }
 
@@ -28,7 +30,16 @@ func New() Fetch {
 }
 
 func (c *Fetch) Use(m Middleware) {
-	c.middlewares = append(c.middlewares, m)
+	c.beforeRequest = append(c.beforeRequest, m.OnBeforeRequest)
+	c.afterRequest = append(c.afterRequest, m.OnAfterRequest)
+}
+
+func (c *Fetch) OnBeforeRequest(fn func(ctx context.Context, o Options) context.Context) {
+	c.beforeRequest = append(c.beforeRequest, fn)
+}
+
+func (c *Fetch) OnAfterRequest(fn func(ctx context.Context, o Options, r Response)) {
+	c.afterRequest = append(c.afterRequest, fn)
 }
 
 func (c *Fetch) Fetch(o Options) Response {
@@ -49,8 +60,8 @@ func (c *Fetch) Fetch(o Options) Response {
 	req.SetRequestURI(o.Url)
 
 	ctx := o.Ctx
-	for _, m := range c.middlewares {
-		ctx = m.OnBeforeRequest(ctx, o)
+	for _, m := range c.beforeRequest {
+		ctx = m(ctx, o)
 	}
 
 	if o.Header != nil {
@@ -80,8 +91,8 @@ func (c *Fetch) Fetch(o Options) Response {
 		Error:      err,
 	}
 
-	for _, f := range c.middlewares {
-		f.OnAfterRequest(ctx, o, response)
+	for _, f := range c.afterRequest {
+		f(ctx, o, response)
 	}
 
 	if c.InterceptorResponse == nil {

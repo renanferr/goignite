@@ -29,6 +29,13 @@ func NewExampleMiddleware1() gifetch.Middleware {
 func main() {
 	client := gifetch.New()
 	client.Use(NewExampleMiddleware1())
+
+	client.OnBeforeRequest(func(ctx context.Context, options gifetch.Options) context.Context {
+		fmt.Println("ctx before 2 - 1", ctx.Value("myOldCtx"))
+		ctx = context.WithValue(ctx, "myNewCtx", "myNewValue")
+		return ctx
+	})
+
 	ctx := context.Background()
 	ctx = context.WithValue(ctx, "myOldCtx", "myOldValue")
 

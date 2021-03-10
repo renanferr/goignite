@@ -65,6 +65,7 @@ require (
 	github.com/valyala/fasthttp v1.20.0
 	github.com/wesovilabs/beyond v1.0.1
 	go.mongodb.org/mongo-driver v1.4.6
+	go.uber.org/fx v1.13.1
 	go.uber.org/zap v1.16.0
 	gocloud.dev v0.22.0
 	gocloud.dev/pubsub/kafkapubsub v0.22.0

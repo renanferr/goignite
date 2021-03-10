@@ -1,4 +1,4 @@
-package fetch
+package gifetch
 
 import (
 	"context"
@@ -8,6 +8,11 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
+type Middleware interface {
+	OnBeforeRequest(context.Context, Options) context.Context
+	OnAfterRequest(context.Context, Options, Response)
+}
+
 type Options struct {
 	Url     string
 	Method  string
@@ -15,13 +20,6 @@ type Options struct {
 	Timeout time.Duration
 	Body    []byte
 	Ctx     context.Context
-}
-
-type Fetch struct {
-	client              *fasthttp.Client
-	udBeforeRequest     []RequestMiddleware
-	InterceptorResponse InterceptorResponse
-	udAfterRequest      []ResponseMiddleware
 }
 
 type Response struct {
@@ -34,6 +32,4 @@ type Response struct {
 
 type (
 	InterceptorResponse (func(Response) Response)
-	RequestMiddleware   (func(Options, context.Context) context.Context)
-	ResponseMiddleware  (func(Options, Response, context.Context))
 )

@@ -1,4 +1,4 @@
-package fetch
+package gifetch
 
 import (
 	neturl "net/url"
@@ -7,11 +7,17 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
+type Fetch struct {
+	client              *fasthttp.Client
+	middlewares         []Middleware
+	InterceptorResponse InterceptorResponse
+}
+
 func New() Fetch {
 	client := fasthttp.Client{
 		MaxConnsPerHost:     300,
-		MaxConnDuration:     time.Duration(time.Second * 60),
-		MaxIdleConnDuration: time.Duration(time.Second * 30),
+		MaxConnDuration:     60 * time.Second,
+		MaxIdleConnDuration: 30 * time.Second,
 	}
 
 	f := Fetch{}
@@ -19,6 +25,10 @@ func New() Fetch {
 	f.client = &client
 
 	return f
+}
+
+func (c *Fetch) Use(m Middleware) {
+	c.middlewares = append(c.middlewares, m)
 }
 
 func (c *Fetch) Fetch(o Options) Response {
@@ -39,8 +49,8 @@ func (c *Fetch) Fetch(o Options) Response {
 	req.SetRequestURI(o.Url)
 
 	ctx := o.Ctx
-	for _, f := range c.udBeforeRequest {
-		ctx = f(o, ctx)
+	for _, m := range c.middlewares {
+		ctx = m.OnBeforeRequest(ctx, o)
 	}
 
 	if o.Header != nil {
@@ -70,8 +80,8 @@ func (c *Fetch) Fetch(o Options) Response {
 		Error:      err,
 	}
 
-	for _, f := range c.udAfterRequest {
-		f(o, response, ctx)
+	for _, f := range c.middlewares {
+		f.OnAfterRequest(ctx, o, response)
 	}
 
 	if c.InterceptorResponse == nil {
@@ -79,12 +89,4 @@ func (c *Fetch) Fetch(o Options) Response {
 	}
 
 	return c.InterceptorResponse(response)
-}
-
-func (c *Fetch) OnBeforeRequest(m RequestMiddleware) {
-	c.udBeforeRequest = append(c.udBeforeRequest, m)
-}
-
-func (c *Fetch) OnAfterRequest(m ResponseMiddleware) {
-	c.udAfterRequest = append(c.udAfterRequest, m)
 }

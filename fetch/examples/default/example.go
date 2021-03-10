@@ -5,15 +5,15 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/b2wdigital/goignite/v2/fetch"
+	gifetch "github.com/b2wdigital/goignite/v2/fetch"
 )
 
 func main() {
-	client := fetch.New()
+	client := gifetch.New()
 	ctx := context.Background()
 	ctx = context.WithValue(ctx, "myOldCtx", "myOldValue")
 
-	o := fetch.Options{
+	o := gifetch.Options{
 		Url:     "http://product-v3-americanas-npf.internal.b2w.io/product/1264011424",
 		Method:  "GET",
 		Ctx:     ctx,

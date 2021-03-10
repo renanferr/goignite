@@ -5,23 +5,24 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/b2wdigital/goignite/v2/fetch"
-	"github.com/b2wdigital/goignite/v2/fetch/ext/nrfetch"
+	gifetch "github.com/b2wdigital/goignite/v2/fetch"
+	gifetchnewrelic "github.com/b2wdigital/goignite/v2/fetch/ext/newrelic/v3"
 )
 
 func main() {
-	client := fetch.New()
+
+	client := gifetch.New()
+	client.Use(gifetchnewrelic.New())
+
 	ctx := context.Background()
 	ctx = context.WithValue(ctx, "myOldCtx", "myOldValue")
 
-	o := fetch.Options{
+	o := gifetch.Options{
 		Url:     "http://product-v3-americanas-npf.internal.b2w.io/product/1264011424",
 		Method:  "GET",
 		Ctx:     ctx,
 		Timeout: time.Duration(1) * time.Second,
 	}
-
-	nrfetch.Integrate(&client)
 
 	r := client.Fetch(o)
 

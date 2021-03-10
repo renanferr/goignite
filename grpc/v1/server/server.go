@@ -17,13 +17,23 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-var (
-	instance *grpc.Server
-)
-
 type Ext func(ctx context.Context) []grpc.ServerOption
 
-func New(ctx context.Context, exts ...Ext) (*grpc.Server, grpc.ServiceRegistrar) {
+type Server struct {
+	server           *grpc.Server
+	serviceRegistrar grpc.ServiceRegistrar
+	options          *Options
+}
+
+func NewDefault(ctx context.Context, exts ...Ext) *Server {
+	opt, err := DefaultOptions()
+	if err != nil {
+		panic(err)
+	}
+	return New(ctx, opt, exts...)
+}
+
+func New(ctx context.Context, opt *Options, exts ...Ext) *Server {
 
 	logger := gilog.FromContext(ctx)
 
@@ -39,14 +49,14 @@ func New(ctx context.Context, exts ...Ext) (*grpc.Server, grpc.ServiceRegistrar)
 	if giconfig.Bool(tlsEnabled) {
 
 		// Load the certificates from disk
-		certificate, err := tls.LoadX509KeyPair(giconfig.String(certFile), giconfig.String(keyFile))
+		certificate, err := tls.LoadX509KeyPair(opt.TLS.CertFile, opt.TLS.KeyFile)
 		if err != nil {
 			logger.Fatalf("could not load server key pair: %s", err.Error())
 		}
 
 		// Create a certificate pool from the certificate authority
 		certPool := x509.NewCertPool()
-		ca, err := ioutil.ReadFile(giconfig.String(caFile))
+		ca, err := ioutil.ReadFile(opt.TLS.CAFile)
 		if err != nil {
 			logger.Fatalf("could not read ca certificate: %s", err.Error())
 		}
@@ -70,37 +80,44 @@ func New(ctx context.Context, exts ...Ext) (*grpc.Server, grpc.ServiceRegistrar)
 		serverOptions = append(serverOptions, ext(ctx)...)
 	}
 
-	serverOptions = append(serverOptions, grpc.MaxConcurrentStreams(uint32(giconfig.Int64(maxConcurrentStreams))))
+	serverOptions = append(serverOptions, grpc.MaxConcurrentStreams(uint32(opt.MaxConcurrentStreams)))
 
 	s = grpc.NewServer(serverOptions...)
 
 	// grpc.InitialConnWindowSize(100),
 	// grpc.InitialWindowSize(100),
 
-	instance = s
-
-	return instance, instance
+	return &Server{
+		server:  s,
+		options: opt,
+	}
 }
 
-func Serve(ctx context.Context) {
+func (s *Server) Server() *grpc.Server {
+	return s.server
+}
+
+func (s *Server) ServiceRegistrar() grpc.ServiceRegistrar {
+	return s.server
+}
+
+func (s *Server) Serve(ctx context.Context) {
 
 	logger := gilog.FromContext(ctx)
 
-	service.RegisterChannelzServiceToServer(instance)
+	service.RegisterChannelzServiceToServer(s.server)
 
 	// Register reflection service on gRPC server.
-	reflection.Register(instance)
+	reflection.Register(s.server)
 
-	port := giconfig.Int(port)
-
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", s.options.Port))
 	if err != nil {
 		logger.Fatalf("failed to listen: %v", err.Error())
 	}
 
-	logger.Infof("grpc server started on port %v", port)
+	logger.Infof("grpc server started on port %v", s.options.Port)
 
-	if err := instance.Serve(lis); err != nil {
+	if err := s.server.Serve(lis); err != nil {
 		logger.Fatalf("failed to serve: %v", err.Error())
 	}
 

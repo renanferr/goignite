@@ -9,11 +9,11 @@ import (
 const (
 	root              = "gi.http.server"
 	serverAddress     = root + ".addr"
-	maxHeaderBytes    = root + ".max-header-bytes"
-	readHeaderTimeout = root + ".read-header-timeout"
-	readTimeout       = root + ".read-timeout"
-	writeTimeout      = root + ".write-timeout"
-	idleTimeout       = root + ".idle-timeout"
+	maxHeaderBytes    = root + ".maxHeaderBytes"
+	readHeaderTimeout = root + ".readHeaderTimeout"
+	readTimeout       = root + ".readTimeout"
+	writeTimeout      = root + ".writeTimeout"
+	idleTimeout       = root + ".idleTimeout"
 )
 
 func init() {
@@ -23,28 +23,4 @@ func init() {
 	giconfig.Add(readTimeout, 1*time.Second, "read timeout")
 	giconfig.Add(writeTimeout, 7*time.Second, "write timeout ")
 	giconfig.Add(idleTimeout, 30*time.Second, "idle timeout")
-}
-
-func GetServerAddress() string {
-	return giconfig.String(serverAddress)
-}
-
-func GetMaxHeaderBytes() int {
-	return giconfig.Int(maxHeaderBytes)
-}
-
-func GetReadHeaderTimeout() time.Duration {
-	return giconfig.Duration(readHeaderTimeout)
-}
-
-func GetReadTimeout() time.Duration {
-	return giconfig.Duration(readTimeout)
-}
-
-func GetWriteTimeout() time.Duration {
-	return giconfig.Duration(writeTimeout)
-}
-
-func GetIdleTimeout() time.Duration {
-	return giconfig.Duration(idleTimeout)
 }

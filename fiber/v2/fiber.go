@@ -8,16 +8,24 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-var (
-	app *fiber.App
-)
-
 type Ext func(context.Context, *fiber.App) error
 
-func New(ctx context.Context, exts ...Ext) *fiber.App {
+type Server struct {
+	app     *fiber.App
+	options *Options
+}
 
-	config, _ := AppConfig()
-	app = fiber.New(*config)
+func NewDefault(ctx context.Context, exts ...Ext) *Server {
+	options, err := DefaultOptions()
+	if err != nil {
+		panic(err)
+	}
+	return New(ctx, options, exts...)
+}
+
+func New(ctx context.Context, options *Options, exts ...Ext) *Server {
+
+	app := fiber.New(*options.Config)
 
 	for _, ext := range exts {
 		if err := ext(ctx, app); err != nil {
@@ -25,17 +33,19 @@ func New(ctx context.Context, exts ...Ext) *fiber.App {
 		}
 	}
 
-	return app
+	return &Server{app: app, options: options}
 }
 
-func Serve(ctx context.Context) {
+func (s *Server) App() *fiber.App {
+	return s.app
+}
+
+func (s *Server) Serve(ctx context.Context) {
 
 	logger := gilog.FromContext(ctx)
-	logger.Infof("starting fiber server. https://gofiber.io/")
+	logger.Infof("starting fiber Server. https://gofiber.io/")
 
-	logger.Fatal(app.Listen(serverPort()))
-}
+	addr := ":" + strconv.Itoa(s.options.Port)
 
-func serverPort() string {
-	return ":" + strconv.Itoa(Port())
+	logger.Fatal(s.app.Listen(addr))
 }

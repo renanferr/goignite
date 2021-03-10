@@ -5,12 +5,12 @@ import (
 
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 	giecho "github.com/b2wdigital/goignite/v2/echo/v4"
-	"github.com/b2wdigital/goignite/v2/echo/v4/ext/cors"
-	"github.com/b2wdigital/goignite/v2/echo/v4/ext/gzip"
-	"github.com/b2wdigital/goignite/v2/echo/v4/ext/health"
-	"github.com/b2wdigital/goignite/v2/echo/v4/ext/logger"
-	"github.com/b2wdigital/goignite/v2/echo/v4/ext/requestid"
-	"github.com/b2wdigital/goignite/v2/echo/v4/ext/status"
+	giechocors "github.com/b2wdigital/goignite/v2/echo/v4/ext/cors"
+	giechogzip "github.com/b2wdigital/goignite/v2/echo/v4/ext/gzip"
+	giechohealth "github.com/b2wdigital/goignite/v2/echo/v4/ext/health"
+	giechologger "github.com/b2wdigital/goignite/v2/echo/v4/ext/logger"
+	giechorequestid "github.com/b2wdigital/goignite/v2/echo/v4/ext/requestid"
+	giechostatus "github.com/b2wdigital/goignite/v2/echo/v4/ext/status"
 	"github.com/b2wdigital/goignite/v2/info"
 	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 	"github.com/wesovilabs/beyond/api"
@@ -47,15 +47,15 @@ func main() {
 
 	info.AppName = "google"
 
-	instance := giecho.New(ctx,
-		cors.Register,
-		requestid.Register,
-		gzip.Register,
-		logger.Register,
-		status.Register,
-		health.Register)
+	srv := giecho.NewDefault(ctx,
+		giechocors.Register,
+		giechorequestid.Register,
+		giechogzip.Register,
+		giechologger.Register,
+		giechostatus.Register,
+		giechohealth.Register)
 
-	instance.GET(c.App.Endpoint.Google, Get)
+	srv.Echo().GET(c.App.Endpoint.Google, Get)
 
-	giecho.Serve(ctx)
+	srv.Serve(ctx)
 }

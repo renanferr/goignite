@@ -65,7 +65,7 @@ func main() {
 
 	info.AppName = "helloworld"
 
-	instance := gichi.New(ctx,
+	srv := gichi.NewDefault(ctx,
 		gichitid.Register,
 		gichirecoverer.Register,
 		gichirealip.Register,
@@ -73,7 +73,7 @@ func main() {
 		gichistatus.Register,
 		gichihealth.Register)
 
-	instance.Get(c.App.Endpoint.Helloworld, Get(ctx))
+	srv.Mux().Get(c.App.Endpoint.Helloworld, Get(ctx))
 
-	gichi.Serve(ctx)
+	srv.Serve(ctx)
 }

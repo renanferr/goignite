@@ -6,8 +6,8 @@ import (
 
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 	gifiber "github.com/b2wdigital/goignite/v2/fiber/v2"
-	"github.com/b2wdigital/goignite/v2/fiber/v2/ext/cors"
-	"github.com/b2wdigital/goignite/v2/fiber/v2/ext/etag"
+	gifibercors "github.com/b2wdigital/goignite/v2/fiber/v2/ext/cors"
+	gifiberetag "github.com/b2wdigital/goignite/v2/fiber/v2/ext/etag"
 	"github.com/b2wdigital/goignite/v2/info"
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
@@ -65,11 +65,11 @@ func main() {
 
 	info.AppName = "helloworld"
 
-	instance := gifiber.New(ctx,
-		cors.Register,
-		etag.Register)
+	srv := gifiber.NewDefault(ctx,
+		gifibercors.Register,
+		gifiberetag.Register)
 
-	instance.Get(c.App.Endpoint.Helloworld, Get)
+	srv.App().Get(c.App.Endpoint.Helloworld, Get)
 
-	gifiber.Serve(ctx)
+	srv.Serve(ctx)
 }

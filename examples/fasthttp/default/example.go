@@ -13,7 +13,8 @@ func main() {
 
 	ctx := context.Background()
 
-	client := gifasthttp.NewDefaultFetch(ctx)
+	clientOptions := gifasthttp.OptionsBuilder.MaxConnsPerHost(10).Build()
+	client := gifasthttp.NewFetch(ctx, &clientOptions)
 	ctx = context.WithValue(ctx, "myOldCtx", "myOldValue")
 
 	opt := gifasthttp.FetchOptionsBuilder.

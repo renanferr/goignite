@@ -16,7 +16,7 @@ func NewClient(ctx context.Context, options *Options, exts ...Ext) *resty.Client
 
 	logger := gilog.FromContext(ctx)
 
-	logger.Tracef("creating resty client")
+	logger.Tracef("creating resty client for host %s", options.Host)
 
 	client := resty.New()
 
@@ -104,6 +104,8 @@ func NewClient(ctx context.Context, options *Options, exts ...Ext) *resty.Client
 			panic(err)
 		}
 	}
+
+	logger.Debugf("resty client created for host %s", options.Host)
 
 	return client
 }

@@ -6,14 +6,22 @@ import (
 	"net/http"
 
 	giecho "github.com/b2wdigital/goignite/v2/echo/v4"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/b2wdigital/goignite/v2/rest/response"
 	"github.com/labstack/echo/v4"
 )
 
 func Register(ctx context.Context, instance *echo.Echo) error {
-	if IsEnabled() {
-		instance.HTTPErrorHandler = customHTTPErrorHandler
+	if !IsEnabled() {
+		return nil
 	}
+
+	logger := gilog.FromContext(ctx)
+	logger.Trace("configuring error handler in echo")
+
+	instance.HTTPErrorHandler = customHTTPErrorHandler
+
+	logger.Debug("error handler successfully configured in echo")
 
 	return nil
 }

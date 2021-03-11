@@ -17,16 +17,20 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 
 	logger := gilog.FromContext(ctx)
 
-	logger.Trace("integrating echo with newrelic")
+	logger.Trace("enabling newrelic middleware in echo")
 
 	instance.Use(nrecho.Middleware(ginewrelic.Application()))
 
-	if IsEnabledRequestID() {
-		logger.Debug("enabling newrelic requestID middleware")
-		instance.Use(requestIDMiddleware())
-	}
+	logger.Debug("newrelic middleware successfully enabled in echo")
 
-	logger.Debug("echo integrated with newrelic with success")
+	if IsEnabledRequestID() {
+
+		logger.Trace("enabling requestID newrelic middleware in echo")
+
+		instance.Use(requestIDMiddleware())
+
+		logger.Debug("requestID newrelic middleware successfully enabled in echo")
+	}
 
 	return nil
 }

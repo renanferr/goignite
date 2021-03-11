@@ -9,9 +9,17 @@ import (
 )
 
 func Register(ctx context.Context, instance *echo.Echo) error {
-	if IsEnabled() {
-		instance.Use(middleware.BodyDump(bodyDump))
+	if !IsEnabled() {
+		return nil
 	}
+
+	logger := gilog.FromContext(ctx)
+
+	logger.Trace("enabling body dump middleware in echo")
+
+	instance.Use(middleware.BodyDump(bodyDump))
+
+	logger.Debug("body dump middleware successfully enabled in echo")
 
 	return nil
 }

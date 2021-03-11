@@ -18,7 +18,7 @@ func Register(ctx context.Context, app *fiber.App) error {
 
 	healthRoute := getRoute()
 
-	logger.Infof("configuring health router on %s", healthRoute)
+	logger.Tracef("configuring health router on %s in fiber", healthRoute)
 
 	app.Get(healthRoute, func(c *fiber.Ctx) error {
 
@@ -29,6 +29,8 @@ func Register(ctx context.Context, app *fiber.App) error {
 
 		return gifiber.JSON(c, httpCode, resp, nil)
 	})
+
+	logger.Debugf("health router configured on %s in fiber", healthRoute)
 
 	return nil
 }

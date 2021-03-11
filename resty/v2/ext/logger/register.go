@@ -15,8 +15,13 @@ func Register(ctx context.Context, client *resty.Client) error {
 		return nil
 	}
 
+	logger := gilog.FromContext(ctx)
+	logger.Trace("enabling logger middleware in resty")
+
 	client.OnBeforeRequest(logBeforeResponse)
 	client.OnAfterResponse(logAfterResponse)
+
+	logger.Debug("logger middleware successfully enabled in resty")
 
 	return nil
 }
@@ -39,7 +44,18 @@ func logBeforeResponse(client *resty.Client, request *resty.Request) error {
 				"rest_request_method":  request.Method,
 			})
 
-	logger.Infof("rest request processing")
+	var method func(format string, args ...interface{})
+
+	switch Level() {
+	case "TRACE":
+		method = logger.Tracef
+	case "DEBUG":
+		method = logger.Debugf
+	default:
+		method = logger.Infof
+	}
+
+	method("rest request processing")
 
 	return nil
 }
@@ -60,12 +76,23 @@ func logAfterResponse(client *resty.Client, response *resty.Response) error {
 			"rest_response_status_code": statusCode,
 		})
 
+	var method func(format string, args ...interface{})
+
+	switch Level() {
+	case "TRACE":
+		method = logger.Tracef
+	case "DEBUG":
+		method = logger.Debugf
+	default:
+		method = logger.Infof
+	}
+
 	if statusCode > 500 {
 		logger.Errorf("rest request processed with error")
 	} else if statusCode > 400 {
 		logger.Warnf("rest request processed with warning")
 	} else {
-		logger.Infof("successful rest request processed")
+		method("successful rest request processed")
 	}
 
 	return nil

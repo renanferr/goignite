@@ -17,16 +17,19 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 
 	logger := gilog.FromContext(ctx)
 
-	logger.Trace("integrating echo with prometheus")
+	logger.Trace("enabling prometheus middleware in echo")
 
 	instance.Use(prometheus.MetricsMiddleware())
 
+	logger.Debug("prometheus middleware successfully enabled in echo")
+
 	prometheusRoute := GetRoute()
 
-	logger.Infof("configuring prometheus metrics router on %s", prometheusRoute)
+	logger.Tracef("configuring prometheus metric router on %s in echo", prometheusRoute)
+
 	instance.GET(prometheusRoute, echo.WrapHandler(promhttp.Handler()))
 
-	logger.Infof("prometheus integrated with echo with success")
+	logger.Debugf("prometheus metric router configured on %s in echo", prometheusRoute)
 
 	return nil
 }

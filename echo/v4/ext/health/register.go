@@ -18,10 +18,12 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 
 	healthRoute := GetRoute()
 
-	logger.Infof("configuring health router on %s", healthRoute)
+	logger.Tracef("configuring health router on %s in echo", healthRoute)
 
 	healthHandler := NewHealthHandler()
 	instance.GET(healthRoute, healthHandler.Get)
+
+	logger.Debugf("health router configured on %s in echo", healthRoute)
 
 	return nil
 }

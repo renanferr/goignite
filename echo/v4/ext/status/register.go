@@ -19,10 +19,12 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 
 	statusRoute := GetRoute()
 
-	logger.Infof("configuring status router on %s", statusRoute)
+	logger.Tracef("configuring status router on %s in echo", statusRoute)
 
 	statusHandler := NewResourceStatusHandler()
 	instance.GET(statusRoute, statusHandler.Get)
+
+	logger.Debugf("status router configured on %s in echo", statusRoute)
 
 	return nil
 }

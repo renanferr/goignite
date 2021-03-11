@@ -19,7 +19,7 @@ func Register(ctx context.Context) (*gichi.Config, error) {
 
 	healthRoute := getRoute()
 
-	logger.Tracef("configuring health router on %s", healthRoute)
+	logger.Tracef("configuring health router on %s in chi", healthRoute)
 
 	healthHandler := NewHealthHandler()
 

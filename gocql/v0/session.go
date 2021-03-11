@@ -8,7 +8,9 @@ import (
 	"github.com/gocql/gocql"
 )
 
-func NewSession(ctx context.Context, o *Options) (session *gocql.Session, err error) {
+type Ext func(context.Context, *gocql.Session) error
+
+func NewSession(ctx context.Context, o *Options, exts ...Ext) (session *gocql.Session, err error) {
 
 	logger := gilog.FromContext(ctx)
 
@@ -96,12 +98,18 @@ func NewSession(ctx context.Context, o *Options) (session *gocql.Session, err er
 		return nil, err
 	}
 
+	for _, ext := range exts {
+		if err := ext(ctx, session); err != nil {
+			panic(err)
+		}
+	}
+
 	logger.Infof("Connected to Cassandra server: %v", strings.Join(o.Hosts, ","))
 
 	return session, err
 }
 
-func NewDefaultSession(ctx context.Context) (*gocql.Session, error) {
+func NewDefaultSession(ctx context.Context, exts ...Ext) (*gocql.Session, error) {
 
 	logger := gilog.FromContext(ctx)
 
@@ -110,5 +118,5 @@ func NewDefaultSession(ctx context.Context) (*gocql.Session, error) {
 		logger.Fatalf(err.Error())
 	}
 
-	return NewSession(ctx, o)
+	return NewSession(ctx, o, exts...)
 }

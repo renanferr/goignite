@@ -20,7 +20,7 @@ func Register(ctx context.Context) (*gichi.Config, error) {
 
 	statusRoute := getRoute()
 
-	logger.Tracef("configuring status router on %s", statusRoute)
+	logger.Tracef("configuring status router on %s in chi", statusRoute)
 
 	statusHandler := NewResourceStatusHandler()
 

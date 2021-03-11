@@ -13,9 +13,19 @@ var (
 )
 
 func Register(ctx context.Context, instance *echo.Echo) error {
-	if IsEnabled() {
-		instance.Use(semaphoreMiddleware(int64(GetLimit())))
+
+	if !IsEnabled() {
+		return nil
 	}
+
+	logger := gilog.FromContext(ctx)
+
+	logger.Trace("enabling semaphore middleware in echo")
+
+	instance.Use(semaphoreMiddleware(int64(GetLimit())))
+
+	logger.Debug("semaphore middleware successfully enabled in echo")
+
 	return nil
 }
 

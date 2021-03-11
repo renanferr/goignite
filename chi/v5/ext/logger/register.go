@@ -18,7 +18,7 @@ func Register(ctx context.Context) (*gichi.Config, error) {
 	}
 
 	logger := gilog.FromContext(ctx)
-	logger.Tracef("configuring logger")
+	logger.Trace("enabling logger middleware in chi")
 
 	return &gichi.Config{
 		Middlewares: []func(http.Handler) http.Handler{
@@ -30,6 +30,9 @@ func Register(ctx context.Context) (*gichi.Config, error) {
 
 // loggerMiddleware returns a middleware that logs HTTP requests.
 func loggerMiddleware(next http.Handler) http.Handler {
+
+	level := Level()
+
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 		t1 := time.Now()
@@ -86,11 +89,23 @@ func loggerMiddleware(next http.Handler) http.Handler {
 		}
 
 		logger = gilog.FromContext(ctx).WithFields(postReqContent)
-		if status >= 100 && status < 400 {
-			logger.Info("request finished")
+		if status >= 100 && status < 500 {
+
+			var method func(format string, args ...interface{})
+
+			switch level {
+			case "TRACE":
+				method = logger.Tracef
+			case "DEBUG":
+				method = logger.Debugf
+			default:
+				method = logger.Infof
+			}
+
+			method("request finished")
 		} else if status == 500 {
 			logger.WithField("stacktrace",
-				string(debug.Stack())).Info("internal error during request")
+				string(debug.Stack())).Error("internal error during request")
 		} else {
 			message := "request finished"
 

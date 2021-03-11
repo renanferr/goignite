@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-resty/resty/v2"
 )
 
@@ -13,6 +14,9 @@ func Register(ctx context.Context, client *resty.Client) error {
 	if !IsEnabled() {
 		return nil
 	}
+
+	logger := gilog.FromContext(ctx)
+	logger.Trace("configuring retry in resty")
 
 	client.
 		SetRetryCount(giconfig.Int(count)).
@@ -32,6 +36,8 @@ func Register(ctx context.Context, client *resty.Client) error {
 			})
 
 	addTimeoutRetryCondition(client)
+
+	logger.Debug("retry successfully configured in resty")
 
 	return nil
 }

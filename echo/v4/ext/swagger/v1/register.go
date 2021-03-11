@@ -16,14 +16,13 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 
 	logger := gilog.FromContext(ctx)
 
-	logger.Trace("integrating echo with swagger")
-
 	swaggerRoute := GetRoute()
-	logger.Infof("configuring swagger router on %s", swaggerRoute)
+
+	logger.Tracef("configuring swagger router on %s in echo", swaggerRoute)
 
 	instance.GET(swaggerRoute, echoSwagger.WrapHandler)
 
-	logger.Debug("swagger integrated with echo with success")
+	logger.Debugf("swagger router configured on %s in echo", swaggerRoute)
 
 	return nil
 }

@@ -16,18 +16,20 @@ func Register(ctx context.Context, instance *fiber.App) error {
 
 	logger := gilog.FromContext(ctx)
 
-	logger.Trace("integrating fiber with prometheus")
+	logger.Trace("enabling prometheus middleware in fiber")
+
+	prometheus := fiberprometheus.New("")
+	instance.Use(prometheus.Middleware)
+
+	logger.Debug("prometheus middleware successfully enabled in fiber")
 
 	prometheusRoute := getRoute()
 
-	logger.Debugf("configuring prometheus metrics router on %s", prometheusRoute)
+	logger.Tracef("configuring prometheus metric router on %s in fiber", prometheusRoute)
 
-	prometheus := fiberprometheus.New("")
 	prometheus.RegisterAt(instance, prometheusRoute)
 
-	instance.Use(prometheus.Middleware)
-
-	logger.Debug("prometheus integrated with fiber with success")
+	logger.Debugf("prometheus metric router configured on %s in fiber", prometheusRoute)
 
 	return nil
 }

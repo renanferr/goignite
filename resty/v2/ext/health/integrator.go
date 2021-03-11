@@ -29,13 +29,13 @@ func (i *Integrator) Register(ctx context.Context, client *resty.Client) error {
 
 	logger := gilog.FromContext(ctx).WithTypeOf(*i)
 
-	logger.Trace("integrating resty with health")
+	logger.Trace("integrating resty in health")
 
 	checker := NewChecker(client, i.options)
 	hc := gihealth.NewHealthChecker(i.options.Name, i.options.Description, checker, i.options.Required, i.options.Enabled)
 	gihealth.Add(hc)
 
-	logger.Debug("resty integrated on health with success")
+	logger.Debug("resty successfully integrated in health")
 
 	return nil
 }

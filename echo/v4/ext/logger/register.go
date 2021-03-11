@@ -10,15 +10,23 @@ import (
 )
 
 func Register(ctx context.Context, instance *echo.Echo) error {
-	if IsEnabled() {
-		instance.Use(loggerMiddleware())
+	if !IsEnabled() {
+		return nil
 	}
+
+	logger := gilog.FromContext(ctx)
+
+	logger.Trace("enabling logger middleware in echo")
+
+	instance.Use(loggerMiddleware(Level()))
+
+	logger.Debug("logger middleware successfully enabled in echo")
 
 	return nil
 }
 
 // loggerMiddleware returns a middleware that logs HTTP requests.
-func loggerMiddleware() echo.MiddlewareFunc {
+func loggerMiddleware(level string) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			req := c.Request()
@@ -51,7 +59,18 @@ func loggerMiddleware() echo.MiddlewareFunc {
 				reqSize = "0"
 			}
 
-			logger.Infof("%s %s %s %-7s %s %3d %s %s %13v %s %s",
+			var method func(format string, args ...interface{})
+
+			switch level {
+			case "TRACE":
+				method = logger.Tracef
+			case "DEBUG":
+				method = logger.Debugf
+			default:
+				method = logger.Infof
+			}
+
+			method("%s %s %s %-7s %s %3d %s %s %13v %s %s",
 				id,
 				c.RealIP(),
 				req.Host,

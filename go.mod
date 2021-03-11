@@ -3,6 +3,7 @@ module github.com/b2wdigital/goignite/v2
 go 1.16
 
 require (
+	github.com/Microsoft/go-winio v0.4.16 // indirect
 	github.com/ansrivas/fiberprometheus/v2 v2.1.1
 	github.com/asaskevich/EventBus v0.0.0-20200907212545-49d423059eef
 	github.com/aws/aws-sdk-go-v2 v1.2.0
@@ -51,6 +52,7 @@ require (
 	github.com/newrelic/go-agent/v3/integrations/nrnats v1.1.0
 	github.com/newrelic/go-agent/v3/integrations/nrredis-v7 v1.0.0
 	github.com/panjf2000/ants/v2 v2.4.3
+	github.com/philhofer/fwd v1.1.1 // indirect
 	github.com/prometheus/client_golang v1.9.0
 	github.com/prometheus/common v0.15.0
 	github.com/ravernkoh/cwlogsfmt v0.0.0-20180121032441-917bad983b4c
@@ -72,6 +74,7 @@ require (
 	golang.org/x/net v0.0.0-20210119194325-5f4716e94777
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	google.golang.org/grpc v1.35.0
+	gopkg.in/DataDog/dd-trace-go.v1 v1.29.0
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	k8s.io/client-go v0.16.13

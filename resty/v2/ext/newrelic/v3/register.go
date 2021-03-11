@@ -19,7 +19,7 @@ func Register(ctx context.Context, client *resty.Client) error {
 
 	logger := gilog.FromContext(ctx)
 
-	logger.Trace("integrating resty with newrelic")
+	logger.Trace("integrating resty in newrelic")
 
 	client.OnBeforeRequest(func(client *resty.Client, request *resty.Request) error {
 
@@ -56,7 +56,7 @@ func Register(ctx context.Context, client *resty.Client) error {
 		return nil
 	})
 
-	logger.Debug("resty integrated with newrelic with success")
+	logger.Debug("resty successfully integrated in newrelic")
 
 	return nil
 }

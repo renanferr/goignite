@@ -29,13 +29,13 @@ func (i *Integrator) Register(ctx context.Context, db *sql.DB) error {
 
 	logger := gilog.FromContext(ctx).WithTypeOf(*i)
 
-	logger.Trace("integrating godror with health")
+	logger.Trace("integrating godror in health")
 
 	checker := NewChecker(db)
 	hc := gihealth.NewHealthChecker(i.options.Name, i.options.Description, checker, i.options.Required, i.options.Enabled)
 	gihealth.Add(hc)
 
-	logger.Debug("godror integrated on health with success")
+	logger.Debug("godror successfully integrated in health")
 
 	return nil
 }

@@ -16,11 +16,11 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 
 	logger := gilog.FromContext(ctx)
 
-	logger.Trace("integrating echo with pprof")
+	logger.Trace("configuring pprof in echo")
 
 	echopprof.Wrap(instance)
 
-	logger.Debug("pprof integrated with echo with success")
+	logger.Debug("pprof configured with echo with success")
 
 	return nil
 }

@@ -29,13 +29,13 @@ func (i *Integrator) Register(ctx context.Context, conn *nats.Conn) error {
 
 	logger := gilog.FromContext(ctx).WithTypeOf(*i)
 
-	logger.Trace("integrating nats with health")
+	logger.Trace("integrating nats in health")
 
 	checker := NewChecker(conn)
 	hc := gihealth.NewHealthChecker(i.options.Name, i.options.Description, checker, i.options.Required, i.options.Enabled)
 	gihealth.Add(hc)
 
-	logger.Debug("nats integrated on health with success")
+	logger.Debug("nats successfully integrated in health")
 
 	return nil
 }

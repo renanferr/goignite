@@ -16,12 +16,13 @@ func Register(ctx context.Context, conn *gimongo.Conn) error {
 
 	logger := gilog.FromContext(ctx)
 
-	logger.Trace("integrating mongodb with newrelic")
+	logger.Trace("integrating mongo in newrelic")
 
 	nrMon := nrmongo.NewCommandMonitor(nil)
 
 	conn.ClientOptions.SetMonitor(nrMon)
-	logger.Debug("mongodb integrated with newrelic with success")
+
+	logger.Debug("mongo successfully integrated in newrelic")
 
 	return nil
 }

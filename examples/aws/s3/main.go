@@ -9,7 +9,6 @@ import (
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
-	"github.com/prometheus/common/log"
 )
 
 const Bucket = "aws.s3.bucket"
@@ -52,7 +51,7 @@ func main() {
 	// make a call
 	head, err := s3Client.HeadObject(ctx, input)
 	if err != nil {
-		log.Fatalf(err.Error())
+		logger.Fatalf(err.Error())
 	}
 
 	if err != nil {

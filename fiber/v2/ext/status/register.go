@@ -19,11 +19,13 @@ func Register(ctx context.Context, app *fiber.App) error {
 
 	statusRoute := getRoute()
 
-	logger.Infof("configuring status router on %s", statusRoute)
+	logger.Tracef("configuring status router on %s in fiber", statusRoute)
 
 	app.Get(statusRoute, func(c *fiber.Ctx) error {
 		return gifiber.JSON(c, http.StatusOK, response.NewResourceStatus(), nil)
 	})
+
+	logger.Debugf("status router configured on %s in fiber", statusRoute)
 
 	return nil
 }

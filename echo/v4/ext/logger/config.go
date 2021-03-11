@@ -6,13 +6,20 @@ import (
 )
 
 const (
-	enabled = giecho.ExtRoot + ".logger.enabled"
+	root    = giecho.ExtRoot + ".logger"
+	enabled = root + ".enabled"
+	level   = root + ".level"
 )
 
 func init() {
 	giconfig.Add(enabled, true, "enable/disable logging request middleware")
+	giconfig.Add(level, "INFO", "sets log level INFO/DEBUG/TRACE")
 }
 
 func IsEnabled() bool {
 	return giconfig.Bool(enabled)
+}
+
+func Level() string {
+	return giconfig.String(level)
 }

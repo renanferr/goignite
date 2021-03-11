@@ -29,13 +29,13 @@ func (i *Integrator) Register(ctx context.Context, conn *gimongo.Conn) error {
 
 	logger := gilog.WithTypeOf(*i)
 
-	logger.Trace("integrating mongo with health")
+	logger.Trace("integrating mongo in health")
 
 	checker := NewChecker(conn.Client)
 	hc := gihealth.NewHealthChecker(i.options.Name, i.options.Description, checker, i.options.Required, i.options.Enabled)
 	gihealth.Add(hc)
 
-	logger.Debug("mongo integrated on health with success")
+	logger.Debug("mongo successfully integrated in health")
 
 	return nil
 }

@@ -16,9 +16,11 @@ func Register(ctx context.Context) (*gichi.Config, error) {
 	}
 
 	logger := gilog.FromContext(ctx)
-	logger.Trace("configuring prometheus")
+	logger.Trace("enabling prometheus middleware in chi")
 
 	prometheusRoute := getRoute()
+
+	logger.Tracef("configuring prometheus router on %s in chi", prometheusRoute)
 
 	return &gichi.Config{
 		Middlewares: []func(http.Handler) http.Handler{

@@ -15,7 +15,7 @@ func Register(ctx context.Context) (*gichi.Config, error) {
 	}
 
 	logger := gilog.FromContext(ctx)
-	logger.Tracef("configuring request id")
+	logger.Trace("enabling requestID middleware in chi")
 
 	return &gichi.Config{
 		Middlewares: []func(http.Handler) http.Handler{

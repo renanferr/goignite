@@ -4,14 +4,23 @@ import (
 	"context"
 
 	"github.com/b2wdigital/goignite/v2/info"
+	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/labstack/echo/v4"
 	uuid "github.com/satori/go.uuid"
 )
 
 func Register(ctx context.Context, instance *echo.Echo) error {
-	if IsEnabled() {
-		instance.Use(tidMiddleware())
+	if !IsEnabled() {
+		return nil
 	}
+
+	logger := gilog.FromContext(ctx)
+
+	logger.Trace("enabling tid middleware in echo")
+
+	instance.Use(tidMiddleware())
+
+	logger.Debug("recover tid successfully enabled in echo")
 
 	return nil
 }

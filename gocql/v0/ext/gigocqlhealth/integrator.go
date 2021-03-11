@@ -29,13 +29,13 @@ func (i *Integrator) Register(ctx context.Context, session *gocql.Session) error
 
 	logger := gilog.FromContext(ctx).WithTypeOf(*i)
 
-	logger.Trace("integrating gocql with health")
+	logger.Trace("integrating gocql in health")
 
 	checker := NewChecker(session)
 	hc := gihealth.NewHealthChecker(i.options.Name, i.options.Description, checker, i.options.Required, i.options.Enabled)
 	gihealth.Add(hc)
 
-	logger.Debug("gocql integrated on health with success")
+	logger.Debug("gocql successfully integrated in health")
 
 	return nil
 }

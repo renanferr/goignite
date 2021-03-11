@@ -15,10 +15,11 @@ func Register(ctx context.Context, client *redis.Client) error {
 
 	logger := gilog.FromContext(ctx)
 
-	logger.Trace("integrating redis with newrelic")
+	logger.Trace("integrating redis in newrelic")
 
 	client.AddHook(NewHook(client.Options()))
-	logger.Debug("redis integrated with newrelic with success")
+
+	logger.Debug("redis successfully integrated in newrelic")
 
 	return nil
 }

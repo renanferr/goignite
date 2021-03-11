@@ -20,12 +20,11 @@ func Register(ctx context.Context, instance *fiber.App) error {
 	}
 
 	logger := gilog.FromContext(ctx)
-
-	logger.Trace("integrating fiber with newrelic")
+	logger.Trace("enabling newrelic middleware in fiber")
 
 	instance.Use(middleware(ginewrelic.Application()))
 
-	logger.Debug("fiber integrated with newrelic with success")
+	logger.Debug("newrelic middleware successfully enabled in fiber")
 
 	return nil
 }

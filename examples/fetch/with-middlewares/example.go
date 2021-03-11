@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"time"
 
+	gifasthttp "github.com/b2wdigital/goignite/v2/fasthttp/v1/client"
 	gifetch "github.com/b2wdigital/goignite/v2/fetch"
 )
 
@@ -27,7 +28,12 @@ func NewExampleMiddleware1() gifetch.Middleware {
 }
 
 func main() {
-	client := gifetch.New()
+
+	ctx := context.Background()
+
+	fasthttpClient := gifasthttp.NewDefaultClient(ctx)
+
+	client := gifetch.New(fasthttpClient)
 	client.Use(NewExampleMiddleware1())
 
 	client.OnBeforeRequest(func(ctx context.Context, options gifetch.Options) context.Context {
@@ -36,7 +42,6 @@ func main() {
 		return ctx
 	})
 
-	ctx := context.Background()
 	ctx = context.WithValue(ctx, "myOldCtx", "myOldValue")
 
 	o := gifetch.Options{

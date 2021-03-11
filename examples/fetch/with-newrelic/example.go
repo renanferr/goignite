@@ -5,12 +5,20 @@ import (
 	"fmt"
 	"time"
 
+	gifasthttp "github.com/b2wdigital/goignite/v2/fasthttp/v1/client"
 	gifetch "github.com/b2wdigital/goignite/v2/fetch"
+	gifetchnewrelic "github.com/b2wdigital/goignite/v2/fetch/ext/newrelic/v3"
 )
 
 func main() {
-	client := gifetch.New()
+
 	ctx := context.Background()
+
+	fasthttpClient := gifasthttp.NewDefaultClient(ctx)
+
+	client := gifetch.New(fasthttpClient)
+	client.Use(gifetchnewrelic.New())
+
 	ctx = context.WithValue(ctx, "myOldCtx", "myOldValue")
 
 	o := gifetch.Options{

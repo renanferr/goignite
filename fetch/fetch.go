@@ -3,7 +3,6 @@ package gifetch
 import (
 	"context"
 	neturl "net/url"
-	"time"
 
 	"github.com/valyala/fasthttp"
 )
@@ -15,18 +14,10 @@ type Fetch struct {
 	InterceptorResponse InterceptorResponse
 }
 
-func New() Fetch {
-	client := fasthttp.Client{
-		MaxConnsPerHost:     300,
-		MaxConnDuration:     60 * time.Second,
-		MaxIdleConnDuration: 30 * time.Second,
+func New(client *fasthttp.Client) *Fetch {
+	return &Fetch{
+		client: client,
 	}
-
-	f := Fetch{}
-
-	f.client = &client
-
-	return f
 }
 
 func (c *Fetch) Use(m Middleware) {

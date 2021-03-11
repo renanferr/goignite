@@ -1,4 +1,4 @@
-package gifetch
+package gifasthttp
 
 import (
 	"context"
@@ -9,14 +9,20 @@ import (
 
 type Fetch struct {
 	client              *fasthttp.Client
-	beforeRequest       []func(ctx context.Context, o Options) context.Context
-	afterRequest        []func(ctx context.Context, o Options, r Response)
+	beforeRequest       []func(ctx context.Context, o FetchOptions) context.Context
+	afterRequest        []func(ctx context.Context, o FetchOptions, r Response)
 	InterceptorResponse InterceptorResponse
 }
 
-func New(client *fasthttp.Client) *Fetch {
+func NewDefaultFetch(ctx context.Context) *Fetch {
 	return &Fetch{
-		client: client,
+		client: NewDefaultClient(ctx),
+	}
+}
+
+func NewFetch(ctx context.Context, options *Options) *Fetch {
+	return &Fetch{
+		client: NewClient(ctx, options),
 	}
 }
 
@@ -25,15 +31,15 @@ func (c *Fetch) Use(m Middleware) {
 	c.afterRequest = append(c.afterRequest, m.OnAfterRequest)
 }
 
-func (c *Fetch) OnBeforeRequest(fn func(ctx context.Context, o Options) context.Context) {
+func (c *Fetch) OnBeforeRequest(fn func(ctx context.Context, o FetchOptions) context.Context) {
 	c.beforeRequest = append(c.beforeRequest, fn)
 }
 
-func (c *Fetch) OnAfterRequest(fn func(ctx context.Context, o Options, r Response)) {
+func (c *Fetch) OnAfterRequest(fn func(ctx context.Context, o FetchOptions, r Response)) {
 	c.afterRequest = append(c.afterRequest, fn)
 }
 
-func (c *Fetch) Fetch(o Options) Response {
+func (c *Fetch) Fetch(o FetchOptions) Response {
 
 	url, e := neturl.Parse(o.Url)
 

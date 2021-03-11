@@ -1,25 +1,15 @@
-package gifetch
+package gifasthttp
 
 import (
 	"context"
 	"net/url"
-	"time"
 
 	"github.com/valyala/fasthttp"
 )
 
 type Middleware interface {
-	OnBeforeRequest(context.Context, Options) context.Context
-	OnAfterRequest(context.Context, Options, Response)
-}
-
-type Options struct {
-	Url     string
-	Method  string
-	Header  *fasthttp.RequestHeader
-	Timeout time.Duration
-	Body    []byte
-	Ctx     context.Context
+	OnBeforeRequest(context.Context, FetchOptions) context.Context
+	OnAfterRequest(context.Context, FetchOptions, Response)
 }
 
 type Response struct {

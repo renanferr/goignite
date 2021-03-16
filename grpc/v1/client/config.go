@@ -1,6 +1,6 @@
 package gigrpc
 
 const (
-	root    = "gi.grpc"
+	root    = "gi.grpc.client"
 	ExtRoot = root + ".ext"
 )

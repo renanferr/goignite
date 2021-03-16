@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	root                 = "gi.grpc"
+	root                 = "gi.grpc.server"
 	port                 = root + ".port"
 	maxConcurrentStreams = root + ".maxConcurrentStreams"
 	tlsEnabled           = root + ".tls.enabled"

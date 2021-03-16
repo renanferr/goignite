@@ -5,12 +5,13 @@ import (
 
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	gimongo "github.com/b2wdigital/goignite/v2/mongo/v1"
+	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/newrelic/go-agent/v3/integrations/nrmongo"
 )
 
 func Register(ctx context.Context, conn *gimongo.Conn) error {
 
-	if !IsEnabled() {
+	if !IsEnabled() || !ginewrelic.IsEnabled() {
 		return nil
 	}
 

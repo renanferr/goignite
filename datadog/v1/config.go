@@ -40,7 +40,7 @@ func init() {
 
 	giconfig.Add(service, "", "service name for datadog")
 	giconfig.Add(env, "", "service env")
-	giconfig.Add(enabled, false, "enables newrelic")
+	giconfig.Add(enabled, true, "enables datadog")
 	giconfig.Add(logLevel, "DEBUG", "log level")
 	giconfig.Add(tags, map[string]string{}, "sets a key/value pair which will be set as a tag on all spans created by tracer. This option may be used multiple times")
 	giconfig.Add(host, "localhost", "sets the address where the agent is located")

@@ -1,12 +1,12 @@
-package giawsnewrelic
+package giantsnewrelic
 
 import (
-	giaws "github.com/b2wdigital/goignite/v2/aws/v2"
+	giants "github.com/b2wdigital/goignite/v2/ants/v2"
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
-	root    = giaws.ExtRoot + ".newrelic"
+	root    = giants.ExtRoot + ".newrelic"
 	enabled = root + ".enabled"
 )
 

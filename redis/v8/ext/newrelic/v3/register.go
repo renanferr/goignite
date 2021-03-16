@@ -4,12 +4,13 @@ import (
 	"context"
 
 	gilog "github.com/b2wdigital/goignite/v2/log"
+	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/go-redis/redis/v8"
 )
 
 func Register(ctx context.Context, client *redis.Client) error {
 
-	if !IsEnabled() {
+	if !IsEnabled() || !ginewrelic.IsEnabled() {
 		return nil
 	}
 

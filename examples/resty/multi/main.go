@@ -5,9 +5,10 @@ import (
 
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
+	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
 	giresty "github.com/b2wdigital/goignite/v2/resty/v2"
 	health "github.com/b2wdigital/goignite/v2/resty/v2/ext/health"
+	"github.com/go-resty/resty/v2"
 )
 
 func main() {
@@ -36,12 +37,16 @@ func main() {
 	cligoogle := giresty.NewClient(ctx, googleopt, healthIntegrator.Register)
 	reqgoogle := cligoogle.R()
 
-	respgoogle, err := reqgoogle.Get("/")
+	var respgoogle *resty.Response
+
+	respgoogle, err = reqgoogle.Get("/")
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}
 
-	logger.Infof(respgoogle.String())
+	if respgoogle != nil {
+		logger.Infof(respgoogle.String())
+	}
 
 	// call acom
 
@@ -55,10 +60,14 @@ func main() {
 	cliacom := giresty.NewClient(ctx, acomopt)
 	reqacom := cliacom.R()
 
-	respacom, err := reqacom.Get("/")
+	var respacom *resty.Response
+
+	respacom, err = reqacom.Get("/")
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}
 
-	logger.Infof(respacom.String())
+	if respacom != nil {
+		logger.Infof(respacom.String())
+	}
 }

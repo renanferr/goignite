@@ -1,17 +1,17 @@
-package giawsnewrelic
+package gigrpcdatadog
 
 import (
-	giaws "github.com/b2wdigital/goignite/v2/aws/v2"
 	giconfig "github.com/b2wdigital/goignite/v2/config"
+	gigrpc "github.com/b2wdigital/goignite/v2/grpc/v1/server"
 )
 
 const (
-	root    = giaws.ExtRoot + ".newrelic"
+	root    = gigrpc.ExtRoot + ".datadog"
 	enabled = root + ".enabled"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable newrelic integration")
+	giconfig.Add(enabled, true, "enable/disable datadog")
 }
 
 func IsEnabled() bool {

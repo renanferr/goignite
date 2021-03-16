@@ -3,7 +3,7 @@ package gidatadogfx
 import (
 	"sync"
 
-	gicontext "github.com/b2wdigital/goignite/v2/context/fx/v1"
+	gicontextfx "github.com/b2wdigital/goignite/v2/context/fx/v1"
 	gidatadog "github.com/b2wdigital/goignite/v2/datadog/v1"
 	"go.uber.org/fx"
 )
@@ -15,7 +15,7 @@ func Module() fx.Option {
 
 	once.Do(func() {
 		options = fx.Options(
-			gicontext.Module(),
+			gicontextfx.Module(),
 			fx.Invoke(
 				gidatadog.NewTracer,
 			),

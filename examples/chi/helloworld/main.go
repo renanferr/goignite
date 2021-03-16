@@ -14,7 +14,7 @@ import (
 	gichitid "github.com/b2wdigital/goignite/v2/chi/v5/ext/tid"
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 	giinfo "github.com/b2wdigital/goignite/v2/info"
-	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
+	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
 )
 
 const HelloWorldEndpoint = "app.endpoint.helloworld"

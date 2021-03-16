@@ -5,7 +5,7 @@ import (
 
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
+	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
 )
 
 type AppConfig struct {

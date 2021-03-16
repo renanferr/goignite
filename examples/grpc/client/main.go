@@ -6,8 +6,7 @@ import (
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 	gigrpc "github.com/b2wdigital/goignite/v2/grpc/v1/client"
 	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
-	"github.com/prometheus/common/log"
+	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
 )
 
 func main() {
@@ -16,7 +15,7 @@ func main() {
 
 	giconfig.Load()
 
-	gilogrus.NewLogger()
+	logger := gilogrus.NewLogger()
 
 	request := &TestRequest{
 		Message: "mensagem da requisição",
@@ -34,7 +33,7 @@ func main() {
 
 	test, err := c.Test(ctx, request)
 	if err != nil {
-		log.Fatalf("%v.Call(_) = _, %v", c, err)
+		logger.Fatalf("%v.Call(_) = _, %v", c, err)
 	}
 
 	gilog.Infof(test.Message)

@@ -14,7 +14,7 @@ type PublisherRegister struct {
 }
 
 func (p *PublisherRegister) Before(ctx context.Context, conn *nats.Conn, msg *nats.Msg) (context.Context, error) {
-	if !IsEnabled() {
+	if !IsEnabled() || !ginewrelic.IsEnabled() {
 		return ctx, nil
 	}
 

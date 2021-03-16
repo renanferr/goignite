@@ -6,7 +6,7 @@ import (
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 	gigocloud "github.com/b2wdigital/goignite/v2/gocloud/v0"
 	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
+	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
 	"gocloud.dev/pubsub"
 )
 

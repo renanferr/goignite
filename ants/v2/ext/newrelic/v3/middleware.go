@@ -14,6 +14,10 @@ type middleware struct {
 
 func (i *middleware) Before(ctx context.Context) context.Context {
 
+	if IsEnabled() || !ginewrelic.IsEnabled() {
+		return ctx
+	}
+
 	logger := gilog.FromContext(ctx).WithTypeOf(*i)
 
 	logger.Trace("creating go routine for newrelic")
@@ -25,7 +29,13 @@ func (i *middleware) Before(ctx context.Context) context.Context {
 	return newrelic.NewContext(ctx, txn)
 }
 
-func (i *middleware) After(ctx context.Context) {}
+func (i *middleware) After(ctx context.Context) {
+
+	if IsEnabled() || !ginewrelic.IsEnabled() {
+		return
+	}
+
+}
 
 func NewMiddleware() giants.Middleware {
 	gilog.Trace("creating newrelic middleware for ants")

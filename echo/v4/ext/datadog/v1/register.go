@@ -11,6 +11,7 @@ import (
 
 func Register(ctx context.Context, instance *echo.Echo) error {
 	if !IsEnabled() || !gidatadog.IsEnabled() {
+		return nil
 	}
 
 	logger := gilog.FromContext(ctx)

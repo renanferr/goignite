@@ -5,9 +5,10 @@ import (
 
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
+	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
 	giresty "github.com/b2wdigital/goignite/v2/resty/v2"
 	health "github.com/b2wdigital/goignite/v2/resty/v2/ext/health"
+	"github.com/go-resty/resty/v2"
 )
 
 func main() {
@@ -36,10 +37,13 @@ func main() {
 	client := giresty.NewClient(ctx, &giresty.Options{}, healthIntegrator.Register)
 	request := client.R().EnableTrace()
 
-	response, err := request.Get("http://google.com")
+	var resp *resty.Response
+	resp, err = request.Get("http://google.com")
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}
 
-	logger.Infof(response.String())
+	if resp != nil {
+		logger.Infof(resp.String())
+	}
 }

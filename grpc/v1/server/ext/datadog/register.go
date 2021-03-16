@@ -10,7 +10,7 @@ import (
 
 func Register(ctx context.Context) []grpc.ServerOption {
 
-	if !IsEnabled() || gidatadog.IsEnabled() {
+	if !IsEnabled() || !gidatadog.IsEnabled() {
 		return nil
 	}
 

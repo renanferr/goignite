@@ -7,7 +7,7 @@ import (
 )
 
 func SubscriberRegister(msgHandler nats.MsgHandler) nats.MsgHandler {
-	if !IsEnabled() {
+	if !IsEnabled() || !ginewrelic.IsEnabled() {
 		return msgHandler
 	}
 

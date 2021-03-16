@@ -15,7 +15,7 @@ import (
 
 func Register(ctx context.Context, instance *fiber.App) error {
 
-	if !IsEnabled() {
+	if !IsEnabled() || !ginewrelic.IsEnabled() {
 		return nil
 	}
 

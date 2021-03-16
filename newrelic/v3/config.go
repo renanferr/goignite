@@ -67,3 +67,7 @@ func init() {
 		},
 		"newrelic serverless mode apdex threshold")
 }
+
+func IsEnabled() bool {
+	return giconfig.Bool(enabled)
+}

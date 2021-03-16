@@ -13,7 +13,7 @@ import (
 
 func Register(ctx context.Context, client *resty.Client) error {
 
-	if !IsEnabled() {
+	if !IsEnabled() || !ginewrelic.IsEnabled() {
 		return nil
 	}
 

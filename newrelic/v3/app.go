@@ -22,6 +22,11 @@ func Application() *newrelic.Application {
 }
 
 func NewApplication(ctx context.Context) (*newrelic.Application, error) {
+
+	if !IsEnabled() {
+		return nil, nil
+	}
+
 	logger := gilog.FromContext(ctx)
 
 	enabled := giconfig.Bool(enabled)
@@ -50,9 +55,7 @@ func NewApplication(ctx context.Context) (*newrelic.Application, error) {
 		return nil, err
 	}
 
-	if enabled {
-		logger.Debugf("started a new NewRelic application: %s", appName)
-	}
+	logger.Debugf("started a new NewRelic application: %s", appName)
 
 	app = a
 

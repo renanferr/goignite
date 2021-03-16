@@ -14,7 +14,7 @@ import (
 )
 
 func Register(ctx context.Context) (*gichi.Config, error) {
-	if !IsEnabled() {
+	if !IsEnabled() || !ginewrelic.IsEnabled() {
 		return nil, nil
 	}
 

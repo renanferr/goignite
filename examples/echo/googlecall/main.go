@@ -14,8 +14,8 @@ import (
 	giechostatus "github.com/b2wdigital/goignite/v2/echo/v4/ext/status"
 	giinfo "github.com/b2wdigital/goignite/v2/info"
 	gilog "github.com/b2wdigital/goignite/v2/log"
-	gizap "github.com/b2wdigital/goignite/v2/log/zap/v1"
 	girest "github.com/b2wdigital/goignite/v2/resty/v2"
+	gizap "github.com/b2wdigital/goignite/v2/zap/v1"
 	"github.com/go-resty/resty/v2"
 	"github.com/labstack/echo/v4"
 )

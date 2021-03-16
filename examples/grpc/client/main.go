@@ -6,7 +6,7 @@ import (
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 	gigrpc "github.com/b2wdigital/goignite/v2/grpc/v1/client"
 	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
+	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
 	"github.com/prometheus/common/log"
 )
 

@@ -9,7 +9,7 @@ import (
 	"github.com/b2wdigital/goignite/v2/gocql/v0/ext/gigocqlhealth"
 	gihealth "github.com/b2wdigital/goignite/v2/health"
 	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
+	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
 )
 
 func main() {

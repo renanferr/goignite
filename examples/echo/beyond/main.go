@@ -12,7 +12,7 @@ import (
 	giechorequestid "github.com/b2wdigital/goignite/v2/echo/v4/ext/requestid"
 	giechostatus "github.com/b2wdigital/goignite/v2/echo/v4/ext/status"
 	giinfo "github.com/b2wdigital/goignite/v2/info"
-	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
+	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
 	"github.com/wesovilabs/beyond/api"
 )
 

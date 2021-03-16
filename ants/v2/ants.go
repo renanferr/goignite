@@ -14,7 +14,7 @@ type Middleware interface {
 	// Before method you perform before the task
 	Before(ctx context.Context) context.Context
 
-	// Before method you perform after the task
+	// After method you perform after the task
 	After(ctx context.Context)
 }
 
@@ -32,7 +32,7 @@ type Wrapper struct {
 
 // New generates an instance of giants wrapper.
 func New(pool *ants.Pool, middlewares ...Middleware) *Wrapper {
-	gilog.Trace("creating giants wrapper")
+	gilog.Trace("creating ants wrapper")
 	return &Wrapper{pool: pool, middlewares: middlewares}
 }
 
@@ -40,7 +40,7 @@ func New(pool *ants.Pool, middlewares ...Middleware) *Wrapper {
 func (a *Wrapper) Submit(ctx context.Context, task Task, wg *sync.WaitGroup) error {
 
 	logger := gilog.FromContext(ctx).WithTypeOf(*a)
-	logger.Trace("submit task")
+	logger.Trace("submit ants task")
 
 	wg.Add(1)
 
@@ -50,7 +50,7 @@ func (a *Wrapper) Submit(ctx context.Context, task Task, wg *sync.WaitGroup) err
 
 		wg.Done()
 
-		logger.Debug("task executed")
+		logger.Debug("ants task executed")
 	})
 
 	return err
@@ -60,13 +60,13 @@ func (a *Wrapper) Submit(ctx context.Context, task Task, wg *sync.WaitGroup) err
 func (a *Wrapper) AsyncSubmit(ctx context.Context, task Task) error {
 
 	logger := gilog.FromContext(ctx).WithTypeOf(*a)
-	logger.Trace("submit async task")
+	logger.Trace("submit async ants task")
 
 	err := ants.Submit(func() {
 
 		a.exec(ctx, task)
 
-		logger.Debug("async task executed")
+		logger.Debug("async ants task executed")
 	})
 
 	return err

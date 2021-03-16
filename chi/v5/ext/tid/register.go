@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	"github.com/b2wdigital/goignite/v2/info"
+	giinfo "github.com/b2wdigital/goignite/v2/info"
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	uuid "github.com/satori/go.uuid"
 )
@@ -32,7 +32,7 @@ func tidMiddleware() func(http.Handler) http.Handler {
 		fn := func(w http.ResponseWriter, r *http.Request) {
 			tid := r.Header.Get("X-TID")
 			if tid == "" {
-				tid = info.AppName + "-" + uuid.NewV4().String()
+				tid = giinfo.AppName + "-" + uuid.NewV4().String()
 			}
 			w.Header().Set("X-TID", tid)
 

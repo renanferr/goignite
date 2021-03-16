@@ -1,4 +1,4 @@
-package errors
+package gierrors
 
 // serviceUnavailable represents an error when an operation is serviceUnavailable.
 type serviceUnavailable struct {

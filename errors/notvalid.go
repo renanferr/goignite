@@ -1,4 +1,4 @@
-package errors
+package gierrors
 
 // notValid represents an error when something is not valid.
 type notValid struct {

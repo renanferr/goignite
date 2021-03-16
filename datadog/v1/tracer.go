@@ -7,8 +7,8 @@ import (
 	"sync"
 
 	giconfig "github.com/b2wdigital/goignite/v2/config"
-	"github.com/b2wdigital/goignite/v2/giinfo"
 	gihttp "github.com/b2wdigital/goignite/v2/http/v1/client"
+	giinfo "github.com/b2wdigital/goignite/v2/info"
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
 )

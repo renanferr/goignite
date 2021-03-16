@@ -3,8 +3,8 @@ package giecho
 import (
 	"net/http"
 
-	"github.com/b2wdigital/goignite/v2/errors"
-	"github.com/b2wdigital/goignite/v2/rest/response"
+	gierrors "github.com/b2wdigital/goignite/v2/errors"
+	girestresponse "github.com/b2wdigital/goignite/v2/rest/response"
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 )
@@ -26,29 +26,29 @@ func JSON(c echo.Context, code int, i interface{}, err error) error {
 
 func JSONError(c echo.Context, err error) error {
 
-	if errors.IsNotFound(err) {
+	if gierrors.IsNotFound(err) {
 		return json(c,
 			http.StatusNotFound,
-			response.Error{HttpStatusCode: http.StatusNotFound, Message: err.Error()})
-	} else if errors.IsNotValid(err) || errors.IsBadRequest(err) {
+			girestresponse.Error{HttpStatusCode: http.StatusNotFound, Message: err.Error()})
+	} else if gierrors.IsNotValid(err) || gierrors.IsBadRequest(err) {
 		return json(c,
 			http.StatusBadRequest,
-			response.Error{HttpStatusCode: http.StatusBadRequest, Message: err.Error()})
-	} else if errors.IsServiceUnavailable(err) {
+			girestresponse.Error{HttpStatusCode: http.StatusBadRequest, Message: err.Error()})
+	} else if gierrors.IsServiceUnavailable(err) {
 		return json(c,
 			http.StatusServiceUnavailable,
-			response.Error{HttpStatusCode: http.StatusServiceUnavailable, Message: err.Error()})
+			girestresponse.Error{HttpStatusCode: http.StatusServiceUnavailable, Message: err.Error()})
 	} else {
 
 		switch t := err.(type) {
 		case validator.ValidationErrors:
 			return json(c,
 				http.StatusUnprocessableEntity,
-				response.NewUnprocessableEntity(t))
+				girestresponse.NewUnprocessableEntity(t))
 		default:
 			return json(c,
 				http.StatusInternalServerError,
-				response.Error{HttpStatusCode: http.StatusInternalServerError, Message: t.Error()})
+				girestresponse.Error{HttpStatusCode: http.StatusInternalServerError, Message: t.Error()})
 		}
 	}
 

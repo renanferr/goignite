@@ -7,33 +7,33 @@ import (
 )
 
 const (
-	ConfigRoot                      = "gi.newrelic"
-	AppName                         = ConfigRoot + ".appName"
-	License                         = ConfigRoot + ".license"
-	Enabled                         = ConfigRoot + ".enabled"
-	TracerEnabled                   = ConfigRoot + ".tracerEnabled"
-	Labels                          = ConfigRoot + ".labels"
-	ServerlessModeEnabled           = ConfigRoot + ".serverless.enabled"
-	ServerlessModeAccountID         = ConfigRoot + ".serverless.accountid"
-	ServerlessModeTrustedAccountKey = ConfigRoot + ".serverless.trustedAccountKey"
-	ServerlessModePrimaryAppID      = ConfigRoot + ".serverless.primaryAppId"
-	ServerlessModeApdexThreshold    = ConfigRoot + ".serverless.apdexThreshold"
-	ErrorCollectorIgnoreStatusCodes = ConfigRoot + ".errorCollector.ignoreStatusCodes"
+	root                            = "gi.newrelic"
+	appName                         = root + ".appName"
+	license                         = root + ".license"
+	enabled                         = root + ".enabled"
+	tracerEnabled                   = root + ".tracerEnabled"
+	labels                          = root + ".labels"
+	serverlessModeEnabled           = root + ".serverless.enabled"
+	serverlessModeAccountID         = root + ".serverless.accountid"
+	serverlessModeTrustedAccountKey = root + ".serverless.trustedAccountKey"
+	serverlessModePrimaryAppID      = root + ".serverless.primaryAppId"
+	serverlessModeApdexThreshold    = root + ".serverless.apdexThreshold"
+	errorCollectorIgnoreStatusCodes = root + ".errorCollector.ignoreStatusCodes"
 )
 
 func init() {
 
-	giconfig.Add(AppName, "", "application name for newrelic")
-	giconfig.Add(License, "", "newrelic license key")
-	giconfig.Add(Enabled, false, "enables newrelic")
-	giconfig.Add(TracerEnabled, false, "enables newrelic distributed tracer")
-	giconfig.Add(Labels, map[string]string{}, "newrelic labels")
-	giconfig.Add(ServerlessModeEnabled, false, "enables newrelic serverless mode")
-	giconfig.Add(ServerlessModeAccountID, "", "newrelic serverless mode account id")
-	giconfig.Add(ServerlessModeTrustedAccountKey, "", "newrelic serverless mode trusted account key")
-	giconfig.Add(ServerlessModePrimaryAppID, "", "newrelic serverless mode primary app id")
-	giconfig.Add(ServerlessModeApdexThreshold, "", "newrelic serverless mode apdex threshold")
-	giconfig.Add(ErrorCollectorIgnoreStatusCodes,
+	giconfig.Add(appName, "", "application name for newrelic")
+	giconfig.Add(license, "", "newrelic license key")
+	giconfig.Add(enabled, false, "enables newrelic")
+	giconfig.Add(tracerEnabled, false, "enables newrelic distributed tracer")
+	giconfig.Add(labels, map[string]string{}, "newrelic labels")
+	giconfig.Add(serverlessModeEnabled, false, "enables newrelic serverless mode")
+	giconfig.Add(serverlessModeAccountID, "", "newrelic serverless mode account id")
+	giconfig.Add(serverlessModeTrustedAccountKey, "", "newrelic serverless mode trusted account key")
+	giconfig.Add(serverlessModePrimaryAppID, "", "newrelic serverless mode primary app id")
+	giconfig.Add(serverlessModeApdexThreshold, "", "newrelic serverless mode apdex threshold")
+	giconfig.Add(errorCollectorIgnoreStatusCodes,
 		[]int{
 			http.StatusBadRequest,
 			http.StatusUnauthorized,

@@ -1,4 +1,4 @@
-package errors
+package gierrors
 
 // timeout represents an error on timeout.
 type timeout struct {

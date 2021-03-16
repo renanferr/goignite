@@ -1,4 +1,4 @@
-package errors
+package gierrors
 
 // conflict represents an error when something is not supported.
 type conflict struct {

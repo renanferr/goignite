@@ -24,23 +24,23 @@ func Application() *newrelic.Application {
 func NewApplication(ctx context.Context) (*newrelic.Application, error) {
 	logger := gilog.FromContext(ctx)
 
-	enabled := giconfig.Bool(Enabled)
-	appName := giconfig.String(AppName)
+	enabled := giconfig.Bool(enabled)
+	appName := giconfig.String(appName)
 	a, err := newrelic.NewApplication(
 		newrelic.ConfigAppName(appName),
-		newrelic.ConfigLicense(giconfig.String(License)),
+		newrelic.ConfigLicense(giconfig.String(license)),
 		newrelic.ConfigEnabled(enabled),
-		newrelic.ConfigDistributedTracerEnabled(giconfig.Bool(TracerEnabled)),
+		newrelic.ConfigDistributedTracerEnabled(giconfig.Bool(tracerEnabled)),
 		newrelic.ConfigLogger(NewLogger()),
 		// newrelic.ConfigDebugLogger(log.GetLogger().Output()),
 		func(cfg *newrelic.Config) {
-			cfg.ErrorCollector.IgnoreStatusCodes = giconfig.Ints(ErrorCollectorIgnoreStatusCodes)
-			cfg.Labels = giconfig.StringMap(Labels)
-			cfg.ServerlessMode.Enabled = giconfig.Bool(ServerlessModeEnabled)
-			cfg.ServerlessMode.AccountID = giconfig.String(ServerlessModeAccountID)
-			cfg.ServerlessMode.TrustedAccountKey = giconfig.String(ServerlessModeTrustedAccountKey)
-			cfg.ServerlessMode.PrimaryAppID = giconfig.String(ServerlessModePrimaryAppID)
-			if apdex, err := time.ParseDuration(giconfig.String(ServerlessModeApdexThreshold) + "s"); nil == err {
+			cfg.ErrorCollector.IgnoreStatusCodes = giconfig.Ints(errorCollectorIgnoreStatusCodes)
+			cfg.Labels = giconfig.StringMap(labels)
+			cfg.ServerlessMode.Enabled = giconfig.Bool(serverlessModeEnabled)
+			cfg.ServerlessMode.AccountID = giconfig.String(serverlessModeAccountID)
+			cfg.ServerlessMode.TrustedAccountKey = giconfig.String(serverlessModeTrustedAccountKey)
+			cfg.ServerlessMode.PrimaryAppID = giconfig.String(serverlessModePrimaryAppID)
+			if apdex, err := time.ParseDuration(giconfig.String(serverlessModeApdexThreshold) + "s"); nil == err {
 				cfg.ServerlessMode.ApdexThreshold = apdex
 			}
 		},
@@ -51,7 +51,7 @@ func NewApplication(ctx context.Context) (*newrelic.Application, error) {
 	}
 
 	if enabled {
-		logger.Infof("started a new NewRelic application: %s", appName)
+		logger.Debugf("started a new NewRelic application: %s", appName)
 	}
 
 	app = a

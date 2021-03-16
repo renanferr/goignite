@@ -13,7 +13,7 @@ import (
 	gichistatus "github.com/b2wdigital/goignite/v2/chi/v5/ext/status"
 	gichitid "github.com/b2wdigital/goignite/v2/chi/v5/ext/tid"
 	giconfig "github.com/b2wdigital/goignite/v2/config"
-	"github.com/b2wdigital/goignite/v2/info"
+	giinfo "github.com/b2wdigital/goignite/v2/info"
 	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 )
 
@@ -63,7 +63,7 @@ func main() {
 
 	gilogrus.NewLogger()
 
-	info.AppName = "helloworld"
+	giinfo.AppName = "helloworld"
 
 	srv := gichi.NewDefault(ctx,
 		gichitid.Register,

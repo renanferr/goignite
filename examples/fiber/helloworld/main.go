@@ -4,12 +4,15 @@ import (
 	"context"
 	"net/http"
 
+	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
 	giconfig "github.com/b2wdigital/goignite/v2/config"
 	gifiber "github.com/b2wdigital/goignite/v2/fiber/v2"
 	gifibercors "github.com/b2wdigital/goignite/v2/fiber/v2/ext/cors"
 	gifiberetag "github.com/b2wdigital/goignite/v2/fiber/v2/ext/etag"
+	giinfo "github.com/b2wdigital/goignite/v2/info"
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
+	giserver "github.com/b2wdigital/goignite/v2/server"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -64,11 +67,15 @@ func main() {
 
 	giinfo.AppName = "helloworld"
 
-	srv := gifiber.NewDefault(ctx,
+	fiberSrv := gifiber.NewDefault(ctx,
 		gifibercors.Register,
 		gifiberetag.Register)
 
-	srv.App().Get(c.App.Endpoint.Helloworld, Get)
+	fiberSrv.App().Get(c.App.Endpoint.Helloworld, Get)
 
-	srv.Serve(ctx)
+	fiberSrv.Serve(ctx)
+
+	chiSrv := gichi.NewDefault(ctx)
+
+	giserver.Serve(ctx, fiberSrv, chiSrv)
 }

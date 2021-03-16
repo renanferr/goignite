@@ -16,8 +16,7 @@ func main() {
 	giconfig.Load()
 	gilogrus.NewLogger()
 
-	options, _ := health.DefaultOptions()
-	integrator := health.NewIntegrator(options)
+	integrator := health.NewDefaultIntegrator()
 
 	gimongo.NewDefaultConn(context.Background(), integrator.Register)
 

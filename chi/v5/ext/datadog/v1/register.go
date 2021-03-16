@@ -15,7 +15,7 @@ func Register(ctx context.Context) (*gichi.Config, error) {
 	}
 
 	logger := gilog.FromContext(ctx)
-	logger.Trace("enabling newrelic middleware in chi")
+	logger.Trace("enabling datadog middleware in chi")
 
 	return &gichi.Config{
 		Middlewares: []func(http.Handler) http.Handler{

@@ -1,7 +1,7 @@
-package response
+package girestresponse
 
 import (
-	"github.com/b2wdigital/goignite/v2/info"
+	giinfo "github.com/b2wdigital/goignite/v2/info"
 	"github.com/lann/builder"
 )
 
@@ -44,11 +44,11 @@ var ResourceStatusResponseBuilder = builder.Register(resourceStatusResponseBuild
 func NewResourceStatus() ResourceStatusResponse {
 
 	return ResourceStatusResponseBuilder.
-		ApplicationName(info.AppName).
-		ImplementationBuild(info.BuildVersion).
-		ImplementationVersion(info.Version).
-		BuildDate(info.BuildDate).
-		CommitSHA(info.CommitSHA).
+		ApplicationName(giinfo.AppName).
+		ImplementationBuild(giinfo.BuildVersion).
+		ImplementationVersion(giinfo.Version).
+		BuildDate(giinfo.BuildDate).
+		CommitSHA(giinfo.CommitSHA).
 		Build()
 
 }

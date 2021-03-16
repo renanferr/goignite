@@ -1,4 +1,4 @@
-package response
+package girestresponse
 
 import (
 	"github.com/lann/builder"

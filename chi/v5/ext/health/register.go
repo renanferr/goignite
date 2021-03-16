@@ -7,7 +7,7 @@ import (
 
 	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
 	gilog "github.com/b2wdigital/goignite/v2/log"
-	"github.com/b2wdigital/goignite/v2/rest/response"
+	girestresponse "github.com/b2wdigital/goignite/v2/rest/response"
 )
 
 func Register(ctx context.Context) (*gichi.Config, error) {
@@ -42,7 +42,7 @@ type HealthHandler struct {
 }
 
 func (u *HealthHandler) Get(ctx context.Context) http.HandlerFunc {
-	resp, httpCode := response.NewHealth(ctx)
+	resp, httpCode := girestresponse.NewHealth(ctx)
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(httpCode)

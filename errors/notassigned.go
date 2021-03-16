@@ -1,4 +1,4 @@
-package errors
+package gierrors
 
 // notAssigned represents an error when something is not yet assigned to
 // something else.

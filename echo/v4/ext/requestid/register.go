@@ -9,7 +9,7 @@ import (
 )
 
 func Register(ctx context.Context, instance *echo.Echo) error {
-	if IsEnabled() {
+	if !IsEnabled() {
 		return nil
 	}
 

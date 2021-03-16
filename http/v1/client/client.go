@@ -8,7 +8,7 @@ import (
 	gilog "github.com/b2wdigital/goignite/v2/log"
 )
 
-func NewClient(options *Options) *http.Client {
+func NewClient(ctx context.Context, options *Options) *http.Client {
 
 	tr := &http.Transport{
 		Proxy: http.ProxyFromEnvironment,
@@ -39,5 +39,5 @@ func NewDefaultClient(ctx context.Context) *http.Client {
 		logger.Fatalf(err.Error())
 	}
 
-	return NewClient(o)
+	return NewClient(ctx, o)
 }

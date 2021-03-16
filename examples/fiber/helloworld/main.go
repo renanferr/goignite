@@ -8,7 +8,6 @@ import (
 	gifiber "github.com/b2wdigital/goignite/v2/fiber/v2"
 	gifibercors "github.com/b2wdigital/goignite/v2/fiber/v2/ext/cors"
 	gifiberetag "github.com/b2wdigital/goignite/v2/fiber/v2/ext/etag"
-	"github.com/b2wdigital/goignite/v2/info"
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	gilogrus "github.com/b2wdigital/goignite/v2/log/logrus/v1"
 	"github.com/gofiber/fiber/v2"
@@ -63,7 +62,7 @@ func main() {
 
 	gilogrus.NewLogger()
 
-	info.AppName = "helloworld"
+	giinfo.AppName = "helloworld"
 
 	srv := gifiber.NewDefault(ctx,
 		gifibercors.Register,

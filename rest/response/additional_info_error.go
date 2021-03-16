@@ -1,4 +1,4 @@
-package response
+package girestresponse
 
 type AdditionalInfoError struct {
 	Key   string `json:"errorCode"`

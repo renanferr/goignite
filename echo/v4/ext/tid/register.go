@@ -3,7 +3,7 @@ package giechotid
 import (
 	"context"
 
-	"github.com/b2wdigital/goignite/v2/info"
+	giinfo "github.com/b2wdigital/goignite/v2/info"
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/labstack/echo/v4"
 	uuid "github.com/satori/go.uuid"
@@ -34,7 +34,7 @@ func tidMiddleware() echo.MiddlewareFunc {
 
 			tid, ok := ctx.Value("x-tid").(string)
 			if !ok {
-				tid = info.AppName + "-" + uuid.NewV4().String()
+				tid = giinfo.AppName + "-" + uuid.NewV4().String()
 			}
 
 			c.Response().Header().Add("X-TID", tid)

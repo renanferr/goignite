@@ -1,4 +1,4 @@
-package errors
+package gierrors
 
 // notFound represents an error when something has not been found.
 type notFound struct {

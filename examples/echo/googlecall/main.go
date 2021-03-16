@@ -12,7 +12,7 @@ import (
 	giechologger "github.com/b2wdigital/goignite/v2/echo/v4/ext/logger"
 	giechorequestid "github.com/b2wdigital/goignite/v2/echo/v4/ext/requestid"
 	giechostatus "github.com/b2wdigital/goignite/v2/echo/v4/ext/status"
-	"github.com/b2wdigital/goignite/v2/info"
+	giinfo "github.com/b2wdigital/goignite/v2/info"
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	gizap "github.com/b2wdigital/goignite/v2/log/zap/v1"
 	girest "github.com/b2wdigital/goignite/v2/resty/v2"
@@ -84,7 +84,7 @@ func main() {
 
 	gizap.NewLogger()
 
-	info.AppName = "google"
+	giinfo.AppName = "google"
 
 	srv := giecho.NewDefault(ctx,
 		giechocors.Register,

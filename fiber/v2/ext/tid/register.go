@@ -3,7 +3,7 @@ package gifibertid
 import (
 	"context"
 
-	"github.com/b2wdigital/goignite/v2/info"
+	giinfo "github.com/b2wdigital/goignite/v2/info"
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/gofiber/fiber/v2"
 	uuid "github.com/satori/go.uuid"
@@ -30,7 +30,7 @@ func tidMiddleware() fiber.Handler {
 	// Return new handler
 	return func(c *fiber.Ctx) error {
 
-		tid := c.Get("X-TID", info.AppName+"-"+uuid.NewV4().String())
+		tid := c.Get("X-TID", giinfo.AppName+"-"+uuid.NewV4().String())
 		c.Context().SetUserValue("x-tid", tid)
 		c.Append("X-TID", tid)
 

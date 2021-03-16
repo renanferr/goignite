@@ -3,7 +3,7 @@ package girestytid
 import (
 	"context"
 
-	"github.com/b2wdigital/goignite/v2/info"
+	giinfo "github.com/b2wdigital/goignite/v2/info"
 	gilog "github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-resty/resty/v2"
 	uuid "github.com/satori/go.uuid"
@@ -31,7 +31,7 @@ func tid(client *resty.Client, request *resty.Request) error {
 
 	tidValue, ok := ctx.Value("x-tid").(string)
 	if !ok {
-		tidValue = info.AppName + "-" + uuid.NewV4().String()
+		tidValue = giinfo.AppName + "-" + uuid.NewV4().String()
 	}
 
 	request.SetHeader("X-TID", tidValue)

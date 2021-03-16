@@ -50,7 +50,7 @@ require (
 	github.com/panjf2000/ants/v2 v2.4.3
 	github.com/philhofer/fwd v1.1.1 // indirect
 	github.com/prometheus/client_golang v1.9.0
-	github.com/prometheus/common v0.15.0
+	github.com/prometheus/common v0.19.0
 	github.com/ravernkoh/cwlogsfmt v0.0.0-20180121032441-917bad983b4c
 	github.com/rs/zerolog v1.20.0
 	github.com/satori/go.uuid v1.2.0

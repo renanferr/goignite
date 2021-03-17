@@ -21,11 +21,11 @@ func main() {
 	integrator := gigocqlhealth.NewDefaultIntegrator()
 
 	session, err := gigocql.NewDefaultSession(context.Background(), integrator.Register)
-	defer session.Close()
-
 	if err != nil {
 		panic(err)
 	}
+
+	defer session.Close()
 
 	all := gihealth.CheckAll(context.Background())
 

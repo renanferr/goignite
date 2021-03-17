@@ -24,7 +24,7 @@ func main() {
 
 	os.Setenv("APP_APPLICATION_NAME", "app_test_env")
 	os.Setenv("APP_APPLICATION_MY.NAME.TEST", "my_name_test_env")
-	os.Setenv("CONF", "./examples/config/config.yaml")
+	os.Setenv("CONF", "config.yaml")
 
 	giconfig.Load()
 	gilogrus.NewLogger()

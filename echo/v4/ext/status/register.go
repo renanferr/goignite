@@ -1,12 +1,12 @@
-package giechostatus
+package status
 
 import (
 	"context"
 	"net/http"
 
 	"github.com/b2wdigital/goignite/rest/response"
-	giecho "github.com/b2wdigital/goignite/v2/echo/v4"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/echo/v4"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/labstack/echo/v4"
 )
 
@@ -15,7 +15,7 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	statusRoute := GetRoute()
 
@@ -37,5 +37,5 @@ type ResourceStatusHandler struct {
 }
 
 func (u *ResourceStatusHandler) Get(c echo.Context) error {
-	return giecho.JSON(c, http.StatusOK, response.NewResourceStatus(), nil)
+	return echo.JSON(c, http.StatusOK, response.NewResourceStatus(), nil)
 }

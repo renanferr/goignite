@@ -1,9 +1,9 @@
-package gigocql
+package gocql
 
 import (
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
@@ -34,25 +34,25 @@ const (
 
 func init() {
 
-	giconfig.Add(hosts, []string{"127.0.0.1"}, "addresses for the initial connections")
-	giconfig.Add(port, 9042, "define port")
-	giconfig.Add(dc, "", "define DC")
-	giconfig.Add(username, "", "define username")
-	giconfig.Add(password, "", "define password")
-	giconfig.Add(cqlVersion, "3.0.0", "define cql version")
-	giconfig.Add(protoVersion, 0, "define version of the native protocol to use")
-	giconfig.Add(timeout, 600*time.Millisecond, "connection timeout")
-	giconfig.Add(connectTimeout, 600*time.Millisecond, "initial connection timeout, used during initial dial to server")
-	giconfig.Add(keyspace, "", "initial keyspace (optional)")
-	giconfig.Add(numConns, 2, "number of connections per host")
-	giconfig.Add(consistency, "QUORUM", "default consistency level (default: Quorum) (values: ANY, ONE, TWO, THREE, QUORUM, ALL, LOCAL_QUORUM, EACH_QUORUM, LOCAL_ONE)")
-	giconfig.Add(socketKeepalive, 0*time.Millisecond, "The keepalive period to use, enabled if > 0 (default: 0)")
-	giconfig.Add(maxPreparedStmts, 1000, "Sets the maximum cache size for prepared statements globally for gocql")
-	giconfig.Add(maxRoutingKeyInfo, 1000, "Sets the maximum cache size for query info about statements for each session")
-	giconfig.Add(pageSize, 5000, "Default page size to use for created sessions")
-	giconfig.Add(defaultTimestamp, true, "Sends a client side timestamp for all requests which overrides the timestamp at which it arrives at the server. (default: true, only enabled for protocol 3 and above)")
-	giconfig.Add(reconnectInterval, 10*time.Millisecond, "If not zero, gocql attempt to reconnect known DOWN nodes in every ReconnectInterval")
-	giconfig.Add(maxWaitSchemaAgreement, 60*time.Second, "The maximum amount of time to wait for schema agreement in a cluster after receiving a schema change frame")
-	giconfig.Add(disableInitialHostLookup, true, "If true then the driver will not attempt to get host info from the system.peers table")
-	giconfig.Add(writeCoalesceWaitTime, 200*time.Microsecond, "The time to wait for frames before flushing the frames connection to Cassandra")
+	config.Add(hosts, []string{"127.0.0.1"}, "addresses for the initial connections")
+	config.Add(port, 9042, "define port")
+	config.Add(dc, "", "define DC")
+	config.Add(username, "", "define username")
+	config.Add(password, "", "define password")
+	config.Add(cqlVersion, "3.0.0", "define cql version")
+	config.Add(protoVersion, 0, "define version of the native protocol to use")
+	config.Add(timeout, 600*time.Millisecond, "connection timeout")
+	config.Add(connectTimeout, 600*time.Millisecond, "initial connection timeout, used during initial dial to server")
+	config.Add(keyspace, "", "initial keyspace (optional)")
+	config.Add(numConns, 2, "number of connections per host")
+	config.Add(consistency, "QUORUM", "default consistency level (default: Quorum) (values: ANY, ONE, TWO, THREE, QUORUM, ALL, LOCAL_QUORUM, EACH_QUORUM, LOCAL_ONE)")
+	config.Add(socketKeepalive, 0*time.Millisecond, "The keepalive period to use, enabled if > 0 (default: 0)")
+	config.Add(maxPreparedStmts, 1000, "Sets the maximum cache size for prepared statements globally for gocql")
+	config.Add(maxRoutingKeyInfo, 1000, "Sets the maximum cache size for query info about statements for each session")
+	config.Add(pageSize, 5000, "Default page size to use for created sessions")
+	config.Add(defaultTimestamp, true, "Sends a client side timestamp for all requests which overrides the timestamp at which it arrives at the server. (default: true, only enabled for protocol 3 and above)")
+	config.Add(reconnectInterval, 10*time.Millisecond, "If not zero, gocql attempt to reconnect known DOWN nodes in every ReconnectInterval")
+	config.Add(maxWaitSchemaAgreement, 60*time.Second, "The maximum amount of time to wait for schema agreement in a cluster after receiving a schema change frame")
+	config.Add(disableInitialHostLookup, true, "If true then the driver will not attempt to get host info from the system.peers table")
+	config.Add(writeCoalesceWaitTime, 200*time.Microsecond, "The time to wait for frames before flushing the frames connection to Cassandra")
 }

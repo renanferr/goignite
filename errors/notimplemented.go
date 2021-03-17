@@ -1,4 +1,4 @@
-package gierrors
+package errors
 
 // notImplemented represents an error when something is not
 // implemented.

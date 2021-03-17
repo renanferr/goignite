@@ -1,24 +1,24 @@
-package gichitid
+package tid
 
 import (
 	"context"
 	"net/http"
 
-	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	giinfo "github.com/b2wdigital/goignite/v2/info"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/chi/v5"
+	"github.com/b2wdigital/goignite/v2/info"
+	"github.com/b2wdigital/goignite/v2/log"
 	uuid "github.com/satori/go.uuid"
 )
 
-func Register(ctx context.Context) (*gichi.Config, error) {
+func Register(ctx context.Context) (*chi.Config, error) {
 	if !IsEnabled() {
 		return nil, nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 	logger.Trace("enabling tid middleware in chi")
 
-	return &gichi.Config{
+	return &chi.Config{
 		Middlewares: []func(http.Handler) http.Handler{
 			tidMiddleware(),
 		},
@@ -32,7 +32,7 @@ func tidMiddleware() func(http.Handler) http.Handler {
 		fn := func(w http.ResponseWriter, r *http.Request) {
 			tid := r.Header.Get("X-TID")
 			if tid == "" {
-				tid = giinfo.AppName + "-" + uuid.NewV4().String()
+				tid = info.AppName + "-" + uuid.NewV4().String()
 			}
 			w.Header().Set("X-TID", tid)
 

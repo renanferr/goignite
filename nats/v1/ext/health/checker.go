@@ -1,4 +1,4 @@
-package ginatshealth
+package health
 
 import (
 	"context"

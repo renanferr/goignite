@@ -1,4 +1,4 @@
-package giserver
+package server
 
 import (
 	"context"

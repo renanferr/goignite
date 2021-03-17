@@ -1,7 +1,7 @@
-package girestydatadog
+package datadog
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 	girest "github.com/b2wdigital/goignite/v2/resty/v2"
 )
 
@@ -11,9 +11,9 @@ const (
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable datadog integration")
+	config.Add(enabled, true, "enable/disable datadog integration")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }

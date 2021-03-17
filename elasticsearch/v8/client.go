@@ -1,12 +1,12 @@
-package gielasticsearch
+package elasticsearch
 
 import (
 	"context"
 	"strings"
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
@@ -15,7 +15,7 @@ type Ext func(context.Context, *elasticsearch.Client) error
 
 func NewClient(ctx context.Context, o *Options, exts ...Ext) (client *elasticsearch.Client, err error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	cfg := elasticsearch.Config{
 		Addresses:             o.Addresses,
@@ -63,13 +63,13 @@ func NewClient(ctx context.Context, o *Options, exts ...Ext) (client *elasticsea
 }
 
 func backOff(attempt int) time.Duration {
-	b := giconfig.Duration(retryBackoff)
+	b := config.Duration(retryBackoff)
 	return time.Duration(attempt) * b
 }
 
 func NewDefaultClient(ctx context.Context, exts ...Ext) (*elasticsearch.Client, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {

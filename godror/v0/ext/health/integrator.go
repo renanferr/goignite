@@ -1,11 +1,11 @@
-package gigodrorhealth
+package health
 
 import (
 	"context"
 	"database/sql"
 
-	gihealth "github.com/b2wdigital/goignite/v2/health"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/health"
+	"github.com/b2wdigital/goignite/v2/log"
 )
 
 type Integrator struct {
@@ -19,7 +19,7 @@ func NewIntegrator(options *Options) *Integrator {
 func NewDefaultIntegrator() *Integrator {
 	o, err := DefaultOptions()
 	if err != nil {
-		gilog.Fatalf(err.Error())
+		log.Fatalf(err.Error())
 	}
 
 	return NewIntegrator(o)
@@ -27,13 +27,13 @@ func NewDefaultIntegrator() *Integrator {
 
 func (i *Integrator) Register(ctx context.Context, db *sql.DB) error {
 
-	logger := gilog.FromContext(ctx).WithTypeOf(*i)
+	logger := log.FromContext(ctx).WithTypeOf(*i)
 
 	logger.Trace("integrating godror in health")
 
 	checker := NewChecker(db)
-	hc := gihealth.NewHealthChecker(i.options.Name, i.options.Description, checker, i.options.Required, i.options.Enabled)
-	gihealth.Add(hc)
+	hc := health.NewHealthChecker(i.options.Name, i.options.Description, checker, i.options.Required, i.options.Enabled)
+	health.Add(hc)
 
 	logger.Debug("godror successfully integrated in health")
 

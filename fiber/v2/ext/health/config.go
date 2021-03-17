@@ -1,25 +1,25 @@
-package gifiberhealth
+package health
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gifiber "github.com/b2wdigital/goignite/v2/fiber/v2"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/fiber/v2"
 )
 
 const (
-	root    = gifiber.ExtRoot + ".health"
+	root    = fiber.ExtRoot + ".health"
 	enabled = root + ".enabled"
 	route   = root + ".route"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable health route")
-	giconfig.Add(route, "/health", "define status url")
+	config.Add(enabled, true, "enable/disable health route")
+	config.Add(route, "/health", "define status url")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }
 
 func getRoute() string {
-	return giconfig.String(route)
+	return config.String(route)
 }

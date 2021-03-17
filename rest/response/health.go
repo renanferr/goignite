@@ -1,10 +1,10 @@
-package girestresponse
+package response
 
 import (
 	"context"
 	"net/http"
 
-	gihealth "github.com/b2wdigital/goignite/v2/health"
+	"github.com/b2wdigital/goignite/v2/health"
 	"github.com/lann/builder"
 )
 
@@ -33,7 +33,7 @@ func NewHealth(ctx context.Context) (Health, int) {
 
 	var details []HealthDetail
 
-	all := gihealth.CheckAll(ctx)
+	all := health.CheckAll(ctx)
 
 	httpStatus := http.StatusOK
 	healthStatus := Ok

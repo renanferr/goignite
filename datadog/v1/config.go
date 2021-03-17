@@ -1,10 +1,10 @@
-package gidatadog
+package datadog
 
 import (
 	"math"
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
@@ -38,31 +38,31 @@ const (
 
 func init() {
 
-	giconfig.Add(service, "", "service name for datadog")
-	giconfig.Add(env, "", "service env")
-	giconfig.Add(enabled, true, "enables datadog")
-	giconfig.Add(logLevel, "DEBUG", "log level")
-	giconfig.Add(tags, map[string]string{}, "sets a key/value pair which will be set as a tag on all spans created by tracer. This option may be used multiple times")
-	giconfig.Add(host, "localhost", "sets the address where the agent is located")
-	giconfig.Add(port, "8126", "sets the port where the agent is located")
-	giconfig.Add(lambdaMode, false, "enables lambda mode on the tracer, for use with AWS Lambda")
-	giconfig.Add(analytics, false, "allows specifying whether Trace Search & Analytics should be enabled for integrations")
-	giconfig.Add(analyticsRate, math.NaN(), "sets the global sampling rate for sampling APM events")
-	giconfig.Add(debugMode, false, "enables debug mode on the tracer, resulting in more verbose logging.")
-	giconfig.Add(debugStack, true, "can be used to globally enable or disable the collection of stack traces when spans finish with errors.")
-	giconfig.Add(maxIdleConnPerHost, 1, "http max idle connections per host")
-	giconfig.Add(maxIdleConn, 100, "http max idle connections")
-	giconfig.Add(maxConnsPerHost, 20, "http max connections per host")
-	giconfig.Add(idleConnTimeout, 90*time.Second, "http idle connections timeout")
-	giconfig.Add(disableKeepAlives, true, "http disable keep alives")
-	giconfig.Add(forceHTTP2, true, "http force http2")
-	giconfig.Add(tlsHandshakeTimeout, 10*time.Second, "TLS handshake timeout")
-	giconfig.Add(timeout, 30*time.Second, "timeout")
-	giconfig.Add(keepAlive, 15*time.Second, "keep alive")
-	giconfig.Add(expectContinueTimeout, 1*time.Second, "expect continue timeout")
-	giconfig.Add(dualStack, true, "dual stack")
+	config.Add(service, "", "service name for datadog")
+	config.Add(env, "", "service env")
+	config.Add(enabled, true, "enables datadog")
+	config.Add(logLevel, "DEBUG", "log level")
+	config.Add(tags, map[string]string{}, "sets a key/value pair which will be set as a tag on all spans created by tracer. This option may be used multiple times")
+	config.Add(host, "localhost", "sets the address where the agent is located")
+	config.Add(port, "8126", "sets the port where the agent is located")
+	config.Add(lambdaMode, false, "enables lambda mode on the tracer, for use with AWS Lambda")
+	config.Add(analytics, false, "allows specifying whether Trace Search & Analytics should be enabled for integrations")
+	config.Add(analyticsRate, math.NaN(), "sets the global sampling rate for sampling APM events")
+	config.Add(debugMode, false, "enables debug mode on the tracer, resulting in more verbose logging.")
+	config.Add(debugStack, true, "can be used to globally enable or disable the collection of stack traces when spans finish with errors.")
+	config.Add(maxIdleConnPerHost, 1, "http max idle connections per host")
+	config.Add(maxIdleConn, 100, "http max idle connections")
+	config.Add(maxConnsPerHost, 20, "http max connections per host")
+	config.Add(idleConnTimeout, 90*time.Second, "http idle connections timeout")
+	config.Add(disableKeepAlives, true, "http disable keep alives")
+	config.Add(forceHTTP2, true, "http force http2")
+	config.Add(tlsHandshakeTimeout, 10*time.Second, "TLS handshake timeout")
+	config.Add(timeout, 30*time.Second, "timeout")
+	config.Add(keepAlive, 15*time.Second, "keep alive")
+	config.Add(expectContinueTimeout, 1*time.Second, "expect continue timeout")
+	config.Add(dualStack, true, "dual stack")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }

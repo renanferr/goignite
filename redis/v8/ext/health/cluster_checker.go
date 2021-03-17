@@ -1,4 +1,4 @@
-package giredishealth
+package health
 
 import (
 	"context"

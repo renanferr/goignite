@@ -1,4 +1,4 @@
-package gihealth
+package health
 
 import "context"
 

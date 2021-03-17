@@ -1,4 +1,4 @@
-package gigrpc
+package server
 
 import (
 	"context"
@@ -8,8 +8,8 @@ import (
 	"io/ioutil"
 	"net"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/channelz/service"
 	"google.golang.org/grpc/credentials"
@@ -35,7 +35,7 @@ func NewDefault(ctx context.Context, exts ...Ext) *Server {
 
 func New(ctx context.Context, opt *Options, exts ...Ext) *Server {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	err := gzip.SetLevel(9)
 	if err != nil {
@@ -46,7 +46,7 @@ func New(ctx context.Context, opt *Options, exts ...Ext) *Server {
 
 	var serverOptions []grpc.ServerOption
 
-	if giconfig.Bool(tlsEnabled) {
+	if config.Bool(tlsEnabled) {
 
 		// Load the certificates from disk
 		certificate, err := tls.LoadX509KeyPair(opt.TLS.CertFile, opt.TLS.KeyFile)
@@ -103,7 +103,7 @@ func (s *Server) ServiceRegistrar() grpc.ServiceRegistrar {
 
 func (s *Server) Serve(ctx context.Context) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	service.RegisterChannelzServiceToServer(s.server)
 

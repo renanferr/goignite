@@ -1,4 +1,4 @@
-package girestresponse
+package response
 
 type Error struct {
 	HttpStatusCode int                   `json:"httpStatusCode"`

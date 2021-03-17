@@ -1,8 +1,6 @@
-package gifx
+package fx
 
-import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-)
+import "github.com/b2wdigital/goignite/v2/config"
 
 const (
 	root     = "gi.fx"
@@ -10,9 +8,9 @@ const (
 )
 
 func init() {
-	giconfig.Add(logLevel, "DEBUG", "define log level")
+	config.Add(logLevel, "DEBUG", "define log level")
 }
 
 func LogLevel() string {
-	return giconfig.String(logLevel)
+	return config.String(logLevel)
 }

@@ -1,11 +1,11 @@
-package ginewrelic
+package newrelic
 
 import (
 	"context"
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
@@ -27,25 +27,25 @@ func NewApplication(ctx context.Context) (*newrelic.Application, error) {
 		return nil, nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
-	enabled := giconfig.Bool(enabled)
-	appName := giconfig.String(appName)
+	enabled := config.Bool(enabled)
+	appName := config.String(appName)
 	a, err := newrelic.NewApplication(
 		newrelic.ConfigAppName(appName),
-		newrelic.ConfigLicense(giconfig.String(license)),
+		newrelic.ConfigLicense(config.String(license)),
 		newrelic.ConfigEnabled(enabled),
-		newrelic.ConfigDistributedTracerEnabled(giconfig.Bool(tracerEnabled)),
+		newrelic.ConfigDistributedTracerEnabled(config.Bool(tracerEnabled)),
 		newrelic.ConfigLogger(NewLogger()),
 		// newrelic.ConfigDebugLogger(log.GetLogger().Output()),
 		func(cfg *newrelic.Config) {
-			cfg.ErrorCollector.IgnoreStatusCodes = giconfig.Ints(errorCollectorIgnoreStatusCodes)
-			cfg.Labels = giconfig.StringMap(labels)
-			cfg.ServerlessMode.Enabled = giconfig.Bool(serverlessModeEnabled)
-			cfg.ServerlessMode.AccountID = giconfig.String(serverlessModeAccountID)
-			cfg.ServerlessMode.TrustedAccountKey = giconfig.String(serverlessModeTrustedAccountKey)
-			cfg.ServerlessMode.PrimaryAppID = giconfig.String(serverlessModePrimaryAppID)
-			if apdex, err := time.ParseDuration(giconfig.String(serverlessModeApdexThreshold) + "s"); nil == err {
+			cfg.ErrorCollector.IgnoreStatusCodes = config.Ints(errorCollectorIgnoreStatusCodes)
+			cfg.Labels = config.StringMap(labels)
+			cfg.ServerlessMode.Enabled = config.Bool(serverlessModeEnabled)
+			cfg.ServerlessMode.AccountID = config.String(serverlessModeAccountID)
+			cfg.ServerlessMode.TrustedAccountKey = config.String(serverlessModeTrustedAccountKey)
+			cfg.ServerlessMode.PrimaryAppID = config.String(serverlessModePrimaryAppID)
+			if apdex, err := time.ParseDuration(config.String(serverlessModeApdexThreshold) + "s"); nil == err {
 				cfg.ServerlessMode.ApdexThreshold = apdex
 			}
 		},

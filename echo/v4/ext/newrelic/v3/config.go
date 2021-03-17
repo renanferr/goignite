@@ -1,26 +1,26 @@
-package giechonewrelic
+package newrelic
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	giecho "github.com/b2wdigital/goignite/v2/echo/v4"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/echo/v4"
 )
 
 const (
-	root                       = giecho.ExtRoot + ".newrelic"
+	root                       = echo.ExtRoot + ".newrelic"
 	enabled                    = root + ".enabled"
 	middlewareRoot             = root + ".middleware"
 	middlewareRequestIDEnabled = middlewareRoot + ".requestId.enabled"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable newrelic integration")
-	giconfig.Add(middlewareRequestIDEnabled, true, "enable/disable request id middleware")
+	config.Add(enabled, true, "enable/disable newrelic integration")
+	config.Add(middlewareRequestIDEnabled, true, "enable/disable request id middleware")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }
 
 func IsEnabledRequestID() bool {
-	return giconfig.Bool(middlewareRequestIDEnabled)
+	return config.Bool(middlewareRequestIDEnabled)
 }

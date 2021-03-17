@@ -1,10 +1,10 @@
-package gielasticsearchhealth
+package health
 
 import (
 	"context"
 
-	gihealth "github.com/b2wdigital/goignite/v2/health"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/health"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/elastic/go-elasticsearch/v8"
 )
 
@@ -20,7 +20,7 @@ func NewDefaultIntegrator() *Integrator {
 
 	options, err := DefaultOptions()
 	if err != nil {
-		gilog.Panic(err)
+		log.Panic(err)
 	}
 
 	return &Integrator{options: options}
@@ -28,13 +28,13 @@ func NewDefaultIntegrator() *Integrator {
 
 func (i *Integrator) Register(ctx context.Context, client *elasticsearch.Client) error {
 
-	logger := gilog.FromContext(ctx).WithTypeOf(*i)
+	logger := log.FromContext(ctx).WithTypeOf(*i)
 
 	logger.Trace("integrating elasticsearch in health")
 
 	checker := NewChecker(client)
-	hc := gihealth.NewHealthChecker(i.options.Name, i.options.Description, checker, i.options.Required, i.options.Enabled)
-	gihealth.Add(hc)
+	hc := health.NewHealthChecker(i.options.Name, i.options.Description, checker, i.options.Required, i.options.Enabled)
+	health.Add(hc)
 
 	logger.Debug("elasticsearch successfully integrated in health")
 

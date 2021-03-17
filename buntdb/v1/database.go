@@ -1,15 +1,15 @@
-package gibuntdb
+package buntdb
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/tidwall/buntdb"
 )
 
 func NewDatabase(ctx context.Context, o *Options) (db *buntdb.DB, err error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	var syncPolicy buntdb.SyncPolicy
 
@@ -47,7 +47,7 @@ func NewDatabase(ctx context.Context, o *Options) (db *buntdb.DB, err error) {
 
 func NewDefaultDatabase(ctx context.Context) (*buntdb.DB, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {

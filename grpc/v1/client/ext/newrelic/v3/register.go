@@ -1,21 +1,21 @@
-package gigrpcnewrelic
+package newrelic
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/newrelic/go-agent/v3/integrations/nrgrpc"
 	"google.golang.org/grpc"
 )
 
 func Register(ctx context.Context) []grpc.DialOption {
 
-	if !IsEnabled() || !ginewrelic.IsEnabled() {
+	if !IsEnabled() || !newrelic.IsEnabled() {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 	logger.Debug("newrelic interceptor successfully enabled in grpc client")
 
 	return []grpc.DialOption{

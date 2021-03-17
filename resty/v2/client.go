@@ -1,12 +1,12 @@
-package giresty
+package resty
 
 import (
 	"context"
 	"net"
 	"net/http"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-resty/resty/v2"
 )
 
@@ -14,16 +14,16 @@ type Ext func(context.Context, *resty.Client) error
 
 func NewClient(ctx context.Context, options *Options, exts ...Ext) *resty.Client {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	logger.Tracef("creating resty client for host %s", options.Host)
 
 	client := resty.New()
 
 	dialer := &net.Dialer{
-		Timeout:       giconfig.Duration(connectionTimeout),
-		FallbackDelay: giconfig.Duration(fallbackDelay),
-		KeepAlive:     giconfig.Duration(keepAlive),
+		Timeout:       config.Duration(connectionTimeout),
+		FallbackDelay: config.Duration(fallbackDelay),
+		KeepAlive:     config.Duration(keepAlive),
 	}
 
 	if options.ConnectionTimeout > 0 {
@@ -35,18 +35,18 @@ func NewClient(ctx context.Context, options *Options, exts ...Ext) *resty.Client
 	}
 
 	transport := &http.Transport{
-		DisableCompression:    giconfig.Bool(transportDisableCompression),
-		DisableKeepAlives:     giconfig.Bool(transportDisableKeepAlives),
-		MaxIdleConnsPerHost:   giconfig.Int(transportMaxConnsPerHost),
-		ResponseHeaderTimeout: giconfig.Duration(transportResponseHeaderTimeout),
+		DisableCompression:    config.Bool(transportDisableCompression),
+		DisableKeepAlives:     config.Bool(transportDisableKeepAlives),
+		MaxIdleConnsPerHost:   config.Int(transportMaxConnsPerHost),
+		ResponseHeaderTimeout: config.Duration(transportResponseHeaderTimeout),
 		Proxy:                 http.ProxyFromEnvironment,
 		DialContext:           dialer.DialContext,
-		ForceAttemptHTTP2:     giconfig.Bool(transportForceAttemptHTTP2),
-		MaxIdleConns:          giconfig.Int(transportMaxIdleConns),
-		MaxConnsPerHost:       giconfig.Int(transportMaxConnsPerHost),
-		IdleConnTimeout:       giconfig.Duration(transportIdleConnTimeout),
-		TLSHandshakeTimeout:   giconfig.Duration(transportTLSHandshakeTimeout),
-		ExpectContinueTimeout: giconfig.Duration(transportExpectContinueTimeout),
+		ForceAttemptHTTP2:     config.Bool(transportForceAttemptHTTP2),
+		MaxIdleConns:          config.Int(transportMaxIdleConns),
+		MaxConnsPerHost:       config.Int(transportMaxConnsPerHost),
+		IdleConnTimeout:       config.Duration(transportIdleConnTimeout),
+		TLSHandshakeTimeout:   config.Duration(transportTLSHandshakeTimeout),
+		ExpectContinueTimeout: config.Duration(transportExpectContinueTimeout),
 	}
 
 	if options.Transport != nil {
@@ -86,12 +86,12 @@ func NewClient(ctx context.Context, options *Options, exts ...Ext) *resty.Client
 
 	client.
 		SetTransport(transport).
-		SetTimeout(giconfig.Duration(requestTimeout)).
-		SetDebug(giconfig.Bool(debug)).
+		SetTimeout(config.Duration(requestTimeout)).
+		SetDebug(config.Bool(debug)).
 		SetHostURL(options.Host).
-		SetCloseConnection(giconfig.Bool(closeConnection))
+		SetCloseConnection(config.Bool(closeConnection))
 
-	if options.Debug || giconfig.Bool(debug) {
+	if options.Debug || config.Bool(debug) {
 		client.SetDebug(true)
 	}
 

@@ -1,4 +1,4 @@
-package giresty
+package resty
 
 import (
 	"time"

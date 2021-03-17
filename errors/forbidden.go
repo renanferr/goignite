@@ -1,4 +1,4 @@
-package gierrors
+package errors
 
 // forbidden represents an error when a request cannot be completed because of
 // missing privileges

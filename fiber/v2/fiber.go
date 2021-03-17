@@ -1,10 +1,10 @@
-package gifiber
+package fiber
 
 import (
 	"context"
 	"strconv"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -42,7 +42,7 @@ func (s *Server) App() *fiber.App {
 
 func (s *Server) Serve(ctx context.Context) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 	logger.Infof("starting fiber Server. https://gofiber.io/")
 
 	addr := ":" + strconv.Itoa(s.options.Port)

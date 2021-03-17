@@ -1,10 +1,10 @@
-package gijlaffaye
+package jlaffaye
 
 import (
 	"context"
 	"time"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/jlaffaye/ftp"
 	"gopkg.in/matryer/try.v1"
 )
@@ -32,7 +32,7 @@ func NewServerConn(options *Options) (*ftp.ServerConn, error) {
 
 func NewDefaultServerConn(ctx context.Context) (*ftp.ServerConn, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {

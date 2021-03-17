@@ -1,12 +1,12 @@
-package gigodrorhealth
+package health
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gigodror "github.com/b2wdigital/goignite/v2/godror/v0"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/godror/v0"
 )
 
 const (
-	root        = gigodror.ExtRoot + ".health"
+	root        = godror.ExtRoot + ".health"
 	name        = root + ".name"
 	description = root + ".description"
 	required    = root + ".required"
@@ -15,8 +15,8 @@ const (
 
 func init() {
 
-	giconfig.Add(name, "oracle", "health name")
-	giconfig.Add(description, "default connection", "define health description")
-	giconfig.Add(required, true, "define health description")
-	giconfig.Add(enabled, true, "enable/disable health")
+	config.Add(name, "oracle", "health name")
+	config.Add(description, "default connection", "define health description")
+	config.Add(required, true, "define health description")
+	config.Add(enabled, true, "enable/disable health")
 }

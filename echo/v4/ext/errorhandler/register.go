@@ -1,22 +1,22 @@
-package giechoerrorhandler
+package errorhandler
 
 import (
 	"context"
 	"fmt"
 	"net/http"
 
-	giecho "github.com/b2wdigital/goignite/v2/echo/v4"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	girestresponse "github.com/b2wdigital/goignite/v2/rest/response"
-	"github.com/labstack/echo/v4"
+	"github.com/b2wdigital/goignite/v2/echo/v4"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/rest/response"
+	e "github.com/labstack/echo/v4"
 )
 
-func Register(ctx context.Context, instance *echo.Echo) error {
+func Register(ctx context.Context, instance *e.Echo) error {
 	if !IsEnabled() {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 	logger.Trace("configuring error handler in echo")
 
 	instance.HTTPErrorHandler = customHTTPErrorHandler
@@ -26,18 +26,18 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 	return nil
 }
 
-func customHTTPErrorHandler(err error, c echo.Context) {
+func customHTTPErrorHandler(err error, c e.Context) {
 	code := http.StatusInternalServerError
 	var msg interface{}
-	if he, ok := err.(*echo.HTTPError); ok {
+	if he, ok := err.(*e.HTTPError); ok {
 		code = he.Code
 		msg = he.Message
 	} else {
 		msg = err.Error()
 	}
 
-	resp := girestresponse.Error{HttpStatusCode: code, Message: fmt.Sprintf("%v", msg)}
-	if err := giecho.JSON(c, code, resp, nil); err != nil {
+	resp := response.Error{HttpStatusCode: code, Message: fmt.Sprintf("%v", msg)}
+	if err := echo.JSON(c, code, resp, nil); err != nil {
 		c.Logger().Error(err)
 	}
 }

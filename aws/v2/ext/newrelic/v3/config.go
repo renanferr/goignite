@@ -1,19 +1,19 @@
 package giawsnewrelic
 
 import (
-	giaws "github.com/b2wdigital/goignite/v2/aws/v2"
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/aws/v2"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
-	root    = giaws.ExtRoot + ".newrelic"
+	root    = aws.ExtRoot + ".newrelic"
 	enabled = root + ".enabled"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable newrelic integration")
+	config.Add(enabled, true, "enable/disable newrelic integration")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }

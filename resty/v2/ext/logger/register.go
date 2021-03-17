@@ -1,11 +1,11 @@
-package girestylogger
+package logger
 
 import (
 	"context"
 	"encoding/json"
 	"time"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-resty/resty/v2"
 )
 
@@ -15,7 +15,7 @@ func Register(ctx context.Context, client *resty.Client) error {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 	logger.Trace("enabling logger middleware in resty")
 
 	client.OnBeforeRequest(logBeforeResponse)
@@ -28,7 +28,7 @@ func Register(ctx context.Context, client *resty.Client) error {
 
 func logBeforeResponse(client *resty.Client, request *resty.Request) error {
 
-	logger := gilog.FromContext(request.Context())
+	logger := log.FromContext(request.Context())
 
 	requestHeaders, _ := json.Marshal(request.Header)
 
@@ -36,7 +36,7 @@ func logBeforeResponse(client *resty.Client, request *resty.Request) error {
 
 	logger = logger.
 		WithFields(
-			gilog.Fields{
+			log.Fields{
 				"rest_client_host":     client.HostURL,
 				"rest_request_body":    string(requestBody),
 				"rest_request_url":     request.URL,
@@ -62,14 +62,14 @@ func logBeforeResponse(client *resty.Client, request *resty.Request) error {
 
 func logAfterResponse(client *resty.Client, response *resty.Response) error {
 
-	logger := gilog.FromContext(response.Request.Context())
+	logger := log.FromContext(response.Request.Context())
 
 	responseHeaders, _ := json.Marshal(response.Header())
 
 	statusCode := response.StatusCode()
 
 	logger = logger.WithFields(
-		gilog.Fields{
+		log.Fields{
 			"rest_response_body":        string(response.Body()),
 			"rest_response_headers":     string(responseHeaders),
 			"rest_response_time":        response.Time().Seconds() * float64(time.Second/time.Millisecond),

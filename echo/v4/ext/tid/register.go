@@ -1,10 +1,10 @@
-package giechotid
+package tid
 
 import (
 	"context"
 
-	giinfo "github.com/b2wdigital/goignite/v2/info"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/info"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/labstack/echo/v4"
 	uuid "github.com/satori/go.uuid"
 )
@@ -14,7 +14,7 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	logger.Trace("enabling tid middleware in echo")
 
@@ -34,7 +34,7 @@ func tidMiddleware() echo.MiddlewareFunc {
 
 			tid, ok := ctx.Value("x-tid").(string)
 			if !ok {
-				tid = giinfo.AppName + "-" + uuid.NewV4().String()
+				tid = info.AppName + "-" + uuid.NewV4().String()
 			}
 
 			c.Response().Header().Add("X-TID", tid)

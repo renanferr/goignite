@@ -1,4 +1,4 @@
-package gihttp
+package server
 
 import (
 	"net/http"

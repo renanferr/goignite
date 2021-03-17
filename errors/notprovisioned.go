@@ -1,4 +1,4 @@
-package gierrors
+package errors
 
 // notProvisioned represents an error when something is not yet provisioned.
 type notProvisioned struct {

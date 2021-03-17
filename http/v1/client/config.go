@@ -1,9 +1,9 @@
-package gihttp
+package client
 
 import (
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
@@ -23,56 +23,56 @@ const (
 
 func init() {
 
-	giconfig.Add(maxIdleConnPerHost, 1, "http max idle connections per host")
-	giconfig.Add(maxIdleConn, 100, "http max idle connections")
-	giconfig.Add(maxConnsPerHost, 20, "http max connections per host")
-	giconfig.Add(idleConnTimeout, 90*time.Second, "http idle connections timeout")
-	giconfig.Add(disableKeepAlives, true, "http disable keep alives")
-	giconfig.Add(forceHTTP2, true, "http force http2")
-	giconfig.Add(tlsHandshakeTimeout, 10*time.Second, "TLS handshake timeout")
-	giconfig.Add(timeout, 30*time.Second, "timeout")
-	giconfig.Add(keepAlive, 15*time.Second, "keep alive")
-	giconfig.Add(expectContinueTimeout, 1*time.Second, "expect continue timeout")
-	giconfig.Add(dualStack, true, "dual stack")
+	config.Add(maxIdleConnPerHost, 1, "http max idle connections per host")
+	config.Add(maxIdleConn, 100, "http max idle connections")
+	config.Add(maxConnsPerHost, 20, "http max connections per host")
+	config.Add(idleConnTimeout, 90*time.Second, "http idle connections timeout")
+	config.Add(disableKeepAlives, true, "http disable keep alives")
+	config.Add(forceHTTP2, true, "http force http2")
+	config.Add(tlsHandshakeTimeout, 10*time.Second, "TLS handshake timeout")
+	config.Add(timeout, 30*time.Second, "timeout")
+	config.Add(keepAlive, 15*time.Second, "keep alive")
+	config.Add(expectContinueTimeout, 1*time.Second, "expect continue timeout")
+	config.Add(dualStack, true, "dual stack")
 
 }
 
 func maxIdleConnValue() int {
-	return giconfig.Int(maxIdleConn)
+	return config.Int(maxIdleConn)
 }
 
 func maxIdleConnPerHostValue() int {
-	return giconfig.Int(maxIdleConnPerHost)
+	return config.Int(maxIdleConnPerHost)
 }
 
 func maxConnsPerHostValue() int {
-	return giconfig.Int(maxConnsPerHost)
+	return config.Int(maxConnsPerHost)
 }
 
 func idleConnTimeoutValue() time.Duration {
-	return giconfig.Duration(idleConnTimeout)
+	return config.Duration(idleConnTimeout)
 }
 
 func disableKeepAlivesValue() bool {
-	return giconfig.Bool(disableKeepAlives)
+	return config.Bool(disableKeepAlives)
 }
 
 func forceHTTP2Value() bool {
-	return giconfig.Bool(forceHTTP2)
+	return config.Bool(forceHTTP2)
 }
 
 func tlsHandshakeTimeoutValue() time.Duration {
-	return giconfig.Duration(tlsHandshakeTimeout)
+	return config.Duration(tlsHandshakeTimeout)
 }
 
 func timeoutValue() time.Duration {
-	return giconfig.Duration(timeout)
+	return config.Duration(timeout)
 }
 
 func keepAliveValue() time.Duration {
-	return giconfig.Duration(keepAlive)
+	return config.Duration(keepAlive)
 }
 
 func expectContinueTimeoutValue() time.Duration {
-	return giconfig.Duration(expectContinueTimeout)
+	return config.Duration(expectContinueTimeout)
 }

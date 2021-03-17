@@ -3,25 +3,25 @@ package main
 import (
 	"context"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
-	giresty "github.com/b2wdigital/goignite/v2/resty/v2"
-	health "github.com/b2wdigital/goignite/v2/resty/v2/ext/health"
-	"github.com/go-resty/resty/v2"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/resty/v2"
+	"github.com/b2wdigital/goignite/v2/resty/v2/ext/health"
+	r "github.com/go-resty/resty/v2"
 )
 
 func main() {
 
 	var err error
 
-	giconfig.Load()
+	config.Load()
 
 	ctx := context.Background()
 
-	gilogrus.NewLogger()
+	logrus.NewLogger()
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	options := health.OptionsBuilder.
 		Host("http://google.com").
@@ -34,10 +34,10 @@ func main() {
 
 	healthIntegrator := health.NewIntegrator(&options)
 
-	client := giresty.NewClient(ctx, &giresty.Options{}, healthIntegrator.Register)
+	client := resty.NewClient(ctx, &resty.Options{}, healthIntegrator.Register)
 	request := client.R().EnableTrace()
 
-	var resp *resty.Response
+	var resp *r.Response
 	resp, err = request.Get("http://google.com")
 	if err != nil {
 		logger.Fatalf(err.Error())

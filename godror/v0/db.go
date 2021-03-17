@@ -1,10 +1,10 @@
-package gigodror
+package godror
 
 import (
 	"context"
 	"database/sql"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	_ "github.com/godror/godror"
 )
 
@@ -12,7 +12,7 @@ type Ext func(context.Context, *sql.DB) error
 
 func NewDB(ctx context.Context, o *Options, exts ...Ext) (db *sql.DB, err error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	db, err = sql.Open("godror", o.DataSourceName)
 	if err != nil {
@@ -41,7 +41,7 @@ func NewDB(ctx context.Context, o *Options, exts ...Ext) (db *sql.DB, err error)
 
 func NewDefaultDB(ctx context.Context, exts ...Ext) (*sql.DB, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {

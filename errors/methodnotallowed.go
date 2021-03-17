@@ -1,4 +1,4 @@
-package gierrors
+package errors
 
 // methodNotAllowed represents an error when an HTTP request
 // is made with an inappropriate method.

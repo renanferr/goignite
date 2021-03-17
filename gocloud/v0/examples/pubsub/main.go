@@ -3,24 +3,24 @@ package main
 import (
 	"context"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gigocloud "github.com/b2wdigital/goignite/v2/gocloud/v0"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/gocloud/v0"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
 	"gocloud.dev/pubsub"
 )
 
 func main() {
 
-	giconfig.Load()
+	config.Load()
 
 	ctx := context.Background()
 
-	gilogrus.NewLogger()
+	logrus.NewLogger()
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
-	topic, err := gigocloud.NewDefaultTopic(ctx)
+	topic, err := gocloud.NewDefaultTopic(ctx)
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}

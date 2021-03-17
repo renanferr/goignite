@@ -1,4 +1,4 @@
-package giconfig
+package config
 
 type Config struct {
 	Key         string

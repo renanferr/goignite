@@ -1,4 +1,4 @@
-package gierrors
+package errors
 
 // badRequest represents an error when a request has bad parameters.
 type badRequest struct {

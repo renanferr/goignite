@@ -3,41 +3,41 @@ package main
 import (
 	"context"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
-	giresty "github.com/b2wdigital/goignite/v2/resty/v2"
-	health "github.com/b2wdigital/goignite/v2/resty/v2/ext/health"
-	"github.com/go-resty/resty/v2"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/resty/v2"
+	"github.com/b2wdigital/goignite/v2/resty/v2/ext/health"
+	r "github.com/go-resty/resty/v2"
 )
 
 func main() {
 
 	var err error
 
-	giconfig.Load()
+	config.Load()
 
 	ctx := context.Background()
 
-	gilogrus.NewLogger()
+	logrus.NewLogger()
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	// call google
 
-	googleopt := new(giresty.Options)
+	googleopt := new(resty.Options)
 
-	err = giconfig.UnmarshalWithPath("app.client.resty.google", googleopt)
+	err = config.UnmarshalWithPath("app.client.resty.google", googleopt)
 	if err != nil {
 		logger.Errorf(err.Error())
 	}
 
 	healthIntegrator := health.NewDefaultIntegrator()
 
-	cligoogle := giresty.NewClient(ctx, googleopt, healthIntegrator.Register)
+	cligoogle := resty.NewClient(ctx, googleopt, healthIntegrator.Register)
 	reqgoogle := cligoogle.R()
 
-	var respgoogle *resty.Response
+	var respgoogle *r.Response
 
 	respgoogle, err = reqgoogle.Get("/")
 	if err != nil {
@@ -50,17 +50,17 @@ func main() {
 
 	// call acom
 
-	acomopt := new(giresty.Options)
+	acomopt := new(resty.Options)
 
-	err = giconfig.UnmarshalWithPath("app.client.resty.acom", acomopt)
+	err = config.UnmarshalWithPath("app.client.resty.acom", acomopt)
 	if err != nil {
 		logger.Errorf(err.Error())
 	}
 
-	cliacom := giresty.NewClient(ctx, acomopt)
+	cliacom := resty.NewClient(ctx, acomopt)
 	reqacom := cliacom.R()
 
-	var respacom *resty.Response
+	var respacom *r.Response
 
 	respacom, err = reqacom.Get("/")
 	if err != nil {

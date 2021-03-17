@@ -1,11 +1,11 @@
-package giechologger
+package logger
 
 import (
 	"context"
 	"strconv"
 	"time"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/labstack/echo/v4"
 )
 
@@ -14,7 +14,7 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	logger.Trace("enabling logger middleware in echo")
 
@@ -40,7 +40,7 @@ func loggerMiddleware(level string) echo.MiddlewareFunc {
 				id = res.Header().Get(echo.HeaderXRequestID)
 			}
 
-			logger := gilog.FromContext(ctx).
+			logger := log.FromContext(ctx).
 				WithField("requestId", id).
 				WithField("requestUri", req.RequestURI)
 

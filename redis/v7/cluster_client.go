@@ -1,10 +1,10 @@
-package giredis
+package redis
 
 import (
 	"context"
 	"strings"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-redis/redis/v7"
 )
 
@@ -12,7 +12,7 @@ type clusterExt func(context.Context, *redis.ClusterClient) error
 
 func NewClusterClient(ctx context.Context, o *Options, exts ...clusterExt) (client *redis.ClusterClient, err error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	client = redis.NewClusterClient(&redis.ClusterOptions{
 		Addrs:              o.Cluster.Addrs,
@@ -53,7 +53,7 @@ func NewClusterClient(ctx context.Context, o *Options, exts ...clusterExt) (clie
 
 func NewDefaultClusterClient(ctx context.Context, exts ...clusterExt) (*redis.ClusterClient, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {

@@ -1,8 +1,6 @@
-package gigrpc
+package server
 
-import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-)
+import "github.com/b2wdigital/goignite/v2/config"
 
 const (
 	root                 = "gi.grpc.server"
@@ -17,11 +15,11 @@ const (
 
 func init() {
 
-	giconfig.Add(port, 9090, "server grpc port")
-	giconfig.Add(maxConcurrentStreams, 5000, "server grpc max concurrent streams")
-	giconfig.Add(tlsEnabled, false, "Use TLS - required for HTTP2.")
-	giconfig.Add(certFile, "./cert/out/localhost.crt", "Path to the CRT/PEM file.")
-	giconfig.Add(keyFile, "./cert/out/localhost.key", "Path to the private key file.")
-	giconfig.Add(caFile, "./cert/out/blackbox.crt", "Path to the certificate authority (CA).")
+	config.Add(port, 9090, "server grpc port")
+	config.Add(maxConcurrentStreams, 5000, "server grpc max concurrent streams")
+	config.Add(tlsEnabled, false, "Use TLS - required for HTTP2.")
+	config.Add(certFile, "./cert/out/localhost.crt", "Path to the CRT/PEM file.")
+	config.Add(keyFile, "./cert/out/localhost.key", "Path to the private key file.")
+	config.Add(caFile, "./cert/out/blackbox.crt", "Path to the certificate authority (CA).")
 
 }

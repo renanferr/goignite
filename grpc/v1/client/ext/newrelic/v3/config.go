@@ -1,19 +1,19 @@
-package gigrpcnewrelic
+package newrelic
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gigrpc "github.com/b2wdigital/goignite/v2/grpc/v1/client"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/grpc/v1/client"
 )
 
 const (
-	root    = gigrpc.ExtRoot + ".newrelic"
+	root    = client.ExtRoot + ".newrelic"
 	enabled = root + ".enabled"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable newrelic")
+	config.Add(enabled, true, "enable/disable newrelic")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }

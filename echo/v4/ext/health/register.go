@@ -1,11 +1,11 @@
-package giechohealth
+package health
 
 import (
 	"context"
 
-	giecho "github.com/b2wdigital/goignite/v2/echo/v4"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	girestresponse "github.com/b2wdigital/goignite/v2/rest/response"
+	"github.com/b2wdigital/goignite/v2/echo/v4"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/rest/response"
 	"github.com/labstack/echo/v4"
 )
 
@@ -14,7 +14,7 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	healthRoute := GetRoute()
 
@@ -40,7 +40,7 @@ func (u *HealthHandler) Get(c echo.Context) error {
 	ctx, cancel := context.WithCancel(c.Request().Context())
 	defer cancel()
 
-	resp, httpCode := girestresponse.NewHealth(ctx)
+	resp, httpCode := response.NewHealth(ctx)
 
-	return giecho.JSON(c, httpCode, resp, nil)
+	return echo.JSON(c, httpCode, resp, nil)
 }

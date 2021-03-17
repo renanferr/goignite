@@ -1,4 +1,4 @@
-package giaws
+package aws
 
 import (
 	"context"
@@ -7,19 +7,19 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/aws/retry"
-	"github.com/aws/aws-sdk-go-v2/config"
+	awsconfig "github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
 )
 
 type Ext func(context.Context, *aws.Config) error
 
 func NewConfig(ctx context.Context, options *Options, exts ...Ext) aws.Config {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
-	cfg, err := config.LoadDefaultConfig(ctx)
+	cfg, err := awsconfig.LoadDefaultConfig(ctx)
 	if err != nil {
 		logger.Panicf("unable to load AWS SDK config, %s", err.Error())
 		return aws.Config{}
@@ -87,38 +87,38 @@ func NewDefaultConfig(ctx context.Context, exts ...Ext) aws.Config {
 
 func loadDefaultOptions(ctx context.Context) *Options {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o := &Options{}
 
 	var err error
 
-	err = giconfig.UnmarshalWithPath("aws.access.key", o)
+	err = config.UnmarshalWithPath("aws.access.key", o)
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}
 
-	err = giconfig.UnmarshalWithPath("aws.secret.access", o)
+	err = config.UnmarshalWithPath("aws.secret.access", o)
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}
 
-	err = giconfig.UnmarshalWithPath("aws.default", o)
+	err = config.UnmarshalWithPath("aws.default", o)
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}
 
-	err = giconfig.UnmarshalWithPath("aws.session", o)
+	err = config.UnmarshalWithPath("aws.session", o)
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}
 
-	err = giconfig.UnmarshalWithPath(retryerRoot, o)
+	err = config.UnmarshalWithPath(retryerRoot, o)
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}
 
-	err = giconfig.UnmarshalWithPath(httpClientRoot, o)
+	err = config.UnmarshalWithPath(httpClientRoot, o)
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}

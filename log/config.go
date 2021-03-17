@@ -1,8 +1,6 @@
-package gilog
+package log
 
-import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-)
+import "github.com/b2wdigital/goignite/v2/config"
 
 const (
 	root           = "gi.log"
@@ -20,14 +18,14 @@ const (
 
 func init() {
 
-	giconfig.Add(ConsoleEnabled, true, "enable/disable console logging")
-	giconfig.Add(ConsoleLevel, "INFO", "console log level")
-	giconfig.Add(FileEnabled, false, "enable/disable file logging")
-	giconfig.Add(FileLevel, "INFO", "console log level")
-	giconfig.Add(FilePath, "/tmp", "log path")
-	giconfig.Add(FileName, "application.l", "log filename")
-	giconfig.Add(FileMaxSize, 100, "log file max size (MB)")
-	giconfig.Add(FileCompress, true, "log file compress")
-	giconfig.Add(FileMaxAge, 28, "log file max age (days)")
+	config.Add(ConsoleEnabled, true, "enable/disable console logging")
+	config.Add(ConsoleLevel, "INFO", "console log level")
+	config.Add(FileEnabled, false, "enable/disable file logging")
+	config.Add(FileLevel, "INFO", "console log level")
+	config.Add(FilePath, "/tmp", "log path")
+	config.Add(FileName, "application.l", "log filename")
+	config.Add(FileMaxSize, 100, "log file max size (MB)")
+	config.Add(FileCompress, true, "log file compress")
+	config.Add(FileMaxAge, 28, "log file max age (days)")
 
 }

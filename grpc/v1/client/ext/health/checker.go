@@ -1,4 +1,4 @@
-package gigrpchealth
+package health
 
 import (
 	"context"

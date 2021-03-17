@@ -1,9 +1,9 @@
-package ginats
+package nats
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/nats-io/nats.go"
 )
 
@@ -11,7 +11,7 @@ type Ext func(context.Context, *nats.Conn) error
 
 func NewConnection(ctx context.Context, options *Options, exts ...Ext) (*nats.Conn, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	conn, err := nats.Connect(
 		options.Url,
@@ -39,7 +39,7 @@ func NewConnection(ctx context.Context, options *Options, exts ...Ext) (*nats.Co
 
 func NewDefaultConnection(ctx context.Context, exts ...Ext) (*nats.Conn, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
@@ -50,13 +50,13 @@ func NewDefaultConnection(ctx context.Context, exts ...Ext) (*nats.Conn, error) 
 }
 
 func disconnectedErrHandler(nc *nats.Conn, err error) {
-	gilog.Errorf("Disconnected due to:%s, will attempt reconnects for %.0fm", err)
+	log.Errorf("Disconnected due to:%s, will attempt reconnects for %.0fm", err)
 }
 
 func reconnectedHandler(nc *nats.Conn) {
-	gilog.Warnf("Reconnected [%s]", nc.ConnectedUrl())
+	log.Warnf("Reconnected [%s]", nc.ConnectedUrl())
 }
 
 func closedHandler(nc *nats.Conn) {
-	gilog.Errorf("Exiting: %v", nc.LastError())
+	log.Errorf("Exiting: %v", nc.LastError())
 }

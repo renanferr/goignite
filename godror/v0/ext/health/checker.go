@@ -1,4 +1,4 @@
-package gigodrorhealth
+package health
 
 import (
 	"context"

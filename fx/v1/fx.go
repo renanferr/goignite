@@ -1,4 +1,4 @@
-package gifx
+package fx
 
 import (
 	"go.uber.org/fx"

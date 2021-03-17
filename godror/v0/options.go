@@ -1,9 +1,9 @@
-package gigodror
+package godror
 
 import (
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 	"github.com/lann/builder"
 )
 
@@ -42,7 +42,7 @@ func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
 
-	err := giconfig.UnmarshalWithPath(root, o)
+	err := config.UnmarshalWithPath(root, o)
 	if err != nil {
 		return nil, err
 	}

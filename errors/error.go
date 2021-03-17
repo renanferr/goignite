@@ -1,4 +1,4 @@
-package gierrors
+package errors
 
 import "fmt"
 

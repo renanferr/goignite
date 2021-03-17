@@ -1,4 +1,4 @@
-package gigrpc
+package server
 
 import (
 	"fmt"

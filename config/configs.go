@@ -1,4 +1,4 @@
-package giconfig
+package config
 
 var (
 	entries []Config

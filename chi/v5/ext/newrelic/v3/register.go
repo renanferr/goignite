@@ -1,4 +1,4 @@
-package gichinewrelic
+package newrelic
 
 import (
 	"context"
@@ -6,22 +6,22 @@ import (
 	"net/http"
 	"strings"
 
-	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
+	"github.com/b2wdigital/goignite/v2/chi/v5"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/go-chi/chi/v5/middleware"
 	nr "github.com/newrelic/go-agent/v3/newrelic"
 )
 
-func Register(ctx context.Context) (*gichi.Config, error) {
-	if !IsEnabled() || !ginewrelic.IsEnabled() {
+func Register(ctx context.Context) (*chi.Config, error) {
+	if !IsEnabled() || !newrelic.IsEnabled() {
 		return nil, nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 	logger.Trace("enabling newrelic middleware in chi")
 
-	return &gichi.Config{
+	return &chi.Config{
 		Middlewares: []func(http.Handler) http.Handler{
 			nrMiddleware,
 		},
@@ -37,7 +37,7 @@ func nrMiddleware(next http.Handler) http.Handler {
 		path := r.URL.Path
 		txnName := strings.Join([]string{r.Method, path}, " ")
 
-		txn := ginewrelic.Application().StartTransaction(txnName)
+		txn := newrelic.Application().StartTransaction(txnName)
 		defer txn.End()
 
 		txn.SetWebRequestHTTP(r)

@@ -1,4 +1,4 @@
-package gieventbus
+package eventbus
 
 import (
 	evbus "github.com/asaskevich/EventBus"

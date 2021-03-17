@@ -1,8 +1,6 @@
-package gigocloud
+package gocloud
 
-import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-)
+import "github.com/b2wdigital/goignite/v2/config"
 
 const (
 	root     = "gi.gocloud"
@@ -12,7 +10,7 @@ const (
 )
 
 func init() {
-	giconfig.Add(tp, "memory", "define queue type")
-	giconfig.Add(resource, "topicA", "define queue resource")
-	giconfig.Add(region, "", "define queue region")
+	config.Add(tp, "memory", "define queue type")
+	config.Add(resource, "topicA", "define queue resource")
+	config.Add(region, "", "define queue region")
 }

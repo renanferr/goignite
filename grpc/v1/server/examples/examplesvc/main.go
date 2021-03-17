@@ -3,22 +3,22 @@ package main
 import (
 	"context"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gigrpc "github.com/b2wdigital/goignite/v2/grpc/v1/server"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/grpc/v1/server"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
 )
 
 func main() {
 
 	ctx := context.Background()
 
-	giconfig.Load()
+	config.Load()
 
 	// start logrus
-	gilogrus.NewLogger()
+	logrus.NewLogger()
 
-	srv := gigrpc.NewDefault(ctx)
+	srv := server.NewDefault(ctx)
 
 	RegisterExampleServer(srv.Server(), &Service{})
 
@@ -30,7 +30,7 @@ type Service struct {
 
 func (h *Service) Test(ctx context.Context, request *TestRequest) (*TestResponse, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	logger.Infof(request.Message)
 

@@ -3,18 +3,18 @@ package main
 import (
 	"context"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gigocql "github.com/b2wdigital/goignite/v2/gocql/v0"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/gocql/v0"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
 )
 
 func main() {
 
-	giconfig.Load()
+	config.Load()
 
-	gilogrus.NewLogger()
+	logrus.NewLogger()
 
-	session, err := gigocql.NewDefaultSession(context.Background())
+	session, err := gocql.NewDefaultSession(context.Background())
 	if err != nil {
 		panic(err)
 	}

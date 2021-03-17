@@ -1,4 +1,4 @@
-package gielasticsearch
+package elasticsearch
 
 import (
 	"io"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 )
 
 // Logger implements the estransport.Logger interface.
@@ -39,7 +39,7 @@ func (l *Logger) LogRoundTrip(
 
 	// Log event.
 	//
-	logger := gilog.WithFields(gilog.Fields{
+	logger := log.WithFields(log.Fields{
 		"method":      req.Method,
 		"status_code": res.StatusCode,
 		"duration":    dur,

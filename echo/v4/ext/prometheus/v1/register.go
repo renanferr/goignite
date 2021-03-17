@@ -1,9 +1,9 @@
-package giechoprometheus
+package prometheus
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	prometheus "github.com/globocom/echo-prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -15,7 +15,7 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	logger.Trace("enabling prometheus middleware in echo")
 

@@ -1,15 +1,15 @@
-package gimemdb
+package memdb
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/hashicorp/go-memdb"
 )
 
 func NewDatabase(ctx context.Context, schema *memdb.DBSchema) (db *memdb.MemDB, err error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	db, err = memdb.NewMemDB(schema)
 	if err != nil {

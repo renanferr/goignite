@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/wesovilabs/beyond/api"
 	c "github.com/wesovilabs/beyond/api/context"
 )
@@ -37,7 +37,7 @@ func NewTracingAdviceWithPrefix(prefix string) func() api.Before {
 
 func printTrace(ctx *c.BeyondContext, prefix string, params []string) {
 
-	logger := gilog.FromContext(context.Background())
+	logger := log.FromContext(context.Background())
 
 	if prefix == "" {
 		logger.Infof("%s.%s(%s)\n", ctx.Pkg(), ctx.Function(), strings.Join(params, ","))

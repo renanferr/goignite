@@ -1,25 +1,25 @@
-package gichistatus
+package status
 
 import (
-	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/chi/v5"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
-	root    = gichi.ExtRoot + ".status"
+	root    = chi.ExtRoot + ".status"
 	enabled = root + ".enabled"
 	route   = root + ".route"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable status route")
-	giconfig.Add(route, "/resource-status", "define status url")
+	config.Add(enabled, true, "enable/disable status route")
+	config.Add(route, "/resource-status", "define status url")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }
 
 func getRoute() string {
-	return giconfig.String(route)
+	return config.String(route)
 }

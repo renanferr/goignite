@@ -1,9 +1,9 @@
-package ginewrelic
+package newrelic
 
 import (
 	"net/http"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
@@ -23,17 +23,17 @@ const (
 
 func init() {
 
-	giconfig.Add(appName, "", "application name for newrelic")
-	giconfig.Add(license, "", "newrelic license key")
-	giconfig.Add(enabled, false, "enables newrelic")
-	giconfig.Add(tracerEnabled, false, "enables newrelic distributed tracer")
-	giconfig.Add(labels, map[string]string{}, "newrelic labels")
-	giconfig.Add(serverlessModeEnabled, false, "enables newrelic serverless mode")
-	giconfig.Add(serverlessModeAccountID, "", "newrelic serverless mode account id")
-	giconfig.Add(serverlessModeTrustedAccountKey, "", "newrelic serverless mode trusted account key")
-	giconfig.Add(serverlessModePrimaryAppID, "", "newrelic serverless mode primary app id")
-	giconfig.Add(serverlessModeApdexThreshold, "", "newrelic serverless mode apdex threshold")
-	giconfig.Add(errorCollectorIgnoreStatusCodes,
+	config.Add(appName, "", "application name for newrelic")
+	config.Add(license, "", "newrelic license key")
+	config.Add(enabled, false, "enables newrelic")
+	config.Add(tracerEnabled, false, "enables newrelic distributed tracer")
+	config.Add(labels, map[string]string{}, "newrelic labels")
+	config.Add(serverlessModeEnabled, false, "enables newrelic serverless mode")
+	config.Add(serverlessModeAccountID, "", "newrelic serverless mode account id")
+	config.Add(serverlessModeTrustedAccountKey, "", "newrelic serverless mode trusted account key")
+	config.Add(serverlessModePrimaryAppID, "", "newrelic serverless mode primary app id")
+	config.Add(serverlessModeApdexThreshold, "", "newrelic serverless mode apdex threshold")
+	config.Add(errorCollectorIgnoreStatusCodes,
 		[]int{
 			http.StatusBadRequest,
 			http.StatusUnauthorized,
@@ -69,5 +69,5 @@ func init() {
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }

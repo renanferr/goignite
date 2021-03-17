@@ -1,4 +1,4 @@
-package gicontextfx
+package fx
 
 import (
 	"context"

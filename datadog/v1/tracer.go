@@ -1,4 +1,4 @@
-package gidatadog
+package datadog
 
 import (
 	"context"
@@ -6,10 +6,10 @@ import (
 	"os"
 	"sync"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 	gihttp "github.com/b2wdigital/goignite/v2/http/v1/client"
-	giinfo "github.com/b2wdigital/goignite/v2/info"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/info"
+	"github.com/b2wdigital/goignite/v2/log"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
 )
 
@@ -23,33 +23,33 @@ func NewTracer(ctx context.Context, opts ...tracer.StartOption) {
 
 	once.Do(func() {
 
-		logger := gilog.FromContext(ctx)
+		logger := log.FromContext(ctx)
 
-		svc := giconfig.String(service)
-		if v := giinfo.AppName; v != "" {
+		svc := config.String(service)
+		if v := info.AppName; v != "" {
 			svc = v
 		}
 		if v := os.Getenv("DD_SERVICE"); v != "" {
 			svc = v
 		}
 
-		host := giconfig.String(host)
+		host := config.String(host)
 		if v := os.Getenv("DD_AGENT_HOST"); v != "" {
 			host = v
 		}
 
-		port := giconfig.String(port)
+		port := config.String(port)
 		if v := os.Getenv("DD_TRACE_AGENT_PORT"); v != "" {
 			port = v
 		}
 
-		env := giconfig.String(env)
+		env := config.String(env)
 		if v := os.Getenv("DD_ENV"); v != "" {
 			env = v
 		}
 
 		var version string
-		if v := giinfo.Version; v != "" {
+		if v := info.Version; v != "" {
 			version = v
 		}
 		if v := os.Getenv("DD_VERSION"); v != "" {
@@ -60,7 +60,7 @@ func NewTracer(ctx context.Context, opts ...tracer.StartOption) {
 
 		httpClientOpt := &gihttp.Options{}
 
-		err := giconfig.UnmarshalWithPath(httpClientRoot, httpClientOpt)
+		err := config.UnmarshalWithPath(httpClientRoot, httpClientOpt)
 		if err != nil {
 			logger.Panic(err)
 		}
@@ -74,14 +74,14 @@ func NewTracer(ctx context.Context, opts ...tracer.StartOption) {
 			tracer.WithServiceVersion(version),
 			tracer.WithLogger(NewLogger()),
 			tracer.WithHTTPClient(httpClient),
-			tracer.WithAnalytics(giconfig.Bool(analytics)),
-			tracer.WithAnalyticsRate(giconfig.Float64(analyticsRate)),
-			tracer.WithLambdaMode(giconfig.Bool(lambdaMode)),
-			tracer.WithDebugMode(giconfig.Bool(debugMode)),
-			tracer.WithDebugStack(giconfig.Bool(debugStack)),
+			tracer.WithAnalytics(config.Bool(analytics)),
+			tracer.WithAnalyticsRate(config.Float64(analyticsRate)),
+			tracer.WithLambdaMode(config.Bool(lambdaMode)),
+			tracer.WithDebugMode(config.Bool(debugMode)),
+			tracer.WithDebugStack(config.Bool(debugStack)),
 		}
 
-		for k, v := range giconfig.StringMap(tags) {
+		for k, v := range config.StringMap(tags) {
 			startOptions = append(startOptions, tracer.WithGlobalTag(k, v))
 		}
 

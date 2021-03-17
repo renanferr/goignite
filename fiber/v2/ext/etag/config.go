@@ -1,18 +1,18 @@
-package gifiberetag
+package etag
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gifiber "github.com/b2wdigital/goignite/v2/fiber/v2"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/fiber/v2"
 )
 
 const (
-	enabled = gifiber.ExtRoot + ".etag.enabled"
+	enabled = fiber.ExtRoot + ".etag.enabled"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable etag middleware")
+	config.Add(enabled, true, "enable/disable etag middleware")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }

@@ -1,7 +1,7 @@
-package ginatsnewrelic
+package newrelic
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 	ginats "github.com/b2wdigital/goignite/v2/nats/v1"
 )
 
@@ -11,9 +11,9 @@ const (
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable newrelic")
+	config.Add(enabled, true, "enable/disable newrelic")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }

@@ -1,14 +1,14 @@
-package gichicors
+package cors
 
 import (
 	"net/http"
 
-	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/chi/v5"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
-	root               = gichi.ExtRoot + ".cors"
+	root               = chi.ExtRoot + ".cors"
 	enabled            = root + ".enabled"
 	allowedOrigins     = root + ".allowed.origins"
 	allowedHeaders     = root + ".allowed.headers"
@@ -19,42 +19,42 @@ const (
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable cors middleware")
-	giconfig.Add(allowedOrigins, []string{"*"}, "cors allow origins")
-	giconfig.Add(allowedHeaders, []string{"Origin", "Content-Type", "Accept"},
+	config.Add(enabled, true, "enable/disable cors middleware")
+	config.Add(allowedOrigins, []string{"*"}, "cors allow origins")
+	config.Add(allowedHeaders, []string{"Origin", "Content-Type", "Accept"},
 		"cors allow headers")
-	giconfig.Add(allowedMethods,
+	config.Add(allowedMethods,
 		[]string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
 		"cors allow methods")
-	giconfig.Add(allowedCredentials, true, "cors allow credentials")
-	giconfig.Add(exposedHeaders, []string{}, "cors expose headers")
-	giconfig.Add(maxAge, 5200, "cors max age (seconds)")
+	config.Add(allowedCredentials, true, "cors allow credentials")
+	config.Add(exposedHeaders, []string{}, "cors expose headers")
+	config.Add(maxAge, 5200, "cors max age (seconds)")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }
 
 func getAllowedOrigins() []string {
-	return giconfig.Strings(allowedOrigins)
+	return config.Strings(allowedOrigins)
 }
 
 func getAllowedMethods() []string {
-	return giconfig.Strings(allowedMethods)
+	return config.Strings(allowedMethods)
 }
 
 func getAllowedHeaders() []string {
-	return giconfig.Strings(allowedHeaders)
+	return config.Strings(allowedHeaders)
 }
 
 func getAllowedCredentials() bool {
-	return giconfig.Bool(allowedCredentials)
+	return config.Bool(allowedCredentials)
 }
 
 func getExposedHeaders() []string {
-	return giconfig.Strings(exposedHeaders)
+	return config.Strings(exposedHeaders)
 }
 
 func getMaxAge() int {
-	return giconfig.Int(maxAge)
+	return config.Int(maxAge)
 }

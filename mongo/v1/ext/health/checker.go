@@ -1,4 +1,4 @@
-package gimongohealth
+package health
 
 import (
 	"context"

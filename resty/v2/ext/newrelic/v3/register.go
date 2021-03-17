@@ -5,19 +5,19 @@ import (
 
 	"net/http"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/go-resty/resty/v2"
 	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
 func Register(ctx context.Context, client *resty.Client) error {
 
-	if !IsEnabled() || !ginewrelic.IsEnabled() {
+	if !IsEnabled() || !newrelic.IsEnabled() {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	logger.Trace("integrating resty in newrelic")
 
@@ -25,7 +25,7 @@ func Register(ctx context.Context, client *resty.Client) error {
 
 		rctx := request.Context()
 
-		txn := ginewrelic.FromContext(rctx)
+		txn := newrelic.FromContext(rctx)
 		if txn == nil {
 			logger.Warnf("there is no transaction in context for newrelic")
 			return nil

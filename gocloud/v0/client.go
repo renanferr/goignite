@@ -1,10 +1,10 @@
-package gigocloud
+package gocloud
 
 import (
 	"context"
 	"strings"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"gocloud.dev/pubsub"
 	_ "gocloud.dev/pubsub/awssnssqs"
 	_ "gocloud.dev/pubsub/gcppubsub"
@@ -24,7 +24,7 @@ const (
 // NewTopic start a new topic for send message
 func NewTopic(ctx context.Context, o *Options) (*pubsub.Topic, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	addResource(o)
 
@@ -45,7 +45,7 @@ func NewTopic(ctx context.Context, o *Options) (*pubsub.Topic, error) {
 // NewDefaultTopic ..
 func NewDefaultTopic(ctx context.Context) (*pubsub.Topic, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
@@ -58,7 +58,7 @@ func NewDefaultTopic(ctx context.Context) (*pubsub.Topic, error) {
 // NewSubscription ..
 func NewSubscription(ctx context.Context, o *Options) (*pubsub.Subscription, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	addResource(o)
 
@@ -79,7 +79,7 @@ func NewSubscription(ctx context.Context, o *Options) (*pubsub.Subscription, err
 // NewDefaultSubscription ..
 func NewDefaultSubscription(ctx context.Context) (*pubsub.Subscription, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {

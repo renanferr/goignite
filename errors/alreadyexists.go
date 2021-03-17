@@ -1,4 +1,4 @@
-package gierrors
+package errors
 
 // alreadyExists represents and error when something already exists.
 type alreadyExists struct {

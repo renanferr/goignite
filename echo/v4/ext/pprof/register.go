@@ -1,9 +1,9 @@
-package giechopprof
+package pprof
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	echopprof "github.com/hiko1129/echo-pprof"
 	"github.com/labstack/echo/v4"
 )
@@ -14,7 +14,7 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	logger.Trace("configuring pprof in echo")
 

@@ -1,10 +1,10 @@
-package gifiberprometheus
+package prometheus
 
 import (
 	"context"
 
 	"github.com/ansrivas/fiberprometheus/v2"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -14,7 +14,7 @@ func Register(ctx context.Context, instance *fiber.App) error {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	logger.Trace("enabling prometheus middleware in fiber")
 

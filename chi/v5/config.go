@@ -1,4 +1,4 @@
-package gichi
+package chi
 
 const (
 	root    = "gi.chi"

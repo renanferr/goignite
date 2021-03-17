@@ -1,4 +1,4 @@
-package gigrpc
+package client
 
 const (
 	root    = "gi.grpc.client"

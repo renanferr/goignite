@@ -1,4 +1,4 @@
-package gilog
+package log
 
 // A global variable so that l functions can be directly accessed
 var l Logger

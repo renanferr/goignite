@@ -1,9 +1,9 @@
-package gihttp
+package server
 
 import (
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
@@ -17,10 +17,10 @@ const (
 )
 
 func init() {
-	giconfig.Add(serverAddress, ":8081", "server address")
-	giconfig.Add(maxHeaderBytes, 1048576, "max header timeout")
-	giconfig.Add(readHeaderTimeout, 1*time.Second, "read header timeout")
-	giconfig.Add(readTimeout, 1*time.Second, "read timeout")
-	giconfig.Add(writeTimeout, 7*time.Second, "write timeout ")
-	giconfig.Add(idleTimeout, 30*time.Second, "idle timeout")
+	config.Add(serverAddress, ":8081", "server address")
+	config.Add(maxHeaderBytes, 1048576, "max header timeout")
+	config.Add(readHeaderTimeout, 1*time.Second, "read header timeout")
+	config.Add(readTimeout, 1*time.Second, "read timeout")
+	config.Add(writeTimeout, 7*time.Second, "write timeout ")
+	config.Add(idleTimeout, 30*time.Second, "idle timeout")
 }

@@ -3,36 +3,36 @@ package main
 import (
 	"context"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
+	a "github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
-	giaws "github.com/b2wdigital/goignite/v2/aws/v2"
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/aws/v2"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
 )
 
 const Bucket = "aws.s3.bucket"
 
 func init() {
-	giconfig.Add(Bucket, "example", "s3 example bucket")
+	config.Add(Bucket, "example", "s3 example bucket")
 }
 
 func main() {
 
-	giconfig.Load()
+	config.Load()
 
 	// create background context
 	ctx := context.Background()
 
 	// start logrus
 	// zap.NewLogger()
-	gilogrus.NewLogger()
+	logrus.NewLogger()
 
 	// get logrus instance from context
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	// create default aws config
-	awsConfig := giaws.NewDefaultConfig(ctx)
+	awsConfig := aws.NewDefaultConfig(ctx)
 
 	// create s3 client
 
@@ -40,12 +40,12 @@ func main() {
 
 	// set vars
 	filename := "examplefile"
-	bucket := giconfig.String(Bucket)
+	bucket := config.String(Bucket)
 
 	// prepare s3 request head
 	input := &s3.HeadObjectInput{
-		Bucket: aws.String(bucket),
-		Key:    aws.String(filename),
+		Bucket: a.String(bucket),
+		Key:    a.String(filename),
 	}
 
 	// make a call
@@ -60,7 +60,7 @@ func main() {
 	}
 
 	logger = logger.WithFields(
-		gilog.Fields{"lastModified": head.LastModified,
+		log.Fields{"lastModified": head.LastModified,
 			"versionId": head.VersionId,
 		})
 

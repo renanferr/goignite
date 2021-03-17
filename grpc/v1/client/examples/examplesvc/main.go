@@ -3,30 +3,30 @@ package main
 import (
 	"context"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gigrpc "github.com/b2wdigital/goignite/v2/grpc/v1/client"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/grpc/v1/client"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
 )
 
 func main() {
 
 	ctx := context.Background()
 
-	giconfig.Load()
+	config.Load()
 
-	logger := gilogrus.NewLogger()
+	logger := logrus.NewLogger()
 
 	request := &TestRequest{
 		Message: "mensagem da requisição",
 	}
 
-	options := gigrpc.OptionsBuilder.
+	options := client.OptionsBuilder.
 		Host("localhost").
 		Port(9090).
 		Build()
 
-	conn := gigrpc.NewClientConn(ctx, &options)
+	conn := client.NewClientConn(ctx, &options)
 	defer conn.Close()
 
 	c := NewExampleClient(conn)
@@ -36,7 +36,7 @@ func main() {
 		logger.Fatalf("%v.Call(_) = _, %v", c, err)
 	}
 
-	gilog.Infof(test.Message)
+	log.Infof(test.Message)
 
-	gilog.Infof(conn.GetState().String())
+	log.Infof(conn.GetState().String())
 }

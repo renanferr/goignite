@@ -1,4 +1,4 @@
-package gielasticsearchhealth
+package health
 
 import (
 	"context"

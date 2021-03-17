@@ -1,10 +1,10 @@
-package ginewrelicfx
+package newrelic
 
 import (
 	"sync"
 
-	gicontext "github.com/b2wdigital/goignite/v2/context/fx/v1"
-	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
+	contextfx "github.com/b2wdigital/goignite/v2/context/fx/v1"
+	"github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"go.uber.org/fx"
 )
 
@@ -15,9 +15,9 @@ func Module() fx.Option {
 
 	once.Do(func() {
 		options = fx.Options(
-			gicontext.Module(),
+			contextfx.Module(),
 			fx.Invoke(
-				ginewrelic.NewApplication,
+				newrelic.NewApplication,
 			),
 		)
 	})

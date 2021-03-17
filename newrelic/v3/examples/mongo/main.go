@@ -3,16 +3,16 @@ package main
 import (
 	"context"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
-	gimongo "github.com/b2wdigital/goignite/v2/mongo/v1"
-	newrelic "github.com/b2wdigital/goignite/v2/mongo/v1/ext/newrelic/v3"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/mongo/v1"
+	"github.com/b2wdigital/goignite/v2/mongo/v1/ext/newrelic/v3"
 )
 
 func main() {
 
-	giconfig.Load()
-	gilogrus.NewLogger()
+	config.Load()
+	logrus.NewLogger()
 
-	gimongo.NewDefaultConn(context.Background(), newrelic.Register)
+	mongo.NewDefaultConn(context.Background(), newrelic.Register)
 }

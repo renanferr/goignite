@@ -1,44 +1,44 @@
 package main
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gieventbus "github.com/b2wdigital/goignite/v2/eventbus"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/eventbus"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
 )
 
 func main() {
-	giconfig.Load()
-	gilogrus.NewLogger()
+	config.Load()
+	logrus.NewLogger()
 
-	gieventbus.Start()
+	eventbus.Start()
 
-	gieventbus.Subscribe("exampleint", ExampleInt)
-	defer gieventbus.Unsubscribe("exampleint", ExampleInt)
-	gieventbus.Subscribe("examplestring", ExampleString)
-	defer gieventbus.Unsubscribe("examplestring", ExampleString)
+	eventbus.Subscribe("exampleint", ExampleInt)
+	defer eventbus.Unsubscribe("exampleint", ExampleInt)
+	eventbus.Subscribe("examplestring", ExampleString)
+	defer eventbus.Unsubscribe("examplestring", ExampleString)
 
-	gieventbus.Subscribe("examplestring", ExampleString1)
-	defer gieventbus.Unsubscribe("examplestring", ExampleString1)
-	gieventbus.Subscribe("examplestring", ExampleString2)
-	defer gieventbus.Unsubscribe("examplestring", ExampleString2)
+	eventbus.Subscribe("examplestring", ExampleString1)
+	defer eventbus.Unsubscribe("examplestring", ExampleString1)
+	eventbus.Subscribe("examplestring", ExampleString2)
+	defer eventbus.Unsubscribe("examplestring", ExampleString2)
 
-	gieventbus.Publish("exampleint", 1)
-	gieventbus.Publish("examplestring", "Hello World!!")
+	eventbus.Publish("exampleint", 1)
+	eventbus.Publish("examplestring", "Hello World!!")
 }
 
 func ExampleInt(i int) {
-	gilog.Infof("logging int %v", i)
+	log.Infof("logging int %v", i)
 }
 
 func ExampleString(m string) {
-	gilog.Infof("logging string %s", m)
+	log.Infof("logging string %s", m)
 }
 
 func ExampleString1(m string) {
-	gilog.Infof("logging string 2 %s", m)
+	log.Infof("logging string 2 %s", m)
 }
 
 func ExampleString2(m string) {
-	gilog.Infof("logging string 1 %s", m)
+	log.Infof("logging string 1 %s", m)
 }

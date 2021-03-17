@@ -4,26 +4,26 @@ import (
 	"context"
 	"net/http"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	giecho "github.com/b2wdigital/goignite/v2/echo/v4"
-	giechocors "github.com/b2wdigital/goignite/v2/echo/v4/ext/cors"
-	giechogzip "github.com/b2wdigital/goignite/v2/echo/v4/ext/gzip"
-	giechohealth "github.com/b2wdigital/goignite/v2/echo/v4/ext/health"
-	giechologger "github.com/b2wdigital/goignite/v2/echo/v4/ext/logger"
-	giechorequestid "github.com/b2wdigital/goignite/v2/echo/v4/ext/requestid"
-	giechostatus "github.com/b2wdigital/goignite/v2/echo/v4/ext/status"
-	giinfo "github.com/b2wdigital/goignite/v2/info"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/echo/v4"
+	"github.com/b2wdigital/goignite/v2/echo/v4/ext/cors"
+	"github.com/b2wdigital/goignite/v2/echo/v4/ext/gzip"
+	"github.com/b2wdigital/goignite/v2/echo/v4/ext/health"
+	"github.com/b2wdigital/goignite/v2/echo/v4/ext/logger"
+	"github.com/b2wdigital/goignite/v2/echo/v4/ext/requestid"
+	"github.com/b2wdigital/goignite/v2/echo/v4/ext/status"
+	"github.com/b2wdigital/goignite/v2/info"
+	"github.com/b2wdigital/goignite/v2/log"
 	girest "github.com/b2wdigital/goignite/v2/resty/v2"
-	gizap "github.com/b2wdigital/goignite/v2/zap/v1"
+	"github.com/b2wdigital/goignite/v2/zap/v1"
 	"github.com/go-resty/resty/v2"
-	"github.com/labstack/echo/v4"
+	e "github.com/labstack/echo/v4"
 )
 
 const Endpoint = "app.endpoint.google"
 
 func init() {
-	giconfig.Add(Endpoint, "/google", "google endpoint")
+	config.Add(Endpoint, "/google", "google endpoint")
 }
 
 type Config struct {
@@ -46,9 +46,9 @@ func NewHandler(client *resty.Client) *Handler {
 	return &Handler{client: client}
 }
 
-func (h *Handler) Get(c echo.Context) (err error) {
+func (h *Handler) Get(c e.Context) (err error) {
 
-	logger := gilog.FromContext(c.Request().Context())
+	logger := log.FromContext(c.Request().Context())
 
 	request := h.client.R().EnableTrace()
 
@@ -61,38 +61,38 @@ func (h *Handler) Get(c echo.Context) (err error) {
 		Message: "Hello Google!!",
 	}
 
-	err = giconfig.Unmarshal(&resp)
+	err = config.Unmarshal(&resp)
 	if err != nil {
 		logger.Errorf(err.Error())
 	}
 
-	return giecho.JSON(c, http.StatusOK, resp, err)
+	return echo.JSON(c, http.StatusOK, resp, err)
 }
 
 func main() {
 
-	giconfig.Load()
+	config.Load()
 
 	c := Config{}
 
-	err := giconfig.Unmarshal(&c)
+	err := config.Unmarshal(&c)
 	if err != nil {
 		panic(err)
 	}
 
 	ctx := context.Background()
 
-	gizap.NewLogger()
+	zap.NewLogger()
 
-	giinfo.AppName = "google"
+	info.AppName = "google"
 
-	srv := giecho.NewDefault(ctx,
-		giechocors.Register,
-		giechorequestid.Register,
-		giechogzip.Register,
-		giechologger.Register,
-		giechostatus.Register,
-		giechohealth.Register)
+	srv := echo.NewDefault(ctx,
+		cors.Register,
+		requestid.Register,
+		gzip.Register,
+		logger.Register,
+		status.Register,
+		health.Register)
 
 	// instance.AddErrorAdvice(customErrors.InvalidPayload, 400)
 

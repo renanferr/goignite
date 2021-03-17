@@ -1,6 +1,6 @@
-package giecho
+package echo
 
-import giconfig "github.com/b2wdigital/goignite/v2/config"
+import "github.com/b2wdigital/goignite/v2/config"
 
 type Options struct {
 	HideBanner bool
@@ -16,7 +16,7 @@ func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
 
-	err := giconfig.UnmarshalWithPath(root, o)
+	err := config.UnmarshalWithPath(root, o)
 	if err != nil {
 		return nil, err
 	}

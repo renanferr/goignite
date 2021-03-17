@@ -1,9 +1,9 @@
-package giechosemaphore
+package semaphore
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/labstack/echo/v4"
 	"golang.org/x/sync/semaphore"
 )
@@ -18,7 +18,7 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	logger.Trace("enabling semaphore middleware in echo")
 
@@ -36,7 +36,7 @@ func semaphoreMiddleware(limit int64) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 
-			logger := gilog.FromContext(c.Request().Context())
+			logger := log.FromContext(c.Request().Context())
 
 			if !sem.TryAcquire(1) {
 				logger.Errorf("the http server has reached the limit of %v simultaneous connections", limit)

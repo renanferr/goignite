@@ -1,4 +1,4 @@
-package girestresponse
+package response
 
 type ValidationError struct {
 	FieldName string `json:"fieldName"`

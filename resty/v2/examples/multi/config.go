@@ -3,7 +3,7 @@ package main
 import (
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
@@ -37,26 +37,26 @@ const (
 
 func init() {
 
-	giconfig.Add(GoogleHost, "http://www.google.com", "defines host")
-	giconfig.Add(GoogleDebug, false, "defines client debug request")
-	giconfig.Add(GoogleRequestTimeout, 2*time.Second, "defines client http request timeout (ms)")
-	giconfig.Add(GoogleRetryCount, 0, "defines client max http retries")
-	giconfig.Add(GoogleRetryWaitTime, 200*time.Millisecond, "defines client retry wait time (ms)")
-	giconfig.Add(GoogleRetryMaxWaitTime, 2*time.Second, "defines client max retry wait time (ms)")
-	giconfig.Add(GoogleHealthEnabled, true, "enable/disable health")
-	giconfig.Add(GoogleHealthDescription, "google endpoint", "defines health description")
-	giconfig.Add(GoogleHealthEndpoint, "http://www.google.com", "defines health endpoint")
-	giconfig.Add(GoogleHealthRequired, true, "enable/disable health required dependency")
+	config.Add(GoogleHost, "http://www.google.com", "defines host")
+	config.Add(GoogleDebug, false, "defines client debug request")
+	config.Add(GoogleRequestTimeout, 2*time.Second, "defines client http request timeout (ms)")
+	config.Add(GoogleRetryCount, 0, "defines client max http retries")
+	config.Add(GoogleRetryWaitTime, 200*time.Millisecond, "defines client retry wait time (ms)")
+	config.Add(GoogleRetryMaxWaitTime, 2*time.Second, "defines client max retry wait time (ms)")
+	config.Add(GoogleHealthEnabled, true, "enable/disable health")
+	config.Add(GoogleHealthDescription, "google endpoint", "defines health description")
+	config.Add(GoogleHealthEndpoint, "http://www.google.com", "defines health endpoint")
+	config.Add(GoogleHealthRequired, true, "enable/disable health required dependency")
 
-	giconfig.Add(ACOMHost, "http://www.americanas.com", "defines host")
-	giconfig.Add(ACOMDebug, false, "defines client debug request")
-	giconfig.Add(ACOMRequestTimeout, 2*time.Second, "defines client http request timeout (ms)")
-	giconfig.Add(ACOMRetryCount, 0, "defines client max http retries")
-	giconfig.Add(ACOMRetryWaitTime, 200*time.Millisecond, "defines client retry wait time (ms)")
-	giconfig.Add(ACOMRetryMaxWaitTime, 2*time.Second, "defines client max retry wait time (ms)")
-	giconfig.Add(ACOMHealthEnabled, true, "enable/disable health")
-	giconfig.Add(ACOMHealthDescription, "google endpoint", "defines health description")
-	giconfig.Add(ACOMHealthEndpoint, "http://www.google.com", "defines health endpoint")
-	giconfig.Add(ACOMHealthRequired, true, "enable/disable health required dependency")
+	config.Add(ACOMHost, "http://www.americanas.com", "defines host")
+	config.Add(ACOMDebug, false, "defines client debug request")
+	config.Add(ACOMRequestTimeout, 2*time.Second, "defines client http request timeout (ms)")
+	config.Add(ACOMRetryCount, 0, "defines client max http retries")
+	config.Add(ACOMRetryWaitTime, 200*time.Millisecond, "defines client retry wait time (ms)")
+	config.Add(ACOMRetryMaxWaitTime, 2*time.Second, "defines client max retry wait time (ms)")
+	config.Add(ACOMHealthEnabled, true, "enable/disable health")
+	config.Add(ACOMHealthDescription, "google endpoint", "defines health description")
+	config.Add(ACOMHealthEndpoint, "http://www.google.com", "defines health endpoint")
+	config.Add(ACOMHealthRequired, true, "enable/disable health required dependency")
 
 }

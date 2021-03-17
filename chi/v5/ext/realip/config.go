@@ -1,18 +1,18 @@
-package gichirealip
+package realip
 
 import (
-	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/chi/v5"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
-	enabled = gichi.ExtRoot + ".realip.enabled"
+	enabled = chi.ExtRoot + ".realip.enabled"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable realip middleware")
+	config.Add(enabled, true, "enable/disable realip middleware")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }

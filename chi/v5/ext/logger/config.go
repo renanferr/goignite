@@ -1,25 +1,25 @@
-package gichilogger
+package logger
 
 import (
-	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/chi/v5"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
-	root    = gichi.ExtRoot + ".logger"
+	root    = chi.ExtRoot + ".logger"
 	enabled = root + ".enabled"
 	level   = root + ".level"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable logger middleware")
-	giconfig.Add(level, "INFO", "sets log level INFO/DEBUG/TRACE")
+	config.Add(enabled, true, "enable/disable logger middleware")
+	config.Add(level, "INFO", "sets log level INFO/DEBUG/TRACE")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }
 
 func Level() string {
-	return giconfig.String(level)
+	return config.String(level)
 }

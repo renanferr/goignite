@@ -1,4 +1,4 @@
-package girestresponse
+package response
 
 import (
 	"net/http"

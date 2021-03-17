@@ -1,11 +1,11 @@
-package girestyretry
+package retry
 
 import (
 	"context"
 	"net/http"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-resty/resty/v2"
 )
 
@@ -15,13 +15,13 @@ func Register(ctx context.Context, client *resty.Client) error {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 	logger.Trace("configuring retry in resty")
 
 	client.
-		SetRetryCount(giconfig.Int(count)).
-		SetRetryWaitTime(giconfig.Duration(waitTime)).
-		SetRetryMaxWaitTime(giconfig.Duration(maxWaitTime)).
+		SetRetryCount(config.Int(count)).
+		SetRetryWaitTime(config.Duration(waitTime)).
+		SetRetryMaxWaitTime(config.Duration(maxWaitTime)).
 		AddRetryCondition(statusCodeRetryCondition).
 		AddRetryCondition(
 			func(r *resty.Response, err error) bool {

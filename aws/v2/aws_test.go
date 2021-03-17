@@ -1,4 +1,4 @@
-package giaws
+package aws
 
 import (
 	"context"

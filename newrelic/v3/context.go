@@ -1,4 +1,4 @@
-package ginewrelic
+package newrelic
 
 import (
 	"context"

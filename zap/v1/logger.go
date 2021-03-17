@@ -1,4 +1,4 @@
-package gizap
+package zap
 
 import (
 	"context"
@@ -7,10 +7,10 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
 	"gopkg.in/natefinch/lumberjack.v2"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -19,33 +19,33 @@ type ctxKey string
 
 const key ctxKey = "ctxfields"
 
-func NewLogger() gilog.Logger {
+func NewLogger() log.Logger {
 
 	cores := []zapcore.Core{}
 	var writers []io.Writer
 
-	if giconfig.Bool(gilog.ConsoleEnabled) {
-		level := getZapLevel(giconfig.String(gilog.ConsoleLevel))
+	if config.Bool(log.ConsoleEnabled) {
+		level := getZapLevel(config.String(log.ConsoleLevel))
 		writer := zapcore.Lock(os.Stdout)
-		coreconsole := zapcore.NewCore(getEncoder(giconfig.String(ConsoleFormatter)), writer, level)
+		coreconsole := zapcore.NewCore(getEncoder(config.String(ConsoleFormatter)), writer, level)
 		cores = append(cores, coreconsole)
 		writers = append(writers, writer)
 	}
 
-	if giconfig.Bool(gilog.FileEnabled) {
-		s := []string{giconfig.String(gilog.FilePath), "/", giconfig.String(gilog.FileName)}
+	if config.Bool(log.FileEnabled) {
+		s := []string{config.String(log.FilePath), "/", config.String(log.FileName)}
 		fileLocation := strings.Join(s, "")
 
 		lumber := &lumberjack.Logger{
 			Filename: fileLocation,
-			MaxSize:  giconfig.Int(gilog.FileMaxSize),
-			Compress: giconfig.Bool(gilog.FileCompress),
-			MaxAge:   giconfig.Int(gilog.FileMaxAge),
+			MaxSize:  config.Int(log.FileMaxSize),
+			Compress: config.Bool(log.FileCompress),
+			MaxAge:   config.Int(log.FileMaxAge),
 		}
 
-		level := getZapLevel(giconfig.String(gilog.FileLevel))
+		level := getZapLevel(config.String(log.FileLevel))
 		writer := zapcore.AddSync(lumber)
-		corefile := zapcore.NewCore(getEncoder(giconfig.String(FileFormatter)), writer, level)
+		corefile := zapcore.NewCore(getEncoder(config.String(FileFormatter)), writer, level)
 		cores = append(cores, corefile)
 		writers = append(writers, lumber)
 	}
@@ -57,13 +57,13 @@ func NewLogger() gilog.Logger {
 	zaplogger := newSugaredLogger(combinedCore)
 
 	newlogger := &zapLogger{
-		fields:        gilog.Fields{},
+		fields:        log.Fields{},
 		sugaredLogger: zaplogger,
 		writers:       writers,
 		core:          combinedCore,
 	}
 
-	gilog.NewLogger(newlogger)
+	log.NewLogger(newlogger)
 	return newlogger
 }
 
@@ -112,7 +112,7 @@ func getZapLevel(level string) zapcore.Level {
 
 type zapLogger struct {
 	sugaredLogger *zap.SugaredLogger
-	fields        gilog.Fields
+	fields        log.Fields
 	writers       []io.Writer
 	core          zapcore.Core
 }
@@ -153,8 +153,8 @@ func (l *zapLogger) Panic(args ...interface{}) {
 	l.sugaredLogger.Panic(args...)
 }
 
-func (l *zapLogger) WithField(key string, value interface{}) gilog.Logger {
-	newFields := gilog.Fields{}
+func (l *zapLogger) WithField(key string, value interface{}) log.Logger {
+	newFields := log.Fields{}
 	for k, v := range l.fields {
 		newFields[k] = v
 	}
@@ -194,8 +194,8 @@ func (l *zapLogger) Panicf(format string, args ...interface{}) {
 	l.sugaredLogger.Fatalf(format, args...)
 }
 
-func (l *zapLogger) WithFields(fields gilog.Fields) gilog.Logger {
-	newFields := gilog.Fields{}
+func (l *zapLogger) WithFields(fields log.Fields) log.Logger {
+	newFields := log.Fields{}
 
 	for k, v := range l.fields {
 		newFields[k] = v
@@ -210,17 +210,17 @@ func (l *zapLogger) WithFields(fields gilog.Fields) gilog.Logger {
 	return &zapLogger{newLogger, newFields, l.writers, l.core}
 }
 
-func (l *zapLogger) WithTypeOf(obj interface{}) gilog.Logger {
+func (l *zapLogger) WithTypeOf(obj interface{}) log.Logger {
 
 	t := reflect.TypeOf(obj)
 
-	return l.WithFields(gilog.Fields{
+	return l.WithFields(log.Fields{
 		"reflect.type.name":    t.Name(),
 		"reflect.type.package": t.PkgPath(),
 	})
 }
 
-func (l *zapLogger) GetFields() gilog.Fields {
+func (l *zapLogger) GetFields() log.Fields {
 	return l.fields
 }
 
@@ -240,19 +240,19 @@ func (l *zapLogger) ToContext(ctx context.Context) context.Context {
 	return context.WithValue(ctx, key, ctxFields)
 }
 
-func (l *zapLogger) FromContext(ctx context.Context) gilog.Logger {
+func (l *zapLogger) FromContext(ctx context.Context) log.Logger {
 	fields := fieldsFromContext(ctx)
 	return l.WithFields(fields)
 }
 
-func fieldsFromContext(ctx context.Context) gilog.Fields {
-	fields := make(gilog.Fields)
+func fieldsFromContext(ctx context.Context) log.Fields {
+	fields := make(log.Fields)
 
 	if ctx == nil {
 		return fields
 	}
 
-	if f, ok := ctx.Value(key).(gilog.Fields); ok && f != nil {
+	if f, ok := ctx.Value(key).(log.Fields); ok && f != nil {
 		for k, v := range f {
 			fields[k] = v
 		}
@@ -261,7 +261,7 @@ func fieldsFromContext(ctx context.Context) gilog.Fields {
 	return fields
 }
 
-func mapToSlice(m gilog.Fields) []interface{} {
+func mapToSlice(m log.Fields) []interface{} {
 	var f = make([]interface{}, 0)
 	for k, v := range m {
 		f = append(f, k)

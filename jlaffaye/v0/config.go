@@ -1,8 +1,6 @@
-package gijlaffaye
+package jlaffaye
 
-import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-)
+import "github.com/b2wdigital/goignite/v2/config"
 
 const (
 	root     = "gi.jlaffaye"
@@ -14,9 +12,9 @@ const (
 )
 
 func init() {
-	giconfig.Add(addr, "", "ftp address")
-	giconfig.Add(username, "", "ftp username")
-	giconfig.Add(password, "", "ftp password")
-	giconfig.Add(timeout, 10, "ftp timeout")
-	giconfig.Add(retry, 3, "ftp retry")
+	config.Add(addr, "", "ftp address")
+	config.Add(username, "", "ftp username")
+	config.Add(password, "", "ftp password")
+	config.Add(timeout, 10, "ftp timeout")
+	config.Add(retry, 3, "ftp retry")
 }

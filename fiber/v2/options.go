@@ -1,7 +1,7 @@
-package gifiber
+package fiber
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -14,7 +14,7 @@ func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
 
-	err := giconfig.UnmarshalWithPath(root, o)
+	err := config.UnmarshalWithPath(root, o)
 	if err != nil {
 		return nil, err
 	}

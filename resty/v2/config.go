@@ -1,9 +1,9 @@
-package giresty
+package resty
 
 import (
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
@@ -29,20 +29,20 @@ const (
 
 func init() {
 
-	giconfig.Add(debug, false, "defines global debug request")
-	giconfig.Add(closeConnection, false, "defines global http close connection")
-	giconfig.Add(connectionTimeout, 3*time.Minute, "defines global http connection timeout")
-	giconfig.Add(keepAlive, 30*time.Second, "defines global http keepalive")
-	giconfig.Add(fallbackDelay, 300*time.Millisecond, "defines global fallbackDelay")
-	giconfig.Add(requestTimeout, 30*time.Second, "defines global http request timeout")
-	giconfig.Add(transportDisableCompression, false, "enabled/disable transport compression")
-	giconfig.Add(transportDisableKeepAlives, false, "enabled/disable transport keep alives")
-	giconfig.Add(transportMaxIdleConnsPerHost, 2, "define transport max idle conns per host")
-	giconfig.Add(transportResponseHeaderTimeout, 2*time.Second, "define transport response header timeout")
-	giconfig.Add(transportForceAttemptHTTP2, true, "define transport force attempt http2")
-	giconfig.Add(transportMaxIdleConns, 100, "define transport max idle conns")
-	giconfig.Add(transportMaxConnsPerHost, 100, "define transport max conns per host")
-	giconfig.Add(transportIdleConnTimeout, 90*time.Second, "define transport idle conn timeout")
-	giconfig.Add(transportTLSHandshakeTimeout, 10*time.Second, "define transport TLS handshake timeout")
-	giconfig.Add(transportExpectContinueTimeout, 1*time.Second, "define transport expect continue timeout")
+	config.Add(debug, false, "defines global debug request")
+	config.Add(closeConnection, false, "defines global http close connection")
+	config.Add(connectionTimeout, 3*time.Minute, "defines global http connection timeout")
+	config.Add(keepAlive, 30*time.Second, "defines global http keepalive")
+	config.Add(fallbackDelay, 300*time.Millisecond, "defines global fallbackDelay")
+	config.Add(requestTimeout, 30*time.Second, "defines global http request timeout")
+	config.Add(transportDisableCompression, false, "enabled/disable transport compression")
+	config.Add(transportDisableKeepAlives, false, "enabled/disable transport keep alives")
+	config.Add(transportMaxIdleConnsPerHost, 2, "define transport max idle conns per host")
+	config.Add(transportResponseHeaderTimeout, 2*time.Second, "define transport response header timeout")
+	config.Add(transportForceAttemptHTTP2, true, "define transport force attempt http2")
+	config.Add(transportMaxIdleConns, 100, "define transport max idle conns")
+	config.Add(transportMaxConnsPerHost, 100, "define transport max conns per host")
+	config.Add(transportIdleConnTimeout, 90*time.Second, "define transport idle conn timeout")
+	config.Add(transportTLSHandshakeTimeout, 10*time.Second, "define transport TLS handshake timeout")
+	config.Add(transportExpectContinueTimeout, 1*time.Second, "define transport expect continue timeout")
 }

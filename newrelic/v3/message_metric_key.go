@@ -1,4 +1,4 @@
-package ginewrelic
+package newrelic
 
 // MessageMetricKey is the key to use for message segments.
 type MessageMetricKey struct {

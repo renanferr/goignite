@@ -3,28 +3,28 @@ package main
 import (
 	"context"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gielasticsearch "github.com/b2wdigital/goignite/v2/elasticsearch/v8"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/elasticsearch/v8"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
 )
 
 func main() {
 
-	giconfig.Load()
+	config.Load()
 
-	gilogrus.NewLogger()
+	logrus.NewLogger()
 
-	client, err := gielasticsearch.NewDefaultClient(context.Background())
+	client, err := elasticsearch.NewDefaultClient(context.Background())
 	if err != nil {
-		gilog.Panic(err)
+		log.Panic(err)
 	}
 
 	ping, err := client.Ping(client.Ping.WithPretty())
 	if err != nil {
-		gilog.Panic(err)
+		log.Panic(err)
 	}
 
-	gilog.Infof("status: %v", ping.StatusCode)
+	log.Infof("status: %v", ping.StatusCode)
 
 }

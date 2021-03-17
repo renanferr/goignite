@@ -1,10 +1,10 @@
-package gigocql
+package gocql
 
 import (
 	"context"
 	"strings"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/gocql/gocql"
 )
 
@@ -12,7 +12,7 @@ type Ext func(context.Context, *gocql.Session) error
 
 func NewSession(ctx context.Context, o *Options, exts ...Ext) (session *gocql.Session, err error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	cluster := gocql.NewCluster(o.Hosts...)
 
@@ -111,7 +111,7 @@ func NewSession(ctx context.Context, o *Options, exts ...Ext) (session *gocql.Se
 
 func NewDefaultSession(ctx context.Context, exts ...Ext) (*gocql.Session, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {

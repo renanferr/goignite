@@ -1,12 +1,12 @@
-package gimongohealth
+package health
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gimongo "github.com/b2wdigital/goignite/v2/mongo/v1"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/mongo/v1"
 )
 
 const (
-	root        = gimongo.ExtRoot + ".health"
+	root        = mongo.ExtRoot + ".health"
 	name        = root + ".name"
 	description = root + ".description"
 	required    = root + ".required"
@@ -14,8 +14,8 @@ const (
 )
 
 func init() {
-	giconfig.Add(name, "mongo", "health name")
-	giconfig.Add(description, "default connection", "define health description")
-	giconfig.Add(required, true, "define health description")
-	giconfig.Add(enabled, true, "enable/disable health")
+	config.Add(name, "mongo", "health name")
+	config.Add(description, "default connection", "define health description")
+	config.Add(required, true, "define health description")
+	config.Add(enabled, true, "enable/disable health")
 }

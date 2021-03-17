@@ -1,9 +1,9 @@
-package ginats
+package nats
 
 import (
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 	"github.com/nats-io/nats.go"
 )
 
@@ -18,9 +18,9 @@ const (
 
 func init() {
 
-	giconfig.Add(maxReconnects, 1000, "define max reconnects to nats server")
-	giconfig.Add(reconnectWait, 1*time.Second, "define reconnects waiting before reconnect to nats server")
-	giconfig.Add(url, nats.DefaultURL, "define nats server url")
-	giconfig.Add(NewRelicEnabled, false, "enable/disable newrelic")
+	config.Add(maxReconnects, 1000, "define max reconnects to nats server")
+	config.Add(reconnectWait, 1*time.Second, "define reconnects waiting before reconnect to nats server")
+	config.Add(url, nats.DefaultURL, "define nats server url")
+	config.Add(NewRelicEnabled, false, "enable/disable newrelic")
 
 }

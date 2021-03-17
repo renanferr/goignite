@@ -1,19 +1,19 @@
-package gigrpcprometheus
+package prometheus
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gigrpc "github.com/b2wdigital/goignite/v2/grpc/v1/client"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/grpc/v1/client"
 )
 
 const (
-	root    = gigrpc.ExtRoot + ".prometheus"
+	root    = client.ExtRoot + ".prometheus"
 	enabled = root + ".enabled"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable prometheus")
+	config.Add(enabled, true, "enable/disable prometheus")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }

@@ -1,4 +1,4 @@
-package gihealth
+package health
 
 type HealthChecker struct {
 	Name        string

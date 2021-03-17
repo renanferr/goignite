@@ -1,9 +1,9 @@
-package gifiberetag
+package etag
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/etag"
 )
@@ -13,7 +13,7 @@ func Register(ctx context.Context, app *fiber.App) error {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	logger.Trace("enabling etag middleware in fiber")
 

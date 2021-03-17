@@ -1,15 +1,15 @@
-package gifreecache
+package freecache
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/coocood/freecache"
 )
 
 func NewCache(ctx context.Context, o *Options) (cache *freecache.Cache, err error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	cache = freecache.NewCache(o.CacheSize)
 
@@ -21,7 +21,7 @@ func NewCache(ctx context.Context, o *Options) (cache *freecache.Cache, err erro
 
 func NewDefaultCache(ctx context.Context) (*freecache.Cache, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {

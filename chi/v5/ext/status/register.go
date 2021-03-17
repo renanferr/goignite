@@ -1,4 +1,4 @@
-package gichistatus
+package status
 
 import (
 	"bytes"
@@ -6,17 +6,17 @@ import (
 	"encoding/json"
 	"net/http"
 
-	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	girestresponse "github.com/b2wdigital/goignite/v2/rest/response"
+	"github.com/b2wdigital/goignite/v2/chi/v5"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/rest/response"
 )
 
-func Register(ctx context.Context) (*gichi.Config, error) {
+func Register(ctx context.Context) (*chi.Config, error) {
 	if !IsEnabled() {
 		return nil, nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	statusRoute := getRoute()
 
@@ -24,8 +24,8 @@ func Register(ctx context.Context) (*gichi.Config, error) {
 
 	statusHandler := NewResourceStatusHandler()
 
-	return &gichi.Config{
-		Routes: []gichi.ConfigRouter{
+	return &chi.Config{
+		Routes: []chi.ConfigRouter{
 			{
 				Method:      http.MethodGet,
 				HandlerFunc: statusHandler.Get(),
@@ -43,7 +43,7 @@ type ResourceStatusHandler struct {
 }
 
 func (u *ResourceStatusHandler) Get() http.HandlerFunc {
-	resourceStatus := girestresponse.NewResourceStatus()
+	resourceStatus := response.NewResourceStatus()
 	reqBodyBytes := new(bytes.Buffer)
 	json.NewEncoder(reqBodyBytes).Encode(resourceStatus)
 

@@ -5,22 +5,22 @@ import (
 	"encoding/json"
 	"net/http"
 
-	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	gichihealth "github.com/b2wdigital/goignite/v2/chi/v5/ext/health"
-	gichilogger "github.com/b2wdigital/goignite/v2/chi/v5/ext/logger"
-	gichirealip "github.com/b2wdigital/goignite/v2/chi/v5/ext/realip"
-	gichirecoverer "github.com/b2wdigital/goignite/v2/chi/v5/ext/recoverer"
-	gichistatus "github.com/b2wdigital/goignite/v2/chi/v5/ext/status"
-	gichitid "github.com/b2wdigital/goignite/v2/chi/v5/ext/tid"
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	giinfo "github.com/b2wdigital/goignite/v2/info"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/chi/v5"
+	"github.com/b2wdigital/goignite/v2/chi/v5/ext/health"
+	"github.com/b2wdigital/goignite/v2/chi/v5/ext/logger"
+	"github.com/b2wdigital/goignite/v2/chi/v5/ext/realip"
+	"github.com/b2wdigital/goignite/v2/chi/v5/ext/recoverer"
+	"github.com/b2wdigital/goignite/v2/chi/v5/ext/status"
+	"github.com/b2wdigital/goignite/v2/chi/v5/ext/tid"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/info"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
 )
 
 const HelloWorldEndpoint = "app.endpoint.helloworld"
 
 func init() {
-	giconfig.Add(HelloWorldEndpoint, "/hello-world", "helloworld endpoint")
+	config.Add(HelloWorldEndpoint, "/hello-world", "helloworld endpoint")
 }
 
 type Config struct {
@@ -50,28 +50,28 @@ func Get(ctx context.Context) http.HandlerFunc {
 
 func main() {
 
-	giconfig.Load()
+	config.Load()
 
 	c := Config{}
 
-	err := giconfig.Unmarshal(&c)
+	err := config.Unmarshal(&c)
 	if err != nil {
 		panic(err)
 	}
 
 	ctx := context.Background()
 
-	gilogrus.NewLogger()
+	logrus.NewLogger()
 
-	giinfo.AppName = "helloworld"
+	info.AppName = "helloworld"
 
-	srv := gichi.NewDefault(ctx,
-		gichitid.Register,
-		gichirecoverer.Register,
-		gichirealip.Register,
-		gichilogger.Register,
-		gichistatus.Register,
-		gichihealth.Register)
+	srv := chi.NewDefault(ctx,
+		tid.Register,
+		recoverer.Register,
+		realip.Register,
+		logger.Register,
+		status.Register,
+		health.Register)
 
 	srv.Mux().Get(c.App.Endpoint.Helloworld, Get(ctx))
 

@@ -5,7 +5,7 @@
 //
 // Use this package to instrument your go-redis/redis/v8 calls without having to
 // manually create DatastoreSegments.
-package giredisnewrelic
+package newrelic
 
 import (
 	"context"
@@ -13,9 +13,9 @@ import (
 	"strings"
 	"sync"
 
-	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
+	"github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/go-redis/redis/v8"
-	"github.com/newrelic/go-agent/v3/newrelic"
+	nr "github.com/newrelic/go-agent/v3/newrelic"
 )
 
 var (
@@ -37,7 +37,7 @@ func TrackUsage(s ...string) {
 type contextKeyType struct{}
 
 type hook struct {
-	segment newrelic.DatastoreSegment
+	segment nr.DatastoreSegment
 }
 
 var (
@@ -51,7 +51,7 @@ var (
 // redis.Client, redis.ClusterClient, and redis.Ring.
 func NewHook(opts *redis.Options) redis.Hook {
 	h := hook{}
-	h.segment.Product = newrelic.DatastoreRedis
+	h.segment.Product = nr.DatastoreRedis
 	if opts != nil {
 		// Per https://godoc.org/github.com/go-redis/redis#Options the
 		// network should either be tcp or unix, and the default is tcp.
@@ -70,7 +70,7 @@ func NewHook(opts *redis.Options) redis.Hook {
 }
 
 func (h hook) before(ctx context.Context, operation string) (context.Context, error) {
-	txn := ginewrelic.FromContext(ctx)
+	txn := newrelic.FromContext(ctx)
 	if txn == nil {
 		return ctx, nil
 	}

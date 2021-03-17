@@ -1,4 +1,4 @@
-package gierrors
+package errors
 
 // unauthorized represents an error when an operation is unauthorized.
 type unauthorized struct {

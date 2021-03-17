@@ -1,20 +1,20 @@
-package gigrpcfx
+package fx
 
 import (
 	"context"
 	"sync"
 
-	gicontext "github.com/b2wdigital/goignite/v2/context/fx/v1"
-	gigrpc "github.com/b2wdigital/goignite/v2/grpc/v1/server"
-	giserver "github.com/b2wdigital/goignite/v2/server"
-	giserverfx "github.com/b2wdigital/goignite/v2/server/fx/v1"
+	contextfx "github.com/b2wdigital/goignite/v2/context/fx/v1"
+	"github.com/b2wdigital/goignite/v2/grpc/v1/server"
+	s "github.com/b2wdigital/goignite/v2/server"
+	serverfx "github.com/b2wdigital/goignite/v2/server/fx/v1"
 	"go.uber.org/fx"
 	"google.golang.org/grpc"
 )
 
 type params struct {
 	fx.In
-	Exts []gigrpc.Ext `optional:"true"`
+	Exts []server.Ext `optional:"true"`
 }
 
 var once sync.Once
@@ -25,20 +25,20 @@ func Module() fx.Option {
 	once.Do(func() {
 
 		options = fx.Options(
-			gicontext.Module(),
+			contextfx.Module(),
 			fx.Provide(
-				func(ctx context.Context, p params) *gigrpc.Server {
-					return gigrpc.NewDefault(ctx, p.Exts...)
+				func(ctx context.Context, p params) *server.Server {
+					return server.NewDefault(ctx, p.Exts...)
 				},
-				func(srv *gigrpc.Server) *grpc.Server {
+				func(srv *server.Server) *grpc.Server {
 					return srv.Server()
 				},
-				func(srv *gigrpc.Server) grpc.ServiceRegistrar {
+				func(srv *server.Server) grpc.ServiceRegistrar {
 					return srv.ServiceRegistrar()
 				},
 				fx.Annotated{
-					Group: giserverfx.ServersGroupKey,
-					Target: func(srv *gigrpc.Server) giserver.Server {
+					Group: serverfx.ServersGroupKey,
+					Target: func(srv *server.Server) s.Server {
 						return srv
 					},
 				},

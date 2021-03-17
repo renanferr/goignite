@@ -1,24 +1,24 @@
-package gichidatadog
+package datadog
 
 import (
 	"context"
 	"net/http"
 
-	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	gidatadog "github.com/b2wdigital/goignite/v2/datadog/v1"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/chi/v5"
+	"github.com/b2wdigital/goignite/v2/datadog/v1"
+	"github.com/b2wdigital/goignite/v2/log"
 	chitrace "gopkg.in/DataDog/dd-trace-go.v1/contrib/go-chi/chi"
 )
 
-func Register(ctx context.Context) (*gichi.Config, error) {
-	if !IsEnabled() || !gidatadog.IsEnabled() {
+func Register(ctx context.Context) (*chi.Config, error) {
+	if !IsEnabled() || !datadog.IsEnabled() {
 		return nil, nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 	logger.Trace("enabling datadog middleware in chi")
 
-	return &gichi.Config{
+	return &chi.Config{
 		Middlewares: []func(http.Handler) http.Handler{
 			chitrace.Middleware(),
 		},

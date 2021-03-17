@@ -1,8 +1,6 @@
-package gizap
+package zap
 
-import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-)
+import "github.com/b2wdigital/goignite/v2/config"
 
 const (
 	ConsoleFormatter = "gi.log.zap.console.formatter"
@@ -11,6 +9,6 @@ const (
 
 func init() {
 
-	giconfig.Add(ConsoleFormatter, "TEXT", "formatter TEXT/JSON")
-	giconfig.Add(FileFormatter, "TEXT", "formatter TEXT/JSON")
+	config.Add(ConsoleFormatter, "TEXT", "formatter TEXT/JSON")
+	config.Add(FileFormatter, "TEXT", "formatter TEXT/JSON")
 }

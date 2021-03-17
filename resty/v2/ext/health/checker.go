@@ -1,11 +1,11 @@
-package girestyhealth
+package health
 
 import (
 	"context"
 	"strconv"
 	"strings"
 
-	gierrors "github.com/b2wdigital/goignite/v2/errors"
+	"github.com/b2wdigital/goignite/v2/errors"
 	"github.com/go-resty/resty/v2"
 )
 
@@ -22,11 +22,11 @@ func (c *Checker) Check(ctx context.Context) (err error) {
 
 	response, err = request.Get(strings.Join([]string{c.options.Host, c.options.Endpoint}, ""))
 	if err != nil {
-		return gierrors.Internalf(err.Error())
+		return errors.Internalf(err.Error())
 	}
 
 	if response.IsError() {
-		return gierrors.New(strconv.Itoa(response.StatusCode()))
+		return errors.New(strconv.Itoa(response.StatusCode()))
 	}
 
 	return err

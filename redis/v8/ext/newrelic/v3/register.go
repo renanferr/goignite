@@ -1,20 +1,20 @@
-package giredisnewrelic
+package newrelic
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/go-redis/redis/v8"
 )
 
 func Register(ctx context.Context, client *redis.Client) error {
 
-	if !IsEnabled() || !ginewrelic.IsEnabled() {
+	if !IsEnabled() || !newrelic.IsEnabled() {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	logger.Trace("integrating redis in newrelic")
 

@@ -1,16 +1,16 @@
-package gigrpclogger
+package logger
 
 import (
 	"time"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
 
 func streamInterceptor() grpc.StreamServerInterceptor {
 	return func(srv interface{}, stream grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
-		logger := gilog.FromContext(context.Background())
+		logger := log.FromContext(context.Background())
 
 		start := time.Now()
 		wrapper := &recvWrapper{stream}
@@ -24,7 +24,7 @@ func streamInterceptor() grpc.StreamServerInterceptor {
 func unaryInterceptor() grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 
-		logger := gilog.FromContext(ctx)
+		logger := log.FromContext(ctx)
 
 		start := time.Now()
 		r, err := handler(ctx, req)

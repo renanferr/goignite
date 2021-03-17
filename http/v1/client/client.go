@@ -1,11 +1,11 @@
-package gihttp
+package client
 
 import (
 	"context"
 	"net"
 	"net/http"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 )
 
 func NewClient(ctx context.Context, options *Options) *http.Client {
@@ -32,7 +32,7 @@ func NewClient(ctx context.Context, options *Options) *http.Client {
 
 func NewDefaultClient(ctx context.Context) *http.Client {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {

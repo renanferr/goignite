@@ -1,19 +1,19 @@
-package gigrpclogger
+package logger
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gigrpc "github.com/b2wdigital/goignite/v2/grpc/v1/client"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/grpc/v1/client"
 )
 
 const (
-	root    = gigrpc.ExtRoot + ".logger"
+	root    = client.ExtRoot + ".logger"
 	enabled = root + ".enabled"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable logger")
+	config.Add(enabled, true, "enable/disable logger")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }

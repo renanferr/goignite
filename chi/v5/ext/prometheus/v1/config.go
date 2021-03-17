@@ -1,25 +1,25 @@
-package gichiprometheus
+package prometheus
 
 import (
-	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/chi/v5"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
-	root    = gichi.ExtRoot + ".prometheus"
+	root    = chi.ExtRoot + ".prometheus"
 	enabled = root + ".enabled"
 	route   = root + ".route"
 )
 
 func init() {
-	giconfig.Add(enabled, true, "enable/disable prometheus integration")
-	giconfig.Add(route, "/metrics", "define prometheus metrics url")
+	config.Add(enabled, true, "enable/disable prometheus integration")
+	config.Add(route, "/metrics", "define prometheus metrics url")
 }
 
 func IsEnabled() bool {
-	return giconfig.Bool(enabled)
+	return config.Bool(enabled)
 }
 
 func getRoute() string {
-	return giconfig.String(route)
+	return config.String(route)
 }

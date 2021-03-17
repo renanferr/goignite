@@ -1,4 +1,4 @@
-package gichiprometheus
+package prometheus
 
 import (
 	"net/http"

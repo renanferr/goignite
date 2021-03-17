@@ -1,4 +1,4 @@
-package giantsfx
+package fx
 
 import (
 	"sync"

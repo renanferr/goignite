@@ -1,8 +1,6 @@
-package gilogrus
+package logrus
 
-import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-)
+import "github.com/b2wdigital/goignite/v2/config"
 
 const (
 	root         = "gi.log.logrus"
@@ -19,12 +17,12 @@ const (
 
 func init() {
 
-	giconfig.Add(redisEnabled, false, "enable/disable redis logging")
-	giconfig.Add(redisHost, "localhost", "redis host")
-	giconfig.Add(redisKey, "", "redis key")
-	giconfig.Add(redisFormat, "v1", "redis format")
-	giconfig.Add(redisApp, "logger", "redis app")
-	giconfig.Add(redisPort, 6379, "redis port")
-	giconfig.Add(redisDb, 0, "redis db")
-	giconfig.Add(formatter, "TEXT", "formatter TEXT/JSON/AWS_CLOUD_WATCH")
+	config.Add(redisEnabled, false, "enable/disable redis logging")
+	config.Add(redisHost, "localhost", "redis host")
+	config.Add(redisKey, "", "redis key")
+	config.Add(redisFormat, "v1", "redis format")
+	config.Add(redisApp, "logger", "redis app")
+	config.Add(redisPort, 6379, "redis port")
+	config.Add(redisDb, 0, "redis db")
+	config.Add(formatter, "TEXT", "formatter TEXT/JSON/AWS_CLOUD_WATCH")
 }

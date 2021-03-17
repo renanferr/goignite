@@ -1,9 +1,9 @@
-package gifasthttp
+package fasthttp
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/valyala/fasthttp"
 )
 
@@ -30,7 +30,7 @@ func NewClient(ctx context.Context, o *Options) *fasthttp.Client {
 
 func NewDefaultClient(ctx context.Context) *fasthttp.Client {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {

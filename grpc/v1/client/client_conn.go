@@ -1,4 +1,4 @@
-package gigrpc
+package client
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"strconv"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/encoding/gzip"
@@ -21,7 +21,7 @@ func NewClientConn(ctx context.Context, options *Options, exts ...Ext) *grpc.Cli
 	var conn *grpc.ClientConn
 	var opts []grpc.DialOption
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	serverAddr := options.Host + ":" + strconv.Itoa(options.Port)
 
@@ -58,7 +58,7 @@ func NewClientConn(ctx context.Context, options *Options, exts ...Ext) *grpc.Cli
 
 func addTlsOptions(ctx context.Context, options *Options, opts []grpc.DialOption) []grpc.DialOption {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	// Load the client certificates from disk
 	cert, err := tls.LoadX509KeyPair(options.CertFile, options.KeyFile)

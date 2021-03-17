@@ -1,9 +1,9 @@
-package gik8s
+package k8s
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
@@ -11,7 +11,7 @@ import (
 
 func NewClient(ctx context.Context, options *Options) *kubernetes.Clientset {
 
-	logger := gilog.FromContext(ctx).
+	logger := log.FromContext(ctx).
 		WithField("context", options.Context).
 		WithField("kubeConfigPath", options.KubeConfigPath)
 

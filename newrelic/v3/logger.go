@@ -1,8 +1,8 @@
-package ginewrelic
+package newrelic
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
@@ -14,22 +14,22 @@ func NewLogger() newrelic.Logger {
 }
 
 func (l *Logger) Error(msg string, context map[string]interface{}) {
-	gilog.WithFields(context).Error(msg)
+	log.WithFields(context).Error(msg)
 }
 
 func (l *Logger) Warn(msg string, context map[string]interface{}) {
-	gilog.WithFields(context).Warn(msg)
+	log.WithFields(context).Warn(msg)
 }
 
 func (l *Logger) Info(msg string, context map[string]interface{}) {
-	gilog.WithFields(context).Info(msg)
+	log.WithFields(context).Info(msg)
 }
 
 func (l *Logger) Debug(msg string, context map[string]interface{}) {
-	gilog.WithFields(context).Debug(msg)
+	log.WithFields(context).Debug(msg)
 }
 
 func (l *Logger) DebugEnabled() bool {
-	return giconfig.String(gilog.ConsoleLevel) == "DEBUG" || giconfig.String(gilog.FileLevel) == "DEBUG" ||
-		giconfig.String(gilog.ConsoleLevel) == "TRACE" || giconfig.String(gilog.FileLevel) == "TRACE"
+	return config.String(log.ConsoleLevel) == "DEBUG" || config.String(log.FileLevel) == "DEBUG" ||
+		config.String(log.ConsoleLevel) == "TRACE" || config.String(log.FileLevel) == "TRACE"
 }

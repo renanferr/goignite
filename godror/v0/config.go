@@ -1,9 +1,9 @@
-package gigodror
+package godror
 
 import (
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 )
 
 const (
@@ -17,8 +17,8 @@ const (
 
 func init() {
 
-	giconfig.Add(dataSourceName, "", "database name and connection information")
-	giconfig.Add(connMaxLifetime, 0*time.Second, "sets the maximum amount of time a connection may be reused. If d <= 0, connections are reused forever")
-	giconfig.Add(maxIdleConns, 2, "sets the maximum number of connections in the idle connection pool.")
-	giconfig.Add(maxOpenConns, 5, "sets the maximum number of open connections to the database.")
+	config.Add(dataSourceName, "", "database name and connection information")
+	config.Add(connMaxLifetime, 0*time.Second, "sets the maximum amount of time a connection may be reused. If d <= 0, connections are reused forever")
+	config.Add(maxIdleConns, 2, "sets the maximum number of connections in the idle connection pool.")
+	config.Add(maxOpenConns, 5, "sets the maximum number of open connections to the database.")
 }

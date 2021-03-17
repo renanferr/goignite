@@ -9,15 +9,16 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.2.1
 	github.com/aws/aws-sdk-go-v2/config v1.1.2
 	github.com/aws/aws-sdk-go-v2/credentials v1.1.2
+	github.com/aws/aws-sdk-go-v2/service/kinesis v1.1.2
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.2.0
+	github.com/aws/aws-sdk-go-v2/service/sns v1.1.2
+	github.com/aws/aws-sdk-go-v2/service/sqs v1.1.2
+	github.com/b2wdigital/fxstack v0.8.3
 	github.com/b2wdigital/goignite v1.17.3
-	github.com/cloudevents/sdk-go v1.2.0
-	github.com/cloudevents/sdk-go/protocol/nats/v2 v2.3.1
 	github.com/cloudevents/sdk-go/v2 v2.3.1
 	github.com/coocood/freecache v1.1.1
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20201229214741-2366c2514674
 	github.com/globocom/echo-prometheus v0.1.2
-	github.com/go-chi/chi v1.5.4 // indirect
 	github.com/go-chi/chi/v5 v5.0.0
 	github.com/go-chi/cors v1.1.1
 	github.com/go-playground/validator/v10 v10.4.1
@@ -29,6 +30,7 @@ require (
 	github.com/godror/godror v0.23.1
 	github.com/gofiber/fiber/v2 v2.5.0
 	github.com/golang/protobuf v1.4.3
+	github.com/google/uuid v1.1.2
 	github.com/graphql-go/graphql v0.7.9
 	github.com/graphql-go/handler v0.2.3
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
@@ -40,6 +42,9 @@ require (
 	github.com/labstack/echo/v4 v4.2.0
 	github.com/labstack/gommon v0.3.0
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0
+	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2
+	github.com/nats-io/gnatsd v1.4.1
+	github.com/nats-io/nats-server v1.4.1
 	github.com/nats-io/nats.go v1.10.0
 	github.com/newrelic/go-agent/v3 v3.10.0
 	github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0
@@ -50,12 +55,12 @@ require (
 	github.com/panjf2000/ants/v2 v2.4.3
 	github.com/philhofer/fwd v1.1.1 // indirect
 	github.com/prometheus/client_golang v1.9.0
-	github.com/prometheus/common v0.19.0
+	github.com/prometheus/common v0.19.0 // indirect
 	github.com/ravernkoh/cwlogsfmt v0.0.0-20180121032441-917bad983b4c
 	github.com/rs/zerolog v1.20.0
 	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.7.0
-	github.com/spf13/cobra v0.0.5
+	github.com/spf13/cobra v1.0.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.7.0
 	github.com/swaggo/echo-swagger v1.1.0

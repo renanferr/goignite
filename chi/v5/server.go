@@ -1,11 +1,11 @@
-package gichi
+package chi
 
 import (
 	"context"
 	"net/http"
 
-	gihttp "github.com/b2wdigital/goignite/v2/http/v1/server"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/http/v1/server"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -30,18 +30,18 @@ type Ext func(context.Context) (*Config, error)
 
 type Server struct {
 	mux  *chi.Mux
-	opts *gihttp.Options
+	opts *server.Options
 }
 
 func NewDefault(ctx context.Context, exts ...Ext) *Server {
-	opt, err := gihttp.DefaultOptions()
+	opt, err := server.DefaultOptions()
 	if err != nil {
 		panic(err)
 	}
 	return New(ctx, opt, exts...)
 }
 
-func New(ctx context.Context, opts *gihttp.Options, exts ...Ext) *Server {
+func New(ctx context.Context, opts *server.Options, exts ...Ext) *Server {
 
 	mux := chi.NewRouter()
 
@@ -100,9 +100,9 @@ func (s *Server) Mux() *chi.Mux {
 
 func (s *Server) Serve(ctx context.Context) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
-	httpServer := gihttp.New(s.mux, s.opts)
+	httpServer := server.New(s.mux, s.opts)
 
 	logger.Infof("started chi http Server [%s]", httpServer.Addr)
 	if err := httpServer.ListenAndServe(); err != nil {

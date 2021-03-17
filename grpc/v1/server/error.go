@@ -1,7 +1,7 @@
-package gigrpc
+package server
 
 import (
-	gierrors "github.com/b2wdigital/goignite/v2/errors"
+	"github.com/b2wdigital/goignite/v2/errors"
 	"github.com/go-playground/validator/v10"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -9,11 +9,11 @@ import (
 
 func Error(err error) error {
 
-	if gierrors.IsNotFound(err) {
+	if errors.IsNotFound(err) {
 		return status.Errorf(codes.NotFound, err.Error())
-	} else if gierrors.IsNotValid(err) || gierrors.IsBadRequest(err) {
+	} else if errors.IsNotValid(err) || errors.IsBadRequest(err) {
 		return status.Errorf(codes.InvalidArgument, err.Error())
-	} else if gierrors.IsServiceUnavailable(err) {
+	} else if errors.IsServiceUnavailable(err) {
 		return status.Errorf(codes.Unavailable, err.Error())
 	} else {
 		switch t := err.(type) {

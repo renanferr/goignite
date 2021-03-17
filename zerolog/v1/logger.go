@@ -1,4 +1,4 @@
-package gizerolog
+package zerolog
 
 import (
 	"bytes"
@@ -8,17 +8,17 @@ import (
 	"reflect"
 	"strings"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/rs/zerolog"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-func NewLogger() gilog.Logger {
-	fileEnabled := giconfig.Bool(gilog.FileEnabled)
-	consoleEnabled := giconfig.Bool(gilog.ConsoleEnabled)
+func NewLogger() log.Logger {
+	fileEnabled := config.Bool(log.FileEnabled)
+	consoleEnabled := config.Bool(log.ConsoleEnabled)
 
-	format := giconfig.String(Formatter)
+	format := config.String(Formatter)
 	writer := getWriter(format, fileEnabled, consoleEnabled)
 	if writer == nil {
 		zerologger := zerolog.Nop()
@@ -26,7 +26,7 @@ func NewLogger() gilog.Logger {
 			logger: zerologger,
 		}
 
-		gilog.NewLogger(logger)
+		log.NewLogger(logger)
 		return logger
 	}
 
@@ -34,7 +34,7 @@ func NewLogger() gilog.Logger {
 	zerolog.LevelFieldName = "log_level"
 
 	zerologger := zerolog.New(writer).With().Timestamp().Logger()
-	level := getLogLevel(giconfig.String(gilog.ConsoleLevel))
+	level := getLogLevel(config.String(log.ConsoleLevel))
 	zerologger = zerologger.Level(level)
 
 	logger := &logger{
@@ -42,7 +42,7 @@ func NewLogger() gilog.Logger {
 		writer: writer,
 	}
 
-	gilog.NewLogger(logger)
+	log.NewLogger(logger)
 	return logger
 }
 
@@ -78,14 +78,14 @@ func getWriter(format string, fileEnabled bool, consoleEnabled bool) io.Writer {
 	}
 
 	if fileEnabled {
-		s := []string{giconfig.String(gilog.FilePath), "/", giconfig.String(gilog.FileName)}
+		s := []string{config.String(log.FilePath), "/", config.String(log.FileName)}
 		fileLocation := strings.Join(s, "")
 
 		fileHandler := &lumberjack.Logger{
 			Filename: fileLocation,
-			MaxSize:  giconfig.Int(gilog.FileMaxSize),
-			Compress: giconfig.Bool(gilog.FileCompress),
-			MaxAge:   giconfig.Int(gilog.FileMaxAge),
+			MaxSize:  config.Int(log.FileMaxSize),
+			Compress: config.Bool(log.FileCompress),
+			MaxAge:   config.Int(log.FileMaxAge),
 		}
 
 		if consoleEnabled {
@@ -195,24 +195,24 @@ func (l *logger) Panic(args ...interface{}) {
 	l.logger.Panic().Msgf(format.String(), args...)
 }
 
-func (l *logger) WithField(key string, value interface{}) gilog.Logger {
-	newField := gilog.Fields{}
+func (l *logger) WithField(key string, value interface{}) log.Logger {
+	newField := log.Fields{}
 	newField[key] = value
 
 	newLogger := l.logger.With().Fields(newField).Logger()
 	return &logger{newLogger, l.writer}
 }
 
-func (l *logger) WithFields(fields gilog.Fields) gilog.Logger {
+func (l *logger) WithFields(fields log.Fields) log.Logger {
 	newLogger := l.logger.With().Fields(fields).Logger()
 	return &logger{newLogger, l.writer}
 }
 
-func (l *logger) WithTypeOf(obj interface{}) gilog.Logger {
+func (l *logger) WithTypeOf(obj interface{}) log.Logger {
 
 	t := reflect.TypeOf(obj)
 
-	return l.WithFields(gilog.Fields{
+	return l.WithFields(log.Fields{
 		"reflect.type.name":    t.Name(),
 		"reflect.type.package": t.PkgPath(),
 	})
@@ -227,7 +227,7 @@ func (l *logger) ToContext(ctx context.Context) context.Context {
 	return logger.WithContext(ctx)
 }
 
-func (l *logger) FromContext(ctx context.Context) gilog.Logger {
+func (l *logger) FromContext(ctx context.Context) log.Logger {
 	zerologger := zerolog.Ctx(ctx)
 	if zerologger.GetLevel() == zerolog.Disabled {
 		return l

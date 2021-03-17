@@ -1,4 +1,4 @@
-package giinfo
+package info
 
 var (
 	AppName      string

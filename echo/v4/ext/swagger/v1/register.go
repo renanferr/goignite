@@ -1,11 +1,11 @@
-package giechoswagger
+package swagger
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/labstack/echo/v4"
-	echoSwagger "github.com/swaggo/echo-swagger"
+	eswagger "github.com/swaggo/echo-swagger"
 )
 
 func Register(ctx context.Context, instance *echo.Echo) error {
@@ -14,13 +14,13 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	swaggerRoute := GetRoute()
 
 	logger.Tracef("configuring swagger router on %s in echo", swaggerRoute)
 
-	instance.GET(swaggerRoute, echoSwagger.WrapHandler)
+	instance.GET(swaggerRoute, eswagger.WrapHandler)
 
 	logger.Debugf("swagger router configured on %s in echo", swaggerRoute)
 

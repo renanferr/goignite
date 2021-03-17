@@ -1,15 +1,15 @@
-package giecho
+package echo
 
 import (
 	"fmt"
 	"io"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	"github.com/labstack/gommon/log"
+	"github.com/b2wdigital/goignite/v2/log"
+	l "github.com/labstack/gommon/log"
 )
 
 type wrappedLogger struct {
-	logger gilog.Logger
+	logger log.Logger
 }
 
 func (wl wrappedLogger) Output() io.Writer {
@@ -25,12 +25,12 @@ func (wl wrappedLogger) SetPrefix(p string) {
 	wl.logger.Errorf("wrappedLogger.SetPrefix(p string): implement me")
 }
 
-func (wl wrappedLogger) Level() log.Lvl {
+func (wl wrappedLogger) Level() l.Lvl {
 	wl.logger.Errorf("wrappedLogger.Level(): implement me")
-	return log.INFO
+	return l.INFO
 }
 
-func (wl wrappedLogger) SetLevel(v log.Lvl) {
+func (wl wrappedLogger) SetLevel(v l.Lvl) {
 	wl.logger.Errorf("wrappedLogger.SetLevel(v log.Lvl): implement me")
 }
 
@@ -38,36 +38,36 @@ func (wl wrappedLogger) SetHeader(h string) {
 	wl.logger.Errorf("wrappedLogger.SetHeader(h string): implement me")
 }
 
-func (wl wrappedLogger) Printj(j log.JSON) {
-	wl.logger.Errorf("wrappedLogger.Printj(j log.JSON): implement me")
+func (wl wrappedLogger) Printj(j l.JSON) {
+	wl.logger.Errorf("wrappedLogger.Printj(j l.JSON): implement me")
 }
 
-func (wl wrappedLogger) Debugj(j log.JSON) {
-	wl.logger.Errorf("wrappedLogger.Debugj(j log.JSON) implement me")
+func (wl wrappedLogger) Debugj(j l.JSON) {
+	wl.logger.Errorf("wrappedLogger.Debugj(j l.JSON) implement me")
 }
 
-func (wl wrappedLogger) Infoj(j log.JSON) {
-	wl.logger.Errorf("wrappedLogger.Infoj(j log.JSON): implement me")
+func (wl wrappedLogger) Infoj(j l.JSON) {
+	wl.logger.Errorf("wrappedLogger.Infoj(j l.JSON): implement me")
 }
 
-func (wl wrappedLogger) Warnj(j log.JSON) {
-	wl.logger.Errorf("wrappedLogger.Warnj(j log.JSON): implement me")
+func (wl wrappedLogger) Warnj(j l.JSON) {
+	wl.logger.Errorf("wrappedLogger.Warnj(j l.JSON): implement me")
 }
 
-func (wl wrappedLogger) Errorj(j log.JSON) {
-	wl.logger.Errorf("wrappedLogger.Errorj(j log.JSON): implement me")
+func (wl wrappedLogger) Errorj(j l.JSON) {
+	wl.logger.Errorf("wrappedLogger.Errorj(j l.JSON): implement me")
 }
 
-func (wl wrappedLogger) Fatalj(j log.JSON) {
-	wl.logger.Errorf("wrappedLogger.Fatalj(j log.JSON): implement me")
+func (wl wrappedLogger) Fatalj(j l.JSON) {
+	wl.logger.Errorf("wrappedLogger.Fatalj(j l.JSON): implement me")
 }
 
 func (wl wrappedLogger) Panic(i ...interface{}) {
 	wl.logger.Errorf("wrappedLogger.Panic(i ...interface{}): implement me")
 }
 
-func (wl wrappedLogger) Panicj(j log.JSON) {
-	wl.logger.Errorf("wrappedLogger.Panicj(j log.JSON): implement me")
+func (wl wrappedLogger) Panicj(j l.JSON) {
+	wl.logger.Errorf("wrappedLogger.Panicj(j l.JSON): implement me")
 }
 
 func (wl wrappedLogger) Panicf(format string, args ...interface{}) {
@@ -126,6 +126,6 @@ func (wl wrappedLogger) Fatalf(s string, i ...interface{}) {
 	wl.logger.Fatalf(fmt.Sprintf(s, i...))
 }
 
-func WrapLogger(l gilog.Logger) wrappedLogger {
+func WrapLogger(l log.Logger) wrappedLogger {
 	return wrappedLogger{logger: l}
 }

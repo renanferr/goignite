@@ -1,4 +1,4 @@
-package ginats
+package nats
 
 import (
 	"context"

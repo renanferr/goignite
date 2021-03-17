@@ -1,11 +1,11 @@
-package giantsnewrelic
+package newrelic
 
 import (
 	"context"
 
 	giants "github.com/b2wdigital/goignite/v2/ants/v2"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
@@ -14,15 +14,15 @@ type middleware struct {
 
 func (i *middleware) Before(ctx context.Context) context.Context {
 
-	if IsEnabled() || !ginewrelic.IsEnabled() {
+	if IsEnabled() || !newrelic.IsEnabled() {
 		return ctx
 	}
 
-	logger := gilog.FromContext(ctx).WithTypeOf(*i)
+	logger := log.FromContext(ctx).WithTypeOf(*i)
 
 	logger.Trace("creating go routine for newrelic")
 
-	txn := ginewrelic.FromContext(ctx).NewGoroutine()
+	txn := newrelic.FromContext(ctx).NewGoroutine()
 
 	logger.Debug("goroutine for newrelic successfully created in context")
 
@@ -31,13 +31,13 @@ func (i *middleware) Before(ctx context.Context) context.Context {
 
 func (i *middleware) After(ctx context.Context) {
 
-	if IsEnabled() || !ginewrelic.IsEnabled() {
+	if IsEnabled() || !newrelic.IsEnabled() {
 		return
 	}
 
 }
 
 func NewMiddleware() giants.Middleware {
-	gilog.Trace("creating newrelic middleware for ants")
+	log.Trace("creating newrelic middleware for ants")
 	return &middleware{}
 }

@@ -1,8 +1,6 @@
-package gizerolog
+package zerolog
 
-import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-)
+import "github.com/b2wdigital/goignite/v2/config"
 
 const (
 	Formatter = "gi.log.zerolog.formatter"
@@ -10,5 +8,5 @@ const (
 
 func init() {
 
-	giconfig.Add(Formatter, "TEXT", "formatter TEXT/JSON")
+	config.Add(Formatter, "TEXT", "formatter TEXT/JSON")
 }

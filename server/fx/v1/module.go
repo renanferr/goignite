@@ -1,13 +1,13 @@
-package giserverfx
+package fx
 
 import (
 	"context"
 	"sync"
 
-	gicobra "github.com/b2wdigital/goignite/v2/cobra/v1"
-	gicontextfx "github.com/b2wdigital/goignite/v2/context/fx/v1"
-	giserver "github.com/b2wdigital/goignite/v2/server"
-	"github.com/spf13/cobra"
+	"github.com/b2wdigital/goignite/v2/cobra/v1"
+	contextfx "github.com/b2wdigital/goignite/v2/context/fx/v1"
+	"github.com/b2wdigital/goignite/v2/server"
+	c "github.com/spf13/cobra"
 	"go.uber.org/fx"
 )
 
@@ -17,7 +17,7 @@ const (
 
 type srvParams struct {
 	fx.In
-	Servers []giserver.Server `group:"_gi_server_servers_"`
+	Servers []server.Server `group:"_gi_server_servers_"`
 }
 
 var once sync.Once
@@ -28,14 +28,14 @@ func Module() fx.Option {
 	once.Do(func() {
 
 		options = fx.Options(
-			gicontextfx.Module(),
+			contextfx.Module(),
 			fx.Invoke(
 				func(ctx context.Context, p srvParams) error {
 
-					return gicobra.Run(
-						&cobra.Command{
-							Run: func(cmd *cobra.Command, args []string) {
-								giserver.Serve(ctx, p.Servers...)
+					return cobra.Run(
+						&c.Command{
+							Run: func(cmd *c.Command, args []string) {
+								server.Serve(ctx, p.Servers...)
 							},
 						},
 					)

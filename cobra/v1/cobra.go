@@ -1,12 +1,12 @@
-package gicobra
+package cobra
 
 import (
 	"fmt"
 	"net"
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/spf13/cobra"
 )
 
@@ -23,16 +23,16 @@ func Run(rootCmd *cobra.Command, cmds ...*cobra.Command) error {
 
 	rootCmd.DisableFlagParsing = true
 
-	for _, entry := range giconfig.Entries() {
+	for _, entry := range config.Entries() {
 		parseFlag(rootCmd, entry)
 	}
 
-	rootCmd.PersistentFlags().StringSlice(giconfig.ConfArgument, nil, "path to one or more config files")
+	rootCmd.PersistentFlags().StringSlice(config.ConfArgument, nil, "path to one or more config files")
 
 	return rootCmd.Execute()
 }
 
-func parseFlag(cmd *cobra.Command, c giconfig.Config) { // nolint
+func parseFlag(cmd *cobra.Command, c config.Config) { // nolint
 
 	switch t := c.Value.(type) {
 
@@ -79,7 +79,7 @@ func parseFlag(cmd *cobra.Command, c giconfig.Config) { // nolint
 	case net.IPMask:
 		cmd.PersistentFlags().IPMask(c.Key, t, c.Description)
 	default:
-		gilog.Warnf("key %s with unknown type %s", c.Key, t)
+		log.Warnf("key %s with unknown type %s", c.Key, t)
 	}
 
 }

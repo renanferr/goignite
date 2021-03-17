@@ -1,4 +1,4 @@
-package gifibernewrelic
+package newrelic
 
 import (
 	"context"
@@ -7,22 +7,22 @@ import (
 	"net/url"
 	"strings"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	ginewrelic "github.com/b2wdigital/goignite/v2/newrelic/v3"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/gofiber/fiber/v2"
 	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
 func Register(ctx context.Context, instance *fiber.App) error {
 
-	if !IsEnabled() || !ginewrelic.IsEnabled() {
+	if !IsEnabled() || !newrelic.IsEnabled() {
 		return nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 	logger.Trace("enabling newrelic middleware in fiber")
 
-	instance.Use(middleware(ginewrelic.Application()))
+	instance.Use(middleware(newrelic.Application()))
 
 	logger.Debug("newrelic middleware successfully enabled in fiber")
 
@@ -46,7 +46,7 @@ func middleware(app *newrelic.Application) fiber.Handler {
 		txn.SetWebRequest(wr)
 
 		ctx := c.Context()
-		ctx.SetUserValue(ginewrelic.NewRelicTransaction, txn)
+		ctx.SetUserValue(newrelic.NewRelicTransaction, txn)
 
 		return c.Next()
 	}

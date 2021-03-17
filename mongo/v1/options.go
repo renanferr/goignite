@@ -1,7 +1,7 @@
-package gimongo
+package mongo
 
 import (
-	giconfig "github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/config"
 	"github.com/lann/builder"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -31,7 +31,7 @@ func DefaultOptions() (*Options, error) {
 
 	o := &Options{}
 
-	err := giconfig.UnmarshalWithPath(root, o)
+	err := config.UnmarshalWithPath(root, o)
 	if err != nil {
 		return nil, err
 	}

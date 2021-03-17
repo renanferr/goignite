@@ -1,9 +1,9 @@
-package giredis
+package redis
 
 import (
 	"context"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-redis/redis/v7"
 )
 
@@ -11,7 +11,7 @@ type Ext func(context.Context, *redis.Client) error
 
 func NewClient(ctx context.Context, o *Options, exts ...Ext) (client *redis.Client, err error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	if redisSentinel(o) {
 		client = failOverClient(o)
@@ -84,7 +84,7 @@ func redisSentinel(o *Options) bool {
 
 func NewDefaultClient(ctx context.Context, exts ...Ext) (*redis.Client, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {

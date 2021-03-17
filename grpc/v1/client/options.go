@@ -1,4 +1,4 @@
-package gigrpc
+package client
 
 import "github.com/lann/builder"
 

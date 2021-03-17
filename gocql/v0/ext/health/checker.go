@@ -1,4 +1,4 @@
-package gigocqlhealth
+package health
 
 import (
 	"context"

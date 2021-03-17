@@ -1,10 +1,10 @@
-package gimongo
+package mongo
 
 import (
 	"context"
 	"strings"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"go.mongodb.org/mongo-driver/event"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -48,7 +48,7 @@ func NewConn(ctx context.Context, o *Options, exts ...Ext) (conn *Conn, err erro
 
 func NewDefaultConn(ctx context.Context, exts ...Ext) (*Conn, error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	o, err := DefaultOptions()
 	if err != nil {
@@ -60,7 +60,7 @@ func NewDefaultConn(ctx context.Context, exts ...Ext) (*Conn, error) {
 
 func newClient(ctx context.Context, co *options.ClientOptions) (client *mongo.Client, database *mongo.Database, err error) {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	client, err = mongo.Connect(ctx, co)
 
@@ -92,7 +92,7 @@ func newClient(ctx context.Context, co *options.ClientOptions) (client *mongo.Cl
 
 func clientOptions(ctx context.Context, o *Options) *options.ClientOptions {
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	clientOptions := options.Client().ApplyURI(o.Uri)
 	clientOptions.SetMonitor(&event.CommandMonitor{

@@ -4,17 +4,17 @@ import (
 	"context"
 	"sync"
 
-	gicontextfx "github.com/b2wdigital/goignite/v2/context/fx/v1"
-	gifiber "github.com/b2wdigital/goignite/v2/fiber/v2"
-	giserver "github.com/b2wdigital/goignite/v2/server"
-	giserverfx "github.com/b2wdigital/goignite/v2/server/fx/v1"
-	"github.com/gofiber/fiber/v2"
+	contextfx "github.com/b2wdigital/goignite/v2/context/fx/v1"
+	"github.com/b2wdigital/goignite/v2/fiber/v2"
+	"github.com/b2wdigital/goignite/v2/server"
+	serverfx "github.com/b2wdigital/goignite/v2/server/fx/v1"
+	f "github.com/gofiber/fiber/v2"
 	"go.uber.org/fx"
 )
 
 type params struct {
 	fx.In
-	Exts []gifiber.Ext `optional:"true"`
+	Exts []fiber.Ext `optional:"true"`
 }
 
 var once sync.Once
@@ -25,19 +25,19 @@ func Module() fx.Option {
 	once.Do(func() {
 
 		options = fx.Options(
-			gicontextfx.Module(),
+			contextfx.Module(),
 			fx.Provide(
-				func(ctx context.Context, p params) *gifiber.Server {
-					return gifiber.NewDefault(ctx, p.Exts...)
+				func(ctx context.Context, p params) *fiber.Server {
+					return fiber.NewDefault(ctx, p.Exts...)
 				},
-				func(srv *gifiber.Server) *fiber.App {
+				func(srv *fiber.Server) *f.App {
 					return srv.App()
 				},
 			),
 			fx.Provide(
 				fx.Annotated{
-					Group: giserverfx.ServersGroupKey,
-					Target: func(srv *gifiber.Server) giserver.Server {
+					Group: serverfx.ServersGroupKey,
+					Target: func(srv *fiber.Server) server.Server {
 						return srv
 					},
 				},

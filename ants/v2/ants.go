@@ -1,10 +1,10 @@
-package giants
+package ants
 
 import (
 	"context"
 	"sync"
 
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/panjf2000/ants/v2"
 )
 
@@ -32,14 +32,14 @@ type Wrapper struct {
 
 // New generates an instance of giants wrapper.
 func New(pool *ants.Pool, middlewares ...Middleware) *Wrapper {
-	gilog.Trace("creating ants wrapper")
+	log.Trace("creating ants wrapper")
 	return &Wrapper{pool: pool, middlewares: middlewares}
 }
 
 // Submit sends a task to ant, needs a sync.WaitGroup
 func (a *Wrapper) Submit(ctx context.Context, task Task, wg *sync.WaitGroup) error {
 
-	logger := gilog.FromContext(ctx).WithTypeOf(*a)
+	logger := log.FromContext(ctx).WithTypeOf(*a)
 	logger.Trace("submit ants task")
 
 	wg.Add(1)
@@ -59,7 +59,7 @@ func (a *Wrapper) Submit(ctx context.Context, task Task, wg *sync.WaitGroup) err
 // AsyncSubmit sends a task to ant
 func (a *Wrapper) AsyncSubmit(ctx context.Context, task Task) error {
 
-	logger := gilog.FromContext(ctx).WithTypeOf(*a)
+	logger := log.FromContext(ctx).WithTypeOf(*a)
 	logger.Trace("submit async ants task")
 
 	err := ants.Submit(func() {

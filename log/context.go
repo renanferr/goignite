@@ -1,4 +1,4 @@
-package gilog
+package log
 
 import "context"
 

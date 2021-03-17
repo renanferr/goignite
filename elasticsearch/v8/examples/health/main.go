@@ -4,31 +4,31 @@ import (
 	"context"
 	"encoding/json"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gielasticsearch "github.com/b2wdigital/goignite/v2/elasticsearch/v8"
-	gielasticsearchhealth "github.com/b2wdigital/goignite/v2/elasticsearch/v8/ext/health"
-	gihealth "github.com/b2wdigital/goignite/v2/health"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/elasticsearch/v8"
+	"github.com/b2wdigital/goignite/v2/elasticsearch/v8/ext/health"
+	h "github.com/b2wdigital/goignite/v2/health"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
 )
 
 func main() {
 
-	giconfig.Load()
+	config.Load()
 
-	gilogrus.NewLogger()
+	logrus.NewLogger()
 
-	integrator := gielasticsearchhealth.NewDefaultIntegrator()
+	integrator := health.NewDefaultIntegrator()
 
-	_, err := gielasticsearch.NewDefaultClient(context.Background(), integrator.Register)
+	_, err := elasticsearch.NewDefaultClient(context.Background(), integrator.Register)
 	if err != nil {
-		gilog.Panic(err)
+		log.Panic(err)
 	}
 
-	all := gihealth.CheckAll(context.Background())
+	all := h.CheckAll(context.Background())
 
 	j, _ := json.Marshal(all)
 
-	gilog.Info(string(j))
+	log.Info(string(j))
 
 }

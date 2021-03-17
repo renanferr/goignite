@@ -2,27 +2,27 @@ package main
 
 import (
 	"context"
+	"log"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
-	gimongo "github.com/b2wdigital/goignite/v2/mongo/v1"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/mongo/v1"
 )
 
 func main() {
 
-	giconfig.Load()
+	config.Load()
 
-	gilogrus.NewLogger()
+	logrus.NewLogger()
 
-	conn, err := gimongo.NewDefaultConn(context.Background())
+	conn, err := mongo.NewDefaultConn(context.Background())
 	if err != nil {
-		gilog.Panic(err)
+		log.Panic(err)
 	}
 
 	err = conn.Client.Ping(context.Background(), nil)
 	if err != nil {
-		gilog.Panic(err)
+		log.Panic(err)
 	}
 
 }

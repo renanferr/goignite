@@ -1,4 +1,4 @@
-package gilogrus
+package logrus
 
 import (
 	"context"
@@ -8,8 +8,8 @@ import (
 	"reflect"
 	"strings"
 
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/log"
 	gitime "github.com/b2wdigital/goignite/v2/time"
 	logredis "github.com/jpfaria/logrus-redis-hook"
 	"github.com/ravernkoh/cwlogsfmt"
@@ -21,19 +21,19 @@ type ctxKey string
 
 const key ctxKey = "ctxfields"
 
-func NewLoggerWithFormatter(formatter logrus.Formatter) gilog.Logger {
+func NewLoggerWithFormatter(formatter logrus.Formatter) log.Logger {
 
 	lLogger := new(logrus.Logger)
 
-	if giconfig.Bool(redisEnabled) {
+	if config.Bool(redisEnabled) {
 
 		hookConfig := logredis.HookConfig{
-			Host:   giconfig.String(redisHost),
-			Key:    giconfig.String(redisKey),
-			Format: giconfig.String(redisFormat),
-			App:    giconfig.String(redisApp),
-			Port:   giconfig.Int(redisPort),
-			DB:     giconfig.Int(redisDb),
+			Host:   config.String(redisHost),
+			Key:    config.String(redisKey),
+			Format: config.String(redisFormat),
+			App:    config.String(redisApp),
+			Port:   config.Int(redisPort),
+			DB:     config.Int(redisDb),
 		}
 
 		hook, err := logredis.NewHook(hookConfig)
@@ -49,29 +49,29 @@ func NewLoggerWithFormatter(formatter logrus.Formatter) gilog.Logger {
 
 	lLogger.SetOutput(ioutil.Discard)
 
-	if giconfig.Bool(gilog.FileEnabled) {
+	if config.Bool(log.FileEnabled) {
 
-		s := []string{giconfig.String(gilog.FilePath), "/", giconfig.String(gilog.FileName)}
+		s := []string{config.String(log.FilePath), "/", config.String(log.FileName)}
 		fileLocation := strings.Join(s, "")
 
 		fileHandler = &lumberjack.Logger{
 			Filename: fileLocation,
-			MaxSize:  giconfig.Int(gilog.FileMaxSize),
-			Compress: giconfig.Bool(gilog.FileCompress),
-			MaxAge:   giconfig.Int(gilog.FileMaxAge),
+			MaxSize:  config.Int(log.FileMaxSize),
+			Compress: config.Bool(log.FileCompress),
+			MaxAge:   config.Int(log.FileMaxAge),
 		}
 
 	}
 
-	if giconfig.Bool(gilog.ConsoleEnabled) && giconfig.Bool(gilog.FileEnabled) {
+	if config.Bool(log.ConsoleEnabled) && config.Bool(log.FileEnabled) {
 		lLogger.SetOutput(io.MultiWriter(os.Stdout, fileHandler))
-	} else if giconfig.Bool(gilog.FileEnabled) {
+	} else if config.Bool(log.FileEnabled) {
 		lLogger.SetOutput(fileHandler)
-	} else if giconfig.Bool(gilog.ConsoleEnabled) {
+	} else if config.Bool(log.ConsoleEnabled) {
 		lLogger.SetOutput(os.Stdout)
 	}
 
-	level := getLogLevel(giconfig.String(gilog.ConsoleLevel))
+	level := getLogLevel(config.String(log.ConsoleLevel))
 	lLogger.SetLevel(level)
 
 	lLogger.SetFormatter(formatter)
@@ -80,13 +80,13 @@ func NewLoggerWithFormatter(formatter logrus.Formatter) gilog.Logger {
 		logger: lLogger,
 	}
 
-	gilog.NewLogger(logger)
+	log.NewLogger(logger)
 	return logger
 
 }
 
-func NewLogger() gilog.Logger {
-	formatter := getFormatter(giconfig.String(formatter))
+func NewLogger() log.Logger {
+	formatter := getFormatter(config.String(formatter))
 	return NewLoggerWithFormatter(formatter)
 }
 
@@ -126,7 +126,7 @@ func getFormatter(format string) logrus.Formatter {
 			},
 		}
 
-		fmt.TimestampFormat = giconfig.String(gitime.FormatTimestamp)
+		fmt.TimestampFormat = config.String(gitime.FormatTimestamp)
 
 		formatter = fmt
 
@@ -143,7 +143,7 @@ func getFormatter(format string) logrus.Formatter {
 			FullTimestamp:          true,
 			DisableLevelTruncation: true,
 		}
-		fmt.TimestampFormat = giconfig.String(gitime.FormatTimestamp)
+		fmt.TimestampFormat = config.String(gitime.FormatTimestamp)
 
 		formatter = fmt
 
@@ -154,7 +154,7 @@ func getFormatter(format string) logrus.Formatter {
 
 type logger struct {
 	logger *logrus.Logger
-	fields gilog.Fields
+	fields log.Fields
 }
 
 func (l *logger) Printf(format string, args ...interface{}) {
@@ -193,7 +193,7 @@ func (l *logger) Panic(args ...interface{}) {
 	l.logger.Panic(args...)
 }
 
-func (l *logger) WithField(key string, value interface{}) gilog.Logger {
+func (l *logger) WithField(key string, value interface{}) log.Logger {
 
 	entry := l.logger.WithField(key, value)
 
@@ -227,24 +227,24 @@ func (l *logger) Panicf(format string, args ...interface{}) {
 	l.logger.Fatalf(format, args...)
 }
 
-func (l *logger) WithFields(fields gilog.Fields) gilog.Logger {
+func (l *logger) WithFields(fields log.Fields) log.Logger {
 	return &logEntry{
 		entry:  l.logger.WithFields(convertToLogrusFields(fields)),
 		fields: fields,
 	}
 }
 
-func (l *logger) WithTypeOf(obj interface{}) gilog.Logger {
+func (l *logger) WithTypeOf(obj interface{}) log.Logger {
 
 	t := reflect.TypeOf(obj)
 
-	return l.WithFields(gilog.Fields{
+	return l.WithFields(log.Fields{
 		"reflect.type.name":    t.Name(),
 		"reflect.type.package": t.PkgPath(),
 	})
 }
 
-func (l *logger) GetFields() gilog.Fields {
+func (l *logger) GetFields() log.Fields {
 	return l.fields
 }
 
@@ -256,14 +256,14 @@ func (l *logger) ToContext(ctx context.Context) context.Context {
 	return toContext(ctx, l.fields)
 }
 
-func (l *logger) FromContext(ctx context.Context) gilog.Logger {
+func (l *logger) FromContext(ctx context.Context) log.Logger {
 	fields := fieldsFromContext(ctx)
 	return l.WithFields(fields)
 }
 
 type logEntry struct {
 	entry  *logrus.Entry
-	fields gilog.Fields
+	fields log.Fields
 }
 
 func (l *logEntry) Printf(format string, args ...interface{}) {
@@ -302,7 +302,7 @@ func (l *logEntry) Panic(args ...interface{}) {
 	l.entry.Panic(args...)
 }
 
-func (l *logEntry) WithField(key string, value interface{}) gilog.Logger {
+func (l *logEntry) WithField(key string, value interface{}) log.Logger {
 
 	entry := l.entry.WithField(key, value)
 
@@ -340,17 +340,17 @@ func (l *logEntry) Panicf(format string, args ...interface{}) {
 	l.entry.Fatalf(format, args...)
 }
 
-func (l *logEntry) WithFields(fields gilog.Fields) gilog.Logger {
+func (l *logEntry) WithFields(fields log.Fields) log.Logger {
 	return &logEntry{
 		entry: l.entry.WithFields(convertToLogrusFields(fields)),
 	}
 }
 
-func (l *logEntry) WithTypeOf(obj interface{}) gilog.Logger {
+func (l *logEntry) WithTypeOf(obj interface{}) log.Logger {
 
 	t := reflect.TypeOf(obj)
 
-	return l.WithFields(gilog.Fields{
+	return l.WithFields(log.Fields{
 		"reflect.type.name":    t.Name(),
 		"reflect.type.package": t.PkgPath(),
 	})
@@ -360,12 +360,12 @@ func (l *logEntry) ToContext(ctx context.Context) context.Context {
 	return toContext(ctx, l.fields)
 }
 
-func (l *logEntry) FromContext(ctx context.Context) gilog.Logger {
+func (l *logEntry) FromContext(ctx context.Context) log.Logger {
 	fields := fieldsFromContext(ctx)
 	return l.WithFields(fields)
 }
 
-func toContext(ctx context.Context, fields gilog.Fields) context.Context {
+func toContext(ctx context.Context, fields log.Fields) context.Context {
 	ctxFields := fieldsFromContext(ctx)
 
 	if ctxFields == nil {
@@ -379,14 +379,14 @@ func toContext(ctx context.Context, fields gilog.Fields) context.Context {
 	return context.WithValue(ctx, key, ctxFields)
 }
 
-func fieldsFromContext(ctx context.Context) gilog.Fields {
-	fields := make(gilog.Fields)
+func fieldsFromContext(ctx context.Context) log.Fields {
+	fields := make(log.Fields)
 
 	if ctx == nil {
 		return fields
 	}
 
-	if f, ok := ctx.Value(key).(gilog.Fields); ok && f != nil {
+	if f, ok := ctx.Value(key).(log.Fields); ok && f != nil {
 		for k, v := range f {
 			fields[k] = v
 		}
@@ -395,7 +395,7 @@ func fieldsFromContext(ctx context.Context) gilog.Fields {
 	return fields
 }
 
-func convertToLogrusFields(fields gilog.Fields) logrus.Fields {
+func convertToLogrusFields(fields log.Fields) logrus.Fields {
 	logrusFields := logrus.Fields{}
 	for index, val := range fields {
 		logrusFields[index] = val
@@ -403,8 +403,8 @@ func convertToLogrusFields(fields gilog.Fields) logrus.Fields {
 	return logrusFields
 }
 
-func convertToFields(logrusFields logrus.Fields) gilog.Fields {
-	fields := gilog.Fields{}
+func convertToFields(logrusFields logrus.Fields) log.Fields {
+	fields := log.Fields{}
 	for index, val := range logrusFields {
 		fields[index] = val
 	}

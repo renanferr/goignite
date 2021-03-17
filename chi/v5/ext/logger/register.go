@@ -1,4 +1,4 @@
-package gichilogger
+package logger
 
 import (
 	"context"
@@ -7,20 +7,20 @@ import (
 	"runtime/debug"
 	"time"
 
-	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	gilog "github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/chi/v5"
+	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/go-chi/chi/v5/middleware"
 )
 
-func Register(ctx context.Context) (*gichi.Config, error) {
+func Register(ctx context.Context) (*chi.Config, error) {
 	if !IsEnabled() {
 		return nil, nil
 	}
 
-	logger := gilog.FromContext(ctx)
+	logger := log.FromContext(ctx)
 	logger.Trace("enabling logger middleware in chi")
 
-	return &gichi.Config{
+	return &chi.Config{
 		Middlewares: []func(http.Handler) http.Handler{
 			loggerMiddleware,
 		},
@@ -37,7 +37,7 @@ func loggerMiddleware(next http.Handler) http.Handler {
 		ctx := r.Context()
 		t1 := time.Now()
 		reqId := middleware.GetReqID(ctx)
-		preReqContent := gilog.Fields{
+		preReqContent := log.Fields{
 			"time":      t1,
 			"requestId": reqId,
 			"method":    r.Method,
@@ -54,15 +54,15 @@ func loggerMiddleware(next http.Handler) http.Handler {
 			preReqContent["tid"] = tid
 		}
 
-		logger := gilog.FromContext(ctx).WithFields(preReqContent)
+		logger := log.FromContext(ctx).WithFields(preReqContent)
 		ctx = logger.ToContext(ctx)
 		r = r.WithContext(ctx)
 		logger.Info("request started")
 
 		defer func() {
 			if err := recover(); err != nil {
-				gilog.WithFields(
-					gilog.Fields{
+				log.WithFields(
+					log.Fields{
 						"requestId":  reqId,
 						"duration":   time.Since(t1),
 						"status":     500,
@@ -77,7 +77,7 @@ func loggerMiddleware(next http.Handler) http.Handler {
 		next.ServeHTTP(ww, r)
 
 		status := ww.Status()
-		postReqContent := gilog.Fields{
+		postReqContent := log.Fields{
 			"requestId":     reqId,
 			"duration":      time.Since(t1),
 			"contentLength": ww.BytesWritten(),
@@ -88,7 +88,7 @@ func loggerMiddleware(next http.Handler) http.Handler {
 			postReqContent["cache"] = cache
 		}
 
-		logger = gilog.FromContext(ctx).WithFields(postReqContent)
+		logger = log.FromContext(ctx).WithFields(postReqContent)
 		if status >= 100 && status < 500 {
 
 			var method func(format string, args ...interface{})

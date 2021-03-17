@@ -4,22 +4,22 @@ import (
 	"context"
 	"net/http"
 
-	gichi "github.com/b2wdigital/goignite/v2/chi/v5"
-	giconfig "github.com/b2wdigital/goignite/v2/config"
-	gifiber "github.com/b2wdigital/goignite/v2/fiber/v2"
-	gifibercors "github.com/b2wdigital/goignite/v2/fiber/v2/ext/cors"
-	gifiberetag "github.com/b2wdigital/goignite/v2/fiber/v2/ext/etag"
-	giinfo "github.com/b2wdigital/goignite/v2/info"
-	gilog "github.com/b2wdigital/goignite/v2/log"
-	gilogrus "github.com/b2wdigital/goignite/v2/logrus/v1"
-	giserver "github.com/b2wdigital/goignite/v2/server"
-	"github.com/gofiber/fiber/v2"
+	"github.com/b2wdigital/goignite/v2/chi/v5"
+	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/fiber/v2"
+	"github.com/b2wdigital/goignite/v2/fiber/v2/ext/cors"
+	"github.com/b2wdigital/goignite/v2/fiber/v2/ext/etag"
+	"github.com/b2wdigital/goignite/v2/info"
+	"github.com/b2wdigital/goignite/v2/log"
+	"github.com/b2wdigital/goignite/v2/logrus/v1"
+	"github.com/b2wdigital/goignite/v2/server"
+	f "github.com/gofiber/fiber/v2"
 )
 
 const HelloWorldEndpoint = "app.endpoint.helloworld"
 
 func init() {
-	giconfig.Add(HelloWorldEndpoint, "/hello-world", "helloworld endpoint")
+	config.Add(HelloWorldEndpoint, "/hello-world", "helloworld endpoint")
 }
 
 type Config struct {
@@ -34,15 +34,15 @@ type Response struct {
 	Message string
 }
 
-func Get(c *fiber.Ctx) (err error) {
+func Get(c *f.Ctx) (err error) {
 
-	logger := gilog.FromContext(context.Background())
+	logger := log.FromContext(context.Background())
 
 	resp := Response{
 		Message: "Hello World!!",
 	}
 
-	err = giconfig.Unmarshal(&resp)
+	err = config.Unmarshal(&resp)
 	if err != nil {
 		logger.Errorf(err.Error())
 	}
@@ -52,30 +52,30 @@ func Get(c *fiber.Ctx) (err error) {
 
 func main() {
 
-	giconfig.Load()
+	config.Load()
 
 	c := Config{}
 
-	err := giconfig.Unmarshal(&c)
+	err := config.Unmarshal(&c)
 	if err != nil {
 		panic(err)
 	}
 
 	ctx := context.Background()
 
-	gilogrus.NewLogger()
+	logrus.NewLogger()
 
-	giinfo.AppName = "helloworld"
+	info.AppName = "helloworld"
 
-	fiberSrv := gifiber.NewDefault(ctx,
-		gifibercors.Register,
-		gifiberetag.Register)
+	fiberSrv := fiber.NewDefault(ctx,
+		cors.Register,
+		etag.Register)
 
 	fiberSrv.App().Get(c.App.Endpoint.Helloworld, Get)
 
 	fiberSrv.Serve(ctx)
 
-	chiSrv := gichi.NewDefault(ctx)
+	chiSrv := chi.NewDefault(ctx)
 
-	giserver.Serve(ctx, fiberSrv, chiSrv)
+	server.Serve(ctx, fiberSrv, chiSrv)
 }

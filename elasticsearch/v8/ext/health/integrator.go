@@ -16,6 +16,16 @@ func NewIntegrator(options *Options) *Integrator {
 	return &Integrator{options: options}
 }
 
+func NewDefaultIntegrator() *Integrator {
+
+	options, err := DefaultOptions()
+	if err != nil {
+		gilog.Panic(err)
+	}
+
+	return &Integrator{options: options}
+}
+
 func (i *Integrator) Register(ctx context.Context, client *elasticsearch.Client) error {
 
 	logger := gilog.FromContext(ctx).WithTypeOf(*i)

@@ -1,4 +1,4 @@
-package newrelic
+package datadog
 
 import (
 	"github.com/b2wdigital/goignite/v2/config"

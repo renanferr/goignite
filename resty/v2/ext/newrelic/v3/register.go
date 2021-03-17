@@ -1,4 +1,4 @@
-package girestynewrelic
+package newrelic
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/go-resty/resty/v2"
-	"github.com/newrelic/go-agent/v3/newrelic"
+	nr "github.com/newrelic/go-agent/v3/newrelic"
 )
 
 func Register(ctx context.Context, client *resty.Client) error {
@@ -36,7 +36,7 @@ func Register(ctx context.Context, client *resty.Client) error {
 		req, _ := http.NewRequest(request.Method, client.HostURL, nil)
 		req.Header = request.Header
 
-		s := newrelic.StartExternalSegment(txn, req)
+		s := nr.StartExternalSegment(txn, req)
 		ctx := context.WithValue(rctx, "nrext", s)
 
 		request.SetContext(ctx)
@@ -48,7 +48,7 @@ func Register(ctx context.Context, client *resty.Client) error {
 
 		ctx := resp.Request.Context()
 
-		s, ok := ctx.Value("nrext").(*newrelic.ExternalSegment)
+		s, ok := ctx.Value("nrext").(*nr.ExternalSegment)
 		if ok {
 			s.End()
 		}

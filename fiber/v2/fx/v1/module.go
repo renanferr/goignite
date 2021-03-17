@@ -1,4 +1,4 @@
-package gifiberfx
+package fx
 
 import (
 	"context"

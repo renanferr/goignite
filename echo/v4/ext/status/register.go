@@ -5,12 +5,12 @@ import (
 	"net/http"
 
 	"github.com/b2wdigital/goignite/rest/response"
-	"github.com/b2wdigital/goignite/v2/echo/v4"
+	echo "github.com/b2wdigital/goignite/v2/echo/v4"
 	"github.com/b2wdigital/goignite/v2/log"
-	"github.com/labstack/echo/v4"
+	e "github.com/labstack/echo/v4"
 )
 
-func Register(ctx context.Context, instance *echo.Echo) error {
+func Register(ctx context.Context, instance *e.Echo) error {
 	if !IsEnabled() {
 		return nil
 	}
@@ -36,6 +36,6 @@ func NewResourceStatusHandler() *ResourceStatusHandler {
 type ResourceStatusHandler struct {
 }
 
-func (u *ResourceStatusHandler) Get(c echo.Context) error {
+func (u *ResourceStatusHandler) Get(c e.Context) error {
 	return echo.JSON(c, http.StatusOK, response.NewResourceStatus(), nil)
 }

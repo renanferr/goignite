@@ -10,7 +10,7 @@ import (
 
 	"github.com/b2wdigital/goignite/v2/config"
 	"github.com/b2wdigital/goignite/v2/log"
-	gitime "github.com/b2wdigital/goignite/v2/time"
+	"github.com/b2wdigital/goignite/v2/time"
 	logredis "github.com/jpfaria/logrus-redis-hook"
 	"github.com/ravernkoh/cwlogsfmt"
 	"github.com/sirupsen/logrus"
@@ -126,7 +126,7 @@ func getFormatter(format string) logrus.Formatter {
 			},
 		}
 
-		fmt.TimestampFormat = config.String(gitime.FormatTimestamp)
+		fmt.TimestampFormat = config.String(time.FormatTimestamp)
 
 		formatter = fmt
 
@@ -143,7 +143,7 @@ func getFormatter(format string) logrus.Formatter {
 			FullTimestamp:          true,
 			DisableLevelTruncation: true,
 		}
-		fmt.TimestampFormat = config.String(gitime.FormatTimestamp)
+		fmt.TimestampFormat = config.String(time.FormatTimestamp)
 
 		formatter = fmt
 

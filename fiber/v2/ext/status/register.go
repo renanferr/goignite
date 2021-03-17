@@ -7,10 +7,10 @@ import (
 	"github.com/b2wdigital/goignite/rest/response"
 	"github.com/b2wdigital/goignite/v2/fiber/v2"
 	"github.com/b2wdigital/goignite/v2/log"
-	"github.com/gofiber/fiber/v2"
+	f "github.com/gofiber/fiber/v2"
 )
 
-func Register(ctx context.Context, app *fiber.App) error {
+func Register(ctx context.Context, app *f.App) error {
 	if !IsEnabled() {
 		return nil
 	}
@@ -21,7 +21,7 @@ func Register(ctx context.Context, app *fiber.App) error {
 
 	logger.Tracef("configuring status router on %s in fiber", statusRoute)
 
-	app.Get(statusRoute, func(c *fiber.Ctx) error {
+	app.Get(statusRoute, func(c *f.Ctx) error {
 		return fiber.JSON(c, http.StatusOK, response.NewResourceStatus(), nil)
 	})
 

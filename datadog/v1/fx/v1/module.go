@@ -1,4 +1,4 @@
-package gidatadogfx
+package fx
 
 import (
 	"sync"

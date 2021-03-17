@@ -10,7 +10,7 @@ import (
 	"github.com/b2wdigital/goignite/v2/log"
 	"github.com/b2wdigital/goignite/v2/newrelic/v3"
 	"github.com/gofiber/fiber/v2"
-	"github.com/newrelic/go-agent/v3/newrelic"
+	nr "github.com/newrelic/go-agent/v3/newrelic"
 )
 
 func Register(ctx context.Context, instance *fiber.App) error {
@@ -29,7 +29,7 @@ func Register(ctx context.Context, instance *fiber.App) error {
 	return nil
 }
 
-func middleware(app *newrelic.Application) fiber.Handler {
+func middleware(app *nr.Application) fiber.Handler {
 
 	return func(c *fiber.Ctx) error {
 
@@ -52,7 +52,7 @@ func middleware(app *newrelic.Application) fiber.Handler {
 	}
 }
 
-func setNewRelicWebRequest(c *fiber.Ctx) newrelic.WebRequest {
+func setNewRelicWebRequest(c *fiber.Ctx) nr.WebRequest {
 	header := http.Header{}
 
 	c.Request().Header.VisitAll(func(key, value []byte) {
@@ -62,11 +62,11 @@ func setNewRelicWebRequest(c *fiber.Ctx) newrelic.WebRequest {
 	URL := fmt.Sprintf("%s%s", c.BaseURL(), c.Path())
 	parsedURL, _ := url.Parse(URL)
 
-	wr := newrelic.WebRequest{
+	wr := nr.WebRequest{
 		Header:    header,
 		URL:       parsedURL,
 		Method:    c.Method(),
-		Transport: newrelic.TransportType(c.Protocol()),
+		Transport: nr.TransportType(c.Protocol()),
 		Host:      string(c.Request().Host()),
 	}
 

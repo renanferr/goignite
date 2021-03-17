@@ -6,10 +6,10 @@ import (
 	"github.com/b2wdigital/goignite/rest/response"
 	"github.com/b2wdigital/goignite/v2/fiber/v2"
 	"github.com/b2wdigital/goignite/v2/log"
-	"github.com/gofiber/fiber/v2"
+	f "github.com/gofiber/fiber/v2"
 )
 
-func Register(ctx context.Context, app *fiber.App) error {
+func Register(ctx context.Context, app *f.App) error {
 	if !IsEnabled() {
 		return nil
 	}
@@ -20,7 +20,7 @@ func Register(ctx context.Context, app *fiber.App) error {
 
 	logger.Tracef("configuring health router on %s in fiber", healthRoute)
 
-	app.Get(healthRoute, func(c *fiber.Ctx) error {
+	app.Get(healthRoute, func(c *f.Ctx) error {
 
 		ctx, cancel := context.WithCancel(c.Context())
 		defer cancel()

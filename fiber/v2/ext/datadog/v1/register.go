@@ -18,7 +18,7 @@ func Register(ctx context.Context, instance *fiber.App) error {
 	logger := log.FromContext(ctx)
 	logger.Trace("enabling datadog middleware in fiber")
 
-	instance.Use(fibertrace.Middleware())
+	instance.Use(fibertrace.Middleware(fibertrace.WithServiceName(datadog.Service())))
 
 	logger.Debug("datadog middleware successfully enabled in fiber")
 

@@ -66,3 +66,7 @@ func init() {
 func IsEnabled() bool {
 	return config.Bool(enabled)
 }
+
+func Service() string {
+	return config.String(service)
+}

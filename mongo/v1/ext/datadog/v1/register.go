@@ -19,7 +19,7 @@ func Register(ctx context.Context, conn *mongo.Conn) error {
 
 	logger.Trace("integrating mongo in datadog")
 
-	conn.ClientOptions.SetMonitor(mongotrace.NewMonitor())
+	conn.ClientOptions.SetMonitor(mongotrace.NewMonitor(mongotrace.WithServiceName(datadog.Service())))
 
 	logger.Debug("mongo successfully integrated in datadog")
 

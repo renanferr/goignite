@@ -7,7 +7,6 @@ import (
 	"github.com/b2wdigital/goignite/v2/chi/v5"
 	"github.com/b2wdigital/goignite/v2/datadog/v1"
 	"github.com/b2wdigital/goignite/v2/log"
-	chitrace "gopkg.in/DataDog/dd-trace-go.v1/contrib/go-chi/chi"
 )
 
 func Register(ctx context.Context) (*chi.Config, error) {
@@ -20,7 +19,7 @@ func Register(ctx context.Context) (*chi.Config, error) {
 
 	return &chi.Config{
 		Middlewares: []func(http.Handler) http.Handler{
-			chitrace.Middleware(),
+			chiMiddleware(WithServiceName(datadog.Service())),
 		},
 	}, nil
 }

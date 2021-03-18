@@ -18,7 +18,7 @@ func Register(ctx context.Context, instance *echo.Echo) error {
 
 	logger.Trace("enabling datadog middleware in echo")
 
-	instance.Use(ddecho.Middleware())
+	instance.Use(ddecho.Middleware(ddecho.WithServiceName(datadog.Service())))
 
 	logger.Debug("datadog middleware successfully enabled in echo")
 

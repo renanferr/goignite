@@ -126,7 +126,7 @@ func getFormatter(format string) logrus.Formatter {
 			},
 		}
 
-		fmt.TimestampFormat = config.String(time.FormatTimestamp)
+		fmt.TimestampFormat = time.Format()
 
 		formatter = fmt
 
@@ -143,7 +143,7 @@ func getFormatter(format string) logrus.Formatter {
 			FullTimestamp:          true,
 			DisableLevelTruncation: true,
 		}
-		fmt.TimestampFormat = config.String(time.FormatTimestamp)
+		fmt.TimestampFormat = time.Format()
 
 		formatter = fmt
 

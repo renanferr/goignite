@@ -76,12 +76,11 @@ func promMiddleware(next http.Handler) http.Handler {
 
 	fn := func(w http.ResponseWriter, r *http.Request) {
 
-		ctx := r.Context()
 		ww := middleware.NewWrapResponseWriter(w, r.ProtoMajor)
 		next.ServeHTTP(ww, r)
 
-		route := chi.RouteContext(ctx)
-		path := route.RoutePatterns[0]
+		path := chi.RouteContext(r.Context()).RoutePattern()
+
 		status := normalizeHTTPStatus(ww.Status())
 
 		httpRequests.WithLabelValues(status, r.Method, path).Inc()

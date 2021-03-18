@@ -2,14 +2,13 @@ package aws
 
 import (
 	"context"
-	"net"
-	"net/http"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/aws/retry"
 	awsconfig "github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/b2wdigital/goignite/v2/config"
+	"github.com/b2wdigital/goignite/v2/http/v1/client"
 	"github.com/b2wdigital/goignite/v2/log"
 )
 
@@ -31,21 +30,18 @@ func NewConfig(ctx context.Context, options *Options, exts ...Ext) aws.Config {
 		cfg.Credentials = credentials.NewStaticCredentialsProvider(options.AccessKeyId, options.SecretAccessKey, options.SessionToken)
 	}
 
-	cfg.Retryer = retryerConfig(options)
-	cfg.HTTPClient = &http.Client{
-		Transport: &http.Transport{
-			MaxConnsPerHost: options.MaxConnsPerHost,
-			Proxy:           http.ProxyFromEnvironment,
-			DialContext: (&net.Dialer{
-				Timeout:   options.TimeoutMillis,
-				KeepAlive: options.KeepAliveMillis,
-			}).DialContext,
-			MaxIdleConns:          options.MaxIdleConns,
-			MaxIdleConnsPerHost:   options.MaxIdleConnsPerHost,
-			ResponseHeaderTimeout: options.ResponseHeaderTimeoutMillis,
-			IdleConnTimeout:       options.IdleConnTimeoutMillis,
-		},
+	httpClientOptions := client.Options{}
+
+	err = config.UnmarshalWithPath(httpClientRoot, &httpClientOptions)
+	if err != nil {
+		logger.Panicf("unable to load http client config, %s", err.Error())
+		return aws.Config{}
 	}
+
+	httpClient := client.NewClient(ctx, &httpClientOptions)
+
+	cfg.Retryer = retryerConfig(options)
+	cfg.HTTPClient = httpClient
 
 	for _, ext := range exts {
 		if err := ext(ctx, &cfg); err != nil {

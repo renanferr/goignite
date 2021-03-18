@@ -7,24 +7,31 @@ import (
 )
 
 const (
-	key                         = "aws.access.key.id"
-	secret                      = "aws.secret.access.key"
-	region                      = "aws.default.region"
-	accountNumber               = "aws.default.accountNumber"
-	session                     = "aws.session.token"
-	customEndpoint              = "aws.custom.endpoint"
-	retryerRoot                 = "aws.custom.retryer"
-	retryerMaxAttempts          = retryerRoot + ".maxattempts"
-	retryerHasRateLimit         = retryerRoot + ".hasratelimit"
-	ExtRoot                     = "aws.ext"
-	httpClientRoot              = "aws.httpClient"
-	maxConnsPerHost             = httpClientRoot + ".maxConnsPerHost"
-	maxIdleConns                = httpClientRoot + ".maxIdleConns"
-	maxIdleConnsPerHost         = httpClientRoot + ".maxIdleConnsPerHost"
-	timeoutMillis               = httpClientRoot + ".timeoutMillis"
-	keepAliveMillis             = httpClientRoot + ".keepAliveMillis"
-	idleConnTimeoutMillis       = httpClientRoot + ".idleConnTimeoutMillis"
-	responseHeaderTimeoutMillis = httpClientRoot + ".responseHeaderTimeoutMillis"
+	key                 = "aws.access.key.id"
+	secret              = "aws.secret.access.key"
+	region              = "aws.default.region"
+	accountNumber       = "aws.default.accountNumber"
+	session             = "aws.session.token"
+	customEndpoint      = "aws.custom.endpoint"
+	retryerRoot         = "aws.custom.retryer"
+	retryerMaxAttempts  = retryerRoot + ".maxattempts"
+	retryerHasRateLimit = retryerRoot + ".hasratelimit"
+	ExtRoot             = "aws.ext"
+	httpClientRoot      = "aws.http.client"
+
+	maxIdleConnPerHost    = httpClientRoot + ".maxIdleConnPerHost"
+	maxIdleConn           = httpClientRoot + ".maxIdleConn"
+	maxConnsPerHost       = httpClientRoot + ".maxConnsPerHost"
+	idleConnTimeout       = httpClientRoot + ".idleConnTimeout"
+	disableKeepAlives     = httpClientRoot + ".disableKeepAlives"
+	disableCompression    = httpClientRoot + ".disableCompression"
+	forceHTTP2            = httpClientRoot + ".forceHTTP2"
+	tlsHandshakeTimeout   = httpClientRoot + ".TLSHandshakeTimeout"
+	timeout               = httpClientRoot + ".timeout"
+	dialTimeout           = httpClientRoot + ".dialTimeout"
+	keepAlive             = httpClientRoot + ".keepAlive"
+	expectContinueTimeout = httpClientRoot + ".expectContinueTimeout"
+	dualStack             = httpClientRoot + ".dualStack"
 )
 
 func init() {
@@ -39,13 +46,19 @@ func init() {
 	config.Add(retryerMaxAttempts, 5, "defines max attempts for rate limit")
 	config.Add(retryerHasRateLimit, true, "defines if retryer has rate limit")
 
-	config.Add(maxConnsPerHost, 256, "limits the total number of connections per host")
-	config.Add(maxIdleConns, 100, "controls the maximum number of idle (keep-alive) connections across all hosts")
-	config.Add(maxIdleConnsPerHost, 10, "controls the maximum idle (keep-alive) connections to keep per-host")
-	config.Add(timeoutMillis, 10*time.Second, "the maximum amount of time a dial will wait for a connect to complete")
-	config.Add(keepAliveMillis, 10*time.Second, "specifies the interval between keep-alive probes for an active network connection")
-	config.Add(idleConnTimeoutMillis, 5*time.Second, "the maximum amount of time an idle (keep-alive) connection will remain idle before closing itself")
-	config.Add(responseHeaderTimeoutMillis, 5*time.Second, "specifies the amount of time to wait for a server's response headers after fully writing the request (including its body, if any)")
+	config.Add(maxIdleConnPerHost, 1, "http max idle connections per host")
+	config.Add(maxIdleConn, 100, "http max idle connections")
+	config.Add(maxConnsPerHost, 20, "http max connections per host")
+	config.Add(idleConnTimeout, 90*time.Second, "http idle connections timeout")
+	config.Add(disableKeepAlives, true, "http disable keep alives")
+	config.Add(disableCompression, false, "http disable keep alives")
+	config.Add(forceHTTP2, true, "http force http2")
+	config.Add(tlsHandshakeTimeout, 10*time.Second, "TLS handshake timeout")
+	config.Add(timeout, 30*time.Second, "timeout")
+	config.Add(dialTimeout, 5*time.Second, "dial timeout")
+	config.Add(keepAlive, 15*time.Second, "keep alive")
+	config.Add(expectContinueTimeout, 1*time.Second, "expect continue timeout")
+	config.Add(dualStack, true, "dual stack")
 }
 
 func Region() string {

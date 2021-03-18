@@ -4,6 +4,7 @@ import (
 	"context"
 	"net"
 	"net/http"
+	"time"
 
 	"github.com/b2wdigital/goignite/v2/log"
 )
@@ -13,21 +14,74 @@ func NewClient(ctx context.Context, options *Options) *http.Client {
 	tr := &http.Transport{
 		Proxy: http.ProxyFromEnvironment,
 		DialContext: (&net.Dialer{
-			Timeout:   options.Timeout,
+			Timeout:  options.DialTimeout,
+			Deadline: time.Time{},
+			// LocalAddr:     nil,
+			// FallbackDelay: 0,
 			KeepAlive: options.KeepAlive,
-			DualStack: options.DualStack,
+			// Resolver:      nil,
+			// Control:       nil,
 		}).DialContext,
-		TLSHandshakeTimeout:   options.TLSHandshakeTimeout,
-		DisableKeepAlives:     options.DisableKeepAlives,
-		MaxIdleConns:          options.MaxIdleConn,
-		MaxIdleConnsPerHost:   options.MaxIdleConnPerHost,
-		MaxConnsPerHost:       options.MaxConnsPerHost,
-		IdleConnTimeout:       options.IdleConnTimeout,
-		ForceAttemptHTTP2:     options.ForceHTTP2,
+		/*
+			TLSClientConfig: &tls.Config{
+				Rand:                        nil,
+				Time:                        nil,
+				Certificates:                []tls.Certificate{
+					{
+						Certificate:                  nil,
+						PrivateKey:                   nil,
+						SupportedSignatureAlgorithms: nil,
+						OCSPStaple:                   nil,
+						SignedCertificateTimestamps:  nil,
+						Leaf:                         nil,
+					},
+				},
+				NameToCertificate:           nil,
+				GetCertificate:              nil,
+				GetClientCertificate:        nil,
+				GetConfigForClient:          nil,
+				VerifyPeerCertificate:       nil,
+				VerifyConnection:            nil,
+				RootCAs:                     nil,
+				NextProtos:                  nil,
+				ServerName:                  "",
+				ClientAuth:                  0,
+				ClientCAs:                   nil,
+				InsecureSkipVerify:          false,
+				CipherSuites:                nil,
+				PreferServerCipherSuites:    false,
+				SessionTicketsDisabled:      false,
+				SessionTicketKey:            [32]byte{},
+				ClientSessionCache:          nil,
+				MinVersion:                  0,
+				MaxVersion:                  0,
+				CurvePreferences:            nil,
+				DynamicRecordSizingDisabled: false,
+				Renegotiation:               0,
+				KeyLogWriter:                nil,
+			},
+		*/
+		TLSHandshakeTimeout: options.TLSHandshakeTimeout,
+		DisableKeepAlives:   options.DisableKeepAlives,
+		DisableCompression:  options.DisableCompression,
+		MaxIdleConns:        options.MaxIdleConn,
+		MaxIdleConnsPerHost: options.MaxIdleConnPerHost,
+		MaxConnsPerHost:     options.MaxConnsPerHost,
+		IdleConnTimeout:     options.IdleConnTimeout,
+		// ResponseHeaderTimeout:  0,
 		ExpectContinueTimeout: options.ExpectContinueTimeout,
+		// MaxResponseHeaderBytes: 0,
+		// WriteBufferSize:        0,
+		// ReadBufferSize:         0,
+		ForceAttemptHTTP2: options.ForceHTTP2,
 	}
 
-	return &http.Client{Transport: tr}
+	return &http.Client{
+		Transport: tr,
+		// CheckRedirect: nil,
+		// Jar:           nil,
+		Timeout: options.Timeout,
+	}
 }
 
 func NewDefaultClient(ctx context.Context) *http.Client {

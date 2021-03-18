@@ -12,12 +12,14 @@ type Options struct {
 	MaxConnsPerHost       int
 	IdleConnTimeout       time.Duration
 	DisableKeepAlives     bool
+	DisableCompression    bool
 	ForceHTTP2            bool          `config:"forceHTTP2"`
 	TLSHandshakeTimeout   time.Duration `config:"TLSHandshakeTimeout"`
 	Timeout               time.Duration
 	KeepAlive             time.Duration
 	ExpectContinueTimeout time.Duration
 	DualStack             bool
+	DialTimeout           time.Duration
 }
 
 func DefaultOptions() (*Options, error) {

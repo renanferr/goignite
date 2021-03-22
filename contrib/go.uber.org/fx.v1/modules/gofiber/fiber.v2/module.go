@@ -1,13 +1,13 @@
-package fx
+package fiber
 
 import (
 	"context"
 	"sync"
 
-	contextfx "github.com/b2wdigital/goignite/v2/contrib/context/fx/v1"
+	context2 "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/modules/context"
+	server2 "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/modules/core/server"
 	"github.com/b2wdigital/goignite/v2/contrib/gofiber/fiber.v2"
 	"github.com/b2wdigital/goignite/v2/core/server"
-	serverfx "github.com/b2wdigital/goignite/v2/core/server/fx/v1"
 	f "github.com/gofiber/fiber/v2"
 	"go.uber.org/fx"
 )
@@ -25,7 +25,7 @@ func Module() fx.Option {
 	once.Do(func() {
 
 		options = fx.Options(
-			contextfx.Module(),
+			context2.Module(),
 			fx.Provide(
 				func(ctx context.Context, p params) *fiber.Server {
 					return fiber.NewDefault(ctx, p.Exts...)
@@ -36,7 +36,7 @@ func Module() fx.Option {
 			),
 			fx.Provide(
 				fx.Annotated{
-					Group: serverfx.ServersGroupKey,
+					Group: server2.ServersGroupKey,
 					Target: func(srv *fiber.Server) server.Server {
 						return srv
 					},

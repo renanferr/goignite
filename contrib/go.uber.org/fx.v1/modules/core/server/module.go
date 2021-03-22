@@ -1,10 +1,10 @@
-package fx
+package server
 
 import (
 	"context"
 	"sync"
 
-	contextfx "github.com/b2wdigital/goignite/v2/contrib/context/fx/v1"
+	contextfx "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/modules/context"
 	"github.com/b2wdigital/goignite/v2/contrib/spf13/cobra.v1"
 	"github.com/b2wdigital/goignite/v2/core/server"
 	c "github.com/spf13/cobra"

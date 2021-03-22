@@ -4,19 +4,19 @@ import (
 	"context"
 	"net/http"
 
-	girest "github.com/b2wdigital/goignite/v2/contrib/go-resty/resty.v2"
+	"github.com/b2wdigital/goignite/v2/contrib/go-resty/resty.v2"
 	"github.com/b2wdigital/goignite/v2/contrib/go.uber.org/zap.v1"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/cors"
-	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/golang.org/x/sync/requestid"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/gzip"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/health"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/logger"
+	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/requestid"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/status"
 	"github.com/b2wdigital/goignite/v2/core/config"
 	"github.com/b2wdigital/goignite/v2/core/info"
 	"github.com/b2wdigital/goignite/v2/core/log"
-	"github.com/go-resty/resty/v2"
+	r "github.com/go-resty/resty/v2"
 	e "github.com/labstack/echo/v4"
 )
 
@@ -39,10 +39,10 @@ type Response struct {
 }
 
 type Handler struct {
-	client *resty.Client
+	client *r.Client
 }
 
-func NewHandler(client *resty.Client) *Handler {
+func NewHandler(client *r.Client) *Handler {
 	return &Handler{client: client}
 }
 
@@ -96,11 +96,11 @@ func main() {
 
 	// instance.AddErrorAdvice(customErrors.InvalidPayload, 400)
 
-	o := girest.OptionsBuilder.
+	o := resty.OptionsBuilder.
 		Host("http://www.google.com").
 		Build()
 
-	client := girest.NewClient(ctx, &o)
+	client := resty.NewClient(ctx, &o)
 
 	handler := NewHandler(client)
 	srv.Echo().GET(c.App.Endpoint.Google, handler.Get)

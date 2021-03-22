@@ -5,10 +5,10 @@ import (
 
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/cors"
-	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/golang.org/x/sync/requestid"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/gzip"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/health"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/logger"
+	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/requestid"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/status"
 	"github.com/b2wdigital/goignite/v2/contrib/sirupsen/logrus.v1"
 	"github.com/b2wdigital/goignite/v2/core/config"

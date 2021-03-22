@@ -1,4 +1,4 @@
-package gocloud
+package pubsub
 
 import (
 	"context"

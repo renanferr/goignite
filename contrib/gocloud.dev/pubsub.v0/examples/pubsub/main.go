@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 
-	gocloud "github.com/b2wdigital/goignite/v2/contrib/gocloud.dev/pubsub.v0"
+	"github.com/b2wdigital/goignite/v2/contrib/gocloud.dev/pubsub.v0"
 	"github.com/b2wdigital/goignite/v2/contrib/sirupsen/logrus.v1"
 	"github.com/b2wdigital/goignite/v2/core/config"
 	"github.com/b2wdigital/goignite/v2/core/log"
-	"gocloud.dev/pubsub"
+	p "gocloud.dev/pubsub"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 
 	logger := log.FromContext(ctx)
 
-	topic, err := gocloud.NewDefaultTopic(ctx)
+	topic, err := pubsub.NewDefaultTopic(ctx)
 	if err != nil {
 		logger.Fatalf(err.Error())
 	}
@@ -29,7 +29,7 @@ func main() {
 
 	data := []byte("Hello, World!")
 
-	message := &pubsub.Message{
+	message := &p.Message{
 		Body:     data,
 		Metadata: meta,
 	}

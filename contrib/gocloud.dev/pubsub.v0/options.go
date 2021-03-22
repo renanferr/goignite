@@ -1,4 +1,4 @@
-package gocloud
+package pubsub
 
 import (
 	"github.com/b2wdigital/goignite/v2/core/config"

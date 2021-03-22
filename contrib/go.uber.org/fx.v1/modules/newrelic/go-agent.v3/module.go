@@ -3,7 +3,7 @@ package newrelic
 import (
 	"sync"
 
-	"github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/modules/context"
+	contextfx "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/modules/context"
 	newrelic "github.com/b2wdigital/goignite/v2/contrib/newrelic/go-agent.v3"
 	"go.uber.org/fx"
 )
@@ -15,7 +15,7 @@ func Module() fx.Option {
 
 	once.Do(func() {
 		options = fx.Options(
-			context.Module(),
+			contextfx.Module(),
 			fx.Invoke(
 				newrelic.NewApplication,
 			),

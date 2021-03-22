@@ -3,8 +3,8 @@ package ants
 import (
 	"sync"
 
-	giants "github.com/b2wdigital/goignite/v2/contrib/panjf2000/ants.v2"
-	"github.com/panjf2000/ants/v2"
+	ants "github.com/b2wdigital/goignite/v2/contrib/panjf2000/ants.v2"
+	a "github.com/panjf2000/ants/v2"
 	"go.uber.org/fx"
 )
 
@@ -17,8 +17,8 @@ func Module() fx.Option {
 
 		options = fx.Options(
 			fx.Provide(
-				func(pool *ants.Pool, m []giants.Middleware) *giants.Wrapper {
-					return giants.New(pool, m...)
+				func(pool *a.Pool, m []ants.Middleware) *ants.Wrapper {
+					return ants.New(pool, m...)
 				},
 			),
 		)

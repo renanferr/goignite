@@ -4,8 +4,8 @@ import (
 	"context"
 	"sync"
 
-	context2 "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/modules/context"
-	server2 "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/modules/core/server"
+	contextfx "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/modules/context"
+	serverfx "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/modules/core/server"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4"
 	"github.com/b2wdigital/goignite/v2/core/server"
 	e "github.com/labstack/echo/v4"
@@ -25,7 +25,7 @@ func Module() fx.Option {
 	once.Do(func() {
 
 		options = fx.Options(
-			context2.Module(),
+			contextfx.Module(),
 			fx.Provide(
 				func(ctx context.Context, p params) *echo.Server {
 					return echo.NewDefault(ctx, p.Exts...)
@@ -36,7 +36,7 @@ func Module() fx.Option {
 			),
 			fx.Provide(
 				fx.Annotated{
-					Group: server2.ServersGroupKey,
+					Group: serverfx.ServersGroupKey,
 					Target: func(srv *echo.Server) server.Server {
 						return srv
 					},

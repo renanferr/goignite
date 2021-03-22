@@ -1,4 +1,4 @@
-package dd_trace_go_v1
+package datadog
 
 import (
 	"github.com/b2wdigital/goignite/v2/contrib/google.golang.org/grpc.v1/server"

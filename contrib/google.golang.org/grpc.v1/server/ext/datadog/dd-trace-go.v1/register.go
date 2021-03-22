@@ -1,4 +1,4 @@
-package dd_trace_go_v1
+package datadog
 
 import (
 	"context"

@@ -6,7 +6,6 @@ import (
 	"github.com/b2wdigital/goignite/v2/contrib/google.golang.org/grpc.v1/client"
 	"github.com/b2wdigital/goignite/v2/contrib/sirupsen/logrus.v1"
 	"github.com/b2wdigital/goignite/v2/core/config"
-	"github.com/b2wdigital/goignite/v2/core/log"
 )
 
 func main() {
@@ -36,7 +35,7 @@ func main() {
 		logger.Fatalf("%v.Call(_) = _, %v", c, err)
 	}
 
-	log.Infof(test.Message)
+	logger.Infof(test.Message)
 
-	log.Infof(conn.GetState().String())
+	logger.Infof(conn.GetState().String())
 }

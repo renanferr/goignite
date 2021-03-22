@@ -6,6 +6,7 @@ require (
 	github.com/Microsoft/go-winio v0.4.16 // indirect
 	github.com/ansrivas/fiberprometheus/v2 v2.1.1
 	github.com/asaskevich/EventBus v0.0.0-20200907212545-49d423059eef
+	github.com/aws/aws-lambda-go v1.13.3
 	github.com/aws/aws-sdk-go-v2 v1.2.1
 	github.com/aws/aws-sdk-go-v2/config v1.1.2
 	github.com/aws/aws-sdk-go-v2/credentials v1.1.2
@@ -75,8 +76,10 @@ require (
 	golang.org/x/net v0.0.0-20210119194325-5f4716e94777
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	google.golang.org/grpc v1.35.0
-	gopkg.in/DataDog/dd-trace-go.v1 v1.29.0
+	gopkg.in/DataDog/dd-trace-go.v1 v1.29.1
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	k8s.io/client-go v0.16.13
 )
+
+replace gopkg.in/DataDog/dd-trace-go.v1 => github.com/jpfaria/dd-trace-go v1.30.0

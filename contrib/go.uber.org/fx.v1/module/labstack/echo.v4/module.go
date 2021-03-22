@@ -4,8 +4,8 @@ import (
 	"context"
 	"sync"
 
-	contextfx "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/modules/context"
-	serverfx "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/modules/core/server"
+	contextfx "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/module/context"
+	serverfx "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/module/core/server"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4"
 	"github.com/b2wdigital/goignite/v2/core/server"
 	e "github.com/labstack/echo/v4"

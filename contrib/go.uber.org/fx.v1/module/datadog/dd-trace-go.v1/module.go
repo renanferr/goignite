@@ -1,10 +1,10 @@
-package newrelic
+package datadog
 
 import (
 	"sync"
 
-	contextfx "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/modules/context"
-	newrelic "github.com/b2wdigital/goignite/v2/contrib/newrelic/go-agent.v3"
+	datadog "github.com/b2wdigital/goignite/v2/contrib/datadog/dd-trace-go.v1"
+	contextfx "github.com/b2wdigital/goignite/v2/contrib/go.uber.org/fx.v1/module/context"
 	"go.uber.org/fx"
 )
 
@@ -17,7 +17,7 @@ func Module() fx.Option {
 		options = fx.Options(
 			contextfx.Module(),
 			fx.Invoke(
-				newrelic.NewApplication,
+				datadog.NewTracer,
 			),
 		)
 	})

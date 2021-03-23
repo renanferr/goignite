@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/b2wdigital/goignite/v2/contrib/go.mongodb.org/mongo-driver.v1"
-	"github.com/b2wdigital/goignite/v2/contrib/go.mongodb.org/mongo-driver.v1/ext/health"
+	"github.com/b2wdigital/goignite/v2/contrib/go.mongodb.org/mongo-driver.v1/ext/core/health"
 	"github.com/b2wdigital/goignite/v2/contrib/sirupsen/logrus.v1"
 	"github.com/b2wdigital/goignite/v2/core/config"
 	h "github.com/b2wdigital/goignite/v2/core/health"

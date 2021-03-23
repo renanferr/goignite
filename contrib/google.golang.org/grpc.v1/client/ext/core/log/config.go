@@ -1,4 +1,4 @@
-package logger
+package log
 
 import (
 	"github.com/b2wdigital/goignite/v2/contrib/google.golang.org/grpc.v1/client"

@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/b2wdigital/goignite/v2/contrib/go-resty/resty.v2"
-	"github.com/b2wdigital/goignite/v2/contrib/go-resty/resty.v2/ext/health"
+	"github.com/b2wdigital/goignite/v2/contrib/go-resty/resty.v2/ext/core/health"
 	"github.com/b2wdigital/goignite/v2/contrib/sirupsen/logrus.v1"
 	"github.com/b2wdigital/goignite/v2/core/config"
 	"github.com/b2wdigital/goignite/v2/core/log"

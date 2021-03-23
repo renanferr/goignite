@@ -7,12 +7,12 @@ import (
 	"github.com/b2wdigital/goignite/v2/contrib/go-resty/resty.v2"
 	"github.com/b2wdigital/goignite/v2/contrib/go.uber.org/zap.v1"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4"
+	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/health"
+	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/log"
+	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/status"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/cors"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/gzip"
-	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/health"
-	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/logger"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/requestid"
-	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/status"
 	"github.com/b2wdigital/goignite/v2/core/config"
 	"github.com/b2wdigital/goignite/v2/core/info"
 	"github.com/b2wdigital/goignite/v2/core/log"
@@ -90,7 +90,7 @@ func main() {
 		cors.Register,
 		requestid.Register,
 		gzip.Register,
-		logger.Register,
+		log.Register,
 		status.Register,
 		health.Register)
 

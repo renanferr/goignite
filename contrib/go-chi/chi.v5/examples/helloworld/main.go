@@ -6,11 +6,11 @@ import (
 	"net/http"
 
 	"github.com/b2wdigital/goignite/v2/contrib/go-chi/chi.v5"
-	"github.com/b2wdigital/goignite/v2/contrib/go-chi/chi.v5/ext/health"
-	"github.com/b2wdigital/goignite/v2/contrib/go-chi/chi.v5/ext/logger"
+	"github.com/b2wdigital/goignite/v2/contrib/go-chi/chi.v5/ext/core/health"
+	"github.com/b2wdigital/goignite/v2/contrib/go-chi/chi.v5/ext/core/log"
+	"github.com/b2wdigital/goignite/v2/contrib/go-chi/chi.v5/ext/core/status"
 	"github.com/b2wdigital/goignite/v2/contrib/go-chi/chi.v5/ext/realip"
 	"github.com/b2wdigital/goignite/v2/contrib/go-chi/chi.v5/ext/recoverer"
-	"github.com/b2wdigital/goignite/v2/contrib/go-chi/chi.v5/ext/status"
 	"github.com/b2wdigital/goignite/v2/contrib/go-chi/chi.v5/ext/tid"
 	"github.com/b2wdigital/goignite/v2/contrib/sirupsen/logrus.v1"
 	"github.com/b2wdigital/goignite/v2/core/config"
@@ -69,7 +69,7 @@ func main() {
 		tid.Register,
 		recoverer.Register,
 		realip.Register,
-		logger.Register,
+		log.Register,
 		status.Register,
 		health.Register)
 

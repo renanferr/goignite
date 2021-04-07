@@ -81,5 +81,3 @@ require (
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	k8s.io/client-go v0.16.13
 )
-
-replace gopkg.in/DataDog/dd-trace-go.v1 => github.com/jpfaria/dd-trace-go v1.30.0

@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 
 	"github.com/b2wdigital/goignite/v2/contrib/go-redis/redis.v7"
-	"github.com/b2wdigital/goignite/v2/contrib/go-redis/redis.v7/ext/health"
+	"github.com/b2wdigital/goignite/v2/contrib/go-redis/redis.v7/ext/core/health"
 	"github.com/b2wdigital/goignite/v2/contrib/sirupsen/logrus.v1"
 	"github.com/b2wdigital/goignite/v2/core/config"
 	h "github.com/b2wdigital/goignite/v2/core/health"

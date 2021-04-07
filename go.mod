@@ -5,8 +5,6 @@ go 1.16
 require (
 	github.com/Microsoft/go-winio v0.4.16 // indirect
 	github.com/ansrivas/fiberprometheus/v2 v2.1.1
-	github.com/asaskevich/EventBus v0.0.0-20200907212545-49d423059eef
-	github.com/aws/aws-lambda-go v1.13.3
 	github.com/aws/aws-sdk-go-v2 v1.2.1
 	github.com/aws/aws-sdk-go-v2/config v1.1.2
 	github.com/aws/aws-sdk-go-v2/credentials v1.1.2
@@ -31,7 +29,6 @@ require (
 	github.com/godror/godror v0.23.1
 	github.com/gofiber/fiber/v2 v2.5.0
 	github.com/golang/protobuf v1.4.3
-	github.com/google/uuid v1.1.2
 	github.com/graphql-go/graphql v0.7.9
 	github.com/graphql-go/handler v0.2.3
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
@@ -43,9 +40,6 @@ require (
 	github.com/labstack/echo/v4 v4.2.0
 	github.com/labstack/gommon v0.3.0
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0
-	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2
-	github.com/nats-io/gnatsd v1.4.1
-	github.com/nats-io/nats-server v1.4.1
 	github.com/nats-io/nats.go v1.10.0
 	github.com/newrelic/go-agent/v3 v3.10.0
 	github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0
@@ -76,7 +70,7 @@ require (
 	golang.org/x/net v0.0.0-20210119194325-5f4716e94777
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	google.golang.org/grpc v1.35.0
-	gopkg.in/DataDog/dd-trace-go.v1 v1.29.1
+	gopkg.in/DataDog/dd-trace-go.v1 v1.30.0-rc.1
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	k8s.io/client-go v0.16.13

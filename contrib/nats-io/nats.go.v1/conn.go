@@ -50,7 +50,7 @@ func NewDefaultConnection(ctx context.Context, exts ...Ext) (*nats.Conn, error) 
 }
 
 func disconnectedErrHandler(nc *nats.Conn, err error) {
-	log.Errorf("Disconnected due to:%s, will attempt reconnects for %.0fm", err)
+	log.Error("Disconnected from nats server! will attempt reconnects")
 }
 
 func reconnectedHandler(nc *nats.Conn) {

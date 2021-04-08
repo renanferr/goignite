@@ -2,20 +2,16 @@ package datadog
 
 import (
 	"context"
-	"net"
-	"os"
 	"sync"
 
 	"github.com/b2wdigital/goignite/v2/contrib/net/http/client"
-	"github.com/b2wdigital/goignite/v2/core/config"
-	"github.com/b2wdigital/goignite/v2/core/info"
 	"github.com/b2wdigital/goignite/v2/core/log"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
 )
 
 var once sync.Once
 
-func NewTracer(ctx context.Context, opts ...tracer.StartOption) {
+func NewTracer(ctx context.Context, options *Options, startOptions ...tracer.StartOption) {
 
 	if !IsEnabled() {
 		return
@@ -25,72 +21,31 @@ func NewTracer(ctx context.Context, opts ...tracer.StartOption) {
 
 		logger := log.FromContext(ctx)
 
-		svc := config.String(service)
-		if v := info.AppName; v != "" {
-			svc = v
-		}
-		if v := os.Getenv("DD_SERVICE"); v != "" {
-			svc = v
-		}
+		httpClient := client.NewClient(ctx, &options.HttpClient)
 
-		host := config.String(host)
-		if v := os.Getenv("DD_AGENT_HOST"); v != "" {
-			host = v
-		}
-
-		port := config.String(port)
-		if v := os.Getenv("DD_TRACE_AGENT_PORT"); v != "" {
-			port = v
-		}
-
-		env := config.String(env)
-		if v := os.Getenv("DD_ENV"); v != "" {
-			env = v
-		}
-
-		var version string
-		if v := info.Version; v != "" {
-			version = v
-		}
-		if v := os.Getenv("DD_VERSION"); v != "" {
-			version = v
-		}
-
-		addr := net.JoinHostPort(host, port)
-
-		httpClientOpt := &client.Options{}
-
-		err := config.UnmarshalWithPath(httpClientRoot, httpClientOpt)
-		if err != nil {
-			logger.Panic(err)
-		}
-
-		httpClient := client.NewClient(ctx, httpClientOpt)
-
-		startOptions := []tracer.StartOption{
-			tracer.WithAgentAddr(addr),
-			tracer.WithEnv(env),
-			tracer.WithService(svc),
-			tracer.WithServiceVersion(version),
+		so := []tracer.StartOption{
+			tracer.WithAgentAddr(options.Addr),
+			tracer.WithEnv(options.Env),
+			tracer.WithService(options.Service),
+			tracer.WithServiceVersion(options.Version),
 			tracer.WithLogger(NewLogger()),
 			tracer.WithHTTPClient(httpClient),
-			tracer.WithAnalytics(config.Bool(analytics)),
-			tracer.WithAnalyticsRate(config.Float64(analyticsRate)),
-			tracer.WithLambdaMode(config.Bool(lambdaMode)),
-			tracer.WithDebugMode(config.Bool(debugMode)),
-			tracer.WithDebugStack(config.Bool(debugStack)),
+			tracer.WithAnalytics(options.Analytics),
+			tracer.WithAnalyticsRate(options.AnalyticsRate),
+			tracer.WithLambdaMode(options.LambdaMode),
+			tracer.WithDebugMode(options.DebugMode),
+			tracer.WithDebugStack(options.DebugStack),
 		}
 
-		for k, v := range config.StringMap(tags) {
-			startOptions = append(startOptions, tracer.WithGlobalTag(k, v))
+		for k, v := range options.Tags {
+			so = append(so, tracer.WithGlobalTag(k, v))
 		}
 
-		startOptions = append(startOptions, opts...)
+		so = append(so, startOptions...)
 
-		tracer.Start(startOptions...)
+		tracer.Start(so...)
 
-		logger.Infof("started a datadog tracer: %s", svc)
-
+		logger.Infof("started a datadog tracer: %s", options.Service)
 	})
 
 }

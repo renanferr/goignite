@@ -8,16 +8,51 @@ import (
 	"go.uber.org/fx"
 )
 
-var once sync.Once
+var optOnce sync.Once
 
-func Module() fx.Option {
+func OptionsModule() fx.Option {
 	options := fx.Options()
 
-	once.Do(func() {
+	optOnce.Do(func() {
+		options = fx.Options(
+			fx.Provide(
+				datadog.DefaultOptions,
+			),
+		)
+	})
+
+	return options
+}
+
+var tracerOnce sync.Once
+
+func TracerModule() fx.Option {
+	options := fx.Options()
+
+	tracerOnce.Do(func() {
 		options = fx.Options(
 			contextfx.Module(),
+			OptionsModule(),
 			fx.Invoke(
 				datadog.NewTracer,
+			),
+		)
+	})
+
+	return options
+}
+
+var profileOnce sync.Once
+
+func ProfileModule() fx.Option {
+	options := fx.Options()
+
+	profileOnce.Do(func() {
+		options = fx.Options(
+			contextfx.Module(),
+			OptionsModule(),
+			fx.Invoke(
+				datadog.NewProfiler,
 			),
 		)
 	})

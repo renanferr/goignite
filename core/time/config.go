@@ -3,7 +3,6 @@ package time
 import (
 	"time"
 
-	giconfig "github.com/b2wdigital/goignite/config"
 	"github.com/b2wdigital/goignite/v2/core/config"
 )
 
@@ -25,7 +24,7 @@ func init() {
 
 func Format() string {
 	if fmt == "" {
-		fmt = giconfig.String(format)
+		fmt = config.String(format)
 	}
 	return fmt
 }
@@ -33,7 +32,7 @@ func Format() string {
 func Location() *time.Location {
 	if loc == nil {
 		var err error
-		locStr := giconfig.String(location)
+		locStr := config.String(location)
 		loc, err = time.LoadLocation(locStr)
 		if err != nil {
 			panic(err)

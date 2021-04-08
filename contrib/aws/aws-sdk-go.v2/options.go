@@ -1,18 +1,22 @@
 package aws
 
 import (
+	"os"
 	"time"
 
+	"github.com/b2wdigital/goignite/v2/contrib/net/http/client"
+	"github.com/b2wdigital/goignite/v2/core/config"
 	"github.com/lann/builder"
 )
 
 type Options struct {
-	AccessKeyId                 string `config:"id"`
-	SecretAccessKey             string `config:"key"`
-	DefaultRegion               string `config:"region"`
-	SessionToken                string `config:"token"`
-	MaxAttempts                 int    `config:"maxattempts"`
-	HasRateLimit                bool   `config:"hasratelimit"`
+	AccessKeyId                 string
+	SecretAccessKey             string
+	DefaultRegion               string
+	SessionToken                string
+	DefaultAccountNumber        string
+	MaxAttempts                 int
+	HasRateLimit                bool
 	MaxConnsPerHost             int
 	MaxIdleConns                int
 	MaxIdleConnsPerHost         int
@@ -20,6 +24,7 @@ type Options struct {
 	KeepAliveMillis             time.Duration
 	IdleConnTimeoutMillis       time.Duration
 	ResponseHeaderTimeoutMillis time.Duration
+	HttpClient                  client.Options
 }
 
 type optionsBuilder builder.Builder
@@ -53,3 +58,35 @@ func (b optionsBuilder) Build() Options {
 }
 
 var OptionsBuilder = builder.Register(optionsBuilder{}, Options{}).(optionsBuilder)
+
+func DefaultOptions() (*Options, error) {
+
+	o := &Options{}
+
+	err := config.UnmarshalWithPath(root, o)
+	if err != nil {
+		return nil, err
+	}
+
+	if v := os.Getenv("AWS_ACCESS_KEY_ID"); v != "" {
+		o.AccessKeyId = v
+	}
+
+	if v := os.Getenv("AWS_SECRET_ACCESS_KEY"); v != "" {
+		o.SecretAccessKey = v
+	}
+
+	if v := os.Getenv("AWS_DEFAULT_REGION"); v != "" {
+		o.DefaultRegion = v
+	}
+
+	if v := os.Getenv("AWS_DEFAULT_ACCOUNT_NUMBER"); v != "" {
+		o.DefaultAccountNumber = v
+	}
+
+	if v := os.Getenv("AWS_SESSION_TOKEN"); v != "" {
+		o.SessionToken = v
+	}
+
+	return o, nil
+}

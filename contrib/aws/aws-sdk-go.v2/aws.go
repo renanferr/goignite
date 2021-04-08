@@ -8,7 +8,6 @@ import (
 	c "github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/b2wdigital/goignite/v2/contrib/net/http/client"
-	"github.com/b2wdigital/goignite/v2/core/config"
 	"github.com/b2wdigital/goignite/v2/core/log"
 )
 
@@ -25,20 +24,9 @@ func NewConfig(ctx context.Context, options *Options, exts ...Ext) aws.Config {
 	}
 
 	cfg.Region = options.DefaultRegion
+	cfg.Credentials = credentials.NewStaticCredentialsProvider(options.AccessKeyId, options.SecretAccessKey, options.SessionToken)
 
-	if options.SessionToken == "" {
-		cfg.Credentials = credentials.NewStaticCredentialsProvider(options.AccessKeyId, options.SecretAccessKey, options.SessionToken)
-	}
-
-	httpClientOptions := client.Options{}
-
-	err = config.UnmarshalWithPath(httpClientRoot, &httpClientOptions)
-	if err != nil {
-		logger.Panicf("unable to load http client config, %s", err.Error())
-		return aws.Config{}
-	}
-
-	httpClient := client.NewClient(ctx, &httpClientOptions)
+	httpClient := client.NewClient(ctx, &options.HttpClient)
 
 	cfg.Retryer = retryerConfig(options)
 	cfg.HTTPClient = httpClient
@@ -76,48 +64,10 @@ func (noRateLimit) GetToken(context.Context, uint) (func() error, error) { retur
 
 func NewDefaultConfig(ctx context.Context, exts ...Ext) aws.Config {
 
-	o := loadDefaultOptions(ctx)
+	o, err := DefaultOptions()
+	if err != nil {
+		panic(err)
+	}
 
 	return NewConfig(ctx, o, exts...)
-}
-
-func loadDefaultOptions(ctx context.Context) *Options {
-
-	logger := log.FromContext(ctx)
-
-	o := &Options{}
-
-	var err error
-
-	err = config.UnmarshalWithPath("aws.access.key", o)
-	if err != nil {
-		logger.Fatalf(err.Error())
-	}
-
-	err = config.UnmarshalWithPath("aws.secret.access", o)
-	if err != nil {
-		logger.Fatalf(err.Error())
-	}
-
-	err = config.UnmarshalWithPath("aws.default", o)
-	if err != nil {
-		logger.Fatalf(err.Error())
-	}
-
-	err = config.UnmarshalWithPath("aws.session", o)
-	if err != nil {
-		logger.Fatalf(err.Error())
-	}
-
-	err = config.UnmarshalWithPath(retryerRoot, o)
-	if err != nil {
-		logger.Fatalf(err.Error())
-	}
-
-	err = config.UnmarshalWithPath(httpClientRoot, o)
-	if err != nil {
-		logger.Fatalf(err.Error())
-	}
-
-	return o
 }

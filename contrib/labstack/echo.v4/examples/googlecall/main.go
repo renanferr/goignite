@@ -8,7 +8,7 @@ import (
 	"github.com/b2wdigital/goignite/v2/contrib/go.uber.org/zap.v1"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/health"
-	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/log"
+	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/logger"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/status"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/cors"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/gzip"
@@ -48,13 +48,13 @@ func NewHandler(client *r.Client) *Handler {
 
 func (h *Handler) Get(c e.Context) (err error) {
 
-	logger := log.FromContext(c.Request().Context())
+	log := log.FromContext(c.Request().Context())
 
 	request := h.client.R().EnableTrace()
 
 	_, err = request.Get("http://google.com")
 	if err != nil {
-		logger.Fatalf(err.Error())
+		log.Fatalf(err.Error())
 	}
 
 	resp := Response{
@@ -63,7 +63,7 @@ func (h *Handler) Get(c e.Context) (err error) {
 
 	err = config.Unmarshal(&resp)
 	if err != nil {
-		logger.Errorf(err.Error())
+		log.Errorf(err.Error())
 	}
 
 	return echo.JSON(c, http.StatusOK, resp, err)
@@ -90,7 +90,7 @@ func main() {
 		cors.Register,
 		requestid.Register,
 		gzip.Register,
-		log.Register,
+		logger.Register,
 		status.Register,
 		health.Register)
 

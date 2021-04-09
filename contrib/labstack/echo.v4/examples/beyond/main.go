@@ -5,7 +5,7 @@ import (
 
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/health"
-	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/log"
+	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/logger"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/status"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/cors"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/gzip"
@@ -51,7 +51,7 @@ func main() {
 		cors.Register,
 		requestid.Register,
 		gzip.Register,
-		log.Register,
+		logger.Register,
 		status.Register,
 		health.Register)
 

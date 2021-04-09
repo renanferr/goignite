@@ -6,7 +6,7 @@ import (
 
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/health"
-	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/log"
+	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/logger"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/core/status"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/cors"
 	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4/ext/gzip"
@@ -37,7 +37,7 @@ type Response struct {
 
 func Get(c e.Context) (err error) {
 
-	logger := log.FromContext(context.Background())
+	l := log.FromContext(context.Background())
 
 	resp := Response{
 		Message: "Hello World!!",
@@ -45,7 +45,7 @@ func Get(c e.Context) (err error) {
 
 	err = config.Unmarshal(&resp)
 	if err != nil {
-		logger.Errorf(err.Error())
+		l.Errorf(err.Error())
 	}
 
 	return echo.JSON(c, http.StatusOK, resp, err)
@@ -74,7 +74,7 @@ func main() {
 		cors.Register,
 		requestid.Register,
 		gzip.Register,
-		log.Register,
+		logger.Register,
 		status.Register,
 		health.Register)
 

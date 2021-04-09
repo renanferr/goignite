@@ -4,9 +4,9 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/b2wdigital/goignite/rest/response"
 	"github.com/b2wdigital/goignite/v2/contrib/gofiber/fiber.v2"
 	"github.com/b2wdigital/goignite/v2/core/log"
+	"github.com/b2wdigital/goignite/v2/core/rest/response"
 	f "github.com/gofiber/fiber/v2"
 )
 

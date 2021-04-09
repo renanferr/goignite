@@ -4,9 +4,9 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/b2wdigital/goignite/rest/response"
-	echo "github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4"
+	"github.com/b2wdigital/goignite/v2/contrib/labstack/echo.v4"
 	"github.com/b2wdigital/goignite/v2/core/log"
+	"github.com/b2wdigital/goignite/v2/core/rest/response"
 	e "github.com/labstack/echo/v4"
 )
 

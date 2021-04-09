@@ -5,15 +5,14 @@ go 1.16
 require (
 	github.com/Microsoft/go-winio v0.4.16 // indirect
 	github.com/ansrivas/fiberprometheus/v2 v2.1.1
-	github.com/aws/aws-sdk-go-v2 v1.2.1
-	github.com/aws/aws-sdk-go-v2/config v1.1.2
-	github.com/aws/aws-sdk-go-v2/credentials v1.1.2
-	github.com/aws/aws-sdk-go-v2/service/kinesis v1.1.2
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.2.0
-	github.com/aws/aws-sdk-go-v2/service/sns v1.1.2
-	github.com/aws/aws-sdk-go-v2/service/sqs v1.1.2
-	github.com/b2wdigital/fxstack v0.8.3
-	github.com/b2wdigital/goignite v1.17.3
+	github.com/aws/aws-sdk-go-v2 v1.3.2
+	github.com/aws/aws-sdk-go-v2/config v1.1.5
+	github.com/aws/aws-sdk-go-v2/credentials v1.1.5
+	github.com/aws/aws-sdk-go-v2/service/kinesis v1.2.2
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.5.0
+	github.com/aws/aws-sdk-go-v2/service/sns v1.2.2
+	github.com/aws/aws-sdk-go-v2/service/sqs v1.3.1
+	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cloudevents/sdk-go/v2 v2.3.1
 	github.com/coocood/freecache v1.1.1
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20201229214741-2366c2514674
@@ -29,17 +28,22 @@ require (
 	github.com/godror/godror v0.23.1
 	github.com/gofiber/fiber/v2 v2.5.0
 	github.com/golang/protobuf v1.4.3
+	github.com/googleapis/gnostic v0.5.4 // indirect
 	github.com/graphql-go/graphql v0.7.9
 	github.com/graphql-go/handler v0.2.3
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/hashicorp/go-memdb v1.3.1
 	github.com/hiko1129/echo-pprof v1.0.1
+	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/jlaffaye/ftp v0.0.0-20201112195030-9aae4d151126
 	github.com/jpfaria/logrus-redis-hook v1.0.2
 	github.com/knadh/koanf v0.15.0
 	github.com/labstack/echo/v4 v4.2.0
 	github.com/labstack/gommon v0.3.0
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0
+	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
+	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2 // indirect
+	github.com/nats-io/nats-server/v2 v2.1.7 // indirect
 	github.com/nats-io/nats.go v1.10.0
 	github.com/newrelic/go-agent/v3 v3.10.0
 	github.com/newrelic/go-agent/v3/integrations/nrecho-v4 v1.0.0

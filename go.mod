@@ -51,6 +51,8 @@ require (
 	github.com/newrelic/go-agent/v3/integrations/nrmongo v1.0.0
 	github.com/newrelic/go-agent/v3/integrations/nrnats v1.1.0
 	github.com/newrelic/go-agent/v3/integrations/nrredis-v7 v1.0.0
+	github.com/opentracing-contrib/echo v0.0.0-20190807091611-5fe2e1308f06
+	github.com/opentracing/opentracing-go v1.2.0
 	github.com/panjf2000/ants/v2 v2.4.3
 	github.com/philhofer/fwd v1.1.1 // indirect
 	github.com/prometheus/client_golang v1.9.0

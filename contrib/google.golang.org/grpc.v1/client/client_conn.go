@@ -27,9 +27,13 @@ func NewClientConn(ctx context.Context, options *Options, exts ...Ext) *grpc.Cli
 
 	if options.Tls {
 
+		logger.Tracef("creating TLS grpc client for host %s", serverAddr)
+
 		opts = addTlsOptions(ctx, options, opts)
 
 	} else {
+
+		logger.Tracef("creating insecure grpc client for host %s", serverAddr)
 
 		opts = append(opts, grpc.WithInsecure())
 
@@ -52,6 +56,8 @@ func NewClientConn(ctx context.Context, options *Options, exts ...Ext) *grpc.Cli
 		logger.Fatalf("fail to dial: %v", err)
 		return nil
 	}
+
+	logger.Debugf("grpc client created for host %s", serverAddr)
 
 	return conn
 }

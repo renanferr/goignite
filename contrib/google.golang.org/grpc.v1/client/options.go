@@ -3,7 +3,6 @@ package client
 import "github.com/lann/builder"
 
 type Options struct {
-	Debug              bool
 	Tls                bool
 	Gzip               bool
 	CertFile           string
@@ -16,10 +15,6 @@ type Options struct {
 }
 
 type optionsBuilder builder.Builder
-
-func (b optionsBuilder) Debug(enabled bool) optionsBuilder {
-	return builder.Set(b, "Debug", enabled).(optionsBuilder)
-}
 
 func (b optionsBuilder) Gzip(enabled bool) optionsBuilder {
 	return builder.Set(b, "Gzip", enabled).(optionsBuilder)

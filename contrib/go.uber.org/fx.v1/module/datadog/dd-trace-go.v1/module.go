@@ -42,12 +42,12 @@ func TracerModule() fx.Option {
 	return options
 }
 
-var profileOnce sync.Once
+var profilerOnce sync.Once
 
-func ProfileModule() fx.Option {
+func ProfilerModule() fx.Option {
 	options := fx.Options()
 
-	profileOnce.Do(func() {
+	profilerOnce.Do(func() {
 		options = fx.Options(
 			contextfx.Module(),
 			OptionsModule(),

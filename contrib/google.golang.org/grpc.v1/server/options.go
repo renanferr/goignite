@@ -9,7 +9,7 @@ type Options struct {
 		Enabled  bool
 		CertFile string
 		KeyFile  string
-		CAFile   string `config:"CAFile"`
+		CAFile   string `config:"caFile"`
 	} `config:"tls"`
 }
 

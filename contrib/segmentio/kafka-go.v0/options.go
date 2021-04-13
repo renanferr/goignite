@@ -1,19 +1,14 @@
-package freecache
+package kafka
 
 import (
 	"github.com/b2wdigital/goignite/v2/core/config"
 )
 
 type Options struct {
-	CacheSize int
-}
-
-type Option func(options *Options)
-
-func WithCacheSize(cacheSize int) Option {
-	return func(options *Options) {
-		options.CacheSize = cacheSize
-	}
+	Address   string
+	Topic     string
+	Partition int
+	Network   string
 }
 
 func CustomOptions(path string) (*Options, error) {
